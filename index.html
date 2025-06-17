@@ -495,6 +495,27 @@
         .total-timer {
             color: #28a745;
         }
+
+        .exam-reminder {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .exam-reminder i {
+            margin-right: 10px;
+        }
+
+        .countdown {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -520,6 +541,11 @@
     <div class="quiz-container">
         <!-- Main Menu -->
         <div id="mainMenu" class="main-menu">
+            <div class="exam-reminder">
+                <i class="fas fa-calendar-alt"></i>
+                <span>BITSAT Exam: June 22, 2024</span>
+                <div class="countdown" id="examCountdown"></div>
+            </div>
             <div class="category-grid">
                 <button class="category-btn" onclick="startQuiz('grammar')">
                     <i class="fas fa-book"></i>
@@ -571,134 +597,6 @@
     <script>
         // Quiz data
         const quizData = {
-            idioms: [
-                {
-                    question: "What does 'Break the ice' mean?",
-                    options: ["To literally break ice", "To start a conversation", "To be very cold", "To break something valuable"],
-                    correct: 1,
-                    explanation: "Break the ice means to initiate conversation or social interaction."
-                },
-                {
-                    question: "What does 'Bite the bullet' mean?",
-                    options: ["To eat ammunition", "To face a difficult situation bravely", "To be very angry", "To make a mistake"],
-                    correct: 1,
-                    explanation: "Bite the bullet means to endure a painful or difficult situation."
-                },
-                {
-                    question: "What does 'Spill the beans' mean?",
-                    options: ["To make a mess", "To cook badly", "To reveal a secret", "To waste food"],
-                    correct: 2,
-                    explanation: "Spill the beans means to reveal secret information."
-                },
-                {
-                    question: "What does 'Hit the hay' mean?",
-                    options: ["To go to sleep", "To work on a farm", "To be angry", "To exercise"],
-                    correct: 0,
-                    explanation: "Hit the hay means to go to bed or sleep."
-                },
-                {
-                    question: "What does 'Cost an arm and a leg' mean?",
-                    options: ["To be injured", "To be very expensive", "To be worthless", "To be dangerous"],
-                    correct: 1,
-                    explanation: "Cost an arm and a leg means to be very expensive."
-                }
-            ],
-            synonyms: [
-                {
-                    question: "Which word is a synonym for 'Happy'?",
-                    options: ["Sad", "Joyful", "Angry", "Tired"],
-                    correct: 1,
-                    explanation: "Joyful means feeling great pleasure and happiness."
-                },
-                {
-                    question: "Which word is a synonym for 'Big'?",
-                    options: ["Small", "Tiny", "Large", "Narrow"],
-                    correct: 2,
-                    explanation: "Large means of considerable size or extent."
-                },
-                {
-                    question: "Which word is a synonym for 'Smart'?",
-                    options: ["Intelligent", "Foolish", "Slow", "Lazy"],
-                    correct: 0,
-                    explanation: "Intelligent means having good understanding or mental capacity."
-                },
-                {
-                    question: "Which word is a synonym for 'Fast'?",
-                    options: ["Slow", "Quick", "Heavy", "Light"],
-                    correct: 1,
-                    explanation: "Quick means moving or capable of moving at high speed."
-                },
-                {
-                    question: "Which word is a synonym for 'Beautiful'?",
-                    options: ["Ugly", "Plain", "Gorgeous", "Simple"],
-                    correct: 2,
-                    explanation: "Gorgeous means beautiful or very attractive."
-                }
-            ],
-            antonyms: [
-                {
-                    question: "What is the antonym of 'Hot'?",
-                    options: ["Warm", "Cold", "Cool", "Mild"],
-                    correct: 1,
-                    explanation: "Cold is the opposite of hot in temperature."
-                },
-                {
-                    question: "What is the antonym of 'Light'?",
-                    options: ["Bright", "Heavy", "Dark", "Dim"],
-                    correct: 2,
-                    explanation: "Dark is the opposite of light (absence of light)."
-                },
-                {
-                    question: "What is the antonym of 'Up'?",
-                    options: ["Down", "Over", "Above", "High"],
-                    correct: 0,
-                    explanation: "Down is the opposite direction of up."
-                },
-                {
-                    question: "What is the antonym of 'Love'?",
-                    options: ["Like", "Hate", "Enjoy", "Prefer"],
-                    correct: 1,
-                    explanation: "Love and hate are opposite emotions."
-                },
-                {
-                    question: "What is the antonym of 'Begin'?",
-                    options: ["Start", "Continue", "End", "Proceed"],
-                    correct: 2,
-                    explanation: "End is the opposite of begin."
-                }
-            ],
-            homophones: [
-                {
-                    question: "Which word sounds the same as 'There'?",
-                    options: ["Here", "Their", "These", "Those"],
-                    correct: 1,
-                    explanation: "Their sounds exactly the same as there but has different meaning and spelling."
-                },
-                {
-                    question: "Which word sounds the same as 'Two'?",
-                    options: ["Three", "Too", "One", "Four"],
-                    correct: 1,
-                    explanation: "Too sounds exactly the same as two but means 'also' or 'excessively'."
-                },
-                {
-                    question: "Which word sounds the same as 'Right'?",
-                    options: ["Left", "Write", "Bright", "Light"],
-                    correct: 1,
-                    explanation: "Write sounds exactly the same as right but means to put words on paper."
-                },
-                {
-                    question: "Which word sounds the same as 'Sea'?",
-                    options: ["See", "Say", "She", "Sky"],
-                    correct: 0,
-                    explanation: "See sounds exactly the same as sea but means to look at something."
-                },
-                {
-                    question: "Which word sounds the same as 'Flower'?",
-                    options: ["Power", "Tower", "Flour", "Shower"],
-                    correct: 2,
-                    explanation: "Flour sounds exactly the same as flower but is a powder used for baking."
-                }
-            ],
             grammar: [
                 {
                     question: "Which sentence demonstrates correct use of the subjunctive mood?",
@@ -721,206 +619,30 @@
                     ],
                     correct: 0,
                     explanation: "The past perfect is used for the action that happened first in the past."
-                },
-                {
-                    question: "Which sentence uses the correct conditional structure?",
-                    options: [
-                        "If I would have known, I would have helped.",
-                        "If I had known, I would have helped.",
-                        "If I knew, I would have helped.",
-                        "If I would know, I would have helped."
-                    ],
-                    correct: 1,
-                    explanation: "The third conditional uses 'had + past participle' in the if-clause and 'would have + past participle' in the main clause."
-                },
-                {
-                    question: "Choose the sentence with correct use of articles:",
-                    options: [
-                        "The sun rises in the east.",
-                        "A sun rises in an east.",
-                        "Sun rises in east.",
-                        "The sun rises in an east."
-                    ],
-                    correct: 0,
-                    explanation: "We use 'the' with unique things (sun) and directions (east)."
-                },
-                {
-                    question: "Which sentence demonstrates correct use of the gerund?",
-                    options: [
-                        "I enjoy to swim in the ocean.",
-                        "I enjoy swimming in the ocean.",
-                        "I enjoy swim in the ocean.",
-                        "I enjoy to swimming in the ocean."
-                    ],
-                    correct: 1,
-                    explanation: "After 'enjoy', we use the gerund form (-ing) of the verb."
-                },
-                {
-                    question: "Identify the correct use of the infinitive:",
-                    options: [
-                        "I want going to the movies.",
-                        "I want to go to the movies.",
-                        "I want go to the movies.",
-                        "I want to going to the movies."
-                    ],
-                    correct: 1,
-                    explanation: "After 'want', we use the infinitive form (to + base verb)."
-                },
-                {
-                    question: "Which sentence uses the correct comparative form?",
-                    options: [
-                        "This book is more interesting than that one.",
-                        "This book is interestinger than that one.",
-                        "This book is more interesting as that one.",
-                        "This book is interesting than that one."
-                    ],
-                    correct: 0,
-                    explanation: "For adjectives with more than two syllables, we use 'more + adjective + than'."
-                },
-                {
-                    question: "Choose the sentence with correct use of the present perfect continuous:",
-                    options: [
-                        "I have been working here for five years.",
-                        "I am working here for five years.",
-                        "I work here for five years.",
-                        "I worked here for five years."
-                    ],
-                    correct: 0,
-                    explanation: "The present perfect continuous is used for actions that started in the past and continue to the present."
-                },
-                {
-                    question: "Which sentence demonstrates correct use of the passive voice with a modal?",
-                    options: [
-                        "The report must be submitted by Friday.",
-                        "The report must submitted by Friday.",
-                        "The report must be submit by Friday.",
-                        "The report must to be submitted by Friday."
-                    ],
-                    correct: 0,
-                    explanation: "The passive voice with modals uses 'modal + be + past participle'."
-                },
-                {
-                    question: "Identify the correct use of the past perfect continuous:",
-                    options: [
-                        "I had been studying for three hours when she called.",
-                        "I have been studying for three hours when she called.",
-                        "I was studying for three hours when she called.",
-                        "I studied for three hours when she called."
-                    ],
-                    correct: 0,
-                    explanation: "The past perfect continuous is used for actions that were ongoing before another past action."
                 }
             ],
             vocabulary: [
                 {
-                    question: "Which word is NOT a synonym for 'ambiguous'?",
+                    question: "What is the contextual meaning of 'ubiquitous' in academic writing?",
                     options: [
-                        "unclear",
-                        "vague",
-                        "explicit",
-                        "equivocal"
-                    ],
-                    correct: 2,
-                    explanation: "'Explicit' is actually an antonym of 'ambiguous', meaning clear and specific."
-                },
-                {
-                    question: "Choose the correct academic vocabulary for 'very big':",
-                    options: [
-                        "huge",
-                        "enormous",
-                        "substantial",
-                        "gigantic"
-                    ],
-                    correct: 2,
-                    explanation: "In academic writing, 'substantial' is preferred over more informal terms like 'huge' or 'gigantic'."
-                },
-                {
-                    question: "What is the contextual meaning of 'paradigm' in academic writing?",
-                    options: [
-                        "A typical example",
-                        "A theoretical framework",
-                        "A mathematical equation",
-                        "A historical event"
+                        "Rare and unusual",
+                        "Present everywhere",
+                        "Extremely valuable",
+                        "Temporarily available"
                     ],
                     correct: 1,
-                    explanation: "In academic contexts, 'paradigm' refers to a theoretical framework or model."
+                    explanation: "In academic contexts, 'ubiquitous' means present, appearing, or found everywhere."
                 },
                 {
-                    question: "Which word has a negative connotation?",
+                    question: "Which word is NOT a collocation with 'make'?",
                     options: [
-                        "thrifty",
-                        "frugal",
-                        "stingy",
-                        "economical"
+                        "make a decision",
+                        "make a mistake",
+                        "make a homework",
+                        "make a difference"
                     ],
                     correct: 2,
-                    explanation: "While all words relate to saving money, 'stingy' has a negative connotation of being unwilling to spend."
-                },
-                {
-                    question: "Choose the correct collocation:",
-                    options: [
-                        "make a research",
-                        "do a research",
-                        "conduct research",
-                        "take a research"
-                    ],
-                    correct: 2,
-                    explanation: "The correct collocation is 'conduct research' in academic contexts."
-                },
-                {
-                    question: "Which word is NOT a synonym for 'comprehensive'?",
-                    options: [
-                        "thorough",
-                        "complete",
-                        "partial",
-                        "exhaustive"
-                    ],
-                    correct: 2,
-                    explanation: "'Partial' is actually an antonym of 'comprehensive', which means complete or thorough."
-                },
-                {
-                    question: "What is the contextual meaning of 'empirical' in academic writing?",
-                    options: [
-                        "Based on theory",
-                        "Based on observation or experience",
-                        "Based on intuition",
-                        "Based on tradition"
-                    ],
-                    correct: 1,
-                    explanation: "In academic contexts, 'empirical' refers to evidence based on observation or experience rather than theory."
-                },
-                {
-                    question: "Which word is NOT a collocation with 'take'?",
-                    options: [
-                        "take a break",
-                        "take a chance",
-                        "take a homework",
-                        "take a photo"
-                    ],
-                    correct: 2,
-                    explanation: "The correct collocation is 'do homework', not 'take homework'."
-                },
-                {
-                    question: "Choose the word that best fits the context: 'The research findings were _____ and required further investigation.'",
-                    options: [
-                        "conclusive",
-                        "inconclusive",
-                        "exclusive",
-                        "inclusive"
-                    ],
-                    correct: 1,
-                    explanation: "'Inconclusive' means not leading to a definite conclusion, which fits the context of needing further investigation."
-                },
-                {
-                    question: "Which word has a positive connotation?",
-                    options: [
-                        "stubborn",
-                        "determined",
-                        "obstinate",
-                        "inflexible"
-                    ],
-                    correct: 1,
-                    explanation: "While all words mean similar things, 'determined' has a positive connotation of strong will and perseverance."
+                    explanation: "The correct collocation is 'do homework', not 'make homework'."
                 }
             ],
             phrasalVerbs: [
@@ -945,219 +667,33 @@
                     ],
                     correct: 0,
                     explanation: "'Put up with' means to tolerate or endure something unpleasant."
-                },
+                }
+            ],
+            analogy: [
                 {
-                    question: "What does the idiom 'to hit the nail on the head' mean?",
+                    question: "Book is to reading as fork is to:",
                     options: [
-                        "To cause physical injury",
-                        "To be exactly right",
-                        "To make a mistake",
-                        "To work hard"
-                    ],
-                    correct: 1,
-                    explanation: "This idiom means to be exactly right or accurate about something."
-                },
-                {
-                    question: "Which phrasal verb means 'to postpone'?",
-                    options: [
-                        "put up",
-                        "put down",
-                        "put off",
-                        "put on"
-                    ],
-                    correct: 2,
-                    explanation: "'Put off' means to postpone or delay something."
-                },
-                {
-                    question: "What does the idiom 'to pull someone's leg' mean?",
-                    options: [
-                        "To physically harm someone",
-                        "To help someone stand up",
-                        "To tease or joke with someone",
-                        "To stop someone from doing something"
-                    ],
-                    correct: 2,
-                    explanation: "This idiom means to tease or joke with someone in a friendly way."
-                },
-                {
-                    question: "What does 'to come up with' mean?",
-                    options: [
-                        "To rise above something",
-                        "To think of or create something",
-                        "To arrive at a place",
-                        "To overcome an obstacle"
-                    ],
-                    correct: 1,
-                    explanation: "'To come up with' means to think of or create something, especially an idea or solution."
-                },
-                {
-                    question: "Which phrasal verb means 'to investigate'?",
-                    options: [
-                        "look up",
-                        "look into",
-                        "look over",
-                        "look after"
-                    ],
-                    correct: 1,
-                    explanation: "'Look into' means to investigate or examine something carefully."
-                },
-                {
-                    question: "What does the idiom 'to break the ice' mean?",
-                    options: [
-                        "To cause physical damage",
-                        "To start a conversation",
-                        "To end a relationship",
-                        "To solve a problem"
-                    ],
-                    correct: 1,
-                    explanation: "This idiom means to initiate conversation or social interaction."
-                },
-                {
-                    question: "Which phrasal verb means 'to understand'?",
-                    options: [
-                        "figure out",
-                        "figure in",
-                        "figure on",
-                        "figure up"
+                        "eating",
+                        "cooking",
+                        "cutting",
+                        "serving"
                     ],
                     correct: 0,
-                    explanation: "'Figure out' means to understand or solve something."
+                    explanation: "A book is a tool for reading, just as a fork is a tool for eating."
                 },
                 {
-                    question: "What does the idiom 'to spill the beans' mean?",
+                    question: "Doctor is to hospital as teacher is to:",
                     options: [
-                        "To make a mess",
-                        "To cook badly",
-                        "To reveal a secret",
-                        "To waste food"
-                    ],
-                    correct: 2,
-                    explanation: "This idiom means to reveal secret information."
-                },
-                {
-                    question: "Which phrasal verb means 'to continue'?",
-                    options: [
-                        "go on",
-                        "go off",
-                        "go out",
-                        "go up"
+                        "classroom",
+                        "student",
+                        "book",
+                        "education"
                     ],
                     correct: 0,
-                    explanation: "'Go on' means to continue or proceed."
-                },
-                {
-                    question: "What does the idiom 'to hit the hay' mean?",
-                    options: [
-                        "To go to sleep",
-                        "To work on a farm",
-                        "To be angry",
-                        "To exercise"
-                    ],
-                    correct: 0,
-                    explanation: "This idiom means to go to bed or sleep."
-                },
-                {
-                    question: "Which phrasal verb means 'to tolerate'?",
-                    options: [
-                        "stand up for",
-                        "stand up to",
-                        "stand by",
-                        "stand for"
-                    ],
-                    correct: 3,
-                    explanation: "'Stand for' means to tolerate or accept something."
-                },
-                {
-                    question: "What does the idiom 'to cost an arm and a leg' mean?",
-                    options: [
-                        "To be injured",
-                        "To be very expensive",
-                        "To be worthless",
-                        "To be dangerous"
-                    ],
-                    correct: 1,
-                    explanation: "This idiom means to be very expensive."
-                },
-                {
-                    question: "Which phrasal verb means 'to recover from'?",
-                    options: [
-                        "get over",
-                        "get up",
-                        "get down",
-                        "get in"
-                    ],
-                    correct: 0,
-                    explanation: "'Get over' means to recover from something, especially an illness or emotional state."
+                    explanation: "A doctor works in a hospital, just as a teacher works in a classroom."
                 }
             ]
         };
-
-        // Add more quiz data
-        quizData.spellings = [
-            {
-                question: "Which is the correct spelling?",
-                options: ["Recieve", "Receive", "Receve", "Receeve"],
-                correct: 1,
-                explanation: "The correct spelling is 'Receive' - remember 'i before e except after c'."
-            },
-            {
-                question: "Which is the correct spelling?",
-                options: ["Definately", "Definitly", "Definitely", "Definetely"],
-                correct: 2,
-                explanation: "The correct spelling is 'Definitely' - with 'ite' in the middle."
-            },
-            {
-                question: "Which is the correct spelling?",
-                options: ["Separate", "Seperate", "Separete", "Separat"],
-                correct: 0,
-                explanation: "The correct spelling is 'Separate' - with 'a' in the middle."
-            },
-            {
-                question: "Which is the correct spelling?",
-                options: ["Occured", "Occurred", "Ocurred", "Occureed"],
-                correct: 1,
-                explanation: "The correct spelling is 'Occurred' - with double 'r'."
-            },
-            {
-                question: "Which is the correct spelling?",
-                options: ["Embarass", "Embarrass", "Embarras", "Embaress"],
-                correct: 1,
-                explanation: "The correct spelling is 'Embarrass' - with double 'r' and double 's'."
-            }
-        ];
-
-        quizData.oddOneOut = [
-            {
-                question: "Which one doesn't belong with the others?",
-                options: ["Apple", "Banana", "Carrot", "Orange"],
-                correct: 2,
-                explanation: "Carrot is a vegetable, while the others are fruits."
-            },
-            {
-                question: "Which one doesn't belong with the others?",
-                options: ["Dog", "Cat", "Bird", "Fish"],
-                correct: 3,
-                explanation: "Fish lives in water, while the others are land animals."
-            },
-            {
-                question: "Which one doesn't belong with the others?",
-                options: ["Red", "Blue", "Green", "Square"],
-                correct: 3,
-                explanation: "Square is a shape, while the others are colors."
-            },
-            {
-                question: "Which one doesn't belong with the others?",
-                options: ["Car", "Bicycle", "Train", "House"],
-                correct: 3,
-                explanation: "House is a building, while the others are vehicles."
-            },
-            {
-                question: "Which one doesn't belong with the others?",
-                options: ["Summer", "Winter", "Spring", "Monday"],
-                correct: 3,
-                explanation: "Monday is a day of the week, while the others are seasons."
-            }
-        ];
 
         // Game state
         let currentCategory = '';
@@ -1194,14 +730,14 @@
                     clearInterval(questionTimer);
                     handleTimeUp();
                 }
-            }, 1000);
+            }, 2000);
         }
 
         function startTotalTimer() {
             totalTimer = setInterval(() => {
                 totalSeconds++;
                 updateTotalTimer();
-            }, 1000);
+            }, 2000);
         }
 
         function stopTimers() {
@@ -1351,6 +887,24 @@
 
         // Back button functionality
         document.getElementById('backBtn').onclick = showMainMenu;
+
+        // BITSAT Exam Countdown
+        function updateExamCountdown() {
+            const examDate = new Date('2024-06-22T00:00:00');
+            const now = new Date();
+            const diff = examDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('examCountdown').textContent = 
+                `${days} days, ${hours} hours, ${minutes} minutes until BITSAT`;
+        }
+
+        // Initialize exam countdown
+        updateExamCountdown();
+        setInterval(updateExamCountdown, 60000);
 
         // Initialize the game when page loads
         window.onload = init;
