@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QuizMaster - Interactive learning hub with quizzes on idioms, synonyms, antonyms, homophones, spellings, and more!">
+    <meta name="keywords" content="quiz, learning, education, idioms, synonyms, antonyms, homophones, spelling, interactive">
+    <meta name="author" content="QuizMaster">
+    <meta property="og:title" content="QuizMaster - Interactive Learning Hub">
+    <meta property="og:description" content="Challenge your mind with interactive quizzes on various topics!">
+    <meta property="og:type" content="website">
+    <title>QuizMaster - Interactive Learning Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.2), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: sparkle 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateX(-30px) translateY(-50px) rotate(120deg);
+            }
+            66% {
+                transform: translateX(30px) translateY(50px) rotate(240deg);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2);
+            }
+            to {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.4);
+            }
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            font-size: 2rem;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 1s;
+            font-size: 1.5rem;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 15%;
+            animation-delay: 2s;
+            font-size: 1.8rem;
+        }
+
+        .floating-element:nth-child(4) {
+            bottom: 20%;
+            right: 20%;
+            animation-delay: 3s;
+            font-size: 2.2rem;
+        }
+
+        .floating-element:nth-child(5) {
+            top: 50%;
+            left: 5%;
+            animation-delay: 4s;
+            font-size: 1.6rem;
+        }
+
+        .floating-element:nth-child(6) {
+            top: 60%;
+            right: 5%;
+            animation-delay: 5s;
+            font-size: 1.9rem;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.3;
+            }
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-btn:nth-child(2) {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .category-btn:nth-child(3) {
+            background: linear-gradient(135deg, #45b7d1, #96c93d);
+        }
+
+        .category-btn:nth-child(4) {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .category-btn:nth-child(5) {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            color: #333;
+        }
+
+        .category-btn:nth-child(6) {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-btn:hover::before {
+            left: 100%;
+        }
+
+        .category-btn i {
+            font-size: 2rem;
+        }
+
+        .question-section {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .question-section.active {
+            display: block;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+            animation: pulse 0.5s ease-out;
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: scale(1.02);
+        }
+
+        .option-btn.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .option-btn.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            color: #2d3436;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .quiz-container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="floating-elements">
+        <div class="floating-element">📚</div>
+        <div class="floating-element">🧠</div>
+        <div class="floating-element">💡</div>
+        <div class="floating-element">🎯</div>
+        <div class="floating-element">⭐</div>
+        <div class="floating-element">🚀</div>
+    </div>
+
+    <button class="back-btn" id="backBtn" style="display: none;">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="header">
+        <h1><i class="fas fa-brain"></i> QuizMaster</h1>
+        <p>Challenge your mind with interactive quizzes!</p>
+    </div>
+
+    <div class="quiz-container">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="main-menu">
+            <div class="category-grid">
+                <button class="category-btn" onclick="startQuiz('idioms')">
+                    <i class="fas fa-quote-left"></i>
+                    <span>Idioms</span>
+                </button>
+                <button class="category-btn" onclick="startQuiz('synonyms')">
+                    <i class="fas fa-equals"></i>
+                    <span>Synonyms</span>
+                </button>
+                <button class="category-btn" onclick="startQuiz('antonyms')">
+                    <i class="fas fa-not-equal"></i>
+                    <span>Antonyms</span>
+                </button>
+                <button class="category-btn" onclick="startQuiz('homophones')">
+                    <i class="fas fa-volume-up"></i>
+                    <span>Homophones</span>
+                </button>
+                <button class="category-btn" onclick="startQuiz('spellings')">
+                    <i class="fas fa-spell-check"></i>
+                    <span>Spellings</span>
+                </button>
+                <button class="category-btn" onclick="startQuiz('oddOneOut')">
+                    <i class="fas fa-search"></i>
+                    <span>Odd One Out</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quizSection" class="question-section">
+            <div class="question-card">
+                <div class="question-title" id="categoryTitle">Category</div>
+                <div class="question-text" id="questionText">Question will appear here</div>
+                <div class="options-grid" id="optionsContainer">
+                    <!-- Options will be generated dynamically -->
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" onclick="showMainMenu()">
+                    <i class="fas fa-home"></i> Main Menu
+                </button>
+                <div class="score-display">
+                    <i class="fas fa-star"></i> Score: <span id="scoreValue">0</span>
+                </div>
+                <button class="btn btn-success" onclick="generateQuestion()">
+                    <i class="fas fa-refresh"></i> New Question
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizData = {
+            idioms: [
+                {
+                    question: "What does 'Break the ice' mean?",
+                    options: ["To literally break ice", "To start a conversation", "To be very cold", "To break something valuable"],
+                    correct: 1,
+                    explanation: "Break the ice means to initiate conversation or social interaction."
+                },
+                {
+                    question: "What does 'Bite the bullet' mean?",
+                    options: ["To eat ammunition", "To face a difficult situation bravely", "To be very angry", "To make a mistake"],
+                    correct: 1,
+                    explanation: "Bite the bullet means to endure a painful or difficult situation."
+                },
+                {
+                    question: "What does 'Spill the beans' mean?",
+                    options: ["To make a mess", "To cook badly", "To reveal a secret", "To waste food"],
+                    correct: 2,
+                    explanation: "Spill the beans means to reveal secret information."
+                },
+                {
+                    question: "What does 'Hit the hay' mean?",
+                    options: ["To go to sleep", "To work on a farm", "To be angry", "To exercise"],
+                    correct: 0,
+                    explanation: "Hit the hay means to go to bed or sleep."
+                },
+                {
+                    question: "What does 'Cost an arm and a leg' mean?",
+                    options: ["To be injured", "To be very expensive", "To be worthless", "To be dangerous"],
+                    correct: 1,
+                    explanation: "Cost an arm and a leg means to be very expensive."
+                }
+            ],
+            synonyms: [
+                {
+                    question: "Which word is a synonym for 'Happy'?",
+                    options: ["Sad", "Joyful", "Angry", "Tired"],
+                    correct: 1,
+                    explanation: "Joyful means feeling great pleasure and happiness."
+                },
+                {
+                    question: "Which word is a synonym for 'Big'?",
+                    options: ["Small", "Tiny", "Large", "Narrow"],
+                    correct: 2,
+                    explanation: "Large means of considerable size or extent."
+                },
+                {
+                    question: "Which word is a synonym for 'Smart'?",
+                    options: ["Intelligent", "Foolish", "Slow", "Lazy"],
+                    correct: 0,
+                    explanation: "Intelligent means having good understanding or mental capacity."
+                },
+                {
+                    question: "Which word is a synonym for 'Fast'?",
+                    options: ["Slow", "Quick", "Heavy", "Light"],
+                    correct: 1,
+                    explanation: "Quick means moving or capable of moving at high speed."
+                },
+                {
+                    question: "Which word is a synonym for 'Beautiful'?",
+                    options: ["Ugly", "Plain", "Gorgeous", "Simple"],
+                    correct: 2,
+                    explanation: "Gorgeous means beautiful or very attractive."
+                }
+            ],
+            antonyms: [
+                {
+                    question: "What is the antonym of 'Hot'?",
+                    options: ["Warm", "Cold", "Cool", "Mild"],
+                    correct: 1,
+                    explanation: "Cold is the opposite of hot in temperature."
+                },
+                {
+                    question: "What is the antonym of 'Light'?",
+                    options: ["Bright", "Heavy", "Dark", "Dim"],
+                    correct: 2,
+                    explanation: "Dark is the opposite of light (absence of light)."
+                },
+                {
+                    question: "What is the antonym of 'Up'?",
+                    options: ["Down", "Over", "Above", "High"],
+                    correct: 0,
+                    explanation: "Down is the opposite direction of up."
+                },
+                {
+                    question: "What is the antonym of 'Love'?",
+                    options: ["Like", "Hate", "Enjoy", "Prefer"],
+                    correct: 1,
+                    explanation: "Love and hate are opposite emotions."
+                },
+                {
+                    question: "What is the antonym of 'Begin'?",
+                    options: ["Start", "Continue", "End", "Proceed"],
+                    correct: 2,
+                    explanation: "End is the opposite of begin."
+                }
+            ],
+            homophones: [
+                {
+                    question: "Which word sounds the same as 'There'?",
+                    options: ["Here", "Their", "These", "Those"],
+                    correct: 1,
+                    explanation: "Their sounds exactly the same as there but has different meaning and spelling."
+                },
+                {
+                    question: "Which word sounds the same as 'Two'?",
+                    options: ["Three", "Too", "One", "Four"],
+                    correct: 1,
+                    explanation: "Too sounds exactly the same as two but means 'also' or 'excessively'."
+                },
+                {
+                    question: "Which word sounds the same as 'Right'?",
+                    options: ["Left", "Write", "Bright", "Light"],
+                    correct: 1,
+                    explanation: "Write sounds exactly the same as right but means to put words on paper."
+                },
+                {
+                    question: "Which word sounds the same as 'Sea'?",
+                    options: ["See", "Say", "She", "Sky"],
+                    correct: 0,
+                    explanation: "See sounds exactly the same as sea but means to look at something."
+                },
+                {
+                    question: "Which word sounds the same as 'Flower'?",
+                    options: ["Power", "Tower", "Flour", "Shower"],
+                    correct: 2,
+                    explanation: "Flour sounds exactly the same as flower but is a powder used for baking."
+                }
+            ]
+        };
+
+        // Add more quiz data
+        quizData.spellings = [
+            {
+                question: "Which is the correct spelling?",
+                options: ["Recieve", "Receive", "Receve", "Receeve"],
+                correct: 1,
+                explanation: "The correct spelling is 'Receive' - remember 'i before e except after c'."
+            },
+            {
+                question: "Which is the correct spelling?",
+                options: ["Definately", "Definitly", "Definitely", "Definetely"],
+                correct: 2,
+                explanation: "The correct spelling is 'Definitely' - with 'ite' in the middle."
+            },
+            {
+                question: "Which is the correct spelling?",
+                options: ["Separate", "Seperate", "Separete", "Separat"],
+                correct: 0,
+                explanation: "The correct spelling is 'Separate' - with 'a' in the middle."
+            },
+            {
+                question: "Which is the correct spelling?",
+                options: ["Occured", "Occurred", "Ocurred", "Occureed"],
+                correct: 1,
+                explanation: "The correct spelling is 'Occurred' - with double 'r'."
+            },
+            {
+                question: "Which is the correct spelling?",
+                options: ["Embarass", "Embarrass", "Embarras", "Embaress"],
+                correct: 1,
+                explanation: "The correct spelling is 'Embarrass' - with double 'r' and double 's'."
+            }
+        ];
+
+        quizData.oddOneOut = [
+            {
+                question: "Which one doesn't belong with the others?",
+                options: ["Apple", "Banana", "Carrot", "Orange"],
+                correct: 2,
+                explanation: "Carrot is a vegetable, while the others are fruits."
+            },
+            {
+                question: "Which one doesn't belong with the others?",
+                options: ["Dog", "Cat", "Bird", "Fish"],
+                correct: 3,
+                explanation: "Fish lives in water, while the others are land animals."
+            },
+            {
+                question: "Which one doesn't belong with the others?",
+                options: ["Red", "Blue", "Green", "Square"],
+                correct: 3,
+                explanation: "Square is a shape, while the others are colors."
+            },
+            {
+                question: "Which one doesn't belong with the others?",
+                options: ["Car", "Bicycle", "Train", "House"],
+                correct: 3,
+                explanation: "House is a building, while the others are vehicles."
+            },
+            {
+                question: "Which one doesn't belong with the others?",
+                options: ["Summer", "Winter", "Spring", "Monday"],
+                correct: 3,
+                explanation: "Monday is a day of the week, while the others are seasons."
+            }
+        ];
+
+        // Game state
+        let currentCategory = '';
+        let currentQuestion = null;
+        let score = 0;
+        let answered = false;
+
+        // Initialize the game
+        function init() {
+            showMainMenu();
+        }
+
+        // Show main menu
+        function showMainMenu() {
+            document.getElementById('mainMenu').style.display = 'block';
+            document.getElementById('quizSection').classList.remove('active');
+            document.getElementById('backBtn').style.display = 'none';
+            currentCategory = '';
+        }
+
+        // Start a quiz category
+        function startQuiz(category) {
+            currentCategory = category;
+            document.getElementById('mainMenu').style.display = 'none';
+            document.getElementById('quizSection').classList.add('active');
+            document.getElementById('backBtn').style.display = 'block';
+
+            // Set category title
+            const categoryTitles = {
+                idioms: 'Idioms & Phrases',
+                synonyms: 'Synonyms',
+                antonyms: 'Antonyms',
+                homophones: 'Homophones',
+                spellings: 'Correct Spellings',
+                oddOneOut: 'Odd One Out'
+            };
+
+            document.getElementById('categoryTitle').textContent = categoryTitles[category];
+            generateQuestion();
+        }
+
+        // Generate a random question
+        function generateQuestion() {
+            if (!currentCategory || !quizData[currentCategory]) return;
+
+            const questions = quizData[currentCategory];
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            currentQuestion = questions[randomIndex];
+            answered = false;
+
+            // Display question
+            document.getElementById('questionText').textContent = currentQuestion.question;
+
+            // Generate options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            currentQuestion.options.forEach((option, index) => {
+                const optionBtn = document.createElement('button');
+                optionBtn.className = 'option-btn';
+                optionBtn.textContent = option;
+                optionBtn.onclick = () => selectOption(index, optionBtn);
+                optionsContainer.appendChild(optionBtn);
+            });
+        }
+
+        // Handle option selection
+        function selectOption(selectedIndex, buttonElement) {
+            if (answered) return;
+
+            answered = true;
+            const isCorrect = selectedIndex === currentQuestion.correct;
+
+            // Show correct/incorrect styling
+            const allOptions = document.querySelectorAll('.option-btn');
+            allOptions.forEach((btn, index) => {
+                if (index === currentQuestion.correct) {
+                    btn.classList.add('correct');
+                } else if (index === selectedIndex && !isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+                btn.style.pointerEvents = 'none';
+            });
+
+            // Update score
+            if (isCorrect) {
+                score += 10;
+                document.getElementById('scoreValue').textContent = score;
+                showFeedback('Correct! ' + currentQuestion.explanation, 'success');
+            } else {
+                showFeedback('Incorrect. ' + currentQuestion.explanation, 'error');
+            }
+
+            // Auto-generate new question after delay
+            setTimeout(() => {
+                generateQuestion();
+            }, 3000);
+        }
+
+        // Show feedback message
+        function showFeedback(message, type) {
+            // Create feedback element
+            const feedback = document.createElement('div');
+            feedback.className = `feedback ${type}`;
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#d4edda' : '#f8d7da'};
+                color: ${type === 'success' ? '#155724' : '#721c24'};
+                border: 1px solid ${type === 'success' ? '#c3e6cb' : '#f5c6cb'};
+                border-radius: 10px;
+                padding: 15px 20px;
+                max-width: 300px;
+                z-index: 1000;
+                animation: slideInRight 0.5s ease-out;
+            `;
+            feedback.textContent = message;
+
+            document.body.appendChild(feedback);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                feedback.style.animation = 'slideOutRight 0.5s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(feedback);
+                }, 500);
+            }, 2500);
+        }
+
+        // Back button functionality
+        document.getElementById('backBtn').onclick = showMainMenu;
+
+        // Initialize the game when page loads
+        window.onload = init;
+    </script>
+
+    <style>
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
+
+</body>
+</html>
