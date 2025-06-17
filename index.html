@@ -473,6 +473,28 @@
                 justify-content: center;
             }
         }
+
+        .timer-display {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+
+        .question-timer, .total-timer {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .question-timer {
+            color: #dc3545;
+        }
+
+        .total-timer {
+            color: #28a745;
+        }
     </style>
 </head>
 <body>
@@ -499,29 +521,21 @@
         <!-- Main Menu -->
         <div id="mainMenu" class="main-menu">
             <div class="category-grid">
-                <button class="category-btn" onclick="startQuiz('idioms')">
-                    <i class="fas fa-quote-left"></i>
-                    <span>Idioms</span>
+                <button class="category-btn" onclick="startQuiz('grammar')">
+                    <i class="fas fa-book"></i>
+                    <span>Grammar</span>
                 </button>
-                <button class="category-btn" onclick="startQuiz('synonyms')">
-                    <i class="fas fa-equals"></i>
-                    <span>Synonyms</span>
+                <button class="category-btn" onclick="startQuiz('vocabulary')">
+                    <i class="fas fa-language"></i>
+                    <span>Vocabulary</span>
                 </button>
-                <button class="category-btn" onclick="startQuiz('antonyms')">
-                    <i class="fas fa-not-equal"></i>
-                    <span>Antonyms</span>
+                <button class="category-btn" onclick="startQuiz('phrasalVerbs')">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Phrasal Verbs & Idioms</span>
                 </button>
-                <button class="category-btn" onclick="startQuiz('homophones')">
-                    <i class="fas fa-volume-up"></i>
-                    <span>Homophones</span>
-                </button>
-                <button class="category-btn" onclick="startQuiz('spellings')">
-                    <i class="fas fa-spell-check"></i>
-                    <span>Spellings</span>
-                </button>
-                <button class="category-btn" onclick="startQuiz('oddOneOut')">
-                    <i class="fas fa-search"></i>
-                    <span>Odd One Out</span>
+                <button class="category-btn" onclick="startQuiz('analogy')">
+                    <i class="fas fa-brain"></i>
+                    <span>Analogy</span>
                 </button>
             </div>
         </div>
@@ -530,6 +544,10 @@
         <div id="quizSection" class="question-section">
             <div class="question-card">
                 <div class="question-title" id="categoryTitle">Category</div>
+                <div class="timer-display">
+                    <div class="question-timer">Question Time: <span id="questionTimer">30</span>s</div>
+                    <div class="total-timer">Total Time: <span id="totalTimer">00:00</span></div>
+                </div>
                 <div class="question-text" id="questionText">Question will appear here</div>
                 <div class="options-grid" id="optionsContainer">
                     <!-- Options will be generated dynamically -->
@@ -680,6 +698,397 @@
                     correct: 2,
                     explanation: "Flour sounds exactly the same as flower but is a powder used for baking."
                 }
+            ],
+            grammar: [
+                {
+                    question: "Which sentence demonstrates correct use of the subjunctive mood?",
+                    options: [
+                        "I suggest that he goes to the doctor.",
+                        "I suggest that he go to the doctor.",
+                        "I suggest that he will go to the doctor.",
+                        "I suggest that he went to the doctor."
+                    ],
+                    correct: 1,
+                    explanation: "The subjunctive mood uses the base form of the verb after 'suggest that'."
+                },
+                {
+                    question: "Identify the correct use of the past perfect tense:",
+                    options: [
+                        "I had finished my homework when my friend called.",
+                        "I finished my homework when my friend had called.",
+                        "I have finished my homework when my friend called.",
+                        "I finished my homework when my friend called."
+                    ],
+                    correct: 0,
+                    explanation: "The past perfect is used for the action that happened first in the past."
+                },
+                {
+                    question: "Which sentence uses the correct conditional structure?",
+                    options: [
+                        "If I would have known, I would have helped.",
+                        "If I had known, I would have helped.",
+                        "If I knew, I would have helped.",
+                        "If I would know, I would have helped."
+                    ],
+                    correct: 1,
+                    explanation: "The third conditional uses 'had + past participle' in the if-clause and 'would have + past participle' in the main clause."
+                },
+                {
+                    question: "Choose the sentence with correct use of articles:",
+                    options: [
+                        "The sun rises in the east.",
+                        "A sun rises in an east.",
+                        "Sun rises in east.",
+                        "The sun rises in an east."
+                    ],
+                    correct: 0,
+                    explanation: "We use 'the' with unique things (sun) and directions (east)."
+                },
+                {
+                    question: "Which sentence demonstrates correct use of the gerund?",
+                    options: [
+                        "I enjoy to swim in the ocean.",
+                        "I enjoy swimming in the ocean.",
+                        "I enjoy swim in the ocean.",
+                        "I enjoy to swimming in the ocean."
+                    ],
+                    correct: 1,
+                    explanation: "After 'enjoy', we use the gerund form (-ing) of the verb."
+                },
+                {
+                    question: "Identify the correct use of the infinitive:",
+                    options: [
+                        "I want going to the movies.",
+                        "I want to go to the movies.",
+                        "I want go to the movies.",
+                        "I want to going to the movies."
+                    ],
+                    correct: 1,
+                    explanation: "After 'want', we use the infinitive form (to + base verb)."
+                },
+                {
+                    question: "Which sentence uses the correct comparative form?",
+                    options: [
+                        "This book is more interesting than that one.",
+                        "This book is interestinger than that one.",
+                        "This book is more interesting as that one.",
+                        "This book is interesting than that one."
+                    ],
+                    correct: 0,
+                    explanation: "For adjectives with more than two syllables, we use 'more + adjective + than'."
+                },
+                {
+                    question: "Choose the sentence with correct use of the present perfect continuous:",
+                    options: [
+                        "I have been working here for five years.",
+                        "I am working here for five years.",
+                        "I work here for five years.",
+                        "I worked here for five years."
+                    ],
+                    correct: 0,
+                    explanation: "The present perfect continuous is used for actions that started in the past and continue to the present."
+                },
+                {
+                    question: "Which sentence demonstrates correct use of the passive voice with a modal?",
+                    options: [
+                        "The report must be submitted by Friday.",
+                        "The report must submitted by Friday.",
+                        "The report must be submit by Friday.",
+                        "The report must to be submitted by Friday."
+                    ],
+                    correct: 0,
+                    explanation: "The passive voice with modals uses 'modal + be + past participle'."
+                },
+                {
+                    question: "Identify the correct use of the past perfect continuous:",
+                    options: [
+                        "I had been studying for three hours when she called.",
+                        "I have been studying for three hours when she called.",
+                        "I was studying for three hours when she called.",
+                        "I studied for three hours when she called."
+                    ],
+                    correct: 0,
+                    explanation: "The past perfect continuous is used for actions that were ongoing before another past action."
+                }
+            ],
+            vocabulary: [
+                {
+                    question: "Which word is NOT a synonym for 'ambiguous'?",
+                    options: [
+                        "unclear",
+                        "vague",
+                        "explicit",
+                        "equivocal"
+                    ],
+                    correct: 2,
+                    explanation: "'Explicit' is actually an antonym of 'ambiguous', meaning clear and specific."
+                },
+                {
+                    question: "Choose the correct academic vocabulary for 'very big':",
+                    options: [
+                        "huge",
+                        "enormous",
+                        "substantial",
+                        "gigantic"
+                    ],
+                    correct: 2,
+                    explanation: "In academic writing, 'substantial' is preferred over more informal terms like 'huge' or 'gigantic'."
+                },
+                {
+                    question: "What is the contextual meaning of 'paradigm' in academic writing?",
+                    options: [
+                        "A typical example",
+                        "A theoretical framework",
+                        "A mathematical equation",
+                        "A historical event"
+                    ],
+                    correct: 1,
+                    explanation: "In academic contexts, 'paradigm' refers to a theoretical framework or model."
+                },
+                {
+                    question: "Which word has a negative connotation?",
+                    options: [
+                        "thrifty",
+                        "frugal",
+                        "stingy",
+                        "economical"
+                    ],
+                    correct: 2,
+                    explanation: "While all words relate to saving money, 'stingy' has a negative connotation of being unwilling to spend."
+                },
+                {
+                    question: "Choose the correct collocation:",
+                    options: [
+                        "make a research",
+                        "do a research",
+                        "conduct research",
+                        "take a research"
+                    ],
+                    correct: 2,
+                    explanation: "The correct collocation is 'conduct research' in academic contexts."
+                },
+                {
+                    question: "Which word is NOT a synonym for 'comprehensive'?",
+                    options: [
+                        "thorough",
+                        "complete",
+                        "partial",
+                        "exhaustive"
+                    ],
+                    correct: 2,
+                    explanation: "'Partial' is actually an antonym of 'comprehensive', which means complete or thorough."
+                },
+                {
+                    question: "What is the contextual meaning of 'empirical' in academic writing?",
+                    options: [
+                        "Based on theory",
+                        "Based on observation or experience",
+                        "Based on intuition",
+                        "Based on tradition"
+                    ],
+                    correct: 1,
+                    explanation: "In academic contexts, 'empirical' refers to evidence based on observation or experience rather than theory."
+                },
+                {
+                    question: "Which word is NOT a collocation with 'take'?",
+                    options: [
+                        "take a break",
+                        "take a chance",
+                        "take a homework",
+                        "take a photo"
+                    ],
+                    correct: 2,
+                    explanation: "The correct collocation is 'do homework', not 'take homework'."
+                },
+                {
+                    question: "Choose the word that best fits the context: 'The research findings were _____ and required further investigation.'",
+                    options: [
+                        "conclusive",
+                        "inconclusive",
+                        "exclusive",
+                        "inclusive"
+                    ],
+                    correct: 1,
+                    explanation: "'Inconclusive' means not leading to a definite conclusion, which fits the context of needing further investigation."
+                },
+                {
+                    question: "Which word has a positive connotation?",
+                    options: [
+                        "stubborn",
+                        "determined",
+                        "obstinate",
+                        "inflexible"
+                    ],
+                    correct: 1,
+                    explanation: "While all words mean similar things, 'determined' has a positive connotation of strong will and perseverance."
+                }
+            ],
+            phrasalVerbs: [
+                {
+                    question: "What does 'to brush up on' mean?",
+                    options: [
+                        "To clean something thoroughly",
+                        "To improve existing knowledge",
+                        "To remove something completely",
+                        "To start learning something new"
+                    ],
+                    correct: 1,
+                    explanation: "'To brush up on' means to improve or refresh one's knowledge of something."
+                },
+                {
+                    question: "Which phrasal verb means 'to tolerate'?",
+                    options: [
+                        "put up with",
+                        "put down to",
+                        "put off by",
+                        "put on to"
+                    ],
+                    correct: 0,
+                    explanation: "'Put up with' means to tolerate or endure something unpleasant."
+                },
+                {
+                    question: "What does the idiom 'to hit the nail on the head' mean?",
+                    options: [
+                        "To cause physical injury",
+                        "To be exactly right",
+                        "To make a mistake",
+                        "To work hard"
+                    ],
+                    correct: 1,
+                    explanation: "This idiom means to be exactly right or accurate about something."
+                },
+                {
+                    question: "Which phrasal verb means 'to postpone'?",
+                    options: [
+                        "put up",
+                        "put down",
+                        "put off",
+                        "put on"
+                    ],
+                    correct: 2,
+                    explanation: "'Put off' means to postpone or delay something."
+                },
+                {
+                    question: "What does the idiom 'to pull someone's leg' mean?",
+                    options: [
+                        "To physically harm someone",
+                        "To help someone stand up",
+                        "To tease or joke with someone",
+                        "To stop someone from doing something"
+                    ],
+                    correct: 2,
+                    explanation: "This idiom means to tease or joke with someone in a friendly way."
+                },
+                {
+                    question: "What does 'to come up with' mean?",
+                    options: [
+                        "To rise above something",
+                        "To think of or create something",
+                        "To arrive at a place",
+                        "To overcome an obstacle"
+                    ],
+                    correct: 1,
+                    explanation: "'To come up with' means to think of or create something, especially an idea or solution."
+                },
+                {
+                    question: "Which phrasal verb means 'to investigate'?",
+                    options: [
+                        "look up",
+                        "look into",
+                        "look over",
+                        "look after"
+                    ],
+                    correct: 1,
+                    explanation: "'Look into' means to investigate or examine something carefully."
+                },
+                {
+                    question: "What does the idiom 'to break the ice' mean?",
+                    options: [
+                        "To cause physical damage",
+                        "To start a conversation",
+                        "To end a relationship",
+                        "To solve a problem"
+                    ],
+                    correct: 1,
+                    explanation: "This idiom means to initiate conversation or social interaction."
+                },
+                {
+                    question: "Which phrasal verb means 'to understand'?",
+                    options: [
+                        "figure out",
+                        "figure in",
+                        "figure on",
+                        "figure up"
+                    ],
+                    correct: 0,
+                    explanation: "'Figure out' means to understand or solve something."
+                },
+                {
+                    question: "What does the idiom 'to spill the beans' mean?",
+                    options: [
+                        "To make a mess",
+                        "To cook badly",
+                        "To reveal a secret",
+                        "To waste food"
+                    ],
+                    correct: 2,
+                    explanation: "This idiom means to reveal secret information."
+                },
+                {
+                    question: "Which phrasal verb means 'to continue'?",
+                    options: [
+                        "go on",
+                        "go off",
+                        "go out",
+                        "go up"
+                    ],
+                    correct: 0,
+                    explanation: "'Go on' means to continue or proceed."
+                },
+                {
+                    question: "What does the idiom 'to hit the hay' mean?",
+                    options: [
+                        "To go to sleep",
+                        "To work on a farm",
+                        "To be angry",
+                        "To exercise"
+                    ],
+                    correct: 0,
+                    explanation: "This idiom means to go to bed or sleep."
+                },
+                {
+                    question: "Which phrasal verb means 'to tolerate'?",
+                    options: [
+                        "stand up for",
+                        "stand up to",
+                        "stand by",
+                        "stand for"
+                    ],
+                    correct: 3,
+                    explanation: "'Stand for' means to tolerate or accept something."
+                },
+                {
+                    question: "What does the idiom 'to cost an arm and a leg' mean?",
+                    options: [
+                        "To be injured",
+                        "To be very expensive",
+                        "To be worthless",
+                        "To be dangerous"
+                    ],
+                    correct: 1,
+                    explanation: "This idiom means to be very expensive."
+                },
+                {
+                    question: "Which phrasal verb means 'to recover from'?",
+                    options: [
+                        "get over",
+                        "get up",
+                        "get down",
+                        "get in"
+                    ],
+                    correct: 0,
+                    explanation: "'Get over' means to recover from something, especially an illness or emotional state."
+                }
             ]
         };
 
@@ -755,6 +1164,10 @@
         let currentQuestion = null;
         let score = 0;
         let answered = false;
+        let questionTimer;
+        let totalTimer;
+        let totalSeconds = 0;
+        let questionSeconds = 30;
 
         // Initialize the game
         function init() {
@@ -767,6 +1180,56 @@
             document.getElementById('quizSection').classList.remove('active');
             document.getElementById('backBtn').style.display = 'none';
             currentCategory = '';
+            stopTimers();
+        }
+
+        // Timer functions
+        function startQuestionTimer() {
+            questionSeconds = 30;
+            updateQuestionTimer();
+            questionTimer = setInterval(() => {
+                questionSeconds--;
+                updateQuestionTimer();
+                if (questionSeconds <= 0) {
+                    clearInterval(questionTimer);
+                    handleTimeUp();
+                }
+            }, 1000);
+        }
+
+        function startTotalTimer() {
+            totalTimer = setInterval(() => {
+                totalSeconds++;
+                updateTotalTimer();
+            }, 1000);
+        }
+
+        function stopTimers() {
+            clearInterval(questionTimer);
+            clearInterval(totalTimer);
+        }
+
+        function updateQuestionTimer() {
+            document.getElementById('questionTimer').textContent = questionSeconds;
+        }
+
+        function updateTotalTimer() {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            document.getElementById('totalTimer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function handleTimeUp() {
+            if (!answered) {
+                answered = true;
+                score = Math.max(0, score - 1);
+                document.getElementById('scoreValue').textContent = score;
+                showFeedback('Time\'s up! ' + currentQuestion.explanation, 'error');
+                setTimeout(() => {
+                    generateQuestion();
+                }, 3000);
+            }
         }
 
         // Start a quiz category
@@ -778,15 +1241,17 @@
 
             // Set category title
             const categoryTitles = {
-                idioms: 'Idioms & Phrases',
-                synonyms: 'Synonyms',
-                antonyms: 'Antonyms',
-                homophones: 'Homophones',
-                spellings: 'Correct Spellings',
-                oddOneOut: 'Odd One Out'
+                grammar: 'Grammar Mastery',
+                vocabulary: 'Vocabulary Challenge',
+                phrasalVerbs: 'Phrasal Verbs & Idioms',
+                analogy: 'Analogical Reasoning'
             };
 
             document.getElementById('categoryTitle').textContent = categoryTitles[category];
+            score = 0;
+            totalSeconds = 0;
+            document.getElementById('scoreValue').textContent = score;
+            startTotalTimer();
             generateQuestion();
         }
 
@@ -813,6 +1278,8 @@
                 optionBtn.onclick = () => selectOption(index, optionBtn);
                 optionsContainer.appendChild(optionBtn);
             });
+
+            startQuestionTimer();
         }
 
         // Handle option selection
@@ -820,6 +1287,7 @@
             if (answered) return;
 
             answered = true;
+            clearInterval(questionTimer);
             const isCorrect = selectedIndex === currentQuestion.correct;
 
             // Show correct/incorrect styling
@@ -835,10 +1303,12 @@
 
             // Update score
             if (isCorrect) {
-                score += 10;
+                score += 3;
                 document.getElementById('scoreValue').textContent = score;
                 showFeedback('Correct! ' + currentQuestion.explanation, 'success');
             } else {
+                score = Math.max(0, score - 1);
+                document.getElementById('scoreValue').textContent = score;
                 showFeedback('Incorrect. ' + currentQuestion.explanation, 'error');
             }
 
