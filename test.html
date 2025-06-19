@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .test-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 9999;
+        }
+        .css-loaded .test-indicator {
+            background: green;
+        }
+    </style>
+</head>
+<body class="css-loaded">
+    <div class="test-indicator">
+        CSS Status: <span id="status">Loading...</span>
+    </div>
+    
+    <h1>CSS Test Page</h1>
+    <p>If the background is black and this text is styled, CSS is working!</p>
+    
+    <script>
+        // Check if CSS is loaded by testing a CSS property
+        window.addEventListener('load', function() {
+            const body = document.body;
+            const computedStyle = window.getComputedStyle(body);
+            const backgroundColor = computedStyle.backgroundColor;
+            const statusElement = document.getElementById('status');
+            
+            if (backgroundColor === 'rgb(0, 0, 0)' || backgroundColor === '#000' || backgroundColor === 'black') {
+                statusElement.textContent = 'Working!';
+                statusElement.parentElement.style.background = 'green';
+            } else {
+                statusElement.textContent = 'Failed - BG: ' + backgroundColor;
+                statusElement.parentElement.style.background = 'red';
+            }
+        });
+    </script>
+</body>
+</html>

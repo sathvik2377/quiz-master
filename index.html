@@ -71,6 +71,20 @@
         <div id="examCountdown" class="exam-countdown">Loading...</div>
     </div>
 
+    <!-- Mobile-only motivational quotes - After exam countdown -->
+    <div class="mobile-quotes mobile-quote-after-countdown">
+        <div class="mobile-quote-card">
+            <i class="fas fa-rocket quote-icon"></i>
+            <div class="quote-text">"Success is not final, failure is not fatal: it is the courage to continue that counts."</div>
+            <div class="quote-author">- Winston Churchill</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-star quote-icon"></i>
+            <div class="quote-text">"The future belongs to those who believe in the beauty of their dreams."</div>
+            <div class="quote-author">- Eleanor Roosevelt</div>
+        </div>
+    </div>
+
     <!-- Main Quiz Container -->
     <div class="quiz-container">
         <!-- Section Navigation Tabs -->
@@ -126,6 +140,15 @@
 
                 <!-- Center Space -->
                 <div class="center-space">
+                    <!-- Mobile quote above BITSAT Excellence -->
+                    <div class="mobile-quotes mobile-quote-above-excellence">
+                        <div class="mobile-quote-card">
+                            <i class="fas fa-brain quote-icon"></i>
+                            <div class="quote-text">"Education is the most powerful weapon which you can use to change the world."</div>
+                            <div class="quote-author">- Nelson Mandela</div>
+                        </div>
+                    </div>
+
                     <div class="center-decoration">
                         <div class="floating-logo">
                             <i class="fas fa-graduation-cap"></i>
@@ -136,6 +159,15 @@
                         </div>
                         <div class="progress-ring">
                             <div class="ring-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile quote below BITSAT Excellence -->
+                    <div class="mobile-quotes mobile-quote-below-excellence">
+                        <div class="mobile-quote-card">
+                            <i class="fas fa-target quote-icon"></i>
+                            <div class="quote-text">"The expert in anything was once a beginner."</div>
+                            <div class="quote-author">- Helen Hayes</div>
                         </div>
                     </div>
                 </div>
@@ -171,41 +203,76 @@
             <h2>Scientific Calculator</h2>
             <div class="calculator">
                 <div class="calculator-display">
-                    <input type="text" id="calcDisplay" readonly />
+                    <div class="calc-history" id="calcHistory"></div>
+                    <input type="text" id="calcDisplay" readonly placeholder="0" />
+                </div>
+                <div class="calculator-mode">
+                    <button class="mode-btn active" id="degMode" onclick="toggleAngleMode()">DEG</button>
+                    <button class="mode-btn" id="radMode" onclick="toggleAngleMode()">RAD</button>
                 </div>
                 <div class="calculator-buttons">
+                    <!-- Row 1: Memory and Clear Functions -->
+                    <button class="calc-btn memory" onclick="memoryClear()">MC</button>
+                    <button class="calc-btn memory" onclick="memoryRecall()">MR</button>
+                    <button class="calc-btn memory" onclick="memoryAdd()">M+</button>
+                    <button class="calc-btn memory" onclick="memorySubtract()">M-</button>
                     <button class="calc-btn operator" onclick="clearCalc()">C</button>
                     <button class="calc-btn operator" onclick="deleteLast()">⌫</button>
+
+                    <!-- Row 2: Advanced Functions -->
+                    <button class="calc-btn function" onclick="appendFunction('2nd')" id="secondBtn">2nd</button>
+                    <button class="calc-btn function" onclick="appendFunction('π')">π</button>
+                    <button class="calc-btn function" onclick="appendFunction('e')">e</button>
+                    <button class="calc-btn function" onclick="appendFunction('!')">x!</button>
                     <button class="calc-btn operator" onclick="appendToCalc('(')">(</button>
                     <button class="calc-btn operator" onclick="appendToCalc(')')">)</button>
 
-                    <button class="calc-btn function" onclick="appendToCalc('sin(')">sin</button>
-                    <button class="calc-btn function" onclick="appendToCalc('cos(')">cos</button>
-                    <button class="calc-btn function" onclick="appendToCalc('tan(')">tan</button>
+                    <!-- Row 3: Trigonometric Functions -->
+                    <button class="calc-btn function" onclick="appendFunction('sin')" id="sinBtn">sin</button>
+                    <button class="calc-btn function" onclick="appendFunction('cos')" id="cosBtn">cos</button>
+                    <button class="calc-btn function" onclick="appendFunction('tan')" id="tanBtn">tan</button>
+                    <button class="calc-btn function" onclick="appendFunction('log')">log</button>
+                    <button class="calc-btn function" onclick="appendFunction('ln')">ln</button>
                     <button class="calc-btn operator" onclick="appendToCalc('/')">/</button>
 
-                    <button class="calc-btn function" onclick="appendToCalc('log(')">log</button>
-                    <button class="calc-btn function" onclick="appendToCalc('ln(')">ln</button>
-                    <button class="calc-btn function" onclick="appendToCalc('^')">^</button>
+                    <!-- Row 4: Power and Root Functions -->
+                    <button class="calc-btn function" onclick="appendFunction('x²')">x²</button>
+                    <button class="calc-btn function" onclick="appendFunction('x³')">x³</button>
+                    <button class="calc-btn function" onclick="appendFunction('xʸ')">xʸ</button>
+                    <button class="calc-btn function" onclick="appendFunction('√')">√</button>
+                    <button class="calc-btn function" onclick="appendFunction('∛')">∛</button>
                     <button class="calc-btn operator" onclick="appendToCalc('*')">×</button>
 
+                    <!-- Row 5: Numbers and Operations -->
+                    <button class="calc-btn function" onclick="appendFunction('1/x')">1/x</button>
+                    <button class="calc-btn function" onclick="appendFunction('|x|')">|x|</button>
+                    <button class="calc-btn function" onclick="appendFunction('10ˣ')">10ˣ</button>
                     <button class="calc-btn number" onclick="appendToCalc('7')">7</button>
                     <button class="calc-btn number" onclick="appendToCalc('8')">8</button>
                     <button class="calc-btn number" onclick="appendToCalc('9')">9</button>
-                    <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
 
+                    <!-- Row 6: More Functions and Numbers -->
+                    <button class="calc-btn function" onclick="appendFunction('eˣ')">eˣ</button>
+                    <button class="calc-btn function" onclick="appendFunction('mod')">mod</button>
+                    <button class="calc-btn function" onclick="appendFunction('±')">±</button>
                     <button class="calc-btn number" onclick="appendToCalc('4')">4</button>
                     <button class="calc-btn number" onclick="appendToCalc('5')">5</button>
                     <button class="calc-btn number" onclick="appendToCalc('6')">6</button>
-                    <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
 
+                    <!-- Row 7: Numbers and Subtraction -->
+                    <button class="calc-btn function" onclick="appendFunction('Rand')">Rand</button>
+                    <button class="calc-btn function" onclick="appendFunction('nPr')">nPr</button>
+                    <button class="calc-btn function" onclick="appendFunction('nCr')">nCr</button>
                     <button class="calc-btn number" onclick="appendToCalc('1')">1</button>
                     <button class="calc-btn number" onclick="appendToCalc('2')">2</button>
                     <button class="calc-btn number" onclick="appendToCalc('3')">3</button>
-                    <button class="calc-btn equals" onclick="calculateResult()" rowspan="2">=</button>
 
-                    <button class="calc-btn number" onclick="appendToCalc('0')" colspan="2">0</button>
+                    <!-- Row 8: Final Row -->
+                    <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
+                    <button class="calc-btn number" onclick="appendToCalc('0')" style="grid-column: span 2;">0</button>
                     <button class="calc-btn number" onclick="appendToCalc('.')">.</button>
+                    <button class="calc-btn equals" onclick="calculateResult()">=</button>
                 </div>
             </div>
         </div>
@@ -299,11 +366,36 @@
             </div>
 
             <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number" id="questionNumber">Q1.</div>
+                    <div class="question-counter" id="questionCounter">Question 1 of 30</div>
+                </div>
                 <div class="question-text" id="questionText">
                     Question will appear here...
                 </div>
                 <div class="options-grid" id="optionsContainer">
                     <!-- Options will be generated dynamically -->
+                </div>
+
+                <!-- Solution Display Area -->
+                <div class="solution-area" id="solutionArea" style="display: none;">
+                    <div class="solution-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Solution & Explanation</span>
+                    </div>
+                    <div class="solution-content" id="solutionContent">
+                        <!-- Solution will be displayed here -->
+                    </div>
+                </div>
+
+                <!-- Navigation at bottom -->
+                <div class="question-navigation">
+                    <button id="prevBtn" class="nav-btn prev-btn" onclick="previousQuestion()">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <button id="nextBtn" class="nav-btn next-btn" onclick="nextQuestion()">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -359,6 +451,20 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Bottom section -->
+    <div class="mobile-quotes mobile-quote-bottom">
+        <div class="mobile-quote-card">
+            <i class="fas fa-fire quote-icon"></i>
+            <div class="quote-text">"Don't watch the clock; do what it does. Keep going."</div>
+            <div class="quote-author">- Sam Levenson</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-trophy quote-icon"></i>
+            <div class="quote-text">"Believe you can and you're halfway there."</div>
+            <div class="quote-author">- Theodore Roosevelt</div>
         </div>
     </div>
 

@@ -455,11 +455,11 @@ body::after {
 }
 
 .category-btn:hover {
-    transform: translateY(-8px) rotateX(5deg) rotateY(5deg);
+    transform: translateY(-3px);
     box-shadow:
-        0 25px 50px rgba(79, 195, 247, 0.4),
-        0 10px 25px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 8px 20px rgba(79, 195, 247, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .category-btn::before {
@@ -469,15 +469,15 @@ body::after {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
     transform: rotate(45deg);
-    transition: all 0.6s ease;
+    transition: all 0.8s ease;
     opacity: 0;
 }
 
 .category-btn:hover::before {
-    opacity: 1;
-    animation: glareEffect 0.6s ease-out;
+    opacity: 0.6;
+    animation: glareEffect 0.8s ease-out;
 }
 
 @keyframes glareEffect {
@@ -546,7 +546,8 @@ body::after {
 .option-btn:hover {
     border-color: #667eea;
     background: #f8f9ff;
-    transform: scale(1.02);
+    transform: scale(1.01);
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.1);
 }
 
 .option-btn.correct {
@@ -559,6 +560,157 @@ body::after {
     background: #f8d7da;
     border-color: #dc3545;
     color: #721c24;
+}
+
+/* Question Navigation Styles */
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.question-number {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
+    min-width: 60px;
+    text-align: center;
+}
+
+.question-counter {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.question-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.nav-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.nav-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+}
+
+.nav-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.15);
+}
+
+.prev-btn i {
+    order: -1;
+}
+
+.next-btn i {
+    order: 1;
+}
+
+
+
+/* Solution Area Styles */
+.solution-area {
+    margin-top: 25px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    border-left: 5px solid #28a745;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    animation: solutionSlideIn 0.5s ease-out;
+}
+
+.solution-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.solution-header i {
+    font-size: 18px;
+    color: #ffd700;
+}
+
+.solution-content {
+    padding: 20px;
+    color: #2c3e50;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.solution-content .correct-answer {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 1px solid #28a745;
+    border-radius: 10px;
+    padding: 12px 15px;
+    margin: 15px 0;
+    font-weight: 600;
+    color: #155724;
+}
+
+.solution-content .explanation {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border: 1px solid #2196f3;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    color: #0d47a1;
+    border-left: 4px solid #2196f3;
+}
+
+@keyframes solutionSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .controls {
@@ -596,11 +748,11 @@ body::after {
 }
 
 .btn:hover {
-    transform: translateY(-3px) rotateX(2deg);
+    transform: translateY(-2px);
     box-shadow:
-        0 15px 30px rgba(79, 195, 247, 0.4),
-        0 5px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 6px 15px rgba(79, 195, 247, 0.2),
+        0 3px 8px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .btn::before {
@@ -610,15 +762,15 @@ body::after {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.12), transparent);
     transform: rotate(45deg);
-    transition: all 0.6s ease;
+    transition: all 0.8s ease;
     opacity: 0;
 }
 
 .btn:hover::before {
-    opacity: 1;
-    animation: glareEffect 0.6s ease-out;
+    opacity: 0.6;
+    animation: glareEffect 0.8s ease-out;
 }
 
 .btn-secondary {
@@ -703,57 +855,214 @@ body::after {
     }
 }
 
-@media (max-width: 768px) {
+/* Mobile Responsive Styles - MOBILE DEVICES ONLY */
+@media only screen and (max-width: 768px) and (hover: none) and (pointer: coarse) {
+    /* Body and general layout */
+    body {
+        padding: 10px;
+        overflow-x: hidden;
+    }
+
+    /* Header adjustments */
+    .header {
+        margin-bottom: 20px;
+    }
+
     .header h1 {
         font-size: 2rem;
+        margin-bottom: 8px;
     }
 
+    .header p {
+        font-size: 1rem;
+    }
+
+    /* Quiz container */
     .quiz-container {
-        padding: 20px;
-        margin: 10px;
+        padding: 15px;
+        margin: 5px;
+        max-width: 100%;
+        border-radius: 15px;
     }
 
+    .quiz-container.pdf-mode {
+        max-width: 95vw;
+        margin: 5px auto;
+        padding: 10px;
+    }
+
+    /* Category buttons grid */
     .category-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
 
+    .category-btn {
+        padding: 20px 15px;
+        font-size: 1rem;
+        min-height: 100px;
+    }
+
+    .category-btn i {
+        font-size: 1.8rem;
+    }
+
+    /* Controls and buttons */
     .controls {
         flex-direction: column;
         align-items: stretch;
+        gap: 10px;
     }
 
     .btn {
         justify-content: center;
+        padding: 12px 20px;
+        font-size: 0.9rem;
     }
 
+    /* Section tabs - 2x3 grid for mobile */
     .section-tabs {
-        grid-template-columns: 1fr;
-        gap: 15px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        gap: 12px;
         max-width: 100%;
+        margin-bottom: 20px;
     }
 
     .section-btn {
-        min-height: 100px;
-        padding: 20px 15px;
-    }
-
-    .section-btn i {
-        font-size: 1.5rem;
-    }
-
-    .section-btn span {
+        min-height: 80px;
+        padding: 15px 10px;
         font-size: 14px;
     }
 
-    /* Hide motivational quotes on mobile */
-    .motivational-quotes {
-        display: none;
+    .section-btn i {
+        font-size: 1.3rem;
+        margin-bottom: 3px;
     }
 
-    /* Adjust quiz stats for mobile */
+    .section-btn span {
+        font-size: 13px;
+        line-height: 1.2;
+    }
+
+    .section-btn small {
+        font-size: 10px;
+        display: none; /* Hide subtitle on mobile for space */
+    }
+
+    /* Hide desktop motivational quotes on mobile */
+    .motivational-quotes {
+        display: none !important;
+    }
+
+    /* Mobile-only motivational quotes */
+    .mobile-quotes {
+        display: block !important;
+        margin: 15px 0;
+        padding: 0 5px;
+    }
+
+    .mobile-quote-after-countdown {
+        margin: 15px 0 20px 0;
+    }
+
+    .mobile-quote-above-excellence {
+        margin: 10px 0 15px 0;
+    }
+
+    .mobile-quote-below-excellence {
+        margin: 15px 0 10px 0;
+    }
+
+    .mobile-quote-bottom {
+        margin: 20px 0 15px 0;
+        order: 999; /* Place at the very bottom */
+    }
+
+    .mobile-quote-card {
+        background: linear-gradient(135deg,
+            rgba(102, 126, 234, 0.12) 0%,
+            rgba(118, 75, 162, 0.12) 50%,
+            rgba(79, 195, 247, 0.12) 100%);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 15px 18px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(102, 126, 234, 0.25);
+        box-shadow:
+            0 4px 12px rgba(102, 126, 234, 0.15),
+            0 2px 6px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        animation: mobileQuoteSlideIn 0.6s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mobile-quote-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg,
+            rgba(102, 126, 234, 0.4),
+            rgba(79, 195, 247, 0.4),
+            rgba(102, 126, 234, 0.4));
+        animation: mobileQuoteShimmer 6s linear infinite;
+        opacity: 0.6;
+    }
+
+    .mobile-quote-card .quote-icon {
+        color: #667eea;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        display: block;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        opacity: 0.9;
+    }
+
+    .mobile-quote-card .quote-text {
+        color: #27ae60;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        font-style: italic;
+        font-weight: 500;
+        text-shadow: 0.5px 0.5px 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .mobile-quote-card .quote-author {
+        color: #667eea;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: right;
+        text-shadow: 0.5px 0.5px 1px rgba(255, 255, 255, 0.6);
+        opacity: 0.9;
+    }
+
+    @keyframes mobileQuoteSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes mobileQuoteShimmer {
+        0% { transform: translateX(-100%); opacity: 0.3; }
+        50% { opacity: 0.6; }
+        100% { transform: translateX(100%); opacity: 0.3; }
+    }
+
+    /* Quiz stats - stack vertically */
     .quiz-stats {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+        margin-bottom: 15px;
     }
 
     .score-display,
@@ -762,58 +1071,155 @@ body::after {
         width: 100%;
         min-width: auto;
         font-size: 14px;
-        padding: 12px 20px;
+        padding: 10px 15px;
+        text-align: center;
     }
 
     /* Responsive symmetric layout */
     .symmetric-layout {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 15px;
         text-align: center;
+        margin-bottom: 20px;
     }
 
     .quiz-column {
         justify-self: center !important;
+        width: 100%;
     }
 
     .center-space {
         order: -1;
         width: 100%;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .center-decoration {
+        gap: 10px;
+    }
+
+    /* Center space mobile quotes positioning */
+    .mobile-quote-above-excellence,
+    .mobile-quote-below-excellence {
+        width: 100%;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mobile-quote-above-excellence .mobile-quote-card,
+    .mobile-quote-below-excellence .mobile-quote-card {
+        margin-bottom: 8px;
+        padding: 12px 15px;
+    }
+
+    .floating-logo {
+        font-size: 2.5rem;
+    }
+
+    .center-text h3 {
+        font-size: 1.1rem;
+    }
+
+    .center-text p {
+        font-size: 0.8rem;
+    }
+
+    .progress-ring {
+        width: 60px;
+        height: 60px;
+    }
+
+    .ring-fill {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* Question and options */
+    .question-card {
+        padding: 20px 15px;
         margin-bottom: 20px;
     }
 
+    .question-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
 
+    .question-text {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
 
+    .options-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .option-btn {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    /* Calculator adjustments */
     .equation-input {
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
     }
 
     .equation-input input {
         min-width: auto;
+        padding: 8px;
+        font-size: 14px;
     }
 
     .calculator-buttons {
         grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
+        gap: 6px;
     }
 
     .calc-btn {
-        padding: 12px 8px;
-        font-size: 0.9rem;
+        padding: 10px 6px;
+        font-size: 0.8rem;
+        height: 45px;
     }
 
+    .calculator-display input {
+        height: 50px;
+        font-size: 20px;
+        padding: 0 10px;
+    }
+
+    /* Desmos and graphing */
     .desmos-container iframe {
+        height: 350px;
+    }
+
+    .graph-controls {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #graphCanvas {
         height: 400px;
     }
 
+    /* PDF controls and viewer */
     .pdf-controls {
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
     }
 
     .pdf-controls button {
         margin-bottom: 5px;
+        padding: 10px;
+        font-size: 14px;
     }
 
     #pdfCanvas {
@@ -822,33 +1228,167 @@ body::after {
     }
 
     #arihantPdf {
-        height: 500px;
+        height: 400px;
     }
 
+    .pdf-viewer {
+        min-height: 300px;
+        font-size: 14px;
+    }
+
+    /* Index and content */
     .index-content {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .index-category {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
+        padding: 15px;
     }
 
-    .pdf-controls {
-        flex-direction: column;
-        align-items: stretch;
+    .index-category h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
     }
 
-    .pdf-controls button {
-        margin-bottom: 5px;
+    .index-list a {
+        padding: 8px 12px;
+        font-size: 14px;
     }
 
+    /* Search container */
     .search-container {
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
     }
 
     .search-container input {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Theory content */
+    .theory-category {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .theory-category h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    .theory-content h4 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .theory-content p {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+    }
+
+    /* Back button */
+    .back-btn {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    /* Exam countdown */
+    .exam-countdown {
+        padding: 15px 20px;
+        font-size: 1rem;
+        margin-top: 15px;
+        border-radius: 20px;
+    }
+
+    .exam-countdown::before {
+        left: 10px;
+        font-size: 1.2rem;
+    }
+
+    /* File upload and management */
+    .uploaded-files {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .uploaded-files h3 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    .file-item {
+        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .file-name {
+        font-size: 14px;
+    }
+
+    .file-uploader {
+        font-size: 11px;
+    }
+
+    .file-size {
+        font-size: 10px;
+    }
+
+    .file-actions {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 8px;
+    }
+
+    .file-actions button {
+        flex: 1;
+        margin: 0 2px;
+        padding: 8px 6px;
+        font-size: 11px;
+        min-width: 60px;
+    }
+
+    /* Modal adjustments */
+    .modal-content {
+        width: 95%;
+        max-width: 400px;
+        padding: 20px;
+        max-height: 85vh;
+    }
+
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Floating elements - reduce on mobile */
+    .floating-element {
+        font-size: 1rem !important;
+        opacity: 0.05;
+    }
+
+    /* Hyperspeed background - reduce intensity */
+    .star {
+        opacity: 0.3;
+    }
+
+    body::after {
+        opacity: 0.2;
     }
 }
 
@@ -1763,11 +2303,11 @@ body::after {
 }
 
 .section-btn:hover {
-    transform: translateY(-8px) rotateX(5deg) rotateY(5deg);
+    transform: translateY(-3px);
     box-shadow:
-        0 25px 50px rgba(79, 195, 247, 0.4),
-        0 10px 25px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 8px 20px rgba(79, 195, 247, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     opacity: 1;
 }
 
@@ -1788,15 +2328,15 @@ body::after {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
     transform: rotate(45deg);
-    transition: all 0.6s ease;
+    transition: all 0.8s ease;
     opacity: 0;
 }
 
 .section-btn:hover::before {
-    opacity: 1;
-    animation: glareEffect 0.6s ease-out;
+    opacity: 0.6;
+    animation: glareEffect 0.8s ease-out;
 }
 
 .section-content {
@@ -1990,6 +2530,11 @@ body::after {
     100% { transform: translateX(100%); }
 }
 
+/* Mobile-only quotes - Hidden by default on desktop */
+.mobile-quotes {
+    display: none;
+}
+
 /* Enhanced Quiz Stats */
 .quiz-stats {
     display: flex;
@@ -2121,79 +2666,144 @@ body::after {
 
 /* Calculator Styles */
 .calculator {
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .calculator-display {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+}
+
+.calc-history {
+    color: #888;
+    font-size: 14px;
+    min-height: 20px;
+    text-align: right;
+    margin-bottom: 5px;
+    font-family: 'Courier New', monospace;
 }
 
 .calculator-display input {
     width: 100%;
     height: 60px;
-    font-size: 24px;
+    font-size: 28px;
     text-align: right;
     border: none;
-    border-radius: 10px;
-    padding: 0 15px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
+    background: transparent;
+    color: white;
+    outline: none;
+    font-family: 'Courier New', monospace;
+}
+
+.calculator-mode {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mode-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
     font-weight: bold;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .calculator-buttons {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
 }
 
 .calc-btn {
-    height: 50px;
+    height: 45px;
     border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .calc-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-0.5px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
 }
 
 .calc-btn:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .calc-btn.number {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     color: #333;
+    font-size: 16px;
 }
 
 .calc-btn.operator {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
 }
 
 .calc-btn.function {
-    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+    color: #2d3436;
+    font-size: 12px;
+}
+
+.calc-btn.memory {
+    background: linear-gradient(135deg, #fd79a8, #e84393);
     color: white;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .calc-btn.equals {
-    background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-    color: #333;
-    grid-row: span 2;
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Special button styling */
+.calc-btn#secondBtn.active {
+    background: linear-gradient(135deg, #e17055, #d63031);
+    color: white;
+}
+
+/* Memory indicator */
+.memory-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background: #e74c3c;
+    border-radius: 50%;
+    display: none;
 }
 
 /* Graphing Calculator Styles */
@@ -2608,5 +3218,418 @@ body::after {
 
     #sendButton {
         align-self: center;
+    }
+}
+
+/* Small mobile devices (phones in portrait) - MOBILE DEVICES ONLY */
+@media only screen and (max-width: 480px) and (hover: none) and (pointer: coarse) {
+    body {
+        padding: 5px;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .header p {
+        font-size: 0.9rem;
+    }
+
+    .quiz-container {
+        padding: 12px;
+        margin: 3px;
+        border-radius: 12px;
+    }
+
+    .section-tabs {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .section-btn {
+        min-height: 70px;
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+
+    .section-btn i {
+        font-size: 1.1rem;
+        margin-bottom: 2px;
+    }
+
+    .section-btn span {
+        font-size: 11px;
+        line-height: 1.1;
+    }
+
+    .category-btn {
+        padding: 15px 10px;
+        font-size: 0.9rem;
+        min-height: 80px;
+    }
+
+    .category-btn i {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.8rem;
+    }
+
+    .quiz-stats {
+        gap: 6px;
+    }
+
+    .score-display,
+    .timer-display,
+    .total-timer {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .question-card {
+        padding: 15px 12px;
+    }
+
+    .question-title {
+        font-size: 1.2rem;
+    }
+
+    .question-text {
+        font-size: 1rem;
+    }
+
+    .option-btn {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+
+    /* Mobile navigation styles */
+    .question-navigation {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+
+    .nav-btn {
+        padding: 10px 15px;
+        font-size: 13px;
+        min-width: 100px;
+    }
+
+    .question-counter {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .question-number {
+        padding: 6px 12px;
+        font-size: 14px;
+        min-width: 50px;
+    }
+
+    .question-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+
+
+    /* Mobile solution area */
+    .solution-area {
+        margin-top: 20px;
+    }
+
+    .solution-header {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .solution-content {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .solution-content .correct-answer,
+    .solution-content .explanation {
+        padding: 10px 12px;
+        margin: 10px 0;
+        font-size: 13px;
+    }
+
+    .calculator {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    .calculator-buttons {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 4px;
+    }
+
+    .calc-btn {
+        height: 35px;
+        font-size: 10px;
+        padding: 2px;
+    }
+
+    .calc-btn.number {
+        font-size: 12px;
+    }
+
+    .calc-btn.equals {
+        font-size: 14px;
+    }
+
+    .calculator-display {
+        padding: 10px;
+    }
+
+    .calculator-display input {
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .calc-history {
+        font-size: 12px;
+    }
+
+    .calculator-mode {
+        margin-bottom: 10px;
+    }
+
+    .mode-btn {
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+
+    .desmos-container iframe {
+        height: 300px;
+    }
+
+    #graphCanvas {
+        height: 350px;
+    }
+
+    .pdf-controls button {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    #arihantPdf {
+        height: 350px;
+    }
+
+    .exam-countdown {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+        border-radius: 15px;
+    }
+
+    .exam-countdown::before {
+        font-size: 1rem;
+        left: 8px;
+    }
+
+    .file-item {
+        padding: 10px;
+    }
+
+    .file-actions button {
+        padding: 6px 4px;
+        font-size: 10px;
+        min-width: 50px;
+    }
+
+    .modal-content {
+        width: 98%;
+        padding: 15px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+
+    /* Chatbot adjustments for small screens */
+    .chat-container {
+        height: 60vh;
+        border-radius: 12px;
+    }
+
+    .chat-messages {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .message-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .message-content {
+        padding: 8px 10px;
+        max-width: calc(100vw - 60px);
+    }
+
+    .message-content p,
+    .message-content .message-text {
+        font-size: 13px;
+    }
+
+    #chatInput {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    #sendButton {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+
+    .suggestion-btn {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+
+    .floating-logo {
+        font-size: 2rem;
+    }
+
+    .center-text h3 {
+        font-size: 1rem;
+    }
+
+    .center-text p {
+        font-size: 0.7rem;
+    }
+
+    .progress-ring,
+    .ring-fill {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Landscape orientation adjustments - MOBILE DEVICES ONLY */
+@media only screen and (max-width: 768px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+    .chat-container {
+        height: 80vh;
+    }
+
+    .section-tabs {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .desmos-container iframe {
+        height: 450px;
+    }
+
+    #graphCanvas {
+        height: 450px;
+    }
+
+    .quiz-stats {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .score-display,
+    .timer-display,
+    .total-timer {
+        width: auto;
+        flex: 1;
+        margin: 0 2px;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .quiz-container {
+        padding: 12px;
+    }
+
+    .section-btn {
+        min-height: 60px;
+        padding: 10px 8px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn,
+    .category-btn,
+    .section-btn,
+    .option-btn {
+        min-height: 44px; /* iOS recommended touch target size */
+    }
+
+    .calc-btn {
+        min-height: 44px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    #chatInput {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    .form-group input,
+    .form-group select {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    /* Reduce hover effects on touch devices */
+    .category-btn:hover,
+    .section-btn:hover,
+    .btn:hover {
+        transform: none;
+    }
+
+    /* Make touch targets larger */
+    .file-actions button {
+        min-height: 40px;
+        min-width: 80px;
+    }
+
+    .suggestion-btn {
+        min-height: 36px;
+        padding: 8px 12px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .star {
+        width: 1px;
+        height: 1px;
+    }
+
+    body::after {
+        background-size: 100px 50px;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .hyperspeed-bg,
+    .floating-elements,
+    .star {
+        display: none;
+    }
+
+    body::after {
+        animation: none;
     }
 }

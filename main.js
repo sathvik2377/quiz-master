@@ -25,6 +25,314 @@ const quizData = {
             ],
             correct: 0,
             explanation: "The past perfect is used for the action that happened first in the past."
+        },
+        {
+            question: "Choose the sentence with correct parallel structure:",
+            options: [
+                "She likes reading, writing, and to paint.",
+                "She likes reading, writing, and painting.",
+                "She likes to read, writing, and painting.",
+                "She likes read, write, and paint."
+            ],
+            correct: 1,
+            explanation: "Parallel structure requires consistent grammatical forms in a series."
+        },
+        {
+            question: "Which sentence uses the conditional mood correctly?",
+            options: [
+                "If I was rich, I would travel the world.",
+                "If I were rich, I would travel the world.",
+                "If I am rich, I would travel the world.",
+                "If I will be rich, I would travel the world."
+            ],
+            correct: 1,
+            explanation: "The conditional mood uses 'were' for hypothetical situations."
+        },
+        {
+            question: "Identify the correct use of 'who' vs 'whom':",
+            options: [
+                "Who did you give the book to?",
+                "Whom did you give the book to?",
+                "Who did you give the book?",
+                "Whom did you give the book?"
+            ],
+            correct: 1,
+            explanation: "'Whom' is used as the object of a preposition or verb."
+        },
+        {
+            question: "Which sentence demonstrates correct use of the passive voice?",
+            options: [
+                "The cake was ate by the children.",
+                "The cake was eaten by the children.",
+                "The cake was eating by the children.",
+                "The cake was eat by the children."
+            ],
+            correct: 1,
+            explanation: "Passive voice uses the past participle form of the verb."
+        },
+        {
+            question: "Choose the correct form of the comparative adjective:",
+            options: [
+                "This book is more better than that one.",
+                "This book is better than that one.",
+                "This book is more good than that one.",
+                "This book is gooder than that one."
+            ],
+            correct: 1,
+            explanation: "'Better' is the correct comparative form of 'good'."
+        },
+        {
+            question: "Which sentence uses the gerund correctly?",
+            options: [
+                "I enjoy to swim in the ocean.",
+                "I enjoy swimming in the ocean.",
+                "I enjoy swim in the ocean.",
+                "I enjoy swam in the ocean."
+            ],
+            correct: 1,
+            explanation: "After 'enjoy', we use the gerund form (-ing)."
+        },
+        {
+            question: "Identify the correct use of articles:",
+            options: [
+                "I saw a elephant at the zoo.",
+                "I saw an elephant at the zoo.",
+                "I saw elephant at a zoo.",
+                "I saw the elephant at zoo."
+            ],
+            correct: 1,
+            explanation: "Use 'an' before words beginning with vowel sounds."
+        },
+        {
+            question: "Which sentence shows correct subject-verb agreement?",
+            options: [
+                "Neither the teacher nor the students was ready.",
+                "Neither the teacher nor the students were ready.",
+                "Neither the teachers nor the student were ready.",
+                "Neither the teachers nor the students was ready."
+            ],
+            correct: 1,
+            explanation: "With 'neither...nor', the verb agrees with the subject closest to it."
+        },
+        {
+            question: "Choose the correct use of the apostrophe:",
+            options: [
+                "The dog's are playing in the yard.",
+                "The dogs are playing in the yard.",
+                "The dog's toys are in the yard.",
+                "The dogs' toy's are in the yard."
+            ],
+            correct: 2,
+            explanation: "Use apostrophe + s to show possession for singular nouns."
+        },
+        {
+            question: "Which sentence uses the correct form of 'lay' vs 'lie'?",
+            options: [
+                "I need to lay down for a nap.",
+                "I need to lie down for a nap.",
+                "I need to laid down for a nap.",
+                "I need to lying down for a nap."
+            ],
+            correct: 1,
+            explanation: "'Lie' means to recline; 'lay' means to place something down."
+        },
+        {
+            question: "Identify the correct use of semicolons:",
+            options: [
+                "I have a big test tomorrow; I can't go to the party.",
+                "I have a big test tomorrow, I can't go to the party.",
+                "I have a big test tomorrow; and I can't go to the party.",
+                "I have a big test tomorrow: I can't go to the party."
+            ],
+            correct: 0,
+            explanation: "Semicolons connect two independent clauses without a conjunction."
+        },
+        {
+            question: "Which sentence demonstrates correct use of modifiers?",
+            options: [
+                "Walking down the street, the trees looked beautiful.",
+                "Walking down the street, I saw beautiful trees.",
+                "The trees looked beautiful walking down the street.",
+                "Beautiful trees walking down the street I saw."
+            ],
+            correct: 1,
+            explanation: "Modifiers should be placed close to the words they modify."
+        },
+        {
+            question: "Choose the correct form of 'affect' vs 'effect':",
+            options: [
+                "The rain will effect our picnic plans.",
+                "The rain will affect our picnic plans.",
+                "The affect of rain on our picnic plans.",
+                "The rain's affect on our picnic plans."
+            ],
+            correct: 1,
+            explanation: "'Affect' is a verb meaning to influence; 'effect' is a noun meaning result."
+        },
+        {
+            question: "Which sentence uses the correct form of 'its' vs 'it's'?",
+            options: [
+                "The dog wagged it's tail happily.",
+                "The dog wagged its tail happily.",
+                "Its a beautiful day today.",
+                "The company lost it's biggest client."
+            ],
+            correct: 1,
+            explanation: "'Its' is possessive; 'it's' is a contraction for 'it is'."
+        },
+        {
+            question: "Identify the correct use of 'fewer' vs 'less':",
+            options: [
+                "There are less people here today.",
+                "There are fewer people here today.",
+                "I have less books than you.",
+                "She made less mistakes this time."
+            ],
+            correct: 1,
+            explanation: "Use 'fewer' with countable nouns, 'less' with uncountable nouns."
+        },
+        {
+            question: "Which sentence shows correct use of the infinitive?",
+            options: [
+                "I want that you come with me.",
+                "I want you to come with me.",
+                "I want you come with me.",
+                "I want you coming with me."
+            ],
+            correct: 1,
+            explanation: "After 'want', use object + infinitive structure."
+        },
+        {
+            question: "Choose the correct form of the past participle:",
+            options: [
+                "I have wrote three letters today.",
+                "I have written three letters today.",
+                "I have write three letters today.",
+                "I have writing three letters today."
+            ],
+            correct: 1,
+            explanation: "The past participle of 'write' is 'written'."
+        },
+        {
+            question: "Which sentence uses correct capitalization?",
+            options: [
+                "I study english and Mathematics at University.",
+                "I study English and mathematics at university.",
+                "I study english and mathematics at University.",
+                "I study English and Mathematics at university."
+            ],
+            correct: 1,
+            explanation: "Capitalize proper nouns like 'English' but not common nouns like 'mathematics' or 'university'."
+        },
+        {
+            question: "Identify the correct use of 'there', 'their', or 'they're':",
+            options: [
+                "There going to the store to buy they're groceries.",
+                "They're going to the store to buy there groceries.",
+                "They're going to the store to buy their groceries.",
+                "Their going to the store to buy there groceries."
+            ],
+            correct: 2,
+            explanation: "'They're' = they are, 'their' = possessive, 'there' = location."
+        },
+        {
+            question: "Which sentence demonstrates correct use of commas in a series?",
+            options: [
+                "I bought apples, oranges, and bananas.",
+                "I bought apples oranges and bananas.",
+                "I bought apples, oranges and, bananas.",
+                "I bought, apples, oranges, and bananas."
+            ],
+            correct: 0,
+            explanation: "Use commas to separate items in a series, including the Oxford comma."
+        },
+        {
+            question: "Choose the correct form of 'good' vs 'well':",
+            options: [
+                "She sings very good.",
+                "She sings very well.",
+                "She is a well singer.",
+                "She sings very goodly."
+            ],
+            correct: 1,
+            explanation: "'Well' is an adverb that modifies verbs; 'good' is an adjective."
+        },
+        {
+            question: "Which sentence uses the correct form of 'than' vs 'then'?",
+            options: [
+                "First we'll eat, than we'll go to the movies.",
+                "First we'll eat, then we'll go to the movies.",
+                "She is taller then her sister.",
+                "I would rather stay home then go out."
+            ],
+            correct: 1,
+            explanation: "'Then' indicates time sequence; 'than' is used for comparisons."
+        },
+        {
+            question: "Identify the correct use of quotation marks:",
+            options: [
+                "She said, 'I love reading books'.",
+                "She said, \"I love reading books.\"",
+                "She said, \"I love reading books\".",
+                "She said \"I love reading books.\""
+            ],
+            correct: 1,
+            explanation: "Quotation marks should enclose the exact words spoken, with proper punctuation inside."
+        },
+        {
+            question: "Which sentence shows correct use of the present perfect tense?",
+            options: [
+                "I have went to Paris three times.",
+                "I have gone to Paris three times.",
+                "I have go to Paris three times.",
+                "I have going to Paris three times."
+            ],
+            correct: 1,
+            explanation: "The present perfect uses 'have/has' + past participle."
+        },
+        {
+            question: "Choose the correct form of 'accept' vs 'except':",
+            options: [
+                "Everyone except John came to the party.",
+                "Everyone accept John came to the party.",
+                "I will except your apology.",
+                "Please except this gift."
+            ],
+            correct: 0,
+            explanation: "'Except' means excluding; 'accept' means to receive or agree to."
+        },
+        {
+            question: "Which sentence uses correct pronoun case?",
+            options: [
+                "Between you and I, this is a secret.",
+                "Between you and me, this is a secret.",
+                "Him and me went to the store.",
+                "Her and I are best friends."
+            ],
+            correct: 1,
+            explanation: "After prepositions like 'between', use object pronouns (me, him, her)."
+        },
+        {
+            question: "Identify the correct use of 'principal' vs 'principle':",
+            options: [
+                "The school principle is very strict.",
+                "The school principal is very strict.",
+                "He follows the principals of honesty.",
+                "The principle amount of the loan is $10,000."
+            ],
+            correct: 1,
+            explanation: "'Principal' refers to a person in charge; 'principle' refers to a rule or belief."
+        },
+        {
+            question: "Which sentence demonstrates correct use of the subjunctive with 'wish'?",
+            options: [
+                "I wish I was taller.",
+                "I wish I were taller.",
+                "I wish I am taller.",
+                "I wish I will be taller."
+            ],
+            correct: 1,
+            explanation: "After 'wish', use 'were' for all persons in hypothetical situations."
         }
     ],
     vocabulary: [
@@ -49,6 +357,303 @@ const quizData = {
             ],
             correct: 2,
             explanation: "The correct collocation is 'do homework', not 'make homework'."
+        },
+        {
+            question: "What does 'meticulous' mean?",
+            options: [
+                "Careless and hasty",
+                "Extremely careful and precise",
+                "Moderately interested",
+                "Completely confused"
+            ],
+            correct: 1,
+            explanation: "'Meticulous' means showing great attention to detail; very careful and precise."
+        },
+        {
+            question: "Choose the best synonym for 'arduous':",
+            options: [
+                "Easy",
+                "Difficult and tiring",
+                "Quick",
+                "Enjoyable"
+            ],
+            correct: 1,
+            explanation: "'Arduous' means involving or requiring strenuous effort; difficult and tiring."
+        },
+        {
+            question: "What is the meaning of 'ephemeral'?",
+            options: [
+                "Lasting forever",
+                "Very expensive",
+                "Lasting for a very short time",
+                "Extremely large"
+            ],
+            correct: 2,
+            explanation: "'Ephemeral' means lasting for a very short time; transitory."
+        },
+        {
+            question: "Which word means 'to make something less severe'?",
+            options: [
+                "Exacerbate",
+                "Mitigate",
+                "Amplify",
+                "Intensify"
+            ],
+            correct: 1,
+            explanation: "'Mitigate' means to make less severe, serious, or painful."
+        },
+        {
+            question: "What does 'pragmatic' mean?",
+            options: [
+                "Idealistic and dreamy",
+                "Practical and realistic",
+                "Emotional and sensitive",
+                "Theoretical and abstract"
+            ],
+            correct: 1,
+            explanation: "'Pragmatic' means dealing with things sensibly and realistically."
+        },
+        {
+            question: "Choose the correct meaning of 'verbose':",
+            options: [
+                "Using few words",
+                "Using too many words",
+                "Speaking quietly",
+                "Speaking clearly"
+            ],
+            correct: 1,
+            explanation: "'Verbose' means using or expressed in more words than are needed."
+        },
+        {
+            question: "What is the antonym of 'benevolent'?",
+            options: [
+                "Kind",
+                "Generous",
+                "Malevolent",
+                "Helpful"
+            ],
+            correct: 2,
+            explanation: "'Malevolent' means having or showing a wish to do evil to others, opposite of benevolent."
+        },
+        {
+            question: "Which word means 'existing in name only'?",
+            options: [
+                "Substantial",
+                "Nominal",
+                "Significant",
+                "Considerable"
+            ],
+            correct: 1,
+            explanation: "'Nominal' means existing in name only; not real or actual."
+        },
+        {
+            question: "What does 'candid' mean?",
+            options: [
+                "Dishonest",
+                "Truthful and straightforward",
+                "Confused",
+                "Secretive"
+            ],
+            correct: 1,
+            explanation: "'Candid' means truthful and straightforward; frank."
+        },
+        {
+            question: "Choose the best synonym for 'tenacious':",
+            options: [
+                "Weak",
+                "Persistent",
+                "Flexible",
+                "Careless"
+            ],
+            correct: 1,
+            explanation: "'Tenacious' means tending to keep a firm hold; persistent."
+        },
+        {
+            question: "What is the meaning of 'ambiguous'?",
+            options: [
+                "Very clear",
+                "Open to more than one interpretation",
+                "Completely wrong",
+                "Perfectly accurate"
+            ],
+            correct: 1,
+            explanation: "'Ambiguous' means open to more than one interpretation; not having one obvious meaning."
+        },
+        {
+            question: "Which word means 'to spread throughout'?",
+            options: [
+                "Concentrate",
+                "Permeate",
+                "Isolate",
+                "Separate"
+            ],
+            correct: 1,
+            explanation: "'Permeate' means to spread throughout; pervade."
+        },
+        {
+            question: "What does 'lucid' mean?",
+            options: [
+                "Confused and unclear",
+                "Clear and easy to understand",
+                "Very dark",
+                "Extremely loud"
+            ],
+            correct: 1,
+            explanation: "'Lucid' means expressed clearly; easy to understand."
+        },
+        {
+            question: "Choose the best synonym for 'copious':",
+            options: [
+                "Scarce",
+                "Abundant",
+                "Tiny",
+                "Expensive"
+            ],
+            correct: 1,
+            explanation: "'Copious' means abundant in supply or quantity; plentiful."
+        },
+        {
+            question: "What is the meaning of 'indigenous'?",
+            options: [
+                "Foreign",
+                "Native or originating naturally",
+                "Artificial",
+                "Temporary"
+            ],
+            correct: 1,
+            explanation: "'Indigenous' means originating or occurring naturally in a particular place; native."
+        },
+        {
+            question: "Which word means 'to make worse'?",
+            options: [
+                "Improve",
+                "Exacerbate",
+                "Heal",
+                "Repair"
+            ],
+            correct: 1,
+            explanation: "'Exacerbate' means to make a problem, bad situation, or negative feeling worse."
+        },
+        {
+            question: "What does 'scrutinize' mean?",
+            options: [
+                "To ignore completely",
+                "To examine closely and critically",
+                "To accept without question",
+                "To destroy thoroughly"
+            ],
+            correct: 1,
+            explanation: "'Scrutinize' means to examine or inspect closely and thoroughly."
+        },
+        {
+            question: "Choose the correct meaning of 'obsolete':",
+            options: [
+                "Brand new",
+                "No longer in use; outdated",
+                "Very popular",
+                "Extremely useful"
+            ],
+            correct: 1,
+            explanation: "'Obsolete' means no longer produced or used; out of date."
+        },
+        {
+            question: "What is the antonym of 'frugal'?",
+            options: [
+                "Economical",
+                "Wasteful",
+                "Careful",
+                "Thrifty"
+            ],
+            correct: 1,
+            explanation: "'Wasteful' is the opposite of 'frugal', which means economical in use or expenditure."
+        },
+        {
+            question: "Which word means 'to give up or surrender'?",
+            options: [
+                "Retain",
+                "Relinquish",
+                "Acquire",
+                "Maintain"
+            ],
+            correct: 1,
+            explanation: "'Relinquish' means to voluntarily cease to keep or claim; give up."
+        },
+        {
+            question: "What does 'voracious' mean?",
+            options: [
+                "Having little appetite",
+                "Having a very eager approach to an activity",
+                "Being very quiet",
+                "Moving very slowly"
+            ],
+            correct: 1,
+            explanation: "'Voracious' means having a very eager approach to an activity; having a huge appetite."
+        },
+        {
+            question: "Choose the best synonym for 'serene':",
+            options: [
+                "Chaotic",
+                "Calm and peaceful",
+                "Loud",
+                "Angry"
+            ],
+            correct: 1,
+            explanation: "'Serene' means calm, peaceful, and untroubled; tranquil."
+        },
+        {
+            question: "What is the meaning of 'vindicate'?",
+            options: [
+                "To blame someone",
+                "To clear someone of blame or suspicion",
+                "To punish severely",
+                "To ignore completely"
+            ],
+            correct: 1,
+            explanation: "'Vindicate' means to clear someone of blame or suspicion; to show to be right."
+        },
+        {
+            question: "Which word means 'showing great knowledge'?",
+            options: [
+                "Ignorant",
+                "Erudite",
+                "Simple",
+                "Confused"
+            ],
+            correct: 1,
+            explanation: "'Erudite' means having or showing great knowledge or learning."
+        },
+        {
+            question: "What does 'transient' mean?",
+            options: [
+                "Permanent",
+                "Lasting only for a short time",
+                "Very large",
+                "Extremely expensive"
+            ],
+            correct: 1,
+            explanation: "'Transient' means lasting only for a short time; impermanent."
+        },
+        {
+            question: "Choose the correct meaning of 'gregarious':",
+            options: [
+                "Preferring to be alone",
+                "Fond of company; sociable",
+                "Very angry",
+                "Extremely quiet"
+            ],
+            correct: 1,
+            explanation: "'Gregarious' means fond of the company of others; sociable."
+        },
+        {
+            question: "What is the antonym of 'opaque'?",
+            options: [
+                "Dark",
+                "Transparent",
+                "Thick",
+                "Heavy"
+            ],
+            correct: 1,
+            explanation: "'Transparent' is the opposite of 'opaque', which means not able to be seen through."
         }
     ],
     phrasalVerbs: [
@@ -73,6 +678,303 @@ const quizData = {
             ],
             correct: 0,
             explanation: "'Put up with' means to tolerate or endure something unpleasant."
+        },
+        {
+            question: "What does 'break down' mean in this context: 'The car broke down'?",
+            options: [
+                "To analyze something",
+                "To stop working properly",
+                "To demolish something",
+                "To become emotional"
+            ],
+            correct: 1,
+            explanation: "'Break down' can mean to stop working properly, especially for machines."
+        },
+        {
+            question: "Which phrasal verb means 'to postpone'?",
+            options: [
+                "put off",
+                "put on",
+                "put out",
+                "put in"
+            ],
+            correct: 0,
+            explanation: "'Put off' means to postpone or delay something."
+        },
+        {
+            question: "What does 'look up to' mean?",
+            options: [
+                "To search for information",
+                "To admire and respect someone",
+                "To look at the ceiling",
+                "To visit someone"
+            ],
+            correct: 1,
+            explanation: "'Look up to' means to admire and respect someone."
+        },
+        {
+            question: "Which phrasal verb means 'to discover by chance'?",
+            options: [
+                "come across",
+                "come along",
+                "come around",
+                "come apart"
+            ],
+            correct: 0,
+            explanation: "'Come across' means to find or discover something by chance."
+        },
+        {
+            question: "What does 'turn down' mean?",
+            options: [
+                "To increase volume",
+                "To reject or refuse",
+                "To arrive somewhere",
+                "To become quiet"
+            ],
+            correct: 1,
+            explanation: "'Turn down' means to reject or refuse an offer, invitation, or request."
+        },
+        {
+            question: "Which phrasal verb means 'to continue'?",
+            options: [
+                "go on",
+                "go out",
+                "go over",
+                "go up"
+            ],
+            correct: 0,
+            explanation: "'Go on' means to continue doing something."
+        },
+        {
+            question: "What does 'run out of' mean?",
+            options: [
+                "To exercise outside",
+                "To have no more of something",
+                "To escape from somewhere",
+                "To manage a business"
+            ],
+            correct: 1,
+            explanation: "'Run out of' means to have no more of something left."
+        },
+        {
+            question: "Which phrasal verb means 'to investigate'?",
+            options: [
+                "look into",
+                "look after",
+                "look around",
+                "look ahead"
+            ],
+            correct: 0,
+            explanation: "'Look into' means to investigate or examine something carefully."
+        },
+        {
+            question: "What does 'give up' mean?",
+            options: [
+                "To donate something",
+                "To stop trying; surrender",
+                "To lift something high",
+                "To provide information"
+            ],
+            correct: 1,
+            explanation: "'Give up' means to stop trying or to surrender."
+        },
+        {
+            question: "Which phrasal verb means 'to invent or create'?",
+            options: [
+                "make up",
+                "make out",
+                "make over",
+                "make off"
+            ],
+            correct: 0,
+            explanation: "'Make up' can mean to invent or create something, especially a story."
+        },
+        {
+            question: "What does 'take after' mean?",
+            options: [
+                "To pursue someone",
+                "To resemble a family member",
+                "To remove something",
+                "To care for someone"
+            ],
+            correct: 1,
+            explanation: "'Take after' means to resemble a parent or family member in appearance or behavior."
+        },
+        {
+            question: "Which phrasal verb means 'to explode'?",
+            options: [
+                "blow up",
+                "blow out",
+                "blow over",
+                "blow away"
+            ],
+            correct: 0,
+            explanation: "'Blow up' means to explode or to inflate something."
+        },
+        {
+            question: "What does 'call off' mean?",
+            options: [
+                "To telephone someone",
+                "To cancel something",
+                "To shout loudly",
+                "To visit someone"
+            ],
+            correct: 1,
+            explanation: "'Call off' means to cancel an event or activity."
+        },
+        {
+            question: "Which phrasal verb means 'to recover from illness'?",
+            options: [
+                "get over",
+                "get up",
+                "get out",
+                "get in"
+            ],
+            correct: 0,
+            explanation: "'Get over' means to recover from an illness or difficult situation."
+        },
+        {
+            question: "What does 'bring up' mean?",
+            options: [
+                "To carry something upstairs",
+                "To raise a child or mention a topic",
+                "To vomit",
+                "To arrive somewhere"
+            ],
+            correct: 1,
+            explanation: "'Bring up' can mean to raise a child or to mention a topic in conversation."
+        },
+        {
+            question: "Which phrasal verb means 'to depend on'?",
+            options: [
+                "rely on",
+                "rely off",
+                "rely in",
+                "rely out"
+            ],
+            correct: 0,
+            explanation: "'Rely on' means to depend on someone or something."
+        },
+        {
+            question: "What does 'work out' mean?",
+            options: [
+                "To leave work",
+                "To exercise or solve a problem",
+                "To work outside",
+                "To work overtime"
+            ],
+            correct: 1,
+            explanation: "'Work out' can mean to exercise or to solve a problem successfully."
+        },
+        {
+            question: "Which phrasal verb means 'to extinguish'?",
+            options: [
+                "put out",
+                "put in",
+                "put on",
+                "put up"
+            ],
+            correct: 0,
+            explanation: "'Put out' means to extinguish a fire or light."
+        },
+        {
+            question: "What does 'set up' mean?",
+            options: [
+                "To sit down",
+                "To establish or arrange",
+                "To wake up early",
+                "To climb something"
+            ],
+            correct: 1,
+            explanation: "'Set up' means to establish, arrange, or organize something."
+        },
+        {
+            question: "Which phrasal verb means 'to happen'?",
+            options: [
+                "take place",
+                "take part",
+                "take over",
+                "take off"
+            ],
+            correct: 0,
+            explanation: "'Take place' means to happen or occur."
+        },
+        {
+            question: "What does 'pick up' mean?",
+            options: [
+                "To choose something",
+                "To lift or collect something",
+                "To select carefully",
+                "To point at something"
+            ],
+            correct: 1,
+            explanation: "'Pick up' means to lift something or to collect someone/something."
+        },
+        {
+            question: "Which phrasal verb means 'to start a journey'?",
+            options: [
+                "set off",
+                "set up",
+                "set out",
+                "set down"
+            ],
+            correct: 0,
+            explanation: "'Set off' means to start a journey or trip."
+        },
+        {
+            question: "What does 'fall through' mean?",
+            options: [
+                "To drop something",
+                "To fail to happen as planned",
+                "To fall down",
+                "To succeed completely"
+            ],
+            correct: 1,
+            explanation: "'Fall through' means to fail to happen or be completed as planned."
+        },
+        {
+            question: "Which phrasal verb means 'to remove clothing'?",
+            options: [
+                "take off",
+                "take on",
+                "take out",
+                "take up"
+            ],
+            correct: 0,
+            explanation: "'Take off' means to remove clothing or for an aircraft to leave the ground."
+        },
+        {
+            question: "What does 'show up' mean?",
+            options: [
+                "To demonstrate something",
+                "To arrive or appear",
+                "To display proudly",
+                "To point upward"
+            ],
+            correct: 1,
+            explanation: "'Show up' means to arrive or appear, often unexpectedly."
+        },
+        {
+            question: "Which phrasal verb means 'to support or help'?",
+            options: [
+                "back up",
+                "back down",
+                "back off",
+                "back out"
+            ],
+            correct: 0,
+            explanation: "'Back up' means to support someone or to make a copy of data."
+        },
+        {
+            question: "What does 'cut down on' mean?",
+            options: [
+                "To chop trees",
+                "To reduce the amount of something",
+                "To write notes",
+                "To move downward"
+            ],
+            correct: 1,
+            explanation: "'Cut down on' means to reduce the amount or frequency of something."
         }
     ],
     analogy: [
@@ -97,6 +999,303 @@ const quizData = {
             ],
             correct: 0,
             explanation: "A doctor works in a hospital, just as a teacher works in a classroom."
+        },
+        {
+            question: "Bird is to nest as bee is to:",
+            options: [
+                "flower",
+                "hive",
+                "honey",
+                "garden"
+            ],
+            correct: 1,
+            explanation: "A bird lives in a nest, just as a bee lives in a hive."
+        },
+        {
+            question: "Pen is to write as brush is to:",
+            options: [
+                "clean",
+                "paint",
+                "sweep",
+                "draw"
+            ],
+            correct: 1,
+            explanation: "A pen is used to write, just as a brush is used to paint."
+        },
+        {
+            question: "Engine is to car as heart is to:",
+            options: [
+                "blood",
+                "body",
+                "chest",
+                "pulse"
+            ],
+            correct: 1,
+            explanation: "An engine powers a car, just as a heart powers the body."
+        },
+        {
+            question: "Key is to lock as password is to:",
+            options: [
+                "computer",
+                "account",
+                "security",
+                "user"
+            ],
+            correct: 1,
+            explanation: "A key opens a lock, just as a password opens an account."
+        },
+        {
+            question: "Chef is to kitchen as pilot is to:",
+            options: [
+                "airplane",
+                "cockpit",
+                "airport",
+                "sky"
+            ],
+            correct: 1,
+            explanation: "A chef works in a kitchen, just as a pilot works in a cockpit."
+        },
+        {
+            question: "Library is to books as museum is to:",
+            options: [
+                "visitors",
+                "artifacts",
+                "history",
+                "culture"
+            ],
+            correct: 1,
+            explanation: "A library contains books, just as a museum contains artifacts."
+        },
+        {
+            question: "Seed is to plant as egg is to:",
+            options: [
+                "nest",
+                "bird",
+                "shell",
+                "chicken"
+            ],
+            correct: 1,
+            explanation: "A seed grows into a plant, just as an egg develops into a bird."
+        },
+        {
+            question: "Wheel is to bicycle as sail is to:",
+            options: [
+                "wind",
+                "boat",
+                "ocean",
+                "mast"
+            ],
+            correct: 1,
+            explanation: "A wheel enables a bicycle to move, just as a sail enables a boat to move."
+        },
+        {
+            question: "Author is to novel as composer is to:",
+            options: [
+                "music",
+                "symphony",
+                "instrument",
+                "orchestra"
+            ],
+            correct: 1,
+            explanation: "An author creates a novel, just as a composer creates a symphony."
+        },
+        {
+            question: "Thermometer is to temperature as scale is to:",
+            options: [
+                "balance",
+                "weight",
+                "measure",
+                "size"
+            ],
+            correct: 1,
+            explanation: "A thermometer measures temperature, just as a scale measures weight."
+        },
+        {
+            question: "Captain is to ship as conductor is to:",
+            options: [
+                "music",
+                "orchestra",
+                "baton",
+                "concert"
+            ],
+            correct: 1,
+            explanation: "A captain leads a ship, just as a conductor leads an orchestra."
+        },
+        {
+            question: "Lens is to camera as screen is to:",
+            options: [
+                "movie",
+                "computer",
+                "image",
+                "display"
+            ],
+            correct: 1,
+            explanation: "A lens is essential for a camera to function, just as a screen is essential for a computer."
+        },
+        {
+            question: "Foundation is to building as root is to:",
+            options: [
+                "soil",
+                "tree",
+                "branch",
+                "leaf"
+            ],
+            correct: 1,
+            explanation: "A foundation supports a building, just as roots support a tree."
+        },
+        {
+            question: "Sculptor is to statue as architect is to:",
+            options: [
+                "blueprint",
+                "building",
+                "design",
+                "construction"
+            ],
+            correct: 1,
+            explanation: "A sculptor creates a statue, just as an architect creates a building."
+        },
+        {
+            question: "Fuel is to car as food is to:",
+            options: [
+                "hunger",
+                "body",
+                "energy",
+                "nutrition"
+            ],
+            correct: 1,
+            explanation: "Fuel powers a car, just as food powers the body."
+        },
+        {
+            question: "Judge is to courtroom as referee is to:",
+            options: [
+                "game",
+                "field",
+                "rules",
+                "players"
+            ],
+            correct: 1,
+            explanation: "A judge presides in a courtroom, just as a referee presides on a field."
+        },
+        {
+            question: "Compass is to direction as clock is to:",
+            options: [
+                "hour",
+                "time",
+                "minute",
+                "second"
+            ],
+            correct: 1,
+            explanation: "A compass shows direction, just as a clock shows time."
+        },
+        {
+            question: "Telescope is to stars as microscope is to:",
+            options: [
+                "lens",
+                "bacteria",
+                "science",
+                "laboratory"
+            ],
+            correct: 1,
+            explanation: "A telescope is used to observe stars, just as a microscope is used to observe bacteria."
+        },
+        {
+            question: "Painter is to canvas as writer is to:",
+            options: [
+                "pen",
+                "paper",
+                "story",
+                "book"
+            ],
+            correct: 1,
+            explanation: "A painter works on canvas, just as a writer works on paper."
+        },
+        {
+            question: "Hammer is to nail as screwdriver is to:",
+            options: [
+                "tool",
+                "screw",
+                "wood",
+                "handle"
+            ],
+            correct: 1,
+            explanation: "A hammer is used with nails, just as a screwdriver is used with screws."
+        },
+        {
+            question: "Student is to school as patient is to:",
+            options: [
+                "doctor",
+                "hospital",
+                "medicine",
+                "treatment"
+            ],
+            correct: 1,
+            explanation: "A student goes to school, just as a patient goes to a hospital."
+        },
+        {
+            question: "Recipe is to cooking as blueprint is to:",
+            options: [
+                "paper",
+                "construction",
+                "design",
+                "architect"
+            ],
+            correct: 1,
+            explanation: "A recipe guides cooking, just as a blueprint guides construction."
+        },
+        {
+            question: "Goalkeeper is to goal as guard is to:",
+            options: [
+                "security",
+                "entrance",
+                "uniform",
+                "duty"
+            ],
+            correct: 1,
+            explanation: "A goalkeeper protects the goal, just as a guard protects the entrance."
+        },
+        {
+            question: "Map is to geography as calendar is to:",
+            options: [
+                "date",
+                "time",
+                "month",
+                "year"
+            ],
+            correct: 1,
+            explanation: "A map represents geography, just as a calendar represents time."
+        },
+        {
+            question: "Conductor is to electricity as pipe is to:",
+            options: [
+                "plumber",
+                "water",
+                "metal",
+                "flow"
+            ],
+            correct: 1,
+            explanation: "A conductor carries electricity, just as a pipe carries water."
+        },
+        {
+            question: "Photographer is to camera as musician is to:",
+            options: [
+                "music",
+                "instrument",
+                "song",
+                "concert"
+            ],
+            correct: 1,
+            explanation: "A photographer uses a camera, just as a musician uses an instrument."
+        },
+        {
+            question: "Lighthouse is to ships as traffic light is to:",
+            options: [
+                "road",
+                "cars",
+                "intersection",
+                "signal"
+            ],
+            correct: 1,
+            explanation: "A lighthouse guides ships, just as a traffic light guides cars."
         }
     ]
 }; 
@@ -104,6 +1303,8 @@ const quizData = {
 // Game state
 let currentCategory = '';
 let currentQuestion = null;
+let currentQuestionIndex = 0;
+let currentQuestions = [];
 let score = 0;
 let answered = false;
 let questionTimer;
@@ -231,6 +1432,9 @@ function showSection(section) {
 // Start a quiz category
 function startQuiz(category) {
     currentCategory = category;
+    currentQuestionIndex = 0;
+    currentQuestions = [...quizData[category]]; // Copy all questions
+
     document.getElementById('practiceSection').style.display = 'none';
     document.getElementById('graphingSection').style.display = 'none';
     document.getElementById('calculatorSection').style.display = 'none';
@@ -254,17 +1458,35 @@ function startQuiz(category) {
     generateQuestion();
 }
 
-// Generate a random question
+// Generate a question based on current index
 function generateQuestion() {
-    if (!currentCategory || !quizData[currentCategory]) return;
+    if (!currentCategory || !currentQuestions || currentQuestions.length === 0) return;
 
-    const questions = quizData[currentCategory];
-    const randomIndex = Math.floor(Math.random() * questions.length);
-    currentQuestion = questions[randomIndex];
+    // Ensure we don't go out of bounds
+    if (currentQuestionIndex >= currentQuestions.length) {
+        currentQuestionIndex = 0;
+    }
+    if (currentQuestionIndex < 0) {
+        currentQuestionIndex = currentQuestions.length - 1;
+    }
+
+    currentQuestion = currentQuestions[currentQuestionIndex];
     answered = false;
 
-    // Display question
+    // Update question number
+    const questionNumber = document.getElementById('questionNumber');
+    if (questionNumber) {
+        questionNumber.textContent = `Q${currentQuestionIndex + 1}.`;
+    }
+
+    // Display question with navigation info
     document.getElementById('questionText').textContent = currentQuestion.question;
+
+    // Update question counter
+    const questionCounter = document.getElementById('questionCounter');
+    if (questionCounter) {
+        questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+    }
 
     // Generate options
     const optionsContainer = document.getElementById('optionsContainer');
@@ -278,6 +1500,14 @@ function generateQuestion() {
         optionsContainer.appendChild(optionBtn);
     });
 
+    // Hide solution area initially
+    const solutionArea = document.getElementById('solutionArea');
+    if (solutionArea) {
+        solutionArea.style.display = 'none';
+    }
+
+    // Update navigation buttons
+    updateNavigationButtons();
     startQuestionTimer();
 }
 
@@ -304,17 +1534,96 @@ function selectOption(selectedIndex, buttonElement) {
     if (isCorrect) {
         score += 3;
         document.getElementById('scoreValue').textContent = score;
-        showFeedback('Correct! ' + currentQuestion.explanation, 'success');
+        showFeedback('Correct! Well done!', 'success');
     } else {
         score = Math.max(0, score - 1);
         document.getElementById('scoreValue').textContent = score;
-        showFeedback('Incorrect. ' + currentQuestion.explanation, 'error');
+        showFeedback('Incorrect. Check the solution below.', 'error');
     }
 
-    // Auto-generate new question after delay
+    // Show solution
+    showSolution(selectedIndex, isCorrect);
+
+    // Enable navigation buttons after answering
+    updateNavigationButtons();
+}
+
+// Show solution and explanation
+function showSolution(selectedIndex, isCorrect) {
+    const solutionArea = document.getElementById('solutionArea');
+    const solutionContent = document.getElementById('solutionContent');
+
+    if (!solutionArea || !solutionContent || !currentQuestion) return;
+
+    const correctOption = currentQuestion.options[currentQuestion.correct];
+    const selectedOption = currentQuestion.options[selectedIndex];
+
+    let solutionHTML = `
+        <div class="correct-answer">
+            <strong>✅ Correct Answer:</strong> ${correctOption}
+        </div>
+    `;
+
+    if (!isCorrect) {
+        solutionHTML += `
+            <div style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+                        border: 1px solid #dc3545; border-radius: 10px; padding: 12px 15px;
+                        margin: 15px 0; color: #721c24; font-weight: 600;">
+                <strong>❌ Your Answer:</strong> ${selectedOption}
+            </div>
+        `;
+    }
+
+    solutionHTML += `
+        <div class="explanation">
+            <strong>💡 Explanation:</strong><br>
+            ${currentQuestion.explanation}
+        </div>
+    `;
+
+    solutionContent.innerHTML = solutionHTML;
+    solutionArea.style.display = 'block';
+
+    // Scroll to solution area smoothly
     setTimeout(() => {
+        solutionArea.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+        });
+    }, 100);
+}
+
+// Navigation functions
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
         generateQuestion();
-    }, 3000);
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < currentQuestions.length - 1) {
+        currentQuestionIndex++;
+        generateQuestion();
+    }
+}
+
+function updateNavigationButtons() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const isFirstQuestion = currentQuestionIndex === 0;
+    const isLastQuestion = currentQuestionIndex === currentQuestions.length - 1;
+
+    if (prevBtn) {
+        prevBtn.disabled = isFirstQuestion;
+        prevBtn.style.opacity = isFirstQuestion ? '0.5' : '1';
+    }
+
+    if (nextBtn) {
+        nextBtn.disabled = isLastQuestion;
+        nextBtn.style.opacity = isLastQuestion ? '0.5' : '1';
+    }
 }
 
 // Show feedback message
@@ -1265,22 +2574,320 @@ function rotateQuotes(containerClass, quotes, index) {
 
 
 
-// Scientific Calculator Functions
+// Enhanced Scientific Calculator Functions
 let calcDisplay = '';
+let calcHistory = '';
+let memory = 0;
+let isRadianMode = false;
+let isSecondFunction = false;
 
 function appendToCalc(value) {
     const display = document.getElementById('calcDisplay');
     if (display) {
+        if (calcDisplay === 'Error' || calcDisplay === '0') {
+            calcDisplay = '';
+        }
         calcDisplay += value;
         display.value = calcDisplay;
     }
 }
 
-function clearCalc() {
+function appendFunction(func) {
+    const display = document.getElementById('calcDisplay');
+    const historyDisplay = document.getElementById('calcHistory');
+
+    if (!display) return;
+
+    try {
+        let result;
+        const currentValue = parseFloat(calcDisplay) || 0;
+
+        switch(func) {
+            case '2nd':
+                toggleSecondFunction();
+                return;
+
+            case 'π':
+                if (calcDisplay === '' || calcDisplay === '0') {
+                    calcDisplay = Math.PI.toString();
+                } else {
+                    calcDisplay += '*' + Math.PI.toString();
+                }
+                break;
+
+            case 'e':
+                if (calcDisplay === '' || calcDisplay === '0') {
+                    calcDisplay = Math.E.toString();
+                } else {
+                    calcDisplay += '*' + Math.E.toString();
+                }
+                break;
+
+            case '!':
+                result = factorial(currentValue);
+                addToHistory(`${currentValue}!`);
+                updateDisplay(result);
+                return;
+
+            case 'sin':
+                if (isSecondFunction) {
+                    result = isRadianMode ? Math.asin(currentValue) : Math.asin(currentValue) * 180 / Math.PI;
+                    addToHistory(`asin(${currentValue})`);
+                } else {
+                    const angle = isRadianMode ? currentValue : currentValue * Math.PI / 180;
+                    result = Math.sin(angle);
+                    addToHistory(`sin(${currentValue})`);
+                }
+                updateDisplay(result);
+                return;
+
+            case 'cos':
+                if (isSecondFunction) {
+                    result = isRadianMode ? Math.acos(currentValue) : Math.acos(currentValue) * 180 / Math.PI;
+                    addToHistory(`acos(${currentValue})`);
+                } else {
+                    const angle = isRadianMode ? currentValue : currentValue * Math.PI / 180;
+                    result = Math.cos(angle);
+                    addToHistory(`cos(${currentValue})`);
+                }
+                updateDisplay(result);
+                return;
+
+            case 'tan':
+                if (isSecondFunction) {
+                    result = isRadianMode ? Math.atan(currentValue) : Math.atan(currentValue) * 180 / Math.PI;
+                    addToHistory(`atan(${currentValue})`);
+                } else {
+                    const angle = isRadianMode ? currentValue : currentValue * Math.PI / 180;
+                    result = Math.tan(angle);
+                    addToHistory(`tan(${currentValue})`);
+                }
+                updateDisplay(result);
+                return;
+
+            case 'log':
+                result = Math.log10(currentValue);
+                addToHistory(`log(${currentValue})`);
+                updateDisplay(result);
+                return;
+
+            case 'ln':
+                result = Math.log(currentValue);
+                addToHistory(`ln(${currentValue})`);
+                updateDisplay(result);
+                return;
+
+            case 'x²':
+                result = Math.pow(currentValue, 2);
+                addToHistory(`${currentValue}²`);
+                updateDisplay(result);
+                return;
+
+            case 'x³':
+                result = Math.pow(currentValue, 3);
+                addToHistory(`${currentValue}³`);
+                updateDisplay(result);
+                return;
+
+            case 'xʸ':
+                calcDisplay += '^';
+                break;
+
+            case '√':
+                result = Math.sqrt(currentValue);
+                addToHistory(`√(${currentValue})`);
+                updateDisplay(result);
+                return;
+
+            case '∛':
+                result = Math.cbrt(currentValue);
+                addToHistory(`∛(${currentValue})`);
+                updateDisplay(result);
+                return;
+
+            case '1/x':
+                result = 1 / currentValue;
+                addToHistory(`1/${currentValue}`);
+                updateDisplay(result);
+                return;
+
+            case '|x|':
+                result = Math.abs(currentValue);
+                addToHistory(`|${currentValue}|`);
+                updateDisplay(result);
+                return;
+
+            case '10ˣ':
+                result = Math.pow(10, currentValue);
+                addToHistory(`10^${currentValue}`);
+                updateDisplay(result);
+                return;
+
+            case 'eˣ':
+                result = Math.exp(currentValue);
+                addToHistory(`e^${currentValue}`);
+                updateDisplay(result);
+                return;
+
+            case 'mod':
+                calcDisplay += '%';
+                break;
+
+            case '±':
+                if (calcDisplay.startsWith('-')) {
+                    calcDisplay = calcDisplay.substring(1);
+                } else if (calcDisplay !== '' && calcDisplay !== '0') {
+                    calcDisplay = '-' + calcDisplay;
+                }
+                break;
+
+            case 'Rand':
+                result = Math.random();
+                addToHistory('Rand()');
+                updateDisplay(result);
+                return;
+
+            case 'nPr':
+                calcDisplay += 'P';
+                break;
+
+            case 'nCr':
+                calcDisplay += 'C';
+                break;
+        }
+
+        display.value = calcDisplay;
+        resetSecondFunction();
+
+    } catch (error) {
+        showError();
+    }
+}
+
+function updateDisplay(value) {
     const display = document.getElementById('calcDisplay');
     if (display) {
+        calcDisplay = value.toString();
+        display.value = calcDisplay;
+    }
+}
+
+function addToHistory(operation) {
+    const historyDisplay = document.getElementById('calcHistory');
+    if (historyDisplay) {
+        calcHistory = operation;
+        historyDisplay.textContent = calcHistory;
+    }
+}
+
+function toggleSecondFunction() {
+    isSecondFunction = !isSecondFunction;
+    const secondBtn = document.getElementById('secondBtn');
+    const sinBtn = document.getElementById('sinBtn');
+    const cosBtn = document.getElementById('cosBtn');
+    const tanBtn = document.getElementById('tanBtn');
+
+    if (secondBtn) {
+        if (isSecondFunction) {
+            secondBtn.classList.add('active');
+            if (sinBtn) sinBtn.textContent = 'asin';
+            if (cosBtn) cosBtn.textContent = 'acos';
+            if (tanBtn) tanBtn.textContent = 'atan';
+        } else {
+            secondBtn.classList.remove('active');
+            if (sinBtn) sinBtn.textContent = 'sin';
+            if (cosBtn) cosBtn.textContent = 'cos';
+            if (tanBtn) tanBtn.textContent = 'tan';
+        }
+    }
+}
+
+function resetSecondFunction() {
+    if (isSecondFunction) {
+        isSecondFunction = false;
+        const secondBtn = document.getElementById('secondBtn');
+        const sinBtn = document.getElementById('sinBtn');
+        const cosBtn = document.getElementById('cosBtn');
+        const tanBtn = document.getElementById('tanBtn');
+
+        if (secondBtn) secondBtn.classList.remove('active');
+        if (sinBtn) sinBtn.textContent = 'sin';
+        if (cosBtn) cosBtn.textContent = 'cos';
+        if (tanBtn) tanBtn.textContent = 'tan';
+    }
+}
+
+function toggleAngleMode() {
+    isRadianMode = !isRadianMode;
+    const degMode = document.getElementById('degMode');
+    const radMode = document.getElementById('radMode');
+
+    if (degMode && radMode) {
+        if (isRadianMode) {
+            degMode.classList.remove('active');
+            radMode.classList.add('active');
+        } else {
+            radMode.classList.remove('active');
+            degMode.classList.add('active');
+        }
+    }
+}
+
+function factorial(n) {
+    if (n < 0) return NaN;
+    if (n === 0 || n === 1) return 1;
+    if (n > 170) return Infinity; // Prevent overflow
+
+    let result = 1;
+    for (let i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+// Memory functions
+function memoryClear() {
+    memory = 0;
+    updateMemoryIndicator();
+}
+
+function memoryRecall() {
+    const display = document.getElementById('calcDisplay');
+    if (display) {
+        calcDisplay = memory.toString();
+        display.value = calcDisplay;
+    }
+}
+
+function memoryAdd() {
+    const currentValue = parseFloat(calcDisplay) || 0;
+    memory += currentValue;
+    updateMemoryIndicator();
+}
+
+function memorySubtract() {
+    const currentValue = parseFloat(calcDisplay) || 0;
+    memory -= currentValue;
+    updateMemoryIndicator();
+}
+
+function updateMemoryIndicator() {
+    const indicator = document.querySelector('.memory-indicator');
+    if (indicator) {
+        indicator.style.display = memory !== 0 ? 'block' : 'none';
+    }
+}
+
+function clearCalc() {
+    const display = document.getElementById('calcDisplay');
+    const historyDisplay = document.getElementById('calcHistory');
+    if (display) {
         calcDisplay = '';
-        display.value = '';
+        display.value = '0';
+    }
+    if (historyDisplay) {
+        calcHistory = '';
+        historyDisplay.textContent = '';
     }
 }
 
@@ -1288,7 +2895,22 @@ function deleteLast() {
     const display = document.getElementById('calcDisplay');
     if (display && calcDisplay.length > 0) {
         calcDisplay = calcDisplay.slice(0, -1);
-        display.value = calcDisplay;
+        display.value = calcDisplay || '0';
+    }
+}
+
+function showError() {
+    const display = document.getElementById('calcDisplay');
+    if (display) {
+        display.value = 'Error';
+        calcDisplay = '';
+
+        // Add error feedback
+        display.style.background = 'rgba(220, 53, 69, 0.2)';
+        setTimeout(() => {
+            display.style.background = '';
+            display.value = '0';
+        }, 1500);
     }
 }
 
@@ -1297,7 +2919,7 @@ function calculateResult() {
     if (!display || !calcDisplay) return;
 
     try {
-        // Replace mathematical functions for evaluation
+        // Replace mathematical functions and operators for evaluation
         let expression = calcDisplay
             .replace(/sin\(/g, 'Math.sin(')
             .replace(/cos\(/g, 'Math.cos(')
@@ -1306,7 +2928,24 @@ function calculateResult() {
             .replace(/ln\(/g, 'Math.log(')
             .replace(/\^/g, '**')
             .replace(/π/g, 'Math.PI')
-            .replace(/e/g, 'Math.E');
+            .replace(/e(?![0-9])/g, 'Math.E')
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/')
+            .replace(/P/g, 'P') // Permutation placeholder
+            .replace(/C/g, 'C') // Combination placeholder
+            .replace(/%/g, '%'); // Modulo
+
+        // Handle permutations and combinations
+        expression = expression.replace(/(\d+)P(\d+)/g, (match, n, r) => {
+            return permutation(parseInt(n), parseInt(r));
+        });
+
+        expression = expression.replace(/(\d+)C(\d+)/g, (match, n, r) => {
+            return combination(parseInt(n), parseInt(r));
+        });
+
+        // Add to history before calculation
+        addToHistory(calcDisplay + ' =');
 
         // Evaluate the expression
         const result = eval(expression);
@@ -1319,22 +2958,24 @@ function calculateResult() {
         display.value = calcDisplay;
 
         // Add visual feedback
-        display.style.background = '#d4edda';
+        display.style.background = 'rgba(40, 167, 69, 0.2)';
         setTimeout(() => {
             display.style.background = '';
         }, 300);
 
     } catch (error) {
-        display.value = 'Error';
-        calcDisplay = '';
-
-        // Add error feedback
-        display.style.background = '#f8d7da';
-        setTimeout(() => {
-            display.style.background = '';
-            display.value = '';
-        }, 1500);
+        showError();
     }
+}
+
+function permutation(n, r) {
+    if (r > n || r < 0 || n < 0) return 0;
+    return factorial(n) / factorial(n - r);
+}
+
+function combination(n, r) {
+    if (r > n || r < 0 || n < 0) return 0;
+    return factorial(n) / (factorial(r) * factorial(n - r));
 }
 
 
@@ -2214,9 +3855,15 @@ function activateCORS() {
 
 // Make functions globally available
 window.appendToCalc = appendToCalc;
+window.appendFunction = appendFunction;
 window.clearCalc = clearCalc;
 window.deleteLast = deleteLast;
 window.calculateResult = calculateResult;
+window.toggleAngleMode = toggleAngleMode;
+window.memoryClear = memoryClear;
+window.memoryRecall = memoryRecall;
+window.memoryAdd = memoryAdd;
+window.memorySubtract = memorySubtract;
 window.loadPDF = loadPDF;
 window.showUploadModal = showUploadModal;
 window.closeFileUploadModal = closeFileUploadModal;
