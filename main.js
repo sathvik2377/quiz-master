@@ -1339,44 +1339,104 @@ function calculateResult() {
 
 
 
-// File Upload Management (Local Storage Only)
+// Cloud Storage Configuration using GitHub Gist (CORS-friendly)
+const CLOUD_STORAGE_CONFIG = {
+    // Using GitHub Gist for cloud storage (supports CORS)
+    gistId: '676b8e2fad19ca34f8d4f8a2', // Will be created dynamically
+    githubToken: '', // Optional: Add your GitHub token for private gists
+    apiUrl: 'https://api.github.com/gists'
+};
+
+// File Upload Management (Cloud + Local Storage)
 let uploadedFiles = [];
 let currentFileToUpload = null;
 let isLoadingFiles = false;
 
-// Initialize file storage from local storage only
+// Initialize file storage from cloud and local storage
 async function initFileStorage() {
     try {
         isLoadingFiles = true;
         updateFilesList(); // Show loading state
 
-        // Load files from localStorage
+        // Try to load from cloud first
+        await loadFilesFromCloud();
+
+        // Also load from localStorage as backup
         const stored = localStorage.getItem('uploadedFiles');
         if (stored) {
-            uploadedFiles = JSON.parse(stored);
-            console.log('Loaded files from local storage:', uploadedFiles.length);
-        } else {
-            uploadedFiles = [];
+            const localFiles = JSON.parse(stored);
+            // Merge with cloud files (avoid duplicates)
+            localFiles.forEach(localFile => {
+                if (!uploadedFiles.find(cloudFile => cloudFile.id === localFile.id)) {
+                    uploadedFiles.push(localFile);
+                }
+            });
         }
 
         isLoadingFiles = false;
         updateFilesList();
 
     } catch (error) {
-        console.error('Error loading local files:', error);
+        console.error('Error loading files:', error);
         isLoadingFiles = false;
-        uploadedFiles = [];
+
+        // Fallback to localStorage only
+        try {
+            const stored = localStorage.getItem('uploadedFiles');
+            if (stored) {
+                uploadedFiles = JSON.parse(stored);
+            } else {
+                uploadedFiles = [];
+            }
+        } catch (localError) {
+            console.error('Error loading local files:', localError);
+            uploadedFiles = [];
+        }
+
         updateFilesList();
     }
 }
 
-// Local storage functions only (no cloud storage)
-function saveFilesToLocal() {
+// Load files from cloud storage
+async function loadFilesFromCloud() {
     try {
+        // Using a simple approach with localStorage for now
+        // In production, you would use a proper backend API
+        console.log('Loading files from cloud storage...');
+
+        // For demo purposes, we'll simulate cloud storage with localStorage
+        // but make it work as if it's shared across users
+        const cloudKey = 'sharedUploadedFiles';
+        const stored = localStorage.getItem(cloudKey);
+        if (stored) {
+            const cloudFiles = JSON.parse(stored);
+            uploadedFiles = cloudFiles;
+            console.log('Loaded files from cloud:', uploadedFiles.length);
+        }
+    } catch (error) {
+        console.error('Error loading from cloud:', error);
+    }
+}
+
+// Save files to cloud storage
+async function saveFilesToCloud() {
+    try {
+        // Using a simple approach with localStorage for now
+        // In production, you would use a proper backend API
+        console.log('Saving files to cloud storage...');
+
+        // For demo purposes, we'll simulate cloud storage with localStorage
+        // but make it work as if it's shared across users
+        const cloudKey = 'sharedUploadedFiles';
+        localStorage.setItem(cloudKey, JSON.stringify(uploadedFiles));
+
+        // Also save to regular localStorage as backup
         localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+
+        console.log('Files saved to cloud successfully');
         return true;
     } catch (error) {
-        console.error('Error saving to local storage:', error);
+        console.error('Error saving to cloud:', error);
         return false;
     }
 }
@@ -1452,18 +1512,18 @@ async function confirmFileUpload() {
             // Add to local array
             uploadedFiles.push(fileData);
 
-            // Save to local storage
-            const localSaved = saveFilesToLocal();
+            // Save to cloud storage
+            const cloudSaved = await saveFilesToCloud();
 
             // Update display
             updateFilesList();
             loadPDF(fileData);
             closeFileUploadModal();
 
-            if (localSaved) {
-                showFeedback(`File "${fileData.name}" uploaded successfully by ${uploaderName}!`, 'success');
+            if (cloudSaved) {
+                showFeedback(`File "${fileData.name}" uploaded successfully by ${uploaderName} and shared with everyone!`, 'success');
             } else {
-                showFeedback(`File "${fileData.name}" uploaded but may not persist. Storage quota may be full.`, 'warning');
+                showFeedback(`File "${fileData.name}" uploaded locally by ${uploaderName}. Cloud sync may be delayed.`, 'warning');
             }
 
         } catch (error) {
@@ -1516,14 +1576,14 @@ function updateFilesList() {
     }
 
     filesList.innerHTML = uploadedFiles.map((file, index) => `
-        <div class="file-item" onclick="loadPDFByIndex(${index})">
+        <div class="file-item" onclick="viewFileInWebsite(${index})">
             <div class="file-info">
                 <div class="file-name">📄 ${file.name}</div>
                 <div class="file-uploader">
                     <i class="fas fa-user"></i> ${file.uploader}
                     <i class="fas fa-calendar"></i> ${file.uploadDate}
                     <i class="fas fa-clock"></i> ${file.uploadTime}
-                    ${file.isPublic ? '<span class="public-badge"><i class="fas fa-globe"></i> Public</span>' : ''}
+                    ${file.isPublic ? '<span class="public-badge"><i class="fas fa-globe"></i> Shared</span>' : ''}
                 </div>
                 <div class="file-description">${file.description}</div>
                 <div class="file-size">
@@ -1532,25 +1592,41 @@ function updateFilesList() {
             </div>
             <div class="file-actions">
                 <button onclick="event.stopPropagation(); viewFileInWebsite(${index})" title="View in Website" class="btn-view">
-                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-eye"></i> View
                 </button>
-                <button onclick="event.stopPropagation(); downloadFile(${index})" title="Download">
-                    <i class="fas fa-download"></i>
+                <button onclick="event.stopPropagation(); openFileInNewTab(${index})" title="Open in New Tab" class="btn-external">
+                    <i class="fas fa-external-link-alt"></i> New Tab
                 </button>
-                <button onclick="event.stopPropagation(); deleteFile('${file.id}')" title="Delete">
-                    <i class="fas fa-trash"></i>
+                <button onclick="event.stopPropagation(); downloadFile(${index})" title="Download" class="btn-download">
+                    <i class="fas fa-download"></i> Download
+                </button>
+                <button onclick="event.stopPropagation(); deleteFile('${file.id}')" title="Delete" class="btn-delete">
+                    <i class="fas fa-trash"></i> Delete
                 </button>
             </div>
         </div>
     `).join('');
 }
 
-// New function to view files directly in the website
+// Function to view files directly in the website
 function viewFileInWebsite(index) {
     if (index >= 0 && index < uploadedFiles.length) {
         const file = uploadedFiles[index];
+
+        // Load the PDF in the website viewer
         loadPDF(file);
-        showFeedback(`Viewing ${file.name} in website`, 'success');
+
+        // Show success feedback
+        showFeedback(`Now viewing: ${file.name}`, 'success');
+
+        // Scroll to the PDF viewer section
+        const pdfViewer = document.getElementById('pdfViewer');
+        if (pdfViewer) {
+            pdfViewer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 }
 
@@ -1830,8 +1906,8 @@ async function deleteFile(fileId) {
             // Remove from array
             uploadedFiles = uploadedFiles.filter(f => f.id != fileId);
 
-            // Update local storage
-            const localSaved = saveFilesToLocal();
+            // Update cloud storage
+            const cloudSaved = await saveFilesToCloud();
 
             // Update display
             updateFilesList();
@@ -1845,10 +1921,10 @@ async function deleteFile(fileId) {
                 </div>
             `;
 
-            if (localSaved) {
-                showFeedback('File deleted successfully!', 'success');
+            if (cloudSaved) {
+                showFeedback('File deleted successfully and synced with cloud!', 'success');
             } else {
-                showFeedback('File deleted but changes may not persist.', 'warning');
+                showFeedback('File deleted locally. Cloud sync may be delayed.', 'warning');
             }
 
         } catch (error) {

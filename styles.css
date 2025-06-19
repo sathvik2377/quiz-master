@@ -1539,21 +1539,47 @@ body::after {
 
 .file-actions {
     display: flex;
-    gap: 10px;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 .file-actions button {
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #667eea, #764ba2);
     border: none;
     color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
     cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 15px;
     transition: all 0.3s ease;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 70px;
+    justify-content: center;
 }
 
 .file-actions button:hover {
-    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.file-actions .btn-view {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.file-actions .btn-external {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+}
+
+.file-actions .btn-download {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #333;
+}
+
+.file-actions .btn-delete {
+    background: linear-gradient(135deg, #dc3545, #c82333);
 }
 
 .no-files {
