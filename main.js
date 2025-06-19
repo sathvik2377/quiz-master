@@ -798,7 +798,7 @@ Student question: ${message}`;
         }]
     };
 
-    // Use the exact model names from your available models list
+    // Direct API calls (will work when deployed to a server or with proper CORS setup)
     const modelEndpoints = [
         'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent',
         'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent',
@@ -814,7 +814,9 @@ Student question: ${message}`;
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 },
+                mode: 'cors',
                 body: JSON.stringify(requestBody)
             });
 
@@ -842,8 +844,12 @@ Student question: ${message}`;
         } catch (error) {
             console.error(`Error with endpoint ${i + 1}:`, error);
 
-            // If this is the last endpoint, throw the error
+            // If this is the last endpoint, provide a fallback response
             if (i === modelEndpoints.length - 1) {
+                // Check if it's a CORS error
+                if (error.message.includes('CORS') || error.message.includes('Failed to fetch') || error.message.includes('ERR_FAILED')) {
+                    return getFallbackResponse(message);
+                }
                 throw error;
             }
             // Otherwise, continue to next endpoint
@@ -852,6 +858,107 @@ Student question: ${message}`;
     }
 
     throw new Error('All model endpoints failed');
+}
+
+function getFallbackResponse(message) {
+    // Provide helpful responses based on common BITSAT topics
+    const lowerMessage = message.toLowerCase();
+
+    if (lowerMessage.includes('physics') || lowerMessage.includes('formula')) {
+        return `**🔬 Physics for BITSAT**
+
+**Important Physics Topics:**
+• **Mechanics**: Motion, Force, Energy, Momentum
+• **Thermodynamics**: Heat, Temperature, Laws of Thermodynamics
+• **Waves & Optics**: Sound, Light, Interference, Diffraction
+• **Electricity & Magnetism**: Current, Voltage, Magnetic Fields
+• **Modern Physics**: Atomic Structure, Radioactivity
+
+**Key Formulas:**
+• Force: F = ma
+• Energy: E = mc²
+• Power: P = VI
+• Wave Speed: v = fλ
+
+*Note: AI is temporarily unavailable due to CORS restrictions. For full AI assistance, please deploy this app to a web server.*`;
+    }
+
+    if (lowerMessage.includes('chemistry') || lowerMessage.includes('chemical')) {
+        return `**🧪 Chemistry for BITSAT**
+
+**Important Chemistry Topics:**
+• **Organic Chemistry**: Hydrocarbons, Functional Groups, Reactions
+• **Inorganic Chemistry**: Periodic Table, Chemical Bonding, Acids & Bases
+• **Physical Chemistry**: Thermodynamics, Kinetics, Equilibrium
+
+**Key Concepts:**
+• Atomic Structure and Periodic Properties
+• Chemical Bonding and Molecular Structure
+• States of Matter and Solutions
+• Chemical Thermodynamics and Kinetics
+
+*Note: AI is temporarily unavailable due to CORS restrictions. For full AI assistance, please deploy this app to a web server.*`;
+    }
+
+    if (lowerMessage.includes('math') || lowerMessage.includes('calculus') || lowerMessage.includes('algebra')) {
+        return `**📐 Mathematics for BITSAT**
+
+**Important Math Topics:**
+• **Algebra**: Quadratic Equations, Sequences, Series
+• **Trigonometry**: Identities, Equations, Inverse Functions
+• **Calculus**: Limits, Derivatives, Integrals
+• **Coordinate Geometry**: Lines, Circles, Parabolas
+• **Probability & Statistics**: Permutations, Combinations
+
+**Key Formulas:**
+• Quadratic Formula: x = (-b ± √(b²-4ac))/2a
+• Derivative of xⁿ: nxⁿ⁻¹
+• Area under curve: ∫f(x)dx
+
+*Note: AI is temporarily unavailable due to CORS restrictions. For full AI assistance, please deploy this app to a web server.*`;
+    }
+
+    if (lowerMessage.includes('study') || lowerMessage.includes('tip') || lowerMessage.includes('prepare')) {
+        return `**📚 BITSAT Study Tips**
+
+**Effective Study Strategies:**
+• **Time Management**: Create a study schedule and stick to it
+• **Practice Tests**: Take regular mock tests to assess progress
+• **Concept Clarity**: Focus on understanding concepts, not just memorizing
+• **Revision**: Regular revision is key to retention
+• **Health**: Maintain good sleep and nutrition habits
+
+**Exam Strategy:**
+• **Speed & Accuracy**: Practice solving questions quickly and accurately
+• **Negative Marking**: Be careful about guessing - there's negative marking
+• **Time Allocation**: Spend appropriate time on each section
+
+*Note: AI is temporarily unavailable due to CORS restrictions. For full AI assistance, please deploy this app to a web server.*`;
+    }
+
+    // Default response
+    return `**🤖 AI Study Assistant**
+
+I'm here to help with your BITSAT preparation! I can assist with:
+
+• **Physics**: Mechanics, Thermodynamics, Optics, Modern Physics
+• **Chemistry**: Organic, Inorganic, Physical Chemistry
+• **Mathematics**: Algebra, Calculus, Trigonometry, Geometry
+• **Study Tips**: Effective preparation strategies
+• **Practice Questions**: Topic-wise questions and solutions
+
+**Common BITSAT Topics:**
+• Important formulas and concepts
+• Problem-solving techniques
+• Time management strategies
+• Exam preparation tips
+
+*Note: AI is temporarily unavailable due to CORS restrictions. For full AI assistance, please deploy this app to a web server or use a CORS proxy.*
+
+**To fix this issue:**
+1. Deploy to a web hosting service (Netlify, Vercel, GitHub Pages)
+2. Use a local server with CORS enabled
+3. Access via HTTPS instead of HTTP`;
 }
 
 function addMessageToChat(message, sender) {
@@ -955,12 +1062,6 @@ function removeTypingIndicator() {
 }
 
 function sendSuggestion(suggestion) {
-    if (suggestion === 'Test bold text') {
-        // Test bold text formatting
-        addMessageToChat('Testing bold text formatting', 'user');
-        addMessageToChat('This is <strong>bold text</strong> and this is <em>italic text</em> and this is <code>code text</code>. Here are some **markdown bold** and *markdown italic* examples.', 'ai');
-        return;
-    }
     document.getElementById('chatInput').value = suggestion;
     sendMessage();
 }
@@ -1035,10 +1136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('API Key set:', GEMINI_API_KEY ? 'Yes' : 'No');
     console.log('Protocol:', window.location.protocol);
 
-    // Test available models
-    if (window.location.protocol !== 'file:') {
-        testAvailableModels();
-    }
+    // Removed automatic model testing
 });
 
 // On load, check for user info
@@ -1241,110 +1339,44 @@ function calculateResult() {
 
 
 
-// Cloud Storage Configuration
-const CLOUD_STORAGE_CONFIG = {
-    // Using JSONBin.io as free cloud storage
-    apiUrl: 'https://api.jsonbin.io/v3/b',
-    binId: '676b8e2fad19ca34f8d4f8a2', // Public bin for shared files
-    accessKey: '$2a$10$8vQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5r'
-};
-
-// File Upload Management
+// File Upload Management (Local Storage Only)
 let uploadedFiles = [];
 let currentFileToUpload = null;
 let isLoadingFiles = false;
 
-// Initialize file storage from cloud
+// Initialize file storage from local storage only
 async function initFileStorage() {
     try {
         isLoadingFiles = true;
         updateFilesList(); // Show loading state
 
-        // Load files from cloud storage
-        await loadFilesFromCloud();
-
-        // Also load from localStorage as backup
+        // Load files from localStorage
         const stored = localStorage.getItem('uploadedFiles');
         if (stored) {
-            const localFiles = JSON.parse(stored);
-            // Merge with cloud files (avoid duplicates)
-            localFiles.forEach(localFile => {
-                if (!uploadedFiles.find(cloudFile => cloudFile.id === localFile.id)) {
-                    uploadedFiles.push(localFile);
-                }
-            });
-        }
-
-        isLoadingFiles = false;
-        updateFilesList();
-
-    } catch (error) {
-        console.error('Error loading files:', error);
-        isLoadingFiles = false;
-
-        // Fallback to localStorage
-        try {
-            const stored = localStorage.getItem('uploadedFiles');
-            if (stored) {
-                uploadedFiles = JSON.parse(stored);
-            }
-        } catch (localError) {
-            console.error('Error loading local files:', localError);
+            uploadedFiles = JSON.parse(stored);
+            console.log('Loaded files from local storage:', uploadedFiles.length);
+        } else {
             uploadedFiles = [];
         }
 
+        isLoadingFiles = false;
+        updateFilesList();
+
+    } catch (error) {
+        console.error('Error loading local files:', error);
+        isLoadingFiles = false;
+        uploadedFiles = [];
         updateFilesList();
     }
 }
 
-// Load files from cloud storage
-async function loadFilesFromCloud() {
+// Local storage functions only (no cloud storage)
+function saveFilesToLocal() {
     try {
-        const response = await fetch(`${CLOUD_STORAGE_CONFIG.apiUrl}/${CLOUD_STORAGE_CONFIG.binId}/latest`, {
-            method: 'GET',
-            headers: {
-                'X-Master-Key': CLOUD_STORAGE_CONFIG.accessKey
-            }
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            if (data.record && data.record.files && Array.isArray(data.record.files)) {
-                uploadedFiles = data.record.files;
-                console.log('Loaded files from cloud:', uploadedFiles.length);
-            }
-        } else {
-            console.log('No cloud files found or error loading:', response.status);
-        }
+        localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+        return true;
     } catch (error) {
-        console.error('Error loading from cloud:', error);
-    }
-}
-
-// Save files to cloud storage
-async function saveFilesToCloud() {
-    try {
-        const response = await fetch(`${CLOUD_STORAGE_CONFIG.apiUrl}/${CLOUD_STORAGE_CONFIG.binId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': CLOUD_STORAGE_CONFIG.accessKey
-            },
-            body: JSON.stringify({
-                files: uploadedFiles,
-                lastUpdated: new Date().toISOString()
-            })
-        });
-
-        if (response.ok) {
-            console.log('Files saved to cloud successfully');
-            return true;
-        } else {
-            console.error('Error saving to cloud:', response.status);
-            return false;
-        }
-    } catch (error) {
-        console.error('Error saving to cloud:', error);
+        console.error('Error saving to local storage:', error);
         return false;
     }
 }
@@ -1420,21 +1452,18 @@ async function confirmFileUpload() {
             // Add to local array
             uploadedFiles.push(fileData);
 
-            // Save to cloud storage
-            const cloudSaved = await saveFilesToCloud();
-
-            // Also save to localStorage as backup
-            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+            // Save to local storage
+            const localSaved = saveFilesToLocal();
 
             // Update display
             updateFilesList();
             loadPDF(fileData);
             closeFileUploadModal();
 
-            if (cloudSaved) {
-                showFeedback(`File "${fileData.name}" uploaded successfully by ${uploaderName} and shared with everyone!`, 'success');
+            if (localSaved) {
+                showFeedback(`File "${fileData.name}" uploaded successfully by ${uploaderName}!`, 'success');
             } else {
-                showFeedback(`File "${fileData.name}" uploaded locally by ${uploaderName}. Cloud sync may be delayed.`, 'success');
+                showFeedback(`File "${fileData.name}" uploaded but may not persist. Storage quota may be full.`, 'warning');
             }
 
         } catch (error) {
@@ -1753,10 +1782,28 @@ function loadPDF(fileData) {
                 </div>
                 <p style="color: #666; margin: 0; padding: 10px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;"><strong>Description:</strong> ${fileData.description}</p>
             </div>
-            <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                <iframe src="${fileData.fileData}" width="100%" height="700px" frameborder="0">
+            <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="openFileInNewTab(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn" style="background: #28a745;">
+                    <i class="fas fa-external-link-alt"></i> Open in New Tab
+                </button>
+                <button onclick="downloadFile(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn" style="background: #17a2b8;">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+            <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-top: 20px;">
+                <iframe
+                    src="${fileData.fileData}#toolbar=1&navpanes=1&scrollbar=1"
+                    width="100%"
+                    height="700px"
+                    frameborder="0"
+                    style="border-radius: 15px; display: block;"
+                    title="PDF Viewer for ${fileData.name}"
+                >
                     <div style="text-align: center; padding: 40px; background: #f8f9fa; border-radius: 10px;">
                         <p style="color: #666; margin-bottom: 15px;">Your browser does not support PDF viewing.</p>
+                        <button onclick="openFileInNewTab(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn">
+                            <i class="fas fa-external-link-alt"></i> Open in New Tab
+                        </button>
                         <button onclick="downloadFile(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn">
                             <i class="fas fa-download"></i> Download PDF
                         </button>
@@ -1783,11 +1830,8 @@ async function deleteFile(fileId) {
             // Remove from array
             uploadedFiles = uploadedFiles.filter(f => f.id != fileId);
 
-            // Update cloud storage
-            const cloudSaved = await saveFilesToCloud();
-
-            // Update localStorage
-            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+            // Update local storage
+            const localSaved = saveFilesToLocal();
 
             // Update display
             updateFilesList();
@@ -1801,10 +1845,10 @@ async function deleteFile(fileId) {
                 </div>
             `;
 
-            if (cloudSaved) {
-                showFeedback('File deleted successfully and synced with cloud!', 'success');
+            if (localSaved) {
+                showFeedback('File deleted successfully!', 'success');
             } else {
-                showFeedback('File deleted locally. Cloud sync may be delayed.', 'success');
+                showFeedback('File deleted but changes may not persist.', 'warning');
             }
 
         } catch (error) {

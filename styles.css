@@ -2343,25 +2343,38 @@ body::after {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.chat-container strong,
+.chat-container b,
 .message-content strong,
-.message-content b {
-    font-weight: 700 !important;
+.message-content b,
+.message-text strong,
+.message-text b {
+    font-weight: 900 !important;
     color: #ffeb3b !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+    font-size: 16px !important;
 }
 
+.chat-container em,
+.chat-container i,
 .message-content em,
-.message-content i {
+.message-content i,
+.message-text em,
+.message-text i {
     font-style: italic !important;
     color: #81c784 !important;
+    font-weight: 600 !important;
 }
 
-.message-content code {
-    background: rgba(255, 255, 255, 0.2) !important;
-    padding: 2px 6px !important;
-    border-radius: 4px !important;
+.chat-container code,
+.message-content code,
+.message-text code {
+    background: rgba(255, 255, 255, 0.3) !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
     font-family: 'Courier New', monospace !important;
     color: #ff9800 !important;
+    font-weight: 700 !important;
 }
 
 .message-content ul,
