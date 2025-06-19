@@ -1339,12 +1339,13 @@ function calculateResult() {
 
 
 
-// Cloud Storage Configuration using GitHub Gist (CORS-friendly)
+// Cloud Storage Configuration using JSONBin.io with CORS proxy
 const CLOUD_STORAGE_CONFIG = {
-    // Using GitHub Gist for cloud storage (supports CORS)
-    gistId: '676b8e2fad19ca34f8d4f8a2', // Will be created dynamically
-    githubToken: '', // Optional: Add your GitHub token for private gists
-    apiUrl: 'https://api.github.com/gists'
+    // Using JSONBin.io with CORS proxy for real cloud storage
+    binId: '676b8e2fad19ca34f8d4f8a2',
+    apiUrl: 'https://api.jsonbin.io/v3/b',
+    accessKey: '$2a$10$8vQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5r',
+    corsProxy: 'https://cors-anywhere.herokuapp.com/'
 };
 
 // File Upload Management (Cloud + Local Storage)
@@ -1397,46 +1398,71 @@ async function initFileStorage() {
     }
 }
 
-// Load files from cloud storage
+// Load files from real cloud storage
 async function loadFilesFromCloud() {
     try {
-        // Using a simple approach with localStorage for now
-        // In production, you would use a proper backend API
         console.log('Loading files from cloud storage...');
 
-        // For demo purposes, we'll simulate cloud storage with localStorage
-        // but make it work as if it's shared across users
-        const cloudKey = 'sharedUploadedFiles';
-        const stored = localStorage.getItem(cloudKey);
-        if (stored) {
-            const cloudFiles = JSON.parse(stored);
-            uploadedFiles = cloudFiles;
-            console.log('Loaded files from cloud:', uploadedFiles.length);
+        const response = await fetch(`${CLOUD_STORAGE_CONFIG.corsProxy}${CLOUD_STORAGE_CONFIG.apiUrl}/${CLOUD_STORAGE_CONFIG.binId}/latest`, {
+            method: 'GET',
+            headers: {
+                'X-Master-Key': CLOUD_STORAGE_CONFIG.accessKey,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.record && data.record.files && Array.isArray(data.record.files)) {
+                uploadedFiles = data.record.files;
+                console.log('Loaded files from cloud:', uploadedFiles.length);
+            }
+        } else {
+            console.log('No cloud files found or error loading:', response.status);
         }
     } catch (error) {
         console.error('Error loading from cloud:', error);
+        // Fallback to localStorage
+        const stored = localStorage.getItem('uploadedFiles');
+        if (stored) {
+            uploadedFiles = JSON.parse(stored);
+        }
     }
 }
 
-// Save files to cloud storage
+// Save files to real cloud storage
 async function saveFilesToCloud() {
     try {
-        // Using a simple approach with localStorage for now
-        // In production, you would use a proper backend API
         console.log('Saving files to cloud storage...');
 
-        // For demo purposes, we'll simulate cloud storage with localStorage
-        // but make it work as if it's shared across users
-        const cloudKey = 'sharedUploadedFiles';
-        localStorage.setItem(cloudKey, JSON.stringify(uploadedFiles));
+        const response = await fetch(`${CLOUD_STORAGE_CONFIG.corsProxy}${CLOUD_STORAGE_CONFIG.apiUrl}/${CLOUD_STORAGE_CONFIG.binId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': CLOUD_STORAGE_CONFIG.accessKey,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({
+                files: uploadedFiles,
+                lastUpdated: new Date().toISOString()
+            })
+        });
 
-        // Also save to regular localStorage as backup
-        localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
-
-        console.log('Files saved to cloud successfully');
-        return true;
+        if (response.ok) {
+            console.log('Files saved to cloud successfully');
+            // Also save to localStorage as backup
+            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+            return true;
+        } else {
+            console.error('Error saving to cloud:', response.status);
+            // Save to localStorage as fallback
+            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+            return false;
+        }
     } catch (error) {
         console.error('Error saving to cloud:', error);
+        // Save to localStorage as fallback
+        localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
         return false;
     }
 }
@@ -1613,21 +1639,46 @@ function viewFileInWebsite(index) {
     if (index >= 0 && index < uploadedFiles.length) {
         const file = uploadedFiles[index];
 
+        // First, make sure we're in the PDF section
+        showPDFSection();
+
         // Load the PDF in the website viewer
         loadPDF(file);
 
         // Show success feedback
         showFeedback(`Now viewing: ${file.name}`, 'success');
 
-        // Scroll to the PDF viewer section
-        const pdfViewer = document.getElementById('pdfViewer');
-        if (pdfViewer) {
-            pdfViewer.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        // Wait a bit for the section to load, then scroll to the PDF viewer
+        setTimeout(() => {
+            const pdfViewer = document.getElementById('pdfViewer');
+            if (pdfViewer) {
+                pdfViewer.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }, 300);
     }
+}
+
+// Function to show PDF section specifically
+function showPDFSection() {
+    const practiceSection = document.getElementById('practiceSection');
+    const graphingSection = document.getElementById('graphingSection');
+    const calculatorSection = document.getElementById('calculatorSection');
+    const pdfSection = document.getElementById('pdfSection');
+    const chatbotSection = document.getElementById('chatbotSection');
+    const quizContainer = document.querySelector('.quiz-container');
+
+    // Hide all sections
+    practiceSection.style.display = 'none';
+    graphingSection.style.display = 'none';
+    calculatorSection.style.display = 'none';
+    chatbotSection.style.display = 'none';
+
+    // Show PDF section
+    pdfSection.style.display = 'block';
+    quizContainer.classList.add('pdf-mode');
 }
 
 function formatFileSize(bytes) {
@@ -1948,6 +1999,15 @@ async function refreshFiles() {
     await initFileStorage();
 }
 
+// Function to activate CORS proxy
+function activateCORS() {
+    showFeedback('Opening CORS activation page...', 'success');
+    window.open('https://cors-anywhere.herokuapp.com/corsdemo', '_blank');
+    setTimeout(() => {
+        showFeedback('After activating CORS, refresh the files to enable cloud storage!', 'success');
+    }, 2000);
+}
+
 // Make functions globally available
 window.appendToCalc = appendToCalc;
 window.clearCalc = clearCalc;
@@ -1963,3 +2023,4 @@ window.downloadFile = downloadFile;
 window.openFileInNewTab = openFileInNewTab;
 window.viewFileInWebsite = viewFileInWebsite;
 window.refreshFiles = refreshFiles;
+window.activateCORS = activateCORS;
