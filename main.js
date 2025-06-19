@@ -378,7 +378,13 @@ const quizData = {
                 "Enjoyable"
             ],
             correct: 1,
-            explanation: "'Arduous' means involving or requiring strenuous effort; difficult and tiring."
+            explanation: "'Arduous' means involving or requiring strenuous effort; difficult and tiring.",
+            optionExplanations: {
+                0: "Easy - means requiring little effort or difficulty (opposite of arduous)",
+                1: "Difficult and tiring - correct! This perfectly captures the meaning of arduous",
+                2: "Quick - means happening in a short time (unrelated to difficulty level)",
+                3: "Enjoyable - means giving pleasure or satisfaction (opposite feeling to arduous tasks)"
+            }
         },
         {
             question: "What is the meaning of 'ephemeral'?",
@@ -466,7 +472,13 @@ const quizData = {
                 "Careless"
             ],
             correct: 1,
-            explanation: "'Tenacious' means tending to keep a firm hold; persistent."
+            explanation: "'Tenacious' means tending to keep a firm hold; persistent.",
+            optionExplanations: {
+                0: "Weak - means lacking strength or power (opposite of the strong determination in tenacious)",
+                1: "Persistent - correct! Means continuing firmly despite difficulties (same as tenacious)",
+                2: "Flexible - means able to bend or adapt easily (different from the firm hold of tenacious)",
+                3: "Careless - means not paying attention to detail (opposite of the careful persistence in tenacious)"
+            }
         },
         {
             question: "What is the meaning of 'ambiguous'?",
@@ -510,7 +522,13 @@ const quizData = {
                 "Expensive"
             ],
             correct: 1,
-            explanation: "'Copious' means abundant in supply or quantity; plentiful."
+            explanation: "'Copious' means abundant in supply or quantity; plentiful.",
+            optionExplanations: {
+                0: "Scarce - means existing in small quantities; rare (opposite of copious)",
+                1: "Abundant - correct! Means existing in large quantities; plentiful (same as copious)",
+                2: "Tiny - means very small in size (refers to size, not quantity)",
+                3: "Expensive - means costing a lot of money (unrelated to quantity or abundance)"
+            }
         },
         {
             question: "What is the meaning of 'indigenous'?",
@@ -1651,6 +1669,38 @@ function showSolution(selectedIndex, isCorrect) {
             ${currentQuestion.explanation}
         </div>
     `;
+
+    // Add detailed option explanations if available (for vocabulary/synonym questions)
+    if (currentQuestion.optionExplanations) {
+        solutionHTML += `
+            <div class="option-explanations">
+                <strong>📚 Learn All 4 Words:</strong>
+                <div class="options-grid">
+        `;
+
+        currentQuestion.options.forEach((option, index) => {
+            const isCorrect = index === currentQuestion.correct;
+            const isSelected = index === selectedIndex;
+            const explanation = currentQuestion.optionExplanations[index];
+
+            solutionHTML += `
+                <div class="option-explanation ${isCorrect ? 'correct-option' : ''} ${isSelected && !isCorrect ? 'selected-option' : ''}">
+                    <div class="option-header">
+                        <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                        <span class="option-text">${option}</span>
+                        ${isCorrect ? '<span class="correct-badge">✓ Correct</span>' : ''}
+                        ${isSelected && !isCorrect ? '<span class="selected-badge">Your Choice</span>' : ''}
+                    </div>
+                    <div class="option-meaning">${explanation}</div>
+                </div>
+            `;
+        });
+
+        solutionHTML += `
+                </div>
+            </div>
+        `;
+    }
 
     solutionContent.innerHTML = solutionHTML;
     solutionArea.style.display = 'block';

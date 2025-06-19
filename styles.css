@@ -3975,6 +3975,132 @@ body::after {
     }
 }
 
+/* Enhanced Quiz Solution Styles for Option Explanations */
+.option-explanations {
+    margin-top: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(79, 195, 247, 0.1), rgba(255, 64, 129, 0.1));
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.option-explanations strong {
+    color: #4fc3f7;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.options-grid {
+    display: grid;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.option-explanation {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.option-explanation.correct-option {
+    border-color: #4caf50;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(139, 195, 74, 0.2));
+}
+
+.option-explanation.selected-option {
+    border-color: #f44336;
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(255, 87, 34, 0.2));
+}
+
+.option-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.option-letter {
+    background: linear-gradient(135deg, #4fc3f7, #ff4081);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.option-text {
+    font-weight: bold;
+    color: white;
+    flex: 1;
+    min-width: 0;
+}
+
+.correct-badge {
+    background: #4caf50;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.selected-badge {
+    background: #f44336;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.option-meaning {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    padding-left: 40px;
+}
+
+/* Mobile responsiveness for option explanations */
+@media (max-width: 768px) {
+    .option-explanations {
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .option-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .option-letter {
+        width: 25px;
+        height: 25px;
+        font-size: 0.8rem;
+    }
+
+    .option-meaning {
+        padding-left: 0;
+        margin-top: 8px;
+        font-size: 0.9rem;
+    }
+
+    .correct-badge,
+    .selected-badge {
+        font-size: 0.75rem;
+        padding: 3px 6px;
+    }
+}
+
 /* Main Page Symmetric Layout */
 .main-symmetric-layout {
     display: flex;
