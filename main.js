@@ -189,6 +189,7 @@ function showSection(section) {
     const graphingSection = document.getElementById('graphingSection');
     const calculatorSection = document.getElementById('calculatorSection');
     const pdfSection = document.getElementById('pdfSection');
+    const chatbotSection = document.getElementById('chatbotSection');
     const buttons = document.querySelectorAll('.section-btn');
     const quizContainer = document.querySelector('.quiz-container');
 
@@ -199,6 +200,7 @@ function showSection(section) {
     graphingSection.style.display = 'none';
     calculatorSection.style.display = 'none';
     pdfSection.style.display = 'none';
+    chatbotSection.style.display = 'none';
 
     if (section === 'practice') {
         practiceSection.style.display = 'grid';
@@ -213,6 +215,12 @@ function showSection(section) {
         }, 100);
     } else if (section === 'calculator') {
         calculatorSection.style.display = 'block';
+        quizContainer.classList.remove('pdf-mode');
+    } else if (section === 'chatbot') {
+        chatbotSection.style.display = 'block';
+        quizContainer.classList.remove('pdf-mode');
+    } else if (section === 'settings') {
+        showUserModal();
         quizContainer.classList.remove('pdf-mode');
     } else {
         pdfSection.style.display = 'block';
@@ -664,6 +672,374 @@ function initQuoteContainer(containerClass, quotes, colors) {
         }
     }, 12000);
 }
+
+// Gemini API Configuration
+const GEMINI_API_KEY = 'AIzaSyAOu3n2b83ZBWStPJPBADWPjK4fJkzbVys'; // Your Gemini API key
+// Note: We'll use multiple endpoints in the callGeminiAPI function instead of a single URL
+
+// Chatbot functionality
+let chatHistory = [];
+
+// Function to test available models
+async function testAvailableModels() {
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models?key=${GEMINI_API_KEY}`);
+        const data = await response.json();
+        console.log('Available models:', data);
+
+        // Display available models in the chat
+        if (data.models && data.models.length > 0) {
+            let modelsList = "📋 Available models with your API key:\n\n";
+            data.models.forEach(model => {
+                if (model.supportedGenerationMethods && model.supportedGenerationMethods.includes('generateContent')) {
+                    modelsList += `✅ ${model.name}\n`;
+                } else {
+                    modelsList += `❌ ${model.name} (no generateContent support)\n`;
+                }
+            });
+
+            // Add this info to the chat
+            setTimeout(() => {
+                addMessageToChat(modelsList, 'ai');
+            }, 1000);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching models:', error);
+        setTimeout(() => {
+            addMessageToChat(`❌ Error fetching available models: ${error.message}`, 'ai');
+        }, 1000);
+    }
+}
+
+async function sendMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const message = chatInput.value.trim();
+
+    if (!message) return;
+
+    // Check if we're running on file:// protocol
+    if (window.location.protocol === 'file:') {
+        addMessageToChat(message, 'user');
+        addMessageToChat('⚠️ The AI chatbot requires an HTTP server to work due to CORS restrictions. Please either:\n\n1. Use a local server (like Live Server extension in VS Code)\n2. Deploy to a web hosting service\n3. Use Python: python -m http.server 8000\n\nFor now, here\'s a demo response: "Hello! I\'m your AI study assistant. I can help you with BITSAT preparation, explain concepts, solve problems, and provide study tips. What would you like to learn about?"', 'ai');
+        return;
+    }
+
+    // Disable input and button
+    chatInput.disabled = true;
+    document.getElementById('sendButton').disabled = true;
+
+    // Add user message to chat
+    addMessageToChat(message, 'user');
+
+    // Clear input
+    chatInput.value = '';
+
+    // Show typing indicator
+    showTypingIndicator();
+
+    try {
+        // Send to Gemini API
+        const response = await callGeminiAPI(message);
+
+        // Remove typing indicator
+        removeTypingIndicator();
+
+        // Add AI response to chat
+        addMessageToChat(response, 'ai');
+
+    } catch (error) {
+        console.error('Error calling Gemini API:', error);
+
+        // Remove typing indicator
+        removeTypingIndicator();
+
+        // Add detailed error message based on the error
+        let errorMessage = 'Sorry, I encountered an error. Please try again later.';
+
+        if (error.message.includes('403')) {
+            errorMessage = '🔑 API key error (403 Forbidden). Please check your Gemini API key permissions.';
+        } else if (error.message.includes('401')) {
+            errorMessage = '🔑 API key error (401 Unauthorized). Please verify your Gemini API key is correct.';
+        } else if (error.message.includes('429')) {
+            errorMessage = '⏰ Rate limit exceeded. Please wait a moment before trying again.';
+        } else if (error.message.includes('400')) {
+            errorMessage = '❌ Bad request. There might be an issue with the message format.';
+        } else if (error.message.includes('CORS')) {
+            errorMessage = '🌐 CORS error. Please serve this page over HTTP/HTTPS instead of file://.';
+        } else if (error.message.includes('Failed to fetch')) {
+            errorMessage = '🌐 Network error. Please check your internet connection and try again.';
+        }
+
+        // Add the full error details for debugging
+        errorMessage += `\n\nDebug info: ${error.message}`;
+
+        addMessageToChat(errorMessage, 'ai');
+    }
+
+    // Re-enable input and button
+    chatInput.disabled = false;
+    document.getElementById('sendButton').disabled = false;
+    chatInput.focus();
+}
+
+async function callGeminiAPI(message) {
+    // Add context for educational assistance
+    const contextualMessage = `You are an AI study assistant helping students prepare for BITSAT (Birla Institute of Technology and Science Admission Test). Please provide helpful, accurate, and educational responses. Focus on clear explanations of concepts, step-by-step problem solving, study tips and strategies, and motivational support.
+
+Student question: ${message}`;
+
+    const requestBody = {
+        contents: [{
+            parts: [{
+                text: contextualMessage
+            }]
+        }]
+    };
+
+    // Use the exact model names from your available models list
+    const modelEndpoints = [
+        'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent',
+        'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent',
+        'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent'
+    ];
+
+    for (let i = 0; i < modelEndpoints.length; i++) {
+        const endpoint = modelEndpoints[i];
+        console.log(`Trying endpoint ${i + 1}/${modelEndpoints.length}:`, endpoint);
+
+        try {
+            const response = await fetch(`${endpoint}?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            console.log('Response status:', response.status);
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('API Response:', data);
+
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
+                    console.log('Success with endpoint:', endpoint);
+                    return data.candidates[0].content.parts[0].text;
+                }
+            } else {
+                const errorText = await response.text();
+                console.error(`Endpoint ${i + 1} failed:`, errorText);
+
+                // If this is the last endpoint, throw the error
+                if (i === modelEndpoints.length - 1) {
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                // Otherwise, continue to next endpoint
+                continue;
+            }
+        } catch (error) {
+            console.error(`Error with endpoint ${i + 1}:`, error);
+
+            // If this is the last endpoint, throw the error
+            if (i === modelEndpoints.length - 1) {
+                throw error;
+            }
+            // Otherwise, continue to next endpoint
+            continue;
+        }
+    }
+
+    throw new Error('All model endpoints failed');
+}
+
+function addMessageToChat(message, sender) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+
+    // Format the message to support markdown-like formatting
+    const formattedMessage = formatMessage(message);
+
+    if (sender === 'user') {
+        messageDiv.className = 'user-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="message-content">
+                <div class="message-text">${formattedMessage}</div>
+            </div>
+        `;
+    } else {
+        messageDiv.className = 'ai-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <div class="message-text">${formattedMessage}</div>
+            </div>
+        `;
+    }
+
+    chatMessages.appendChild(messageDiv);
+
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Add to chat history
+    chatHistory.push({ sender, message, timestamp: new Date() });
+}
+
+function formatMessage(message) {
+    console.log('Original message:', message);
+
+    // Convert markdown-like formatting to HTML
+    let formatted = message
+        // Bold text: **text** or __text__
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/__(.*?)__/g, '<strong>$1</strong>')
+        // Italic text: *text* or _text_ (but not if already in bold)
+        .replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em>$1</em>')
+        .replace(/(?<!_)_([^_]+?)_(?!_)/g, '<em>$1</em>')
+        // Code: `text`
+        .replace(/`(.*?)`/g, '<code>$1</code>')
+        // Headers: # text
+        .replace(/^### (.*$)/gim, '<strong>$1</strong>')
+        .replace(/^## (.*$)/gim, '<strong>$1</strong>')
+        .replace(/^# (.*$)/gim, '<strong>$1</strong>')
+        // Line breaks
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>')
+        // Lists (simple bullet points)
+        .replace(/^- (.*$)/gim, '• $1')
+        .replace(/^\* (.*$)/gim, '• $1')
+        // Numbers in lists
+        .replace(/^(\d+)\. (.*$)/gim, '$1. $2');
+
+    // Also add some manual bold formatting for common patterns
+    formatted = formatted
+        .replace(/\b(Important|Note|Key|Formula|Tip|Remember|Warning|Example)\b/gi, '<strong>$1</strong>')
+        .replace(/\b(BITSAT|JEE|Physics|Chemistry|Mathematics|Biology)\b/g, '<strong>$1</strong>');
+
+    console.log('Formatted message:', formatted);
+    return formatted;
+}
+
+function showTypingIndicator() {
+    const chatMessages = document.getElementById('chatMessages');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'typing-indicator';
+    typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="typing-dots">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    `;
+
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
+
+function sendSuggestion(suggestion) {
+    if (suggestion === 'Test bold text') {
+        // Test bold text formatting
+        addMessageToChat('Testing bold text formatting', 'user');
+        addMessageToChat('This is <strong>bold text</strong> and this is <em>italic text</em> and this is <code>code text</code>. Here are some **markdown bold** and *markdown italic* examples.', 'ai');
+        return;
+    }
+    document.getElementById('chatInput').value = suggestion;
+    sendMessage();
+}
+
+async function checkAvailableModels() {
+    addMessageToChat('Checking available models...', 'user');
+
+    try {
+        console.log('Calling ListModels API...');
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models?key=${GEMINI_API_KEY}`);
+
+        console.log('ListModels response status:', response.status);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('ListModels error:', errorText);
+            addMessageToChat(`❌ Error fetching models (${response.status}): ${errorText}`, 'ai');
+            return;
+        }
+
+        const data = await response.json();
+        console.log('ListModels response data:', data);
+
+        if (data.models && data.models.length > 0) {
+            let modelsList = "📋 Available models with your API key:\n\n";
+            let generateContentModels = [];
+
+            data.models.forEach(model => {
+                if (model.supportedGenerationMethods && model.supportedGenerationMethods.includes('generateContent')) {
+                    generateContentModels.push(model.name);
+                    modelsList += `✅ ${model.name}\n`;
+                    if (model.displayName) modelsList += `   Display Name: ${model.displayName}\n`;
+                    modelsList += `   Methods: ${model.supportedGenerationMethods.join(', ')}\n\n`;
+                } else {
+                    modelsList += `❌ ${model.name} (no generateContent support)\n`;
+                    if (model.supportedGenerationMethods) {
+                        modelsList += `   Methods: ${model.supportedGenerationMethods.join(', ')}\n`;
+                    }
+                    modelsList += `\n`;
+                }
+            });
+
+            modelsList += `\n🎯 Models that support generateContent: ${generateContentModels.length}\n`;
+            generateContentModels.forEach(model => {
+                modelsList += `• ${model}\n`;
+            });
+
+            addMessageToChat(modelsList, 'ai');
+        } else {
+            addMessageToChat('❌ No models found in response.', 'ai');
+        }
+    } catch (error) {
+        console.error('Error in checkAvailableModels:', error);
+        addMessageToChat(`❌ Error fetching models: ${error.message}`, 'ai');
+    }
+}
+
+// Handle Enter key press in chat input
+document.addEventListener('DOMContentLoaded', function() {
+    const chatInput = document.getElementById('chatInput');
+    if (chatInput) {
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+
+    // Add debug info to console
+    console.log('Chatbot initialized');
+    console.log('API Key set:', GEMINI_API_KEY ? 'Yes' : 'No');
+    console.log('Protocol:', window.location.protocol);
+
+    // Test available models
+    if (window.location.protocol !== 'file:') {
+        testAvailableModels();
+    }
+});
 
 // On load, check for user info
 window.onload = function() {

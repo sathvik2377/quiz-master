@@ -80,6 +80,11 @@
                 <span>Practice Quiz</span>
                 <small>Test your knowledge</small>
             </button>
+            <button class="section-btn" onclick="showSection('chatbot')">
+                <i class="fas fa-robot"></i>
+                <span>AI Doubt Solver</span>
+                <small>Ask questions & get help</small>
+            </button>
             <button class="section-btn" onclick="showSection('graphing')">
                 <i class="fas fa-chart-line"></i>
                 <span>Graphing Calculator</span>
@@ -94,6 +99,11 @@
                 <i class="fas fa-file-pdf"></i>
                 <span>Study Materials</span>
                 <small>Reference documents</small>
+            </button>
+            <button class="section-btn" onclick="showSection('settings')">
+                <i class="fas fa-user-cog"></i>
+                <span>Profile Settings</span>
+                <small>Update your info</small>
             </button>
         </div>
 
@@ -145,15 +155,7 @@
                 </div>
             </div>
 
-            <!-- Settings Row -->
-            <div class="settings-row">
-                <div class="settings-spacer"></div>
-                <button class="category-btn settings-btn" onclick="showUserModal()">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Profile Settings</span>
-                    <small>Update your info</small>
-                </button>
-            </div>
+
         </div>
 
         <!-- Graphing Calculator Section -->
@@ -231,6 +233,45 @@
 
             <div id="pdfViewer" class="pdf-viewer">
                 <p>Upload a PDF file to view study materials here.</p>
+            </div>
+        </div>
+
+        <!-- AI Chatbot Section -->
+        <div id="chatbotSection" class="section-content" style="display: none;">
+            <h2><i class="fas fa-robot"></i> AI Doubt Solver</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-message">
+                        <div class="ai-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>👋 Hello! I'm your AI study assistant. Ask me any questions about your studies, concepts, or problems you're facing. I'm here to help!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <input type="text" id="chatInput" placeholder="Type your question here..." maxlength="1000">
+                        <button id="sendButton" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="chat-suggestions">
+                        <button class="suggestion-btn" onclick="sendSuggestion('Explain this concept to me')">
+                            <i class="fas fa-lightbulb"></i> Explain concept
+                        </button>
+                        <button class="suggestion-btn" onclick="sendSuggestion('Help me solve this problem')">
+                            <i class="fas fa-calculator"></i> Solve problem
+                        </button>
+                        <button class="suggestion-btn" onclick="sendSuggestion('Give me practice questions')">
+                            <i class="fas fa-question-circle"></i> Practice questions
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
