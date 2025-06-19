@@ -1337,50 +1337,110 @@ function showMainMenu() {
 
 // Timer functions
 function startQuestionTimer() {
+    // Clear any existing timer first
+    if (questionTimer) {
+        clearInterval(questionTimer);
+    }
+
     questionSeconds = 30;
     updateQuestionTimer();
+
     questionTimer = setInterval(() => {
         questionSeconds--;
         updateQuestionTimer();
+
+        // Prevent negative values
         if (questionSeconds <= 0) {
+            questionSeconds = 0;
+            updateQuestionTimer();
             clearInterval(questionTimer);
             handleTimeUp();
         }
-    }, 2000);
+    }, 1000); // Fixed: Use 1000ms for accurate 1-second intervals
 }
 
 function startTotalTimer() {
+    // Clear any existing timer first
+    if (totalTimer) {
+        clearInterval(totalTimer);
+    }
+
     totalTimer = setInterval(() => {
         totalSeconds++;
         updateTotalTimer();
-    }, 2000);
+    }, 1000); // Fixed: Use 1000ms for accurate 1-second intervals
 }
 
 function stopTimers() {
-    clearInterval(questionTimer);
-    clearInterval(totalTimer);
+    if (questionTimer) {
+        clearInterval(questionTimer);
+        questionTimer = null;
+    }
+    if (totalTimer) {
+        clearInterval(totalTimer);
+        totalTimer = null;
+    }
 }
 
 function updateQuestionTimer() {
-    document.getElementById('questionTimer').textContent = questionSeconds;
+    const timerElement = document.getElementById('questionTimer');
+    if (timerElement) {
+        // Ensure timer never shows negative values
+        const displaySeconds = Math.max(0, questionSeconds);
+        timerElement.textContent = displaySeconds;
+
+        // Add visual warning when time is running low
+        if (displaySeconds <= 5 && displaySeconds > 0) {
+            timerElement.style.color = '#e74c3c';
+            timerElement.style.fontWeight = 'bold';
+        } else if (displaySeconds === 0) {
+            timerElement.style.color = '#c0392b';
+            timerElement.style.fontWeight = 'bold';
+        } else {
+            timerElement.style.color = '';
+            timerElement.style.fontWeight = '';
+        }
+    }
 }
 
 function updateTotalTimer() {
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    document.getElementById('totalTimer').textContent = 
-        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const timerElement = document.getElementById('totalTimer');
+    if (timerElement) {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        timerElement.textContent =
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 }
 
 function handleTimeUp() {
     if (!answered) {
         answered = true;
-        score = Math.max(0, score - 1);
+
+        // Ensure timer shows 0
+        questionSeconds = 0;
+        updateQuestionTimer();
+
+        // Show correct answer
+        const allOptions = document.querySelectorAll('.option-btn');
+        allOptions.forEach((btn, index) => {
+            if (index === currentQuestion.correct) {
+                btn.classList.add('correct');
+            }
+            btn.style.pointerEvents = 'none';
+        });
+
+        // Deduct points for timeout
+        score = Math.max(0, score - 2);
         document.getElementById('scoreValue').textContent = score;
-        showFeedback('Time\'s up! ' + currentQuestion.explanation, 'error');
-        setTimeout(() => {
-            generateQuestion();
-        }, 3000);
+
+        showFeedback('Time\'s up! Check the solution below.', 'warning');
+
+        // Show solution for timeout
+        showSolution(-1, false); // -1 indicates timeout
+
+        // Update navigation buttons
+        updateNavigationButtons();
     }
 }
 
@@ -1556,7 +1616,6 @@ function showSolution(selectedIndex, isCorrect) {
     if (!solutionArea || !solutionContent || !currentQuestion) return;
 
     const correctOption = currentQuestion.options[currentQuestion.correct];
-    const selectedOption = currentQuestion.options[selectedIndex];
 
     let solutionHTML = `
         <div class="correct-answer">
@@ -1564,7 +1623,19 @@ function showSolution(selectedIndex, isCorrect) {
         </div>
     `;
 
-    if (!isCorrect) {
+    // Handle different cases: correct answer, wrong answer, or timeout
+    if (selectedIndex === -1) {
+        // Timeout case
+        solutionHTML += `
+            <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+                        border: 1px solid #ffc107; border-radius: 10px; padding: 12px 15px;
+                        margin: 15px 0; color: #856404; font-weight: 600;">
+                <strong>⏰ Time's Up!</strong> You didn't answer in time.
+            </div>
+        `;
+    } else if (!isCorrect) {
+        // Wrong answer case
+        const selectedOption = currentQuestion.options[selectedIndex];
         solutionHTML += `
             <div style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
                         border: 1px solid #dc3545; border-radius: 10px; padding: 12px 15px;
