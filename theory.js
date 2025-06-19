@@ -3,7 +3,7 @@ const theoryData = {
     mathematics: {
         title: "Mathematics Theory",
         icon: "fas fa-calculator",
-        pdfUrl: "https://drive.google.com/file/d/1PTKuLe7kRw5NodwtnFYTghSaOoR8s1KO/view?usp=sharing",
+        pdfUrl: "https://drive.google.com/file/d/1PTKuLe7kRw5NodwtnFYTghSaOoR8s1KO/preview",
         topics: [
             {
                 title: "Algebra",
@@ -189,7 +189,7 @@ const theoryData = {
     physics: {
         title: "Physics Theory",
         icon: "fas fa-atom",
-        pdfUrl: "https://drive.google.com/file/d/1pnLzV6BR-IO3y5g3nKmjVl0AuUPsvBZZ/view?usp=sharing",
+        pdfUrl: "https://drive.google.com/file/d/1pnLzV6BR-IO3y5g3nKmjVl0AuUPsvBZZ/preview",
         topics: [
             {
                 title: "Mechanics",
@@ -352,7 +352,7 @@ const theoryData = {
     chemistry: {
         title: "Chemistry Theory",
         icon: "fas fa-flask",
-        pdfUrl: "https://drive.google.com/file/d/1gfabRlnnZoUEuEuGYgZ5ZOqyUaXUGDWT/view?usp=sharing",
+        pdfUrl: "https://drive.google.com/file/d/1gfabRlnnZoUEuEuGYgZ5ZOqyUaXUGDWT/preview",
         topics: [
             {
                 title: "Atomic Structure",
@@ -496,7 +496,7 @@ const theoryData = {
     english: {
         title: "English Theory",
         icon: "fas fa-language",
-        pdfUrl: "https://drive.google.com/file/d/1URug3xW-hBVqi7zUoXMyGwUt18HsQ8CW/view?usp=sharing",
+        pdfUrl: "https://drive.google.com/file/d/1URug3xW-hBVqi7zUoXMyGwUt18HsQ8CW/preview",
         topics: [
             {
                 title: "Grammar Fundamentals",
@@ -624,7 +624,7 @@ const theoryData = {
     'logical-reasoning': {
         title: "Logical Reasoning Theory",
         icon: "fas fa-puzzle-piece",
-        pdfUrl: "https://drive.google.com/file/d/1URug3xW-hBVqi7zUoXMyGwUt18HsQ8CW/view?usp=sharing",
+        pdfUrl: "https://drive.google.com/file/d/1URug3xW-hBVqi7zUoXMyGwUt18HsQ8CW/preview",
         topics: [
             {
                 title: "Pattern Recognition",
