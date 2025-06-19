@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITSAT Prep Hub - Interactive Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hyperspeed Background -->
+    <div class="hyperspeed-bg" id="hyperspeedBg"></div>
+
+    <!-- Floating Elements for Animation -->
+    <div class="floating-elements">
+        <div class="floating-element">📚</div>
+        <div class="floating-element">🧮</div>
+        <div class="floating-element">📊</div>
+        <div class="floating-element">🎯</div>
+        <div class="floating-element">💡</div>
+        <div class="floating-element">🚀</div>
+    </div>
+
+    <!-- Back Button -->
+    <button id="backBtn" class="back-btn" style="display: none;">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <!-- Motivational Quotes - Left Side -->
+    <div class="motivational-quotes left-quotes">
+        <div class="quote-card">
+            <i class="fas fa-quote-left"></i>
+            <p>"Success is not final, failure is not fatal: it is the courage to continue that counts."</p>
+            <span>- Winston Churchill</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-lightbulb"></i>
+            <p>"The expert in anything was once a beginner."</p>
+            <span>- Helen Hayes</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-rocket"></i>
+            <p>"Don't watch the clock; do what it does. Keep going."</p>
+            <span>- Sam Levenson</span>
+        </div>
+    </div>
+
+    <!-- Motivational Quotes - Right Side -->
+    <div class="motivational-quotes right-quotes">
+        <div class="quote-card">
+            <i class="fas fa-star"></i>
+            <p>"Believe you can and you're halfway there."</p>
+            <span>- Theodore Roosevelt</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-trophy"></i>
+            <p>"Success is the sum of small efforts repeated day in and day out."</p>
+            <span>- Robert Collier</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-brain"></i>
+            <p>"The beautiful thing about learning is that no one can take it away from you."</p>
+            <span>- B.B. King</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1 id="typingTitle">BITSAT Prep Hub</h1>
+        <p>Master Your Skills with Interactive Learning</p>
+        <div id="examCountdown" class="exam-countdown">Loading...</div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - After exam countdown -->
+    <div class="mobile-quotes mobile-quote-after-countdown">
+        <div class="mobile-quote-card">
+            <i class="fas fa-rocket quote-icon"></i>
+            <div class="quote-text">"Success is not final, failure is not fatal: it is the courage to continue that counts."</div>
+            <div class="quote-author">- Winston Churchill</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-star quote-icon"></i>
+            <div class="quote-text">"The future belongs to those who believe in the beauty of their dreams."</div>
+            <div class="quote-author">- Eleanor Roosevelt</div>
+        </div>
+    </div>
+
+    <!-- Main Quiz Container -->
+    <div class="quiz-container">
+        <!-- Section Navigation Tabs -->
+        <div class="main-symmetric-layout">
+            <!-- Top Row -->
+            <div class="main-row top-row">
+                <button class="section-btn main-btn active" onclick="showSection('practice')">
+                    <i class="fas fa-brain"></i>
+                    <span>Practice Quiz</span>
+                    <small>Test your knowledge</small>
+                </button>
+                <button class="section-btn main-btn" onclick="showSection('chatbot')">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Doubt Solver</span>
+                    <small>Ask questions & get help</small>
+                </button>
+            </div>
+
+            <!-- Middle Row -->
+            <div class="main-row middle-row">
+                <button class="section-btn main-btn" onclick="showSection('graphing')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Graphing Calculator</span>
+                    <small>Visualize equations</small>
+                </button>
+                <button class="section-btn main-btn" onclick="showSection('calculator')">
+                    <i class="fas fa-calculator"></i>
+                    <span>Scientific Calculator</span>
+                    <small>Advanced calculations</small>
+                </button>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="main-row bottom-row">
+                <button class="section-btn main-btn" onclick="showSection('pdf')">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Study Materials</span>
+                    <small>Reference documents</small>
+                </button>
+                <button class="section-btn main-btn" onclick="goToTheory()">
+                    <i class="fas fa-book-open"></i>
+                    <span>Theory Hub</span>
+                    <small>Study concepts & theory</small>
+                </button>
+            </div>
+
+            <!-- Single Bottom Button -->
+            <div class="main-row single-row">
+                <button class="section-btn main-btn single-btn" onclick="showSection('settings')">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile Settings</span>
+                    <small>Update your info</small>
+                </button>
+            </div>
+        </div>
+
+        <!-- Practice Section -->
+        <div id="practiceSection" class="section-content">
+            <div class="practice-symmetric-layout">
+                <!-- Top Row -->
+                <div class="practice-row top-row">
+                    <button class="category-btn practice-btn" onclick="startQuiz('grammar')">
+                        <i class="fas fa-spell-check"></i>
+                        <span>Grammar Mastery</span>
+                        <small>Advanced grammar concepts</small>
+                    </button>
+                    <button class="category-btn practice-btn" onclick="showVocabularyOptions()">
+                        <i class="fas fa-book-open"></i>
+                        <span>Vocabulary Challenge</span>
+                        <small>Synonyms, Antonyms & Meanings</small>
+                    </button>
+                </div>
+
+                <!-- Center Space -->
+                <div class="practice-center-space">
+                    <!-- Mobile quote above BITSAT Excellence -->
+                    <div class="mobile-quotes mobile-quote-above-excellence">
+                        <div class="mobile-quote-card">
+                            <i class="fas fa-brain quote-icon"></i>
+                            <div class="quote-text">"Education is the most powerful weapon which you can use to change the world."</div>
+                            <div class="quote-author">- Nelson Mandela</div>
+                        </div>
+                    </div>
+
+                    <div class="center-decoration">
+                        <div class="floating-logo">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="center-text">
+                            <h3>BITSAT Excellence</h3>
+                            <p>Choose your path to success</p>
+                        </div>
+                        <div class="progress-ring">
+                            <div class="ring-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile quote below BITSAT Excellence -->
+                    <div class="mobile-quotes mobile-quote-below-excellence">
+                        <div class="mobile-quote-card">
+                            <i class="fas fa-target quote-icon"></i>
+                            <div class="quote-text">"The expert in anything was once a beginner."</div>
+                            <div class="quote-author">- Helen Hayes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row -->
+                <div class="practice-row bottom-row">
+                    <button class="category-btn practice-btn" onclick="startQuiz('phrasalVerbs')">
+                        <i class="fas fa-comments"></i>
+                        <span>Phrasal Verbs & Idioms</span>
+                        <small>Master expressions</small>
+                    </button>
+                    <button class="category-btn practice-btn" onclick="startQuiz('analogy')">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <span>Analogical Reasoning</span>
+                        <small>Logical thinking skills</small>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graphing Calculator Section -->
+        <div id="graphingSection" class="section-content" style="display: none;">
+            <h2>Graphing Calculator</h2>
+            <div class="desmos-container">
+                <iframe id="desmosFrame" src="https://www.desmos.com/calculator" width="100%" height="600px" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <!-- Scientific Calculator Section -->
+        <div id="calculatorSection" class="section-content" style="display: none;">
+            <h2>Scientific Calculator</h2>
+            <div class="calculator">
+                <div class="calculator-display">
+                    <div class="calc-history" id="calcHistory"></div>
+                    <input type="text" id="calcDisplay" readonly placeholder="0" />
+                </div>
+                <div class="calculator-mode">
+                    <button class="mode-btn active" id="degMode" onclick="toggleAngleMode()">DEG</button>
+                    <button class="mode-btn" id="radMode" onclick="toggleAngleMode()">RAD</button>
+                </div>
+                <div class="calculator-buttons">
+                    <!-- Row 1: Memory and Clear Functions -->
+                    <button class="calc-btn memory" onclick="memoryClear()">MC</button>
+                    <button class="calc-btn memory" onclick="memoryRecall()">MR</button>
+                    <button class="calc-btn memory" onclick="memoryAdd()">M+</button>
+                    <button class="calc-btn memory" onclick="memorySubtract()">M-</button>
+                    <button class="calc-btn operator" onclick="clearCalc()">C</button>
+                    <button class="calc-btn operator" onclick="deleteLast()">⌫</button>
+
+                    <!-- Row 2: Advanced Functions -->
+                    <button class="calc-btn function" onclick="appendFunction('2nd')" id="secondBtn">2nd</button>
+                    <button class="calc-btn function" onclick="appendFunction('π')">π</button>
+                    <button class="calc-btn function" onclick="appendFunction('e')">e</button>
+                    <button class="calc-btn function" onclick="appendFunction('!')">x!</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('(')">(</button>
+                    <button class="calc-btn operator" onclick="appendToCalc(')')">)</button>
+
+                    <!-- Row 3: Trigonometric Functions -->
+                    <button class="calc-btn function" onclick="appendFunction('sin')" id="sinBtn">sin</button>
+                    <button class="calc-btn function" onclick="appendFunction('cos')" id="cosBtn">cos</button>
+                    <button class="calc-btn function" onclick="appendFunction('tan')" id="tanBtn">tan</button>
+                    <button class="calc-btn function" onclick="appendFunction('log')">log</button>
+                    <button class="calc-btn function" onclick="appendFunction('ln')">ln</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('/')">/</button>
+
+                    <!-- Row 4: Power and Root Functions -->
+                    <button class="calc-btn function" onclick="appendFunction('x²')">x²</button>
+                    <button class="calc-btn function" onclick="appendFunction('x³')">x³</button>
+                    <button class="calc-btn function" onclick="appendFunction('xʸ')">xʸ</button>
+                    <button class="calc-btn function" onclick="appendFunction('√')">√</button>
+                    <button class="calc-btn function" onclick="appendFunction('∛')">∛</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('*')">×</button>
+
+                    <!-- Row 5: Numbers and Operations -->
+                    <button class="calc-btn function" onclick="appendFunction('1/x')">1/x</button>
+                    <button class="calc-btn function" onclick="appendFunction('|x|')">|x|</button>
+                    <button class="calc-btn function" onclick="appendFunction('10ˣ')">10ˣ</button>
+                    <button class="calc-btn number" onclick="appendToCalc('7')">7</button>
+                    <button class="calc-btn number" onclick="appendToCalc('8')">8</button>
+                    <button class="calc-btn number" onclick="appendToCalc('9')">9</button>
+
+                    <!-- Row 6: More Functions and Numbers -->
+                    <button class="calc-btn function" onclick="appendFunction('eˣ')">eˣ</button>
+                    <button class="calc-btn function" onclick="appendFunction('mod')">mod</button>
+                    <button class="calc-btn function" onclick="appendFunction('±')">±</button>
+                    <button class="calc-btn number" onclick="appendToCalc('4')">4</button>
+                    <button class="calc-btn number" onclick="appendToCalc('5')">5</button>
+                    <button class="calc-btn number" onclick="appendToCalc('6')">6</button>
+
+                    <!-- Row 7: Numbers and Subtraction -->
+                    <button class="calc-btn function" onclick="appendFunction('Rand')">Rand</button>
+                    <button class="calc-btn function" onclick="appendFunction('nPr')">nPr</button>
+                    <button class="calc-btn function" onclick="appendFunction('nCr')">nCr</button>
+                    <button class="calc-btn number" onclick="appendToCalc('1')">1</button>
+                    <button class="calc-btn number" onclick="appendToCalc('2')">2</button>
+                    <button class="calc-btn number" onclick="appendToCalc('3')">3</button>
+
+                    <!-- Row 8: Final Row -->
+                    <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
+                    <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
+                    <button class="calc-btn number" onclick="appendToCalc('0')" style="grid-column: span 2;">0</button>
+                    <button class="calc-btn number" onclick="appendToCalc('.')">.</button>
+                    <button class="calc-btn equals" onclick="calculateResult()">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PDF Study Materials Section -->
+        <div id="pdfSection" class="section-content" style="display: none;">
+            <h2>Study Materials</h2>
+            <div class="pdf-controls">
+                <input type="file" id="pdfUpload" accept=".pdf" onchange="showUploadModal()" />
+                <button onclick="document.getElementById('pdfUpload').click()" class="btn">
+                    <i class="fas fa-upload"></i> Upload PDF
+                </button>
+                <button onclick="refreshFiles()" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button onclick="activateCORS()" class="btn" style="background: #17a2b8;">
+                    <i class="fas fa-cloud"></i> Enable Cloud Storage
+                </button>
+            </div>
+
+            <!-- Uploaded Files List -->
+            <div id="uploadedFilesList" class="uploaded-files">
+                <h3>Uploaded Materials</h3>
+                <div id="filesList" class="files-list">
+                    <p class="no-files">No files uploaded yet. Upload your first study material!</p>
+                </div>
+            </div>
+
+            <div id="pdfViewer" class="pdf-viewer">
+                <p>Upload a PDF file to view study materials here.</p>
+            </div>
+        </div>
+
+        <!-- AI Chatbot Section -->
+        <div id="chatbotSection" class="section-content" style="display: none;">
+            <h2><i class="fas fa-robot"></i> AI Doubt Solver</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-message">
+                        <div class="ai-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>👋 Hello! I'm your AI study assistant. Ask me any questions about your studies, concepts, or problems you're facing. I'm here to help!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <input type="text" id="chatInput" placeholder="Type your question here..." maxlength="1000">
+                        <button id="sendButton" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="chat-suggestions">
+                        <button class="suggestion-btn" onclick="sendSuggestion('Explain this concept to me')">
+                            <i class="fas fa-lightbulb"></i> Explain concept
+                        </button>
+                        <button class="suggestion-btn" onclick="sendSuggestion('Help me solve this problem')">
+                            <i class="fas fa-calculator"></i> Solve problem
+                        </button>
+                        <button class="suggestion-btn" onclick="sendSuggestion('Give me practice questions')">
+                            <i class="fas fa-question-circle"></i> Practice questions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vocabulary Options Section -->
+        <div id="vocabularyOptionsSection" class="section-content" style="display: none;">
+            <div class="vocabulary-options-layout">
+                <div class="vocabulary-header">
+                    <h2><i class="fas fa-book-open"></i> Choose Vocabulary Type</h2>
+                    <p>Select the type of vocabulary practice you want</p>
+                    <button class="back-to-practice-btn" onclick="backToPractice()">
+                        <i class="fas fa-arrow-left"></i> Back to Practice
+                    </button>
+                </div>
+
+                <div class="vocabulary-options-grid">
+                    <button class="vocabulary-option-btn" onclick="startQuiz('synonyms')">
+                        <i class="fas fa-equals"></i>
+                        <span>Synonyms</span>
+                        <small>Words with similar meanings</small>
+                        <div class="question-count">30 Questions</div>
+                    </button>
+
+                    <button class="vocabulary-option-btn" onclick="startQuiz('antonyms')">
+                        <i class="fas fa-not-equal"></i>
+                        <span>Antonyms</span>
+                        <small>Words with opposite meanings</small>
+                        <div class="question-count">30 Questions</div>
+                    </button>
+
+                    <button class="vocabulary-option-btn" onclick="startQuiz('meanings')">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Word Meanings</span>
+                        <small>Definitions and explanations</small>
+                        <div class="question-count">30 Questions</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quizSection" class="question-section">
+            <div class="quiz-header">
+                <h2 id="categoryTitle">Quiz Category</h2>
+                <div class="quiz-stats">
+                    <div class="score-display">
+                        <i class="fas fa-trophy trophy-animation"></i>
+                        Score: <span id="scoreValue">0</span>
+                    </div>
+                    <div class="timer-display">
+                        <i class="fas fa-clock clock-animation"></i>
+                        Time: <span id="questionTimer">30</span>s
+                    </div>
+                    <div class="total-timer">
+                        <i class="fas fa-stopwatch stopwatch-animation"></i>
+                        Total: <span id="totalTimer">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number" id="questionNumber">Q1.</div>
+                    <div class="question-counter" id="questionCounter">Question 1 of 30</div>
+                </div>
+                <div class="question-text" id="questionText">
+                    Question will appear here...
+                </div>
+                <div class="options-grid" id="optionsContainer">
+                    <!-- Options will be generated dynamically -->
+                </div>
+
+                <!-- Solution Display Area -->
+                <div class="solution-area" id="solutionArea" style="display: none;">
+                    <div class="solution-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Solution & Explanation</span>
+                    </div>
+                    <div class="solution-content" id="solutionContent">
+                        <!-- Solution will be displayed here -->
+                    </div>
+                </div>
+
+                <!-- Navigation at bottom -->
+                <div class="question-navigation">
+                    <button id="prevBtn" class="nav-btn prev-btn" onclick="previousQuestion()">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <button id="nextBtn" class="nav-btn next-btn" onclick="nextQuestion()">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Info Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome to BITSAT Prep Hub!</h2>
+            <p>Let's personalize your experience:</p>
+            <div class="form-group">
+                <label for="userNameInput">Your Name:</label>
+                <input type="text" id="userNameInput" placeholder="Enter your name" />
+            </div>
+            <div class="form-group">
+                <label for="examDateSelect">BITSAT Exam Date:</label>
+                <select id="examDateSelect">
+                    <option value="2025-06-22">June 22, 2025</option>
+                    <option value="2025-06-23">June 23, 2025</option>
+                    <option value="2025-06-24">June 24, 2025</option>
+                    <option value="2025-06-25">June 25, 2025</option>
+                    <option value="2025-06-26">June 26, 2025</option>
+                </select>
+            </div>
+            <button onclick="saveUserInfo()" class="btn">Start Learning</button>
+        </div>
+    </div>
+
+
+
+    <!-- File Upload Modal -->
+    <div id="fileUploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Study Material</h2>
+                <button onclick="closeFileUploadModal()" class="close-btn">&times;</button>
+            </div>
+            <div class="upload-form">
+                <div class="form-group">
+                    <label for="uploaderName">Your Name:</label>
+                    <input type="text" id="uploaderName" placeholder="Enter your name" />
+                </div>
+                <div class="form-group">
+                    <label for="fileDescription">File Description (Optional):</label>
+                    <input type="text" id="fileDescription" placeholder="e.g., Physics Chapter 1 Notes" />
+                </div>
+                <div class="upload-actions">
+                    <button onclick="confirmFileUpload()" class="btn">
+                        <i class="fas fa-upload"></i> Upload File
+                    </button>
+                    <button onclick="closeFileUploadModal()" class="btn btn-secondary">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Bottom section -->
+    <div class="mobile-quotes mobile-quote-bottom">
+        <div class="mobile-quote-card">
+            <i class="fas fa-fire quote-icon"></i>
+            <div class="quote-text">"Don't watch the clock; do what it does. Keep going."</div>
+            <div class="quote-author">- Sam Levenson</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-trophy quote-icon"></i>
+            <div class="quote-text">"Believe you can and you're halfway there."</div>
+            <div class="quote-author">- Theodore Roosevelt</div>
+        </div>
+    </div>
+
+    <script src="vocabulary_data.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
