@@ -1750,12 +1750,23 @@ function saveUserInfo() {
         alert('Please enter your name.');
         return;
     }
+
+    // Store basic user info
     localStorage.setItem('userName', userName);
     localStorage.setItem('examDate', examDate);
+
+    // Log detailed user entry with timestamp
+    const userEntry = logUserEntry(userName, examDate);
+
     hideUserModal();
     updateExamCountdown();
     sendUserInfoToWebhook(userName, examDate);
     showMainMenu();
+
+    // Show welcome message with entry confirmation
+    setTimeout(() => {
+        console.log(`Welcome ${userName}! Your entry has been logged at ${userEntry.entryTimeFormatted}`);
+    }, 1000);
 }
 
 function sendUserInfoToWebhook(name, date) {
@@ -3929,6 +3940,117 @@ function goToTheory() {
     window.location.href = 'theory.html';
 }
 
+// User data tracking system
+function logUserEntry(userName, examDate) {
+    const timestamp = new Date().toISOString();
+    const userEntry = {
+        name: userName,
+        examDate: examDate,
+        entryTime: timestamp,
+        entryTimeFormatted: new Date().toLocaleString(),
+        sessionId: generateSessionId(),
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language
+    };
+
+    // Store in localStorage
+    let userEntries = JSON.parse(localStorage.getItem('userEntries')) || [];
+    userEntries.push(userEntry);
+    localStorage.setItem('userEntries', JSON.stringify(userEntries));
+
+    // Also store current user data
+    localStorage.setItem('currentUser', JSON.stringify(userEntry));
+
+    // Send to server if available
+    sendUserDataToServer(userEntry);
+
+    console.log('User entry logged:', userEntry);
+    return userEntry;
+}
+
+// Generate unique session ID
+function generateSessionId() {
+    return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Send user data to server
+async function sendUserDataToServer(userData) {
+    try {
+        const response = await fetch('/api/log-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+        });
+
+        if (response.ok) {
+            console.log('User data sent to server successfully');
+        }
+    } catch (error) {
+        console.log('Server not available, data stored locally only');
+    }
+}
+
+// Get all user entries
+function getAllUserEntries() {
+    return JSON.parse(localStorage.getItem('userEntries')) || [];
+}
+
+// Export user data as CSV
+function exportUserDataAsCSV() {
+    const entries = getAllUserEntries();
+    if (entries.length === 0) {
+        alert('No user data available to export');
+        return;
+    }
+
+    const headers = ['Name', 'Exam Date', 'Entry Time', 'Session ID', 'Platform', 'Language'];
+    const csvContent = [
+        headers.join(','),
+        ...entries.map(entry => [
+            `"${entry.name}"`,
+            `"${entry.examDate}"`,
+            `"${entry.entryTimeFormatted}"`,
+            `"${entry.sessionId}"`,
+            `"${entry.platform}"`,
+            `"${entry.language}"`
+        ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bitsat_user_data_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+// Display user statistics
+function displayUserStats() {
+    const entries = getAllUserEntries();
+    const stats = {
+        totalUsers: entries.length,
+        uniqueUsers: new Set(entries.map(e => e.name.toLowerCase())).size,
+        examDates: {},
+        platforms: {},
+        languages: {},
+        recentEntries: entries.slice(-10)
+    };
+
+    // Count exam dates
+    entries.forEach(entry => {
+        stats.examDates[entry.examDate] = (stats.examDates[entry.examDate] || 0) + 1;
+        stats.platforms[entry.platform] = (stats.platforms[entry.platform] || 0) + 1;
+        stats.languages[entry.language] = (stats.languages[entry.language] || 0) + 1;
+    });
+
+    console.log('User Statistics:', stats);
+    return stats;
+}
+
 // Make functions globally available
 window.appendToCalc = appendToCalc;
 window.appendFunction = appendFunction;
@@ -3959,3 +4081,104 @@ window.showPDFMethod1 = showPDFMethod1;
 window.showPDFMethod2 = showPDFMethod2;
 window.showPDFMethod3 = showPDFMethod3;
 window.goToTheory = goToTheory;
+
+// Admin functions for user data management
+window.getAllUserEntries = getAllUserEntries;
+window.exportUserDataAsCSV = exportUserDataAsCSV;
+window.displayUserStats = displayUserStats;
+
+// Admin panel functions
+window.showAdminPanel = function() {
+    const stats = displayUserStats();
+    const adminHTML = `
+        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                    background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(30,30,30,0.9));
+                    color: white; padding: 30px; border-radius: 15px; z-index: 10000;
+                    max-width: 80vw; max-height: 80vh; overflow-y: auto;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+            <h2 style="color: #4fc3f7; margin-bottom: 20px;">📊 Admin Panel - User Statistics</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <div style="background: rgba(79,195,247,0.2); padding: 15px; border-radius: 10px;">
+                    <h3 style="color: #4fc3f7; margin: 0;">Total Entries</h3>
+                    <p style="font-size: 2rem; margin: 5px 0;">${stats.totalUsers}</p>
+                </div>
+                <div style="background: rgba(255,64,129,0.2); padding: 15px; border-radius: 10px;">
+                    <h3 style="color: #ff4081; margin: 0;">Unique Users</h3>
+                    <p style="font-size: 2rem; margin: 5px 0;">${stats.uniqueUsers}</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #4fc3f7;">📅 Exam Date Distribution</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                    ${Object.entries(stats.examDates).map(([date, count]) =>
+                        `<div>${date}: ${count} users</div>`
+                    ).join('')}
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #4fc3f7;">💻 Platform Distribution</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                    ${Object.entries(stats.platforms).map(([platform, count]) =>
+                        `<div>${platform}: ${count} users</div>`
+                    ).join('')}
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #4fc3f7;">🕒 Recent Entries (Last 10)</h3>
+                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; max-height: 200px; overflow-y: auto;">
+                    ${stats.recentEntries.map(entry =>
+                        `<div style="margin-bottom: 5px; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 4px;">
+                            <strong>${entry.name}</strong> - ${entry.examDate}
+                            <br><small style="opacity: 0.7;">${entry.entryTimeFormatted}</small>
+                        </div>`
+                    ).join('')}
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="exportUserDataAsCSV()"
+                        style="background: #4fc3f7; color: white; border: none; padding: 10px 20px;
+                               border-radius: 8px; cursor: pointer; font-weight: bold;">
+                    📥 Export CSV
+                </button>
+                <button onclick="fetchServerStats()"
+                        style="background: #ff4081; color: white; border: none; padding: 10px 20px;
+                               border-radius: 8px; cursor: pointer; font-weight: bold;">
+                    🔄 Refresh Server Data
+                </button>
+                <button onclick="document.getElementById('adminPanel').remove()"
+                        style="background: #666; color: white; border: none; padding: 10px 20px;
+                               border-radius: 8px; cursor: pointer; font-weight: bold;">
+                    ❌ Close
+                </button>
+            </div>
+        </div>
+    `;
+
+    const adminPanel = document.createElement('div');
+    adminPanel.id = 'adminPanel';
+    adminPanel.innerHTML = adminHTML;
+    document.body.appendChild(adminPanel);
+};
+
+// Fetch server statistics
+window.fetchServerStats = async function() {
+    try {
+        const response = await fetch('/api/stats');
+        const data = await response.json();
+        if (data.success) {
+            console.log('📊 Server Statistics:', data.stats);
+            alert(`Server Stats:\nTotal Entries: ${data.stats.totalEntries}\nUnique Users: ${data.stats.uniqueUsers}\nEntries Last 24h: ${data.stats.entriesLast24h}`);
+        }
+    } catch (error) {
+        console.log('Server not available for stats');
+        alert('Server not available. Showing local data only.');
+    }
+};
+
+// Secret admin access (type "admin123" in console)
+window.admin123 = window.showAdminPanel;

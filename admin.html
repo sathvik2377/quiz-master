@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - BITSAT Prep Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .admin-header h1 {
+            font-size: 2.5rem;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(79, 195, 247, 0.2), rgba(255, 64, 129, 0.2));
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card h3 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .data-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .data-section h2 {
+            color: #4fc3f7;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-entry {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+
+        .user-date {
+            color: #ff4081;
+        }
+
+        .user-time {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4fc3f7, #ff4081);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.3);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #666, #888);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #4fc3f7;
+        }
+
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .user-entry {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-shield-alt"></i> Admin Panel</h1>
+            <p>BITSAT Prep Hub - User Data Management</p>
+        </div>
+
+        <div id="loadingMessage" class="loading">
+            <i class="fas fa-spinner fa-spin"></i> Loading user data...
+        </div>
+
+        <div id="errorMessage" class="error" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i> <span id="errorText"></span>
+        </div>
+
+        <div id="adminContent" style="display: none;">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3><i class="fas fa-users"></i> Total Entries</h3>
+                    <div class="stat-value" id="totalEntries">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-user-friends"></i> Unique Users</h3>
+                    <div class="stat-value" id="uniqueUsers">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-clock"></i> Last 24h</h3>
+                    <div class="stat-value" id="entriesLast24h">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3><i class="fas fa-calendar"></i> Today</h3>
+                    <div class="stat-value" id="entriesToday">0</div>
+                </div>
+            </div>
+
+            <div class="data-section">
+                <h2><i class="fas fa-chart-pie"></i> Exam Date Distribution</h2>
+                <div id="examDateStats"></div>
+            </div>
+
+            <div class="data-section">
+                <h2><i class="fas fa-desktop"></i> Platform Distribution</h2>
+                <div id="platformStats"></div>
+            </div>
+
+            <div class="data-section">
+                <h2><i class="fas fa-history"></i> Recent User Entries</h2>
+                <div id="recentEntries"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export CSV
+                </button>
+                <button class="btn" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
+                <button class="btn secondary" onclick="goHome()">
+                    <i class="fas fa-home"></i> Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userData = [];
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+        });
+
+        async function loadUserData() {
+            try {
+                // Try to fetch from server first
+                const response = await fetch('/api/users');
+                if (response.ok) {
+                    const data = await response.json();
+                    userData = data.data || [];
+                    await loadServerStats();
+                } else {
+                    throw new Error('Server not available');
+                }
+            } catch (error) {
+                // Fallback to localStorage
+                userData = JSON.parse(localStorage.getItem('userEntries')) || [];
+                console.log('Using local data:', userData.length, 'entries');
+            }
+
+            displayData();
+        }
+
+        async function loadServerStats() {
+            try {
+                const response = await fetch('/api/stats');
+                if (response.ok) {
+                    const data = await response.json();
+                    displayStats(data.stats);
+                }
+            } catch (error) {
+                console.log('Could not load server stats');
+            }
+        }
+
+        function displayData() {
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+
+            if (userData.length === 0) {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('errorText').textContent = 'No user data found';
+                return;
+            }
+
+            // Calculate local stats if server stats not available
+            const stats = calculateLocalStats();
+            displayStats(stats);
+            displayRecentEntries();
+        }
+
+        function calculateLocalStats() {
+            const now = new Date();
+            const today = now.toDateString();
+            const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+            return {
+                totalEntries: userData.length,
+                uniqueUsers: new Set(userData.map(u => u.name?.toLowerCase())).size,
+                entriesLast24h: userData.filter(u => new Date(u.entryTime) > yesterday).length,
+                entriesToday: userData.filter(u => new Date(u.entryTime).toDateString() === today).length,
+                examDates: {},
+                platforms: {}
+            };
+        }
+
+        function displayStats(stats) {
+            document.getElementById('totalEntries').textContent = stats.totalEntries || userData.length;
+            document.getElementById('uniqueUsers').textContent = stats.uniqueUsers || 0;
+            document.getElementById('entriesLast24h').textContent = stats.entriesLast24h || 0;
+            document.getElementById('entriesToday').textContent = stats.entriesToday || 0;
+
+            // Display exam date distribution
+            const examDateStats = document.getElementById('examDateStats');
+            const examDates = stats.examDates || {};
+            examDateStats.innerHTML = Object.entries(examDates).length > 0 
+                ? Object.entries(examDates).map(([date, count]) => 
+                    `<div class="user-entry"><span>${date}</span><span>${count} users</span></div>`
+                  ).join('')
+                : '<p>No exam date data available</p>';
+
+            // Display platform distribution
+            const platformStats = document.getElementById('platformStats');
+            const platforms = stats.platforms || {};
+            platformStats.innerHTML = Object.entries(platforms).length > 0
+                ? Object.entries(platforms).map(([platform, count]) => 
+                    `<div class="user-entry"><span>${platform}</span><span>${count} users</span></div>`
+                  ).join('')
+                : '<p>No platform data available</p>';
+        }
+
+        function displayRecentEntries() {
+            const recentEntries = document.getElementById('recentEntries');
+            const recent = userData.slice(-20).reverse(); // Last 20 entries, newest first
+
+            recentEntries.innerHTML = recent.map(entry => `
+                <div class="user-entry">
+                    <div class="user-name">${entry.name || 'Unknown'}</div>
+                    <div class="user-date">${entry.examDate || 'No date'}</div>
+                    <div class="user-time">${entry.entryTimeFormatted || new Date(entry.entryTime).toLocaleString()}</div>
+                    <div>${entry.platform || 'Unknown platform'}</div>
+                </div>
+            `).join('');
+        }
+
+        async function exportData() {
+            try {
+                const response = await fetch('/api/users/export');
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `bitsat_user_data_${new Date().toISOString().split('T')[0]}.csv`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                } else {
+                    throw new Error('Server export failed');
+                }
+            } catch (error) {
+                // Fallback to local export
+                exportLocalData();
+            }
+        }
+
+        function exportLocalData() {
+            if (userData.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            const headers = ['Name', 'Exam Date', 'Entry Time', 'Session ID', 'Platform', 'Language'];
+            const csvContent = [
+                headers.join(','),
+                ...userData.map(entry => [
+                    `"${entry.name || ''}"`,
+                    `"${entry.examDate || ''}"`,
+                    `"${entry.entryTimeFormatted || ''}"`,
+                    `"${entry.sessionId || ''}"`,
+                    `"${entry.platform || ''}"`,
+                    `"${entry.language || ''}"`
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `bitsat_user_data_local_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function refreshData() {
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            loadUserData();
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
