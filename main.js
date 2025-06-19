@@ -1880,21 +1880,36 @@ function openFileInNewTab(index) {
 
 // Helper function to convert data URL to blob
 function dataURLtoBlob(dataurl) {
-    const arr = dataurl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while(n--) {
-        u8arr[n] = bstr.charCodeAt(n);
+    try {
+        const arr = dataurl.split(',');
+        if (arr.length < 2) {
+            throw new Error('Invalid data URL format');
+        }
+
+        const mimeMatch = arr[0].match(/:(.*?);/);
+        const mime = mimeMatch ? mimeMatch[1] : 'application/pdf';
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type: mime});
+    } catch (error) {
+        console.error('Error converting data URL to blob:', error);
+        // Return a fallback blob
+        return new Blob(['PDF conversion error'], {type: 'text/plain'});
     }
-    return new Blob([u8arr], {type: mime});
 }
 
 function loadPDF(fileData) {
     const viewer = document.getElementById('pdfViewer');
 
     if (typeof fileData === 'object' && fileData.fileData) {
+        // Create a blob URL for better PDF viewing
+        const blob = dataURLtoBlob(fileData.fileData);
+        const blobUrl = URL.createObjectURL(blob);
+
         viewer.innerHTML = `
             <div style="background: rgba(255, 255, 255, 0.95); border-radius: 15px; padding: 20px; margin-bottom: 15px; backdrop-filter: blur(10px); box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                 <h3 style="color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
@@ -1916,20 +1931,31 @@ function loadPDF(fileData) {
                 <button onclick="downloadFile(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn" style="background: #17a2b8;">
                     <i class="fas fa-download"></i> Download PDF
                 </button>
+                <button onclick="openPDFInBrowser('${blobUrl}', '${fileData.name}')" class="btn" style="background: #ffc107; color: #333;">
+                    <i class="fas fa-eye"></i> View in Browser
+                </button>
             </div>
-            <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-top: 20px;">
+            <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-top: 20px; background: white;">
+                <div style="padding: 15px; background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                    <p style="margin: 0; color: #666; text-align: center;">
+                        <i class="fas fa-info-circle"></i>
+                        If the PDF doesn't display below, use the "View in Browser" or "Open in New Tab" buttons above.
+                    </p>
+                </div>
                 <iframe
-                    src="${fileData.fileData}#toolbar=1&navpanes=1&scrollbar=1"
+                    src="${blobUrl}#toolbar=1&navpanes=1&scrollbar=1&view=FitH"
                     width="100%"
                     height="700px"
                     frameborder="0"
-                    style="border-radius: 15px; display: block;"
+                    style="display: block; background: white;"
                     title="PDF Viewer for ${fileData.name}"
+                    onload="this.style.opacity='1'"
+                    onerror="handlePDFError(this, '${blobUrl}', '${fileData.name}')"
                 >
-                    <div style="text-align: center; padding: 40px; background: #f8f9fa; border-radius: 10px;">
+                    <div style="text-align: center; padding: 40px; background: #f8f9fa;">
                         <p style="color: #666; margin-bottom: 15px;">Your browser does not support PDF viewing.</p>
-                        <button onclick="openFileInNewTab(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn">
-                            <i class="fas fa-external-link-alt"></i> Open in New Tab
+                        <button onclick="openPDFInBrowser('${blobUrl}', '${fileData.name}')" class="btn">
+                            <i class="fas fa-eye"></i> View in Browser
                         </button>
                         <button onclick="downloadFile(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn">
                             <i class="fas fa-download"></i> Download PDF
@@ -1943,9 +1969,36 @@ function loadPDF(fileData) {
             <div style="text-align: center; padding: 40px; color: #666;">
                 <i class="fas fa-file-pdf" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
                 <p>Upload a PDF file to view study materials here.</p>
+                <p style="margin-top: 15px; font-size: 14px; opacity: 0.8;">Supported formats: PDF files up to 5MB</p>
             </div>
         `;
     }
+}
+
+// Function to handle PDF viewing errors
+function handlePDFError(iframe, blobUrl, fileName) {
+    iframe.style.display = 'none';
+    iframe.parentElement.innerHTML = `
+        <div style="text-align: center; padding: 40px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 10px; margin: 20px;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: #856404; margin-bottom: 15px;"></i>
+            <h4 style="color: #856404; margin-bottom: 15px;">PDF Display Issue</h4>
+            <p style="color: #856404; margin-bottom: 20px;">The PDF cannot be displayed in the embedded viewer. Please use one of the options below:</p>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button onclick="openPDFInBrowser('${blobUrl}', '${fileName}')" class="btn" style="background: #28a745;">
+                    <i class="fas fa-eye"></i> View in Browser
+                </button>
+                <button onclick="window.open('${blobUrl}', '_blank')" class="btn" style="background: #17a2b8;">
+                    <i class="fas fa-external-link-alt"></i> Open in New Tab
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// Function to open PDF in browser
+function openPDFInBrowser(blobUrl, fileName) {
+    window.open(blobUrl, '_blank');
+    showFeedback(`Opening ${fileName} in browser...`, 'success');
 }
 
 async function deleteFile(fileId) {
@@ -2024,3 +2077,5 @@ window.openFileInNewTab = openFileInNewTab;
 window.viewFileInWebsite = viewFileInWebsite;
 window.refreshFiles = refreshFiles;
 window.activateCORS = activateCORS;
+window.handlePDFError = handlePDFError;
+window.openPDFInBrowser = openPDFInBrowser;
