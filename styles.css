@@ -3633,3 +3633,493 @@ body::after {
         animation: none;
     }
 }
+
+/* Theory Page Specific Styles */
+.theory-content-section {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.theory-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(79, 195, 247, 0.3);
+}
+
+.back-to-subjects-btn {
+    background: linear-gradient(135deg, rgba(79, 195, 247, 0.8), rgba(255, 64, 129, 0.8));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-to-subjects-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 195, 247, 0.3);
+}
+
+.return-home-btn {
+    background: linear-gradient(135deg, rgba(255, 64, 129, 0.8), rgba(156, 39, 176, 0.8));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.return-home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 64, 129, 0.3);
+}
+
+.theory-content {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.theory-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.theory-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.theory-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #4fc3f7, #ff4081);
+    border-radius: 4px;
+}
+
+.theory-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #29b6f6, #f50057);
+}
+
+.theory-topic {
+    background: linear-gradient(135deg,
+        rgba(79, 195, 247, 0.1) 0%,
+        rgba(255, 64, 129, 0.1) 50%,
+        rgba(156, 39, 176, 0.1) 100%);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.theory-topic:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(79, 195, 247, 0.2);
+}
+
+.topic-title {
+    color: #4fc3f7;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topic-title::before {
+    content: '📚';
+    font-size: 1.2rem;
+}
+
+.topic-content {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+}
+
+.topic-content h3 {
+    color: #ff4081;
+    font-size: 1.3rem;
+    margin: 20px 0 15px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.topic-content h4 {
+    color: #4fc3f7;
+    font-size: 1.1rem;
+    margin: 15px 0 10px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.topic-content p {
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.topic-content ul {
+    margin: 10px 0 15px 20px;
+    padding-left: 0;
+}
+
+.topic-content li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.topic-content li::before {
+    content: '▶';
+    color: #4fc3f7;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.topic-content strong {
+    color: #ff4081;
+    font-weight: bold;
+}
+
+/* Mobile responsiveness for theory page */
+@media (max-width: 768px) {
+    .theory-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .back-to-subjects-btn {
+        align-self: flex-start;
+    }
+
+    .theory-topic {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .topic-title {
+        font-size: 1.3rem;
+    }
+
+    .topic-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .topic-content h4 {
+        font-size: 1rem;
+    }
+
+    .theory-content {
+        max-height: 60vh;
+    }
+}
+
+/* Theory Symmetric Layout */
+.theory-symmetric-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.theory-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.theory-row.single-row {
+    justify-content: center;
+}
+
+.theory-center-space {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    margin: 20px 0;
+}
+
+.theory-btn {
+    min-width: 280px;
+    max-width: 320px;
+    height: 120px;
+}
+
+.single-btn {
+    min-width: 350px;
+    max-width: 400px;
+}
+
+/* Theory Tabs */
+.theory-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(79, 195, 247, 0.3);
+}
+
+.theory-tab-btn {
+    background: linear-gradient(135deg, rgba(79, 195, 247, 0.6), rgba(255, 64, 129, 0.6));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0.7;
+}
+
+.theory-tab-btn.active {
+    opacity: 1;
+    background: linear-gradient(135deg, rgba(79, 195, 247, 0.9), rgba(255, 64, 129, 0.9));
+    box-shadow: 0 8px 20px rgba(79, 195, 247, 0.3);
+    transform: translateY(-2px);
+}
+
+.theory-tab-btn:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 195, 247, 0.2);
+}
+
+/* PDF Viewer */
+.theory-pdf-viewer {
+    background: linear-gradient(135deg,
+        rgba(79, 195, 247, 0.1) 0%,
+        rgba(255, 64, 129, 0.1) 50%,
+        rgba(156, 39, 176, 0.1) 100%);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.theory-pdf-viewer iframe {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile responsiveness for theory symmetric layout */
+@media (max-width: 768px) {
+    .theory-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .theory-btn {
+        min-width: 280px;
+        max-width: 300px;
+        height: 100px;
+    }
+
+    .single-btn {
+        min-width: 280px;
+        max-width: 300px;
+    }
+
+    .theory-center-space {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .theory-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .theory-tab-btn {
+        width: 200px;
+        justify-content: center;
+    }
+
+    .theory-pdf-viewer iframe {
+        height: 400px;
+    }
+}
+
+/* Main Page Symmetric Layout */
+.main-symmetric-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.main-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.main-row.single-row {
+    justify-content: center;
+}
+
+.main-btn {
+    min-width: 280px;
+    max-width: 320px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    font-size: 1rem;
+}
+
+.main-btn i {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+
+.main-btn span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.main-btn small {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.single-btn {
+    min-width: 350px;
+    max-width: 400px;
+}
+
+/* Override section-tabs for backward compatibility */
+.section-tabs {
+    display: none;
+}
+
+/* Mobile responsiveness for main symmetric layout */
+@media (max-width: 768px) {
+    .main-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .main-btn {
+        min-width: 280px;
+        max-width: 300px;
+        height: 100px;
+    }
+
+    .single-btn {
+        min-width: 280px;
+        max-width: 300px;
+    }
+
+    .main-btn i {
+        font-size: 2rem;
+    }
+
+    .main-btn span {
+        font-size: 1rem;
+    }
+
+    .main-btn small {
+        font-size: 0.8rem;
+    }
+}
+
+/* Practice Section Symmetric Layout */
+.practice-symmetric-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.practice-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.practice-center-space {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    margin: 20px 0;
+}
+
+.practice-btn {
+    min-width: 280px;
+    max-width: 320px;
+    height: 120px;
+}
+
+/* Mobile responsiveness for practice symmetric layout */
+@media (max-width: 768px) {
+    .practice-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .practice-btn {
+        min-width: 280px;
+        max-width: 300px;
+        height: 100px;
+    }
+
+    .practice-center-space {
+        width: 100%;
+        margin: 10px 0;
+    }
+}

@@ -3924,6 +3924,11 @@ function activateCORS() {
     }, 2000);
 }
 
+// Function to navigate to theory page
+function goToTheory() {
+    window.location.href = 'theory.html';
+}
+
 // Make functions globally available
 window.appendToCalc = appendToCalc;
 window.appendFunction = appendFunction;
@@ -3953,3 +3958,4 @@ window.openFileInNewWindow = openFileInNewWindow;
 window.showPDFMethod1 = showPDFMethod1;
 window.showPDFMethod2 = showPDFMethod2;
 window.showPDFMethod3 = showPDFMethod3;
+window.goToTheory = goToTheory;

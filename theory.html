@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theory Hub - BITSAT Prep Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hyperspeed Background -->
+    <div class="hyperspeed-bg" id="hyperspeedBg"></div>
+
+    <!-- Floating Elements for Animation -->
+    <div class="floating-elements">
+        <div class="floating-element">📚</div>
+        <div class="floating-element">🧮</div>
+        <div class="floating-element">📊</div>
+        <div class="floating-element">🎯</div>
+        <div class="floating-element">💡</div>
+        <div class="floating-element">🚀</div>
+    </div>
+
+    <!-- Back Button -->
+    <button id="backBtn" class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <!-- Motivational Quotes - Left Side -->
+    <div class="motivational-quotes left-quotes">
+        <div class="quote-card">
+            <i class="fas fa-quote-left"></i>
+            <p>"Knowledge is power. Information is liberating."</p>
+            <span>- Kofi Annan</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-lightbulb"></i>
+            <p>"The more that you read, the more things you will know."</p>
+            <span>- Dr. Seuss</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-rocket"></i>
+            <p>"Learning never exhausts the mind."</p>
+            <span>- Leonardo da Vinci</span>
+        </div>
+    </div>
+
+    <!-- Motivational Quotes - Right Side -->
+    <div class="motivational-quotes right-quotes">
+        <div class="quote-card">
+            <i class="fas fa-star"></i>
+            <p>"An investment in knowledge pays the best interest."</p>
+            <span>- Benjamin Franklin</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-trophy"></i>
+            <p>"The beautiful thing about learning is nobody can take it away from you."</p>
+            <span>- B.B. King</span>
+        </div>
+        <div class="quote-card">
+            <i class="fas fa-brain"></i>
+            <p>"Education is the passport to the future."</p>
+            <span>- Malcolm X</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1 id="typingTitle">Theory Hub</h1>
+        <p>Master Concepts with Comprehensive Theory</p>
+        <div id="examCountdown" class="exam-countdown">Loading...</div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - After exam countdown -->
+    <div class="mobile-quotes mobile-quote-after-countdown">
+        <div class="mobile-quote-card">
+            <i class="fas fa-rocket quote-icon"></i>
+            <div class="quote-text">"The roots of education are bitter, but the fruit is sweet."</div>
+            <div class="quote-author">- Aristotle</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-star quote-icon"></i>
+            <div class="quote-text">"Study hard what interests you the most in the most undisciplined way."</div>
+            <div class="quote-author">- Richard Feynman</div>
+        </div>
+    </div>
+
+    <!-- Main Theory Container -->
+    <div class="quiz-container">
+        <!-- Theory Section -->
+        <div id="theorySection" class="section-content">
+            <div class="theory-symmetric-layout">
+                <!-- Top Row -->
+                <div class="theory-row top-row">
+                    <button class="category-btn theory-btn" onclick="showTheory('mathematics')">
+                        <i class="fas fa-calculator"></i>
+                        <span>Mathematics</span>
+                        <small>Algebra, Calculus, Geometry</small>
+                    </button>
+                    <button class="category-btn theory-btn" onclick="showTheory('physics')">
+                        <i class="fas fa-atom"></i>
+                        <span>Physics</span>
+                        <small>Mechanics, Thermodynamics, Optics</small>
+                    </button>
+                </div>
+
+                <!-- Center Space -->
+                <div class="theory-center-space">
+                    <!-- Mobile quote above BITSAT Excellence -->
+                    <div class="mobile-quotes mobile-quote-above-excellence">
+                        <div class="mobile-quote-card">
+                            <i class="fas fa-brain quote-icon"></i>
+                            <div class="quote-text">"Tell me and I forget, teach me and I may remember, involve me and I learn."</div>
+                            <div class="quote-author">- Benjamin Franklin</div>
+                        </div>
+                    </div>
+
+                    <div class="center-decoration">
+                        <div class="floating-logo">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="center-text">
+                            <h3>Theory Mastery</h3>
+                            <p>Build strong foundations</p>
+                        </div>
+                        <div class="progress-ring">
+                            <div class="ring-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile quote below BITSAT Excellence -->
+                    <div class="mobile-quotes mobile-quote-below-excellence">
+                        <div class="mobile-quote-card">
+                            <i class="fas fa-target quote-icon"></i>
+                            <div class="quote-text">"The expert in anything was once a beginner."</div>
+                            <div class="quote-author">- Helen Hayes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row -->
+                <div class="theory-row bottom-row">
+                    <button class="category-btn theory-btn" onclick="showTheory('chemistry')">
+                        <i class="fas fa-flask"></i>
+                        <span>Chemistry</span>
+                        <small>Organic, Inorganic, Physical</small>
+                    </button>
+                    <button class="category-btn theory-btn" onclick="showTheory('english')">
+                        <i class="fas fa-language"></i>
+                        <span>English</span>
+                        <small>Grammar, Vocabulary, Comprehension</small>
+                    </button>
+                </div>
+
+                <!-- Single Bottom Button -->
+                <div class="theory-row single-row">
+                    <button class="category-btn theory-btn single-btn" onclick="showTheory('logical-reasoning')">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <span>Logical Reasoning</span>
+                        <small>Patterns, Analogies, Logic</small>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theory Content Display -->
+        <div id="theoryContentSection" class="theory-content-section" style="display: none;">
+            <div class="theory-header">
+                <button class="back-to-subjects-btn" onclick="backToSubjects()">
+                    <i class="fas fa-arrow-left"></i> Back to Subjects
+                </button>
+                <button class="return-home-btn" onclick="returnToHome()">
+                    <i class="fas fa-home"></i> Return to Home
+                </button>
+                <h2 id="theorySubjectTitle">Subject Theory</h2>
+            </div>
+            
+            <!-- Theory Navigation Tabs -->
+            <div class="theory-tabs">
+                <button class="theory-tab-btn active" onclick="showTheoryTab('content')" id="contentTab">
+                    <i class="fas fa-book"></i> Theory Content
+                </button>
+                <button class="theory-tab-btn" onclick="showTheoryTab('pdf')" id="pdfTab">
+                    <i class="fas fa-file-pdf"></i> PDF Reference
+                </button>
+            </div>
+
+            <div class="theory-content" id="theoryContent">
+                <!-- Theory content will be loaded here -->
+            </div>
+
+            <div class="theory-pdf-viewer" id="theoryPdfViewer" style="display: none;">
+                <iframe id="pdfFrame" src="" width="100%" height="600px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Bottom section -->
+    <div class="mobile-quotes mobile-quote-bottom">
+        <div class="mobile-quote-card">
+            <i class="fas fa-fire quote-icon"></i>
+            <div class="quote-text">"The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."</div>
+            <div class="quote-author">- Brian Herbert</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-trophy quote-icon"></i>
+            <div class="quote-text">"Live as if you were to die tomorrow. Learn as if you were to live forever."</div>
+            <div class="quote-author">- Mahatma Gandhi</div>
+        </div>
+    </div>
+
+    <script src="theory.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

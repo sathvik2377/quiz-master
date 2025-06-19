@@ -88,50 +88,70 @@
     <!-- Main Quiz Container -->
     <div class="quiz-container">
         <!-- Section Navigation Tabs -->
-        <div class="section-tabs">
-            <button class="section-btn active" onclick="showSection('practice')">
-                <i class="fas fa-brain"></i>
-                <span>Practice Quiz</span>
-                <small>Test your knowledge</small>
-            </button>
-            <button class="section-btn" onclick="showSection('chatbot')">
-                <i class="fas fa-robot"></i>
-                <span>AI Doubt Solver</span>
-                <small>Ask questions & get help</small>
-            </button>
-            <button class="section-btn" onclick="showSection('graphing')">
-                <i class="fas fa-chart-line"></i>
-                <span>Graphing Calculator</span>
-                <small>Visualize equations</small>
-            </button>
-            <button class="section-btn" onclick="showSection('calculator')">
-                <i class="fas fa-calculator"></i>
-                <span>Scientific Calculator</span>
-                <small>Advanced calculations</small>
-            </button>
-            <button class="section-btn" onclick="showSection('pdf')">
-                <i class="fas fa-file-pdf"></i>
-                <span>Study Materials</span>
-                <small>Reference documents</small>
-            </button>
-            <button class="section-btn" onclick="showSection('settings')">
-                <i class="fas fa-user-cog"></i>
-                <span>Profile Settings</span>
-                <small>Update your info</small>
-            </button>
+        <div class="main-symmetric-layout">
+            <!-- Top Row -->
+            <div class="main-row top-row">
+                <button class="section-btn main-btn active" onclick="showSection('practice')">
+                    <i class="fas fa-brain"></i>
+                    <span>Practice Quiz</span>
+                    <small>Test your knowledge</small>
+                </button>
+                <button class="section-btn main-btn" onclick="showSection('chatbot')">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Doubt Solver</span>
+                    <small>Ask questions & get help</small>
+                </button>
+            </div>
+
+            <!-- Middle Row -->
+            <div class="main-row middle-row">
+                <button class="section-btn main-btn" onclick="showSection('graphing')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Graphing Calculator</span>
+                    <small>Visualize equations</small>
+                </button>
+                <button class="section-btn main-btn" onclick="showSection('calculator')">
+                    <i class="fas fa-calculator"></i>
+                    <span>Scientific Calculator</span>
+                    <small>Advanced calculations</small>
+                </button>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="main-row bottom-row">
+                <button class="section-btn main-btn" onclick="showSection('pdf')">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Study Materials</span>
+                    <small>Reference documents</small>
+                </button>
+                <button class="section-btn main-btn" onclick="goToTheory()">
+                    <i class="fas fa-book-open"></i>
+                    <span>Theory Hub</span>
+                    <small>Study concepts & theory</small>
+                </button>
+            </div>
+
+            <!-- Single Bottom Button -->
+            <div class="main-row single-row">
+                <button class="section-btn main-btn single-btn" onclick="showSection('settings')">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile Settings</span>
+                    <small>Update your info</small>
+                </button>
+            </div>
         </div>
 
         <!-- Practice Section -->
         <div id="practiceSection" class="section-content">
-            <div class="symmetric-layout">
-                <!-- Left Column -->
-                <div class="quiz-column left-column">
-                    <button class="category-btn" onclick="startQuiz('grammar')">
+            <div class="practice-symmetric-layout">
+                <!-- Top Row -->
+                <div class="practice-row top-row">
+                    <button class="category-btn practice-btn" onclick="startQuiz('grammar')">
                         <i class="fas fa-spell-check"></i>
                         <span>Grammar Mastery</span>
                         <small>Advanced grammar concepts</small>
                     </button>
-                    <button class="category-btn" onclick="startQuiz('vocabulary')">
+                    <button class="category-btn practice-btn" onclick="startQuiz('vocabulary')">
                         <i class="fas fa-book-open"></i>
                         <span>Vocabulary Challenge</span>
                         <small>Expand your word power</small>
@@ -139,7 +159,7 @@
                 </div>
 
                 <!-- Center Space -->
-                <div class="center-space">
+                <div class="practice-center-space">
                     <!-- Mobile quote above BITSAT Excellence -->
                     <div class="mobile-quotes mobile-quote-above-excellence">
                         <div class="mobile-quote-card">
@@ -172,22 +192,20 @@
                     </div>
                 </div>
 
-                <!-- Right Column -->
-                <div class="quiz-column right-column">
-                    <button class="category-btn" onclick="startQuiz('phrasalVerbs')">
+                <!-- Bottom Row -->
+                <div class="practice-row bottom-row">
+                    <button class="category-btn practice-btn" onclick="startQuiz('phrasalVerbs')">
                         <i class="fas fa-comments"></i>
                         <span>Phrasal Verbs & Idioms</span>
                         <small>Master expressions</small>
                     </button>
-                    <button class="category-btn" onclick="startQuiz('analogy')">
+                    <button class="category-btn practice-btn" onclick="startQuiz('analogy')">
                         <i class="fas fa-puzzle-piece"></i>
                         <span>Analogical Reasoning</span>
                         <small>Logical thinking skills</small>
                     </button>
                 </div>
             </div>
-
-
         </div>
 
         <!-- Graphing Calculator Section -->
