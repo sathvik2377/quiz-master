@@ -151,10 +151,10 @@
                         <span>Grammar Mastery</span>
                         <small>Advanced grammar concepts</small>
                     </button>
-                    <button class="category-btn practice-btn" onclick="startQuiz('vocabulary')">
+                    <button class="category-btn practice-btn" onclick="showVocabularyOptions()">
                         <i class="fas fa-book-open"></i>
                         <span>Vocabulary Challenge</span>
-                        <small>Expand your word power</small>
+                        <small>Synonyms, Antonyms & Meanings</small>
                     </button>
                 </div>
 
@@ -363,6 +363,42 @@
             </div>
         </div>
 
+        <!-- Vocabulary Options Section -->
+        <div id="vocabularyOptionsSection" class="section-content" style="display: none;">
+            <div class="vocabulary-options-layout">
+                <div class="vocabulary-header">
+                    <h2><i class="fas fa-book-open"></i> Choose Vocabulary Type</h2>
+                    <p>Select the type of vocabulary practice you want</p>
+                    <button class="back-to-practice-btn" onclick="backToPractice()">
+                        <i class="fas fa-arrow-left"></i> Back to Practice
+                    </button>
+                </div>
+
+                <div class="vocabulary-options-grid">
+                    <button class="vocabulary-option-btn" onclick="startQuiz('synonyms')">
+                        <i class="fas fa-equals"></i>
+                        <span>Synonyms</span>
+                        <small>Words with similar meanings</small>
+                        <div class="question-count">30 Questions</div>
+                    </button>
+
+                    <button class="vocabulary-option-btn" onclick="startQuiz('antonyms')">
+                        <i class="fas fa-not-equal"></i>
+                        <span>Antonyms</span>
+                        <small>Words with opposite meanings</small>
+                        <div class="question-count">30 Questions</div>
+                    </button>
+
+                    <button class="vocabulary-option-btn" onclick="startQuiz('meanings')">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Word Meanings</span>
+                        <small>Definitions and explanations</small>
+                        <div class="question-count">30 Questions</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Quiz Section -->
         <div id="quizSection" class="question-section">
             <div class="quiz-header">
@@ -486,6 +522,7 @@
         </div>
     </div>
 
+    <script src="vocabulary_data.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

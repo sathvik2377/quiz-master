@@ -335,39 +335,57 @@ const quizData = {
             explanation: "After 'wish', use 'were' for all persons in hypothetical situations."
         }
     ],
-    vocabulary: [
+    synonyms: [
         {
-            question: "What is the contextual meaning of 'ubiquitous' in academic writing?",
+            question: "Choose the best synonym for 'ubiquitous':",
             options: [
-                "Rare and unusual",
                 "Present everywhere",
+                "Rare and unusual",
                 "Extremely valuable",
                 "Temporarily available"
             ],
-            correct: 1,
-            explanation: "In academic contexts, 'ubiquitous' means present, appearing, or found everywhere."
+            correct: 0,
+            explanation: "'Ubiquitous' means present, appearing, or found everywhere.",
+            optionExplanations: {
+                0: "Present everywhere - correct! Ubiquitous means existing or being everywhere at the same time",
+                1: "Rare and unusual - opposite meaning; ubiquitous things are common, not rare",
+                2: "Extremely valuable - unrelated to frequency or presence",
+                3: "Temporarily available - refers to time duration, not widespread presence"
+            }
         },
         {
-            question: "Which word is NOT a collocation with 'make'?",
-            options: [
-                "make a decision",
-                "make a mistake",
-                "make a homework",
-                "make a difference"
-            ],
-            correct: 2,
-            explanation: "The correct collocation is 'do homework', not 'make homework'."
-        },
-        {
-            question: "What does 'meticulous' mean?",
+            question: "Choose the best synonym for 'meticulous':",
             options: [
                 "Careless and hasty",
-                "Extremely careful and precise",
                 "Moderately interested",
-                "Completely confused"
+                "Completely confused",
+                "Extremely careful and precise"
             ],
-            correct: 1,
-            explanation: "'Meticulous' means showing great attention to detail; very careful and precise."
+            correct: 3,
+            explanation: "'Meticulous' means showing great attention to detail; very careful and precise.",
+            optionExplanations: {
+                0: "Careless and hasty - opposite meaning; meticulous implies great care",
+                1: "Moderately interested - refers to level of interest, not attention to detail",
+                2: "Completely confused - refers to mental state, not work quality",
+                3: "Extremely careful and precise - correct! Meticulous means paying careful attention to detail"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'arduous':",
+            options: [
+                "Easy",
+                "Quick",
+                "Difficult and tiring",
+                "Enjoyable"
+            ],
+            correct: 2,
+            explanation: "'Arduous' means involving or requiring strenuous effort; difficult and tiring.",
+            optionExplanations: {
+                0: "Easy - opposite meaning; arduous tasks require great effort",
+                1: "Quick - refers to speed, not difficulty level",
+                2: "Difficult and tiring - correct! Arduous means requiring strenuous effort",
+                3: "Enjoyable - refers to pleasure, opposite of the struggle in arduous tasks"
+            }
         },
         {
             question: "Choose the best synonym for 'arduous':",
@@ -387,26 +405,39 @@ const quizData = {
             }
         },
         {
-            question: "What is the meaning of 'ephemeral'?",
+            question: "Choose the best synonym for 'ephemeral':",
             options: [
                 "Lasting forever",
                 "Very expensive",
-                "Lasting for a very short time",
-                "Extremely large"
+                "Extremely large",
+                "Lasting for a very short time"
             ],
-            correct: 2,
-            explanation: "'Ephemeral' means lasting for a very short time; transitory."
+            correct: 3,
+            explanation: "'Ephemeral' means lasting for a very short time; transitory.",
+            optionExplanations: {
+                0: "Lasting forever - opposite meaning; ephemeral things are temporary",
+                1: "Very expensive - refers to cost, not duration",
+                2: "Extremely large - refers to size, not time duration",
+                3: "Lasting for a very short time - correct! Ephemeral means temporary or transitory"
+            }
         },
+        // Additional synonym questions will be loaded from vocabulary_data.js
         {
-            question: "Which word means 'to make something less severe'?",
+            question: "Choose the best synonym for 'nominal':",
             options: [
-                "Exacerbate",
-                "Mitigate",
-                "Amplify",
-                "Intensify"
+                "Substantial",
+                "Significant",
+                "Considerable",
+                "Existing in name only"
             ],
-            correct: 1,
-            explanation: "'Mitigate' means to make less severe, serious, or painful."
+            correct: 3,
+            explanation: "'Nominal' means existing in name only; not real or actual.",
+            optionExplanations: {
+                0: "Substantial - opposite meaning; nominal means minimal",
+                1: "Significant - opposite meaning; nominal means minimal",
+                2: "Considerable - opposite meaning; nominal means minimal",
+                3: "Existing in name only - correct! Nominal means in name but not reality"
+            }
         },
         {
             question: "What does 'pragmatic' mean?",
@@ -672,6 +703,85 @@ const quizData = {
             ],
             correct: 1,
             explanation: "'Transparent' is the opposite of 'opaque', which means not able to be seen through."
+        }
+    ],
+    // New vocabulary structure with sub-categories
+    synonyms: [
+        {
+            question: "Choose the best synonym for 'ubiquitous':",
+            options: ["Present everywhere", "Rare and unusual", "Extremely valuable", "Temporarily available"],
+            correct: 0,
+            explanation: "'Ubiquitous' means present, appearing, or found everywhere.",
+            optionExplanations: {
+                0: "Present everywhere - correct! Ubiquitous means existing everywhere at the same time",
+                1: "Rare and unusual - opposite meaning; ubiquitous things are common",
+                2: "Extremely valuable - unrelated to frequency or presence",
+                3: "Temporarily available - refers to time, not widespread presence"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'meticulous':",
+            options: ["Careless", "Moderately interested", "Completely confused", "Extremely careful"],
+            correct: 3,
+            explanation: "'Meticulous' means showing great attention to detail; very careful and precise.",
+            optionExplanations: {
+                0: "Careless - opposite meaning; meticulous implies great care",
+                1: "Moderately interested - refers to interest level, not attention to detail",
+                2: "Completely confused - refers to mental state, not work quality",
+                3: "Extremely careful - correct! Meticulous means paying careful attention to detail"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'arduous':",
+            options: ["Easy", "Difficult and tiring", "Quick", "Enjoyable"],
+            correct: 1,
+            explanation: "'Arduous' means involving or requiring strenuous effort; difficult and tiring.",
+            optionExplanations: {
+                0: "Easy - opposite meaning; arduous tasks require great effort",
+                1: "Difficult and tiring - correct! Arduous means requiring strenuous effort",
+                2: "Quick - refers to speed, not difficulty level",
+                3: "Enjoyable - refers to pleasure, opposite of struggle in arduous tasks"
+            }
+        }
+    ],
+    antonyms: [
+        {
+            question: "Choose the best antonym for 'benevolent':",
+            options: ["Kind", "Generous", "Malevolent", "Helpful"],
+            correct: 2,
+            explanation: "'Malevolent' means having or showing a wish to do evil to others, opposite of benevolent.",
+            optionExplanations: {
+                0: "Kind - similar meaning to benevolent, not opposite",
+                1: "Generous - similar meaning to benevolent, not opposite",
+                2: "Malevolent - correct! Means wishing evil, opposite of benevolent",
+                3: "Helpful - similar meaning to benevolent, not opposite"
+            }
+        },
+        {
+            question: "Choose the best antonym for 'frugal':",
+            options: ["Wasteful", "Economical", "Careful", "Thrifty"],
+            correct: 0,
+            explanation: "'Wasteful' is the opposite of 'frugal', which means economical in use or expenditure.",
+            optionExplanations: {
+                0: "Wasteful - correct! Opposite of careful frugal spending",
+                1: "Economical - similar meaning to frugal, not opposite",
+                2: "Careful - similar meaning to frugal, not opposite",
+                3: "Thrifty - similar meaning to frugal, not opposite"
+            }
+        }
+    ],
+    meanings: [
+        {
+            question: "What does 'mitigate' mean?",
+            options: ["To make worse", "To make less severe", "To amplify", "To intensify"],
+            correct: 1,
+            explanation: "'Mitigate' means to make less severe, serious, or painful.",
+            optionExplanations: {
+                0: "To make worse - opposite meaning; mitigate means to lessen",
+                1: "To make less severe - correct! Mitigate means to reduce severity",
+                2: "To amplify - opposite meaning; means to increase",
+                3: "To intensify - opposite meaning; means to strengthen"
+            }
         }
     ],
     phrasalVerbs: [
@@ -1511,7 +1621,18 @@ function showSection(section) {
 function startQuiz(category) {
     currentCategory = category;
     currentQuestionIndex = 0;
-    currentQuestions = [...quizData[category]]; // Copy all questions
+
+    // Handle vocabulary subcategories
+    if (['synonyms', 'antonyms', 'meanings'].includes(category)) {
+        currentQuestions = randomizeQuestions([...quizData[category]]);
+        // Hide vocabulary options section if coming from there
+        const vocabularyOptionsSection = document.getElementById('vocabularyOptionsSection');
+        if (vocabularyOptionsSection && vocabularyOptionsSection.style.display !== 'none') {
+            vocabularyOptionsSection.style.display = 'none';
+        }
+    } else {
+        currentQuestions = randomizeQuestions([...quizData[category]]);
+    }
 
     document.getElementById('practiceSection').style.display = 'none';
     document.getElementById('graphingSection').style.display = 'none';
@@ -3962,10 +4083,24 @@ async function deleteFile(fileId) {
     }
 }
 
+// Merge vocabulary data from external file
+function mergeVocabularyData() {
+    if (typeof vocabularyData !== 'undefined') {
+        // Merge the external vocabulary data with the existing quiz data
+        quizData.synonyms = [...quizData.synonyms, ...vocabularyData.synonyms];
+        quizData.antonyms = [...quizData.antonyms, ...vocabularyData.antonyms];
+        quizData.meanings = [...quizData.meanings, ...vocabularyData.meanings];
+
+        console.log(`Loaded vocabulary data: ${quizData.synonyms.length} synonyms, ${quizData.antonyms.length} antonyms, ${quizData.meanings.length} meanings`);
+    }
+}
+
 // Initialize files list on page load
 document.addEventListener('DOMContentLoaded', function() {
     initFileStorage();
     updateFilesList();
+    // Merge vocabulary data
+    mergeVocabularyData();
 });
 
 
@@ -3988,6 +4123,68 @@ function activateCORS() {
 // Function to navigate to theory page
 function goToTheory() {
     window.location.href = 'theory.html';
+}
+
+// Show vocabulary options
+function showVocabularyOptions() {
+    const practiceSection = document.getElementById('practiceSection');
+    const vocabularyOptionsSection = document.getElementById('vocabularyOptionsSection');
+
+    practiceSection.style.display = 'none';
+    vocabularyOptionsSection.style.display = 'block';
+}
+
+// Go back to practice section
+function backToPractice() {
+    const practiceSection = document.getElementById('practiceSection');
+    const vocabularyOptionsSection = document.getElementById('vocabularyOptionsSection');
+
+    vocabularyOptionsSection.style.display = 'none';
+    practiceSection.style.display = 'block';
+}
+
+// Randomize quiz questions to avoid patterns
+function randomizeQuestions(questions) {
+    const randomized = [...questions];
+
+    // Shuffle the questions
+    for (let i = randomized.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [randomized[i], randomized[j]] = [randomized[j], randomized[i]];
+    }
+
+    // Randomize options for each question to avoid answer patterns
+    return randomized.map(question => {
+        const correctAnswer = question.options[question.correct];
+        const correctExplanation = question.optionExplanations ? question.optionExplanations[question.correct] : null;
+
+        // Create array of option indices and shuffle them
+        const indices = [0, 1, 2, 3];
+        for (let i = indices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [indices[i], indices[j]] = [indices[j], indices[i]];
+        }
+
+        // Reorder options and update correct answer index
+        const newOptions = indices.map(i => question.options[i]);
+        const newCorrect = indices.indexOf(question.correct);
+
+        // Reorder option explanations if they exist
+        let newOptionExplanations = null;
+        if (question.optionExplanations) {
+            newOptionExplanations = {};
+            indices.forEach((oldIndex, newIndex) => {
+                newOptionExplanations[newIndex] = question.optionExplanations[oldIndex];
+            });
+        }
+
+        return {
+            ...question,
+            options: newOptions,
+            correct: newCorrect,
+            optionExplanations: newOptionExplanations
+        };
+    });
 }
 
 // User data tracking system
@@ -4131,6 +4328,8 @@ window.showPDFMethod1 = showPDFMethod1;
 window.showPDFMethod2 = showPDFMethod2;
 window.showPDFMethod3 = showPDFMethod3;
 window.goToTheory = goToTheory;
+window.showVocabularyOptions = showVocabularyOptions;
+window.backToPractice = backToPractice;
 
 // Admin functions for user data management
 window.getAllUserEntries = getAllUserEntries;

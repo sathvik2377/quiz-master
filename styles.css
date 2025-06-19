@@ -4101,6 +4101,154 @@ body::after {
     }
 }
 
+/* Vocabulary Options Section */
+.vocabulary-options-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.vocabulary-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.vocabulary-header h2 {
+    color: #4fc3f7;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.vocabulary-header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.back-to-practice-btn {
+    background: linear-gradient(135deg, rgba(79, 195, 247, 0.8), rgba(255, 64, 129, 0.8));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-to-practice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 195, 247, 0.3);
+}
+
+.vocabulary-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.vocabulary-option-btn {
+    background: linear-gradient(135deg,
+        rgba(79, 195, 247, 0.2) 0%,
+        rgba(255, 64, 129, 0.2) 50%,
+        rgba(156, 39, 176, 0.2) 100%);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.vocabulary-option-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(79, 195, 247, 0.3);
+    border-color: rgba(79, 195, 247, 0.5);
+}
+
+.vocabulary-option-btn i {
+    font-size: 3rem;
+    color: #4fc3f7;
+    margin-bottom: 10px;
+}
+
+.vocabulary-option-btn span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.vocabulary-option-btn small {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+}
+
+.question-count {
+    background: linear-gradient(135deg, #4fc3f7, #ff4081);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+/* Mobile responsiveness for vocabulary options */
+@media (max-width: 768px) {
+    .vocabulary-options-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .vocabulary-option-btn {
+        min-height: 150px;
+        padding: 25px;
+    }
+
+    .vocabulary-option-btn i {
+        font-size: 2.5rem;
+    }
+
+    .vocabulary-option-btn span {
+        font-size: 1.3rem;
+    }
+
+    .vocabulary-header h2 {
+        font-size: 2rem;
+    }
+
+    .vocabulary-header p {
+        font-size: 1rem;
+    }
+}
+
 /* Main Page Symmetric Layout */
 .main-symmetric-layout {
     display: flex;
