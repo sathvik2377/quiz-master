@@ -1698,13 +1698,32 @@ function loadPDFByIndex(index) {
 function downloadFile(index) {
     if (index >= 0 && index < uploadedFiles.length) {
         const file = uploadedFiles[index];
-        const link = document.createElement('a');
-        link.href = file.fileData;
-        link.download = file.name;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        showFeedback(`Downloading ${file.name}...`, 'success');
+
+        try {
+            // Create blob and download link
+            const blob = dataURLtoBlob(file.fileData);
+            const blobUrl = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = file.name;
+            link.style.display = 'none';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Clean up blob URL after a delay
+            setTimeout(() => {
+                URL.revokeObjectURL(blobUrl);
+            }, 1000);
+
+            showFeedback(`Downloading ${file.name}...`, 'success');
+
+        } catch (error) {
+            console.error('Download error:', error);
+            showFeedback('Download failed. Please try again.', 'error');
+        }
     }
 }
 
@@ -1906,10 +1925,6 @@ function loadPDF(fileData) {
     const viewer = document.getElementById('pdfViewer');
 
     if (typeof fileData === 'object' && fileData.fileData) {
-        // Create a blob URL for better PDF viewing
-        const blob = dataURLtoBlob(fileData.fileData);
-        const blobUrl = URL.createObjectURL(blob);
-
         viewer.innerHTML = `
             <div style="background: rgba(255, 255, 255, 0.95); border-radius: 15px; padding: 20px; margin-bottom: 15px; backdrop-filter: blur(10px); box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                 <h3 style="color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
@@ -1924,44 +1939,31 @@ function loadPDF(fileData) {
                 </div>
                 <p style="color: #666; margin: 0; padding: 10px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;"><strong>Description:</strong> ${fileData.description}</p>
             </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="openFileInNewTab(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn" style="background: #28a745;">
-                    <i class="fas fa-external-link-alt"></i> Open in New Tab
+
+            <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                <button onclick="viewPDFDirectly(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn" style="background: #28a745;">
+                    <i class="fas fa-eye"></i> View PDF
                 </button>
                 <button onclick="downloadFile(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn" style="background: #17a2b8;">
-                    <i class="fas fa-download"></i> Download PDF
+                    <i class="fas fa-download"></i> Download
                 </button>
-                <button onclick="openPDFInBrowser('${blobUrl}', '${fileData.name}')" class="btn" style="background: #ffc107; color: #333;">
-                    <i class="fas fa-eye"></i> View in Browser
+                <button onclick="openFileInNewWindow(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn" style="background: #ffc107; color: #333;">
+                    <i class="fas fa-external-link-alt"></i> New Window
                 </button>
             </div>
-            <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-top: 20px; background: white;">
-                <div style="padding: 15px; background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
-                    <p style="margin: 0; color: #666; text-align: center;">
-                        <i class="fas fa-info-circle"></i>
-                        If the PDF doesn't display below, use the "View in Browser" or "Open in New Tab" buttons above.
-                    </p>
-                </div>
-                <iframe
-                    src="${blobUrl}#toolbar=1&navpanes=1&scrollbar=1&view=FitH"
-                    width="100%"
-                    height="700px"
-                    frameborder="0"
-                    style="display: block; background: white;"
-                    title="PDF Viewer for ${fileData.name}"
-                    onload="this.style.opacity='1'"
-                    onerror="handlePDFError(this, '${blobUrl}', '${fileData.name}')"
-                >
-                    <div style="text-align: center; padding: 40px; background: #f8f9fa;">
-                        <p style="color: #666; margin-bottom: 15px;">Your browser does not support PDF viewing.</p>
-                        <button onclick="openPDFInBrowser('${blobUrl}', '${fileData.name}')" class="btn">
-                            <i class="fas fa-eye"></i> View in Browser
-                        </button>
-                        <button onclick="downloadFile(${uploadedFiles.findIndex(f => f.id === fileData.id)})" class="btn">
-                            <i class="fas fa-download"></i> Download PDF
-                        </button>
+
+            <div id="pdfDisplayArea" style="margin-top: 20px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); background: white; min-height: 400px;">
+                <div style="padding: 20px; text-align: center; background: #f8f9fa;">
+                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #dc3545; margin-bottom: 15px;"></i>
+                    <h4 style="color: #333; margin-bottom: 15px;">PDF Ready to View</h4>
+                    <p style="color: #666; margin-bottom: 20px;">Click "View PDF" button above to display the document</p>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px; margin-top: 15px;">
+                        <p style="margin: 0; color: #666; font-size: 14px;">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Tip:</strong> If viewing doesn't work, try the "Download" button to save the file locally.
+                        </p>
                     </div>
-                </iframe>
+                </div>
             </div>
         `;
     } else {
@@ -1972,6 +1974,155 @@ function loadPDF(fileData) {
                 <p style="margin-top: 15px; font-size: 14px; opacity: 0.8;">Supported formats: PDF files up to 5MB</p>
             </div>
         `;
+    }
+}
+
+// Function to view PDF directly without popups
+function viewPDFDirectly(index) {
+    if (index >= 0 && index < uploadedFiles.length) {
+        const file = uploadedFiles[index];
+        const displayArea = document.getElementById('pdfDisplayArea');
+
+        // Show loading state
+        displayArea.innerHTML = `
+            <div style="padding: 40px; text-align: center; background: #f8f9fa;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #667eea; margin-bottom: 15px;"></i>
+                <h4 style="color: #333; margin-bottom: 15px;">Loading PDF...</h4>
+                <p style="color: #666;">Please wait while we prepare your document</p>
+            </div>
+        `;
+
+        try {
+            // Create blob URL
+            const blob = dataURLtoBlob(file.fileData);
+            const blobUrl = URL.createObjectURL(blob);
+
+            // Try multiple viewing methods
+            setTimeout(() => {
+                displayArea.innerHTML = `
+                    <div style="padding: 15px; background: #e8f5e8; border-bottom: 1px solid #c3e6cb; text-align: center;">
+                        <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                        <span style="color: #155724; margin-left: 8px;">PDF ready - Choose viewing method:</span>
+                    </div>
+
+                    <div style="padding: 20px; background: #f8f9fa; text-align: center;">
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                            <button onclick="showPDFMethod1('${blobUrl}', '${file.name}')" class="btn" style="background: #28a745;">
+                                <i class="fas fa-eye"></i> Method 1: Embed
+                            </button>
+                            <button onclick="showPDFMethod2('${blobUrl}', '${file.name}')" class="btn" style="background: #17a2b8;">
+                                <i class="fas fa-window-maximize"></i> Method 2: Object
+                            </button>
+                            <button onclick="showPDFMethod3('${file.fileData}', '${file.name}')" class="btn" style="background: #ffc107; color: #333;">
+                                <i class="fas fa-external-link-alt"></i> Method 3: Direct
+                            </button>
+                        </div>
+                        <p style="color: #666; margin: 0; font-size: 14px;">
+                            Try different methods if one doesn't work. Method 3 opens in a new tab.
+                        </p>
+                    </div>
+
+                    <div id="pdfViewerContent" style="min-height: 600px; background: white;">
+                        <div style="padding: 40px; text-align: center; color: #666;">
+                            <i class="fas fa-mouse-pointer" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Click one of the viewing methods above to display the PDF</p>
+                        </div>
+                    </div>
+                `;
+            }, 500);
+
+            showFeedback(`PDF prepared: ${file.name}`, 'success');
+
+        } catch (error) {
+            console.error('Error preparing PDF:', error);
+            displayArea.innerHTML = `
+                <div style="padding: 40px; text-align: center; background: #fff3cd;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: #856404; margin-bottom: 15px;"></i>
+                    <h4 style="color: #856404; margin-bottom: 15px;">Cannot Prepare PDF</h4>
+                    <p style="color: #856404; margin-bottom: 20px;">There was an error processing this PDF file.</p>
+                    <button onclick="downloadFile(${index})" class="btn" style="background: #28a745;">
+                        <i class="fas fa-download"></i> Download PDF Instead
+                    </button>
+                </div>
+            `;
+            showFeedback('PDF preparation failed. Try downloading instead.', 'error');
+        }
+    }
+}
+
+// Method 1: Using embed tag
+function showPDFMethod1(blobUrl, fileName) {
+    const content = document.getElementById('pdfViewerContent');
+    content.innerHTML = `
+        <div style="padding: 10px; background: #e3f2fd; text-align: center; border-bottom: 1px solid #bbdefb;">
+            <span style="color: #1976d2;">📄 Viewing with Embed Method</span>
+        </div>
+        <embed
+            src="${blobUrl}#toolbar=1&navpanes=1&scrollbar=1"
+            type="application/pdf"
+            width="100%"
+            height="600px"
+            style="border: none; background: white;"
+        />
+    `;
+    showFeedback('Using embed method', 'success');
+}
+
+// Method 2: Using object tag
+function showPDFMethod2(blobUrl, fileName) {
+    const content = document.getElementById('pdfViewerContent');
+    content.innerHTML = `
+        <div style="padding: 10px; background: #e8f5e9; text-align: center; border-bottom: 1px solid #c8e6c9;">
+            <span style="color: #388e3c;">📄 Viewing with Object Method</span>
+        </div>
+        <object
+            data="${blobUrl}#toolbar=1&navpanes=1&scrollbar=1"
+            type="application/pdf"
+            width="100%"
+            height="600px"
+            style="border: none; background: white;"
+        >
+            <div style="padding: 40px; text-align: center; background: #fff3cd;">
+                <p style="color: #856404;">Your browser cannot display PDF files.</p>
+                <button onclick="window.open('${blobUrl}', '_blank')" class="btn">Open in New Tab</button>
+            </div>
+        </object>
+    `;
+    showFeedback('Using object method', 'success');
+}
+
+// Method 3: Direct data URL
+function showPDFMethod3(dataUrl, fileName) {
+    try {
+        window.open(dataUrl, '_blank');
+        showFeedback('Opening PDF in new tab...', 'success');
+    } catch (error) {
+        showFeedback('Cannot open in new tab. Try download instead.', 'error');
+    }
+}
+
+// Function to open file in new window (without document.write)
+function openFileInNewWindow(index) {
+    if (index >= 0 && index < uploadedFiles.length) {
+        const file = uploadedFiles[index];
+
+        try {
+            const blob = dataURLtoBlob(file.fileData);
+            const blobUrl = URL.createObjectURL(blob);
+
+            // Open in new window
+            const newWindow = window.open(blobUrl, '_blank');
+
+            if (newWindow) {
+                showFeedback(`Opening ${file.name} in new window...`, 'success');
+            } else {
+                showFeedback('Popup blocked. Please allow popups or try download.', 'error');
+            }
+
+        } catch (error) {
+            console.error('Error opening file:', error);
+            showFeedback('Error opening file. Try downloading instead.', 'error');
+        }
     }
 }
 
@@ -2079,3 +2230,8 @@ window.refreshFiles = refreshFiles;
 window.activateCORS = activateCORS;
 window.handlePDFError = handlePDFError;
 window.openPDFInBrowser = openPDFInBrowser;
+window.viewPDFDirectly = viewPDFDirectly;
+window.openFileInNewWindow = openFileInNewWindow;
+window.showPDFMethod1 = showPDFMethod1;
+window.showPDFMethod2 = showPDFMethod2;
+window.showPDFMethod3 = showPDFMethod3;
