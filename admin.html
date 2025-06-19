@@ -179,6 +179,9 @@
         <div class="admin-header">
             <h1><i class="fas fa-shield-alt"></i> Admin Panel</h1>
             <p>BITSAT Prep Hub - User Data Management</p>
+            <div id="modeIndicator" style="margin-top: 15px; padding: 10px; background: rgba(255, 193, 7, 0.2); border-radius: 8px; border: 1px solid rgba(255, 193, 7, 0.3); display: none;">
+                <i class="fas fa-cloud"></i> <strong>GitHub Pages Mode:</strong> Data is stored locally in browser
+            </div>
         </div>
 
         <div id="loadingMessage" class="loading">
@@ -231,6 +234,9 @@
                 <button class="btn" onclick="refreshData()">
                     <i class="fas fa-sync-alt"></i> Refresh Data
                 </button>
+                <button class="btn" onclick="addDemoData()" style="background: linear-gradient(135deg, #ff9800, #f57c00);">
+                    <i class="fas fa-plus"></i> Add Demo Data
+                </button>
                 <button class="btn secondary" onclick="goHome()">
                     <i class="fas fa-home"></i> Back to Home
                 </button>
@@ -258,9 +264,21 @@
                     throw new Error('Server not available');
                 }
             } catch (error) {
-                // Fallback to localStorage
+                // Fallback to localStorage (for GitHub Pages)
                 userData = JSON.parse(localStorage.getItem('userEntries')) || [];
-                console.log('Using local data:', userData.length, 'entries');
+                console.log('Using local data (GitHub Pages mode):', userData.length, 'entries');
+
+                // Show GitHub Pages mode indicator
+                document.getElementById('modeIndicator').style.display = 'block';
+
+                // Show info message for GitHub Pages
+                if (userData.length === 0) {
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('errorText').innerHTML = `
+                        <strong>GitHub Pages Mode:</strong> No user data found in browser storage.<br>
+                        <small>Data is stored locally in each user's browser. To see data, users must first enter their information on the main page.</small>
+                    `;
+                }
             }
 
             displayData();
@@ -282,30 +300,71 @@
             document.getElementById('loadingMessage').style.display = 'none';
             document.getElementById('adminContent').style.display = 'block';
 
-            if (userData.length === 0) {
-                document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('errorText').textContent = 'No user data found';
-                return;
-            }
-
-            // Calculate local stats if server stats not available
+            // Always calculate and display stats, even if no data
             const stats = calculateLocalStats();
             displayStats(stats);
             displayRecentEntries();
+
+            // Show helpful message if no data
+            if (userData.length === 0) {
+                const recentEntries = document.getElementById('recentEntries');
+                recentEntries.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background: rgba(255, 193, 7, 0.1); border-radius: 10px; border: 1px solid rgba(255, 193, 7, 0.3);">
+                        <i class="fas fa-info-circle" style="font-size: 2rem; color: #ffc107; margin-bottom: 15px;"></i>
+                        <h3 style="color: #ffc107; margin-bottom: 10px;">No User Data Available</h3>
+                        <p style="margin-bottom: 15px;">This admin panel shows data from users who have entered their information.</p>
+                        <p style="margin-bottom: 20px;"><strong>To see data:</strong></p>
+                        <ol style="text-align: left; max-width: 400px; margin: 0 auto;">
+                            <li>Go to the <a href="index.html" style="color: #4fc3f7;">main page</a></li>
+                            <li>Enter your name and exam date</li>
+                            <li>Return to this admin panel to see the entry</li>
+                        </ol>
+                        <div style="margin-top: 20px;">
+                            <a href="index.html" class="btn" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none;">
+                                <i class="fas fa-home"></i> Go to Main Page
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
         }
 
         function calculateLocalStats() {
+            if (userData.length === 0) {
+                return {
+                    totalEntries: 0,
+                    uniqueUsers: 0,
+                    entriesLast24h: 0,
+                    entriesToday: 0,
+                    examDates: {},
+                    platforms: {}
+                };
+            }
+
             const now = new Date();
             const today = now.toDateString();
             const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+            // Calculate exam date distribution
+            const examDates = {};
+            const platforms = {};
+
+            userData.forEach(entry => {
+                if (entry.examDate) {
+                    examDates[entry.examDate] = (examDates[entry.examDate] || 0) + 1;
+                }
+                if (entry.platform) {
+                    platforms[entry.platform] = (platforms[entry.platform] || 0) + 1;
+                }
+            });
 
             return {
                 totalEntries: userData.length,
                 uniqueUsers: new Set(userData.map(u => u.name?.toLowerCase())).size,
                 entriesLast24h: userData.filter(u => new Date(u.entryTime) > yesterday).length,
                 entriesToday: userData.filter(u => new Date(u.entryTime).toDateString() === today).length,
-                examDates: {},
-                platforms: {}
+                examDates: examDates,
+                platforms: platforms
             };
         }
 
@@ -400,11 +459,61 @@
             document.getElementById('adminContent').style.display = 'none';
             document.getElementById('loadingMessage').style.display = 'block';
             document.getElementById('errorMessage').style.display = 'none';
-            loadUserData();
+
+            // Clear any cached data
+            userData = [];
+
+            // Force reload from localStorage
+            setTimeout(() => {
+                loadUserData();
+            }, 500);
         }
 
         function goHome() {
             window.location.href = 'index.html';
+        }
+
+        // Function to add demo data for testing (GitHub Pages)
+        function addDemoData() {
+            const demoEntries = [
+                {
+                    name: "Demo User 1",
+                    examDate: "2025-06-22",
+                    entryTime: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+                    entryTimeFormatted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toLocaleString(),
+                    sessionId: "demo_session_1",
+                    platform: "Win32",
+                    language: "en-US"
+                },
+                {
+                    name: "Demo User 2",
+                    examDate: "2025-06-26",
+                    entryTime: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+                    entryTimeFormatted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toLocaleString(),
+                    sessionId: "demo_session_2",
+                    platform: "MacIntel",
+                    language: "en-US"
+                },
+                {
+                    name: "Demo User 3",
+                    examDate: "2025-06-22",
+                    entryTime: new Date().toISOString(),
+                    entryTimeFormatted: new Date().toLocaleString(),
+                    sessionId: "demo_session_3",
+                    platform: "Linux x86_64",
+                    language: "en-US"
+                }
+            ];
+
+            // Add to existing data
+            const existingData = JSON.parse(localStorage.getItem('userEntries')) || [];
+            const combinedData = [...existingData, ...demoEntries];
+            localStorage.setItem('userEntries', JSON.stringify(combinedData));
+
+            // Refresh the display
+            refreshData();
+
+            alert('Demo data added! The admin panel will now show sample entries.');
         }
     </script>
 </body>
