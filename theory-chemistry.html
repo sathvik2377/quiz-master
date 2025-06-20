@@ -42,20 +42,39 @@
             <p class="theory-subtitle">Explore the molecular world and chemical reactions</p>
         </div>
 
-        <!-- Theory Navigation Tabs -->
-        <div class="theory-tabs">
-            <button class="theory-tab-btn active" onclick="showTheoryTab('content')" id="contentTab">
-                <i class="fas fa-book"></i> Theory Content
-            </button>
-            <button class="theory-tab-btn" onclick="showTheoryTab('reactions')" id="reactionsTab">
-                <i class="fas fa-flask"></i> Organic Reactions
-            </button>
-            <button class="theory-tab-btn" onclick="showTheoryTab('organicQuiz')" id="organicQuizTab">
-                <i class="fas fa-vial"></i> Organic Quiz
-            </button>
-            <button class="theory-tab-btn" onclick="showTheoryTab('pdf')" id="pdfTab">
-                <i class="fas fa-file-pdf"></i> PDF Reference
-            </button>
+        <!-- Theory Navigation Tabs - 3x2 Grid Layout -->
+        <div class="theory-tabs chemistry-tabs-grid">
+            <!-- Top Row -->
+            <div class="chemistry-tab-row">
+                <button class="theory-tab-btn chemistry-tab-btn active" onclick="showTheoryTab('content')" id="contentTab">
+                    <i class="fas fa-book"></i>
+                    <span>Theory Content</span>
+                </button>
+                <button class="theory-tab-btn chemistry-tab-btn" onclick="showTheoryTab('reactions')" id="reactionsTab">
+                    <i class="fas fa-flask"></i>
+                    <span>Organic Reactions</span>
+                </button>
+                <button class="theory-tab-btn chemistry-tab-btn" onclick="showTheoryTab('ncertTables')" id="ncertTablesTab">
+                    <i class="fas fa-table"></i>
+                    <span>Inorganic Tables</span>
+                </button>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="chemistry-tab-row">
+                <button class="theory-tab-btn chemistry-tab-btn" onclick="showTheoryTab('organicQuiz')" id="organicQuizTab">
+                    <i class="fas fa-vial"></i>
+                    <span>Organic Quiz</span>
+                </button>
+                <button class="theory-tab-btn chemistry-tab-btn" onclick="showTheoryTab('inorganicQuiz')" id="inorganicQuizTab">
+                    <i class="fas fa-atom"></i>
+                    <span>Inorganic Quiz</span>
+                </button>
+                <button class="theory-tab-btn chemistry-tab-btn" onclick="showTheoryTab('pdf')" id="pdfTab">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF Reference</span>
+                </button>
+            </div>
         </div>
 
         <!-- Theory Content -->
@@ -195,11 +214,28 @@
         <!-- Organic Reactions Section -->
         <div class="theory-reactions" id="theoryReactions" style="display: none;">
             <!-- Organic reactions content will be loaded here -->
+
+            <!-- Organic Quiz Button - positioned below organic reactions -->
+            <div class="organic-quiz-button-container" style="text-align: center; margin-top: 30px; padding: 20px;">
+                <button class="organic-quiz-btn" onclick="showTheoryTab('organicQuiz')" id="organicQuizBtn">
+                    <i class="fas fa-vial"></i> Take Organic Chemistry Quiz
+                </button>
+            </div>
+        </div>
+
+        <!-- NCERT Tables Section -->
+        <div class="theory-ncert-tables" id="theoryNcertTables" style="display: none;">
+            <!-- NCERT tables content will be loaded here -->
         </div>
 
         <!-- Organic Quiz Section -->
         <div class="theory-organic-quiz" id="theoryOrganicQuiz" style="display: none;">
             <!-- Organic quiz content will be loaded here -->
+        </div>
+
+        <!-- Inorganic Quiz Section -->
+        <div class="theory-inorganic-quiz" id="theoryInorganicQuiz" style="display: none;">
+            <!-- Inorganic quiz content will be loaded here -->
         </div>
 
         <!-- PDF Viewer -->
@@ -240,6 +276,7 @@
 
     <script src="theory-common.js"></script>
     <script src="chemistry-reactions.js"></script>
+    <script src="ncert-tables.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

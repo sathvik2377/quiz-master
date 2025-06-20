@@ -2153,6 +2153,11 @@ function showSection(section) {
     }
 }
 
+// Open User Guide function
+function openUserGuide() {
+    window.open('user-guide.html', '_blank');
+}
+
 // Start a quiz category
 function startQuiz(category) {
     currentCategory = category;
@@ -4885,6 +4890,262 @@ function displayUserStats() {
     return stats;
 }
 
+// Advanced Calculator Functions
+let currentCalcMode = 'basic';
+let currentCalculusTab = 'derivative';
+let currentAlgebraTab = 'polynomial';
+
+// Wolfram Alpha API configuration (Note: This is a demo - you'll need your own API key)
+const WOLFRAM_CONFIG = {
+    appId: 'DEMO-API-KEY', // Replace with your actual Wolfram Alpha API key
+    apiUrl: 'https://api.wolframalpha.com/v2/query',
+    enabled: false // Set to true when you have a valid API key
+};
+
+function switchCalcMode(mode) {
+    currentCalcMode = mode;
+
+    // Update tab buttons
+    document.querySelectorAll('.calc-tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(mode + 'Tab').classList.add('active');
+
+    // Show/hide mode content
+    document.querySelectorAll('.calc-mode-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    document.getElementById(mode + 'CalcMode').style.display = 'block';
+}
+
+function insertFunction(func) {
+    const input = document.getElementById('advancedInput');
+    if (input) {
+        const cursorPos = input.selectionStart;
+        const textBefore = input.value.substring(0, cursorPos);
+        const textAfter = input.value.substring(cursorPos);
+        input.value = textBefore + func + textAfter;
+        input.focus();
+        input.setSelectionRange(cursorPos + func.length - 1, cursorPos + func.length - 1);
+    }
+}
+
+async function solveAdvanced() {
+    const input = document.getElementById('advancedInput').value.trim();
+    const resultDiv = document.getElementById('advancedResult');
+
+    if (!input) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter an expression</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating...';
+
+    try {
+        // Try local computation first
+        let result = await computeLocally(input);
+
+        if (!result && WOLFRAM_CONFIG.enabled) {
+            // Fallback to Wolfram Alpha if available
+            result = await queryWolframAlpha(input);
+        }
+
+        if (!result) {
+            // Fallback to basic evaluation
+            result = evaluateBasicExpression(input);
+        }
+
+        resultDiv.innerHTML = result || '<span style="color: #ff6b6b;">Unable to solve this expression</span>';
+
+    } catch (error) {
+        console.error('Calculation error:', error);
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+async function computeLocally(expression) {
+    // Handle common mathematical operations locally
+    try {
+        // Solve quadratic equations
+        if (expression.includes('solve') && expression.includes('x^2')) {
+            return solveQuadratic(expression);
+        }
+
+        // Factor simple polynomials
+        if (expression.includes('factor')) {
+            return factorExpression(expression);
+        }
+
+        // Expand expressions
+        if (expression.includes('expand')) {
+            return expandExpression(expression);
+        }
+
+        // Simplify expressions
+        if (expression.includes('simplify')) {
+            return simplifyExpression(expression);
+        }
+
+        return null;
+    } catch (error) {
+        throw new Error('Local computation failed');
+    }
+}
+
+function solveQuadratic(expression) {
+    // Extract coefficients from expressions like "solve x^2 + 5x + 6 = 0"
+    const match = expression.match(/x\^2\s*([+-])\s*(\d+)x\s*([+-])\s*(\d+)\s*=\s*0/);
+    if (!match) return null;
+
+    const a = 1;
+    const b = (match[1] === '+' ? 1 : -1) * parseInt(match[2]);
+    const c = (match[3] === '+' ? 1 : -1) * parseInt(match[4]);
+
+    const discriminant = b * b - 4 * a * c;
+
+    if (discriminant < 0) {
+        return `<div class="solution">
+            <h4>Quadratic Solution:</h4>
+            <p><strong>Equation:</strong> x² ${b >= 0 ? '+' : ''}${b}x ${c >= 0 ? '+' : ''}${c} = 0</p>
+            <p><strong>Discriminant:</strong> ${discriminant}</p>
+            <p><strong>Solutions:</strong> No real solutions (complex roots)</p>
+            <p><strong>Complex roots:</strong> x = ${-b/2} ± ${Math.sqrt(-discriminant)/2}i</p>
+        </div>`;
+    } else if (discriminant === 0) {
+        const x = -b / (2 * a);
+        return `<div class="solution">
+            <h4>Quadratic Solution:</h4>
+            <p><strong>Equation:</strong> x² ${b >= 0 ? '+' : ''}${b}x ${c >= 0 ? '+' : ''}${c} = 0</p>
+            <p><strong>Discriminant:</strong> ${discriminant}</p>
+            <p><strong>Solution:</strong> x = ${x} (repeated root)</p>
+        </div>`;
+    } else {
+        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+        return `<div class="solution">
+            <h4>Quadratic Solution:</h4>
+            <p><strong>Equation:</strong> x² ${b >= 0 ? '+' : ''}${b}x ${c >= 0 ? '+' : ''}${c} = 0</p>
+            <p><strong>Discriminant:</strong> ${discriminant}</p>
+            <p><strong>Solutions:</strong></p>
+            <p>x₁ = ${x1.toFixed(4)}</p>
+            <p>x₂ = ${x2.toFixed(4)}</p>
+        </div>`;
+    }
+}
+
+function factorExpression(expression) {
+    // Simple factoring for basic expressions
+    const match = expression.match(/factor\s*\(\s*x\^2\s*([+-])\s*(\d+)x\s*([+-])\s*(\d+)\s*\)/);
+    if (!match) return null;
+
+    const b = (match[1] === '+' ? 1 : -1) * parseInt(match[2]);
+    const c = (match[3] === '+' ? 1 : -1) * parseInt(match[4]);
+
+    // Try to find factors
+    for (let i = -20; i <= 20; i++) {
+        for (let j = -20; j <= 20; j++) {
+            if (i * j === c && i + j === b) {
+                return `<div class="solution">
+                    <h4>Factorization:</h4>
+                    <p><strong>Original:</strong> x² ${b >= 0 ? '+' : ''}${b}x ${c >= 0 ? '+' : ''}${c}</p>
+                    <p><strong>Factored:</strong> (x ${i >= 0 ? '+' : ''}${i})(x ${j >= 0 ? '+' : ''}${j})</p>
+                </div>`;
+            }
+        }
+    }
+
+    return `<div class="solution">
+        <h4>Factorization:</h4>
+        <p><strong>Original:</strong> x² ${b >= 0 ? '+' : ''}${b}x ${c >= 0 ? '+' : ''}${c}</p>
+        <p><strong>Result:</strong> Cannot be factored over integers</p>
+    </div>`;
+}
+
+function expandExpression(expression) {
+    // Simple expansion for (x+a)(x+b) format
+    const match = expression.match(/expand\s*\(\s*\(x\s*([+-])\s*(\d+)\)\s*\(x\s*([+-])\s*(\d+)\)\s*\)/);
+    if (!match) return null;
+
+    const a = (match[1] === '+' ? 1 : -1) * parseInt(match[2]);
+    const b = (match[3] === '+' ? 1 : -1) * parseInt(match[4]);
+
+    const coefficient = a + b;
+    const constant = a * b;
+
+    return `<div class="solution">
+        <h4>Expansion:</h4>
+        <p><strong>Original:</strong> (x ${a >= 0 ? '+' : ''}${a})(x ${b >= 0 ? '+' : ''}${b})</p>
+        <p><strong>Expanded:</strong> x² ${coefficient >= 0 ? '+' : ''}${coefficient}x ${constant >= 0 ? '+' : ''}${constant}</p>
+    </div>`;
+}
+
+function simplifyExpression(expression) {
+    return `<div class="solution">
+        <h4>Simplification:</h4>
+        <p><strong>Note:</strong> Advanced simplification requires Wolfram Alpha integration</p>
+        <p><strong>Basic operations:</strong> Use the basic calculator for numerical simplification</p>
+    </div>`;
+}
+
+function evaluateBasicExpression(expression) {
+    try {
+        // Remove solve, factor, etc. and try basic evaluation
+        const cleaned = expression.replace(/(solve|factor|expand|simplify)\s*\(?\s*/g, '')
+                                  .replace(/\s*\)?\s*=\s*0?\s*$/, '')
+                                  .replace(/\^/g, '**');
+
+        // Only evaluate if it's a simple mathematical expression
+        if (/^[0-9+\-*/.() x]+$/.test(cleaned)) {
+            const result = eval(cleaned.replace(/x/g, '1')); // Replace x with 1 for evaluation
+            return `<div class="solution">
+                <h4>Numerical Evaluation:</h4>
+                <p><strong>Expression:</strong> ${expression}</p>
+                <p><strong>Result (with x=1):</strong> ${result}</p>
+            </div>`;
+        }
+
+        return null;
+    } catch (error) {
+        return null;
+    }
+}
+
+async function queryWolframAlpha(query) {
+    if (!WOLFRAM_CONFIG.enabled) {
+        return `<div class="solution">
+            <h4>Wolfram Alpha Integration</h4>
+            <p><strong>Status:</strong> Not configured</p>
+            <p><strong>Note:</strong> To enable advanced mathematical computation, you need to:</p>
+            <ol>
+                <li>Get a Wolfram Alpha API key from <a href="https://developer.wolframalpha.com/" target="_blank">developer.wolframalpha.com</a></li>
+                <li>Replace the DEMO-API-KEY in the code with your actual key</li>
+                <li>Set WOLFRAM_CONFIG.enabled to true</li>
+            </ol>
+            <p><strong>Current query:</strong> ${query}</p>
+        </div>`;
+    }
+
+    try {
+        const url = `${WOLFRAM_CONFIG.apiUrl}?input=${encodeURIComponent(query)}&format=plaintext&output=JSON&appid=${WOLFRAM_CONFIG.appId}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.queryresult && data.queryresult.pods) {
+            let result = '<div class="solution"><h4>Wolfram Alpha Result:</h4>';
+            data.queryresult.pods.forEach(pod => {
+                if (pod.subpods && pod.subpods[0] && pod.subpods[0].plaintext) {
+                    result += `<p><strong>${pod.title}:</strong> ${pod.subpods[0].plaintext}</p>`;
+                }
+            });
+            result += '</div>';
+            return result;
+        }
+
+        return null;
+    } catch (error) {
+        console.error('Wolfram Alpha API error:', error);
+        return null;
+    }
+}
+
 // Make functions globally available
 window.appendToCalc = appendToCalc;
 window.appendFunction = appendFunction;
@@ -4896,6 +5157,834 @@ window.memoryClear = memoryClear;
 window.memoryRecall = memoryRecall;
 window.memoryAdd = memoryAdd;
 window.memorySubtract = memorySubtract;
+window.switchCalcMode = switchCalcMode;
+window.insertFunction = insertFunction;
+window.solveAdvanced = solveAdvanced;
+
+// Calculus Functions
+function switchCalculusTab(tab) {
+    currentCalculusTab = tab;
+
+    // Update tab buttons
+    document.querySelectorAll('.calculus-tab').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Show/hide tab content
+    document.querySelectorAll('.calculus-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    document.getElementById(tab + 'Tab').style.display = 'block';
+
+    // Show/hide definite integral inputs
+    if (tab === 'integral') {
+        const integralType = document.querySelector('input[name="integralType"]:checked');
+        if (integralType) {
+            toggleDefiniteInputs(integralType.value === 'definite');
+        }
+
+        // Add event listeners for integral type change
+        document.querySelectorAll('input[name="integralType"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                toggleDefiniteInputs(e.target.value === 'definite');
+            });
+        });
+    }
+}
+
+function toggleDefiniteInputs(show) {
+    const definiteInputs = document.getElementById('definiteInputs');
+    if (definiteInputs) {
+        definiteInputs.style.display = show ? 'block' : 'none';
+    }
+}
+
+async function calculateDerivative() {
+    const func = document.getElementById('derivativeInput').value.trim();
+    const variable = document.getElementById('derivativeVar').value.trim() || 'x';
+    const resultDiv = document.getElementById('calculusResult');
+
+    if (!func) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a function</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating derivative...';
+
+    try {
+        const result = computeDerivative(func, variable);
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function computeDerivative(func, variable) {
+    // Basic derivative rules
+    const derivatives = {
+        // Power rule: x^n -> n*x^(n-1)
+        [`${variable}\\^(\\d+)`]: (match, n) => {
+            const power = parseInt(n);
+            if (power === 1) return '1';
+            if (power === 2) return `2${variable}`;
+            return `${power}${variable}^${power - 1}`;
+        },
+
+        // Constant rule: c -> 0
+        '^\\d+$': () => '0',
+
+        // Linear: ax -> a
+        [`(\\d+)${variable}$`]: (match, coeff) => coeff,
+
+        // Basic functions
+        [`sin\\(${variable}\\)`]: () => `cos(${variable})`,
+        [`cos\\(${variable}\\)`]: () => `-sin(${variable})`,
+        [`tan\\(${variable}\\)`]: () => `sec²(${variable})`,
+        [`ln\\(${variable}\\)`]: () => `1/${variable}`,
+        [`log\\(${variable}\\)`]: () => `1/(${variable}*ln(10))`,
+        [`e\\^${variable}`]: () => `e^${variable}`,
+        [`${variable}`]: () => '1'
+    };
+
+    let result = func;
+
+    // Apply derivative rules
+    for (const [pattern, replacement] of Object.entries(derivatives)) {
+        const regex = new RegExp(pattern, 'g');
+        result = result.replace(regex, replacement);
+    }
+
+    return `<div class="solution">
+        <h4>Derivative Calculation:</h4>
+        <p><strong>Original function:</strong> f(${variable}) = ${func}</p>
+        <p><strong>Derivative:</strong> f'(${variable}) = ${result}</p>
+        <p><strong>Note:</strong> This is a basic derivative calculator. For complex functions, use Wolfram Alpha integration.</p>
+    </div>`;
+}
+
+async function calculateIntegral() {
+    const func = document.getElementById('integralInput').value.trim();
+    const variable = document.getElementById('integralVar').value.trim() || 'x';
+    const integralType = document.querySelector('input[name="integralType"]:checked').value;
+    const resultDiv = document.getElementById('calculusResult');
+
+    if (!func) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a function</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating integral...';
+
+    try {
+        let result;
+        if (integralType === 'definite') {
+            const lower = document.getElementById('lowerLimit').value.trim();
+            const upper = document.getElementById('upperLimit').value.trim();
+            result = computeDefiniteIntegral(func, variable, lower, upper);
+        } else {
+            result = computeIndefiniteIntegral(func, variable);
+        }
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function computeIndefiniteIntegral(func, variable) {
+    // Basic integration rules
+    const integrals = {
+        // Power rule: x^n -> x^(n+1)/(n+1)
+        [`${variable}\\^(\\d+)`]: (match, n) => {
+            const power = parseInt(n);
+            const newPower = power + 1;
+            return `${variable}^${newPower}/${newPower}`;
+        },
+
+        // Linear: ax -> ax²/2
+        [`(\\d+)${variable}$`]: (match, coeff) => `${coeff}${variable}²/2`,
+
+        // Constant: c -> cx
+        '^\\d+$': (match) => `${match}${variable}`,
+
+        // Basic functions
+        [`1/${variable}`]: () => `ln(|${variable}|)`,
+        [`sin\\(${variable}\\)`]: () => `-cos(${variable})`,
+        [`cos\\(${variable}\\)`]: () => `sin(${variable})`,
+        [`e\\^${variable}`]: () => `e^${variable}`,
+        [`${variable}`]: () => `${variable}²/2`
+    };
+
+    let result = func;
+
+    // Apply integration rules
+    for (const [pattern, replacement] of Object.entries(integrals)) {
+        const regex = new RegExp(pattern, 'g');
+        result = result.replace(regex, replacement);
+    }
+
+    return `<div class="solution">
+        <h4>Indefinite Integral:</h4>
+        <p><strong>Original function:</strong> f(${variable}) = ${func}</p>
+        <p><strong>Integral:</strong> ∫f(${variable})d${variable} = ${result} + C</p>
+        <p><strong>Note:</strong> This is a basic integration calculator. For complex functions, use Wolfram Alpha integration.</p>
+    </div>`;
+}
+
+function computeDefiniteIntegral(func, variable, lower, upper) {
+    return `<div class="solution">
+        <h4>Definite Integral:</h4>
+        <p><strong>Function:</strong> f(${variable}) = ${func}</p>
+        <p><strong>Limits:</strong> from ${lower} to ${upper}</p>
+        <p><strong>Integral:</strong> ∫[${lower} to ${upper}] f(${variable})d${variable}</p>
+        <p><strong>Note:</strong> Numerical evaluation requires advanced computation. Use Wolfram Alpha for accurate results.</p>
+    </div>`;
+}
+
+async function calculateLimit() {
+    const func = document.getElementById('limitInput').value.trim();
+    const variable = document.getElementById('limitVar').value.trim() || 'x';
+    const point = document.getElementById('limitPoint').value.trim();
+    const resultDiv = document.getElementById('calculusResult');
+
+    if (!func || !point) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter function and limit point</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating limit...';
+
+    try {
+        const result = computeLimit(func, variable, point);
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function computeLimit(func, variable, point) {
+    return `<div class="solution">
+        <h4>Limit Calculation:</h4>
+        <p><strong>Function:</strong> f(${variable}) = ${func}</p>
+        <p><strong>Limit:</strong> lim[${variable}→${point}] f(${variable})</p>
+        <p><strong>Note:</strong> Limit evaluation requires advanced symbolic computation.</p>
+        <p><strong>Suggestion:</strong> Use Wolfram Alpha for accurate limit calculations.</p>
+        <p><strong>Common techniques:</strong> L'Hôpital's rule, substitution, factoring</p>
+    </div>`;
+}
+
+async function calculateSeries() {
+    const func = document.getElementById('seriesInput').value.trim();
+    const variable = document.getElementById('seriesVar').value.trim() || 'x';
+    const point = document.getElementById('seriesPoint').value.trim() || '0';
+    const terms = document.getElementById('seriesTerms').value || '5';
+    const resultDiv = document.getElementById('calculusResult');
+
+    if (!func) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a function</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating series...';
+
+    try {
+        const result = computeSeries(func, variable, point, terms);
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function computeSeries(func, variable, point, terms) {
+    // Common Taylor series
+    const commonSeries = {
+        'e^x': (x, n) => {
+            let series = '1';
+            for (let i = 1; i < n; i++) {
+                series += ` + ${x}^${i}/${factorial(i)}`;
+            }
+            return series;
+        },
+        'sin(x)': (x, n) => {
+            let series = x;
+            for (let i = 1; i < Math.floor(n/2); i++) {
+                const power = 2*i + 1;
+                const sign = i % 2 === 0 ? '+' : '-';
+                series += ` ${sign} ${x}^${power}/${factorial(power)}`;
+            }
+            return series;
+        },
+        'cos(x)': (x, n) => {
+            let series = '1';
+            for (let i = 1; i < Math.floor(n/2) + 1; i++) {
+                const power = 2*i;
+                const sign = i % 2 === 0 ? '+' : '-';
+                series += ` ${sign} ${x}^${power}/${factorial(power)}`;
+            }
+            return series;
+        }
+    };
+
+    const seriesResult = commonSeries[func];
+    if (seriesResult) {
+        return `<div class="solution">
+            <h4>Taylor Series:</h4>
+            <p><strong>Function:</strong> f(${variable}) = ${func}</p>
+            <p><strong>Around point:</strong> ${variable} = ${point}</p>
+            <p><strong>Series (${terms} terms):</strong></p>
+            <p>${seriesResult(variable, parseInt(terms))}</p>
+        </div>`;
+    }
+
+    return `<div class="solution">
+        <h4>Taylor Series:</h4>
+        <p><strong>Function:</strong> f(${variable}) = ${func}</p>
+        <p><strong>Around point:</strong> ${variable} = ${point}</p>
+        <p><strong>Note:</strong> Series expansion for this function requires advanced computation.</p>
+        <p><strong>Common series available:</strong> e^x, sin(x), cos(x)</p>
+    </div>`;
+}
+
+// Algebra Functions
+function switchAlgebraTab(tab) {
+    currentAlgebraTab = tab;
+
+    // Update tab buttons
+    document.querySelectorAll('.algebra-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[onclick="switchAlgebraTab('${tab}')"]`).classList.add('active');
+
+    // Show/hide tab content
+    document.querySelectorAll('.algebra-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    document.getElementById(tab + 'Tab').style.display = 'block';
+}
+
+async function factorPolynomial() {
+    const polynomial = document.getElementById('polynomialInput').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!polynomial) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a polynomial</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Factoring polynomial...';
+
+    try {
+        const result = factorPolynomialLocal(polynomial);
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function factorPolynomialLocal(polynomial) {
+    // Try to factor simple quadratics
+    const quadMatch = polynomial.match(/x\^2\s*([+-])\s*(\d+)x\s*([+-])\s*(\d+)/);
+    if (quadMatch) {
+        const b = (quadMatch[1] === '+' ? 1 : -1) * parseInt(quadMatch[2]);
+        const c = (quadMatch[3] === '+' ? 1 : -1) * parseInt(quadMatch[4]);
+
+        // Find factors
+        for (let i = -20; i <= 20; i++) {
+            for (let j = -20; j <= 20; j++) {
+                if (i * j === c && i + j === b) {
+                    return `<div class="solution">
+                        <h4>Polynomial Factorization:</h4>
+                        <p><strong>Original:</strong> ${polynomial}</p>
+                        <p><strong>Factored:</strong> (x ${i >= 0 ? '+' : ''}${i})(x ${j >= 0 ? '+' : ''}${j})</p>
+                        <p><strong>Verification:</strong> Expanding gives x² ${b >= 0 ? '+' : ''}${b}x ${c >= 0 ? '+' : ''}${c}</p>
+                    </div>`;
+                }
+            }
+        }
+
+        return `<div class="solution">
+            <h4>Polynomial Factorization:</h4>
+            <p><strong>Original:</strong> ${polynomial}</p>
+            <p><strong>Result:</strong> Cannot be factored over integers</p>
+            <p><strong>Note:</strong> May have irrational or complex factors</p>
+        </div>`;
+    }
+
+    return `<div class="solution">
+        <h4>Polynomial Factorization:</h4>
+        <p><strong>Original:</strong> ${polynomial}</p>
+        <p><strong>Note:</strong> Advanced factorization requires symbolic computation</p>
+        <p><strong>Supported:</strong> Simple quadratics of the form ax² + bx + c</p>
+    </div>`;
+}
+
+async function findRoots() {
+    const polynomial = document.getElementById('polynomialInput').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!polynomial) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a polynomial</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finding roots...';
+
+    try {
+        const result = findPolynomialRoots(polynomial);
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function findPolynomialRoots(polynomial) {
+    // Handle quadratic equations
+    const quadMatch = polynomial.match(/x\^2\s*([+-])\s*(\d+)x\s*([+-])\s*(\d+)/);
+    if (quadMatch) {
+        const a = 1;
+        const b = (quadMatch[1] === '+' ? 1 : -1) * parseInt(quadMatch[2]);
+        const c = (quadMatch[3] === '+' ? 1 : -1) * parseInt(quadMatch[4]);
+
+        const discriminant = b * b - 4 * a * c;
+
+        if (discriminant < 0) {
+            const realPart = -b / (2 * a);
+            const imagPart = Math.sqrt(-discriminant) / (2 * a);
+            return `<div class="solution">
+                <h4>Polynomial Roots:</h4>
+                <p><strong>Polynomial:</strong> ${polynomial}</p>
+                <p><strong>Discriminant:</strong> ${discriminant}</p>
+                <p><strong>Roots:</strong> Complex</p>
+                <p>x₁ = ${realPart} + ${imagPart.toFixed(4)}i</p>
+                <p>x₂ = ${realPart} - ${imagPart.toFixed(4)}i</p>
+            </div>`;
+        } else if (discriminant === 0) {
+            const root = -b / (2 * a);
+            return `<div class="solution">
+                <h4>Polynomial Roots:</h4>
+                <p><strong>Polynomial:</strong> ${polynomial}</p>
+                <p><strong>Discriminant:</strong> ${discriminant}</p>
+                <p><strong>Root:</strong> x = ${root} (repeated)</p>
+            </div>`;
+        } else {
+            const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            return `<div class="solution">
+                <h4>Polynomial Roots:</h4>
+                <p><strong>Polynomial:</strong> ${polynomial}</p>
+                <p><strong>Discriminant:</strong> ${discriminant}</p>
+                <p><strong>Roots:</strong></p>
+                <p>x₁ = ${root1.toFixed(4)}</p>
+                <p>x₂ = ${root2.toFixed(4)}</p>
+            </div>`;
+        }
+    }
+
+    // Handle linear equations
+    const linearMatch = polynomial.match(/(\d*)x\s*([+-])\s*(\d+)/);
+    if (linearMatch) {
+        const a = parseInt(linearMatch[1]) || 1;
+        const b = (linearMatch[2] === '+' ? 1 : -1) * parseInt(linearMatch[3]);
+        const root = -b / a;
+
+        return `<div class="solution">
+            <h4>Polynomial Roots:</h4>
+            <p><strong>Polynomial:</strong> ${polynomial}</p>
+            <p><strong>Type:</strong> Linear equation</p>
+            <p><strong>Root:</strong> x = ${root}</p>
+        </div>`;
+    }
+
+    return `<div class="solution">
+        <h4>Polynomial Roots:</h4>
+        <p><strong>Polynomial:</strong> ${polynomial}</p>
+        <p><strong>Note:</strong> Root finding for higher-degree polynomials requires numerical methods</p>
+        <p><strong>Supported:</strong> Linear and quadratic polynomials</p>
+    </div>`;
+}
+
+async function expandPolynomial() {
+    const polynomial = document.getElementById('polynomialInput').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    resultDiv.innerHTML = `<div class="solution">
+        <h4>Polynomial Expansion:</h4>
+        <p><strong>Input:</strong> ${polynomial}</p>
+        <p><strong>Note:</strong> Polynomial expansion requires symbolic computation</p>
+        <p><strong>Example:</strong> (x+2)(x+3) = x² + 5x + 6</p>
+        <p><strong>Use:</strong> Advanced mode for simple expansions</p>
+    </div>`;
+}
+
+async function simplifyPolynomial() {
+    const polynomial = document.getElementById('polynomialInput').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    resultDiv.innerHTML = `<div class="solution">
+        <h4>Polynomial Simplification:</h4>
+        <p><strong>Input:</strong> ${polynomial}</p>
+        <p><strong>Note:</strong> Polynomial simplification requires symbolic computation</p>
+        <p><strong>Basic operations:</strong> Combine like terms manually</p>
+        <p><strong>Example:</strong> 2x² + 3x² = 5x²</p>
+    </div>`;
+}
+
+async function solveEquation() {
+    const equation = document.getElementById('equationInput').value.trim();
+    const variable = document.getElementById('equationVar').value.trim() || 'x';
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!equation) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter an equation</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Solving equation...';
+
+    try {
+        const result = solveEquationLocal(equation, variable);
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function solveEquationLocal(equation, variable) {
+    // Split equation at equals sign
+    const parts = equation.split('=');
+    if (parts.length !== 2) {
+        throw new Error('Equation must contain exactly one equals sign');
+    }
+
+    const left = parts[0].trim();
+    const right = parts[1].trim();
+
+    // Handle simple linear equations: ax + b = c
+    const linearMatch = left.match(new RegExp(`(\\d*)${variable}\\s*([+-])\\s*(\\d+)`));
+    if (linearMatch && !isNaN(parseFloat(right))) {
+        const a = parseInt(linearMatch[1]) || 1;
+        const sign = linearMatch[2];
+        const b = parseInt(linearMatch[3]);
+        const c = parseFloat(right);
+
+        const solution = sign === '+' ? (c - b) / a : (c + b) / a;
+
+        return `<div class="solution">
+            <h4>Linear Equation Solution:</h4>
+            <p><strong>Equation:</strong> ${equation}</p>
+            <p><strong>Solution:</strong> ${variable} = ${solution}</p>
+            <p><strong>Verification:</strong> ${a}(${solution}) ${sign} ${b} = ${a * solution + (sign === '+' ? b : -b)}</p>
+        </div>`;
+    }
+
+    return `<div class="solution">
+        <h4>Equation Solution:</h4>
+        <p><strong>Equation:</strong> ${equation}</p>
+        <p><strong>Note:</strong> Complex equation solving requires symbolic computation</p>
+        <p><strong>Supported:</strong> Simple linear equations of the form ax + b = c</p>
+    </div>`;
+}
+
+// Matrix operations (basic implementations)
+async function calculateDeterminant() {
+    const matrixA = document.getElementById('matrixA').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!matrixA) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter matrix A</span>';
+        return;
+    }
+
+    try {
+        const matrix = JSON.parse(matrixA);
+        const det = determinant(matrix);
+
+        resultDiv.innerHTML = `<div class="solution">
+            <h4>Matrix Determinant:</h4>
+            <p><strong>Matrix A:</strong> ${JSON.stringify(matrix)}</p>
+            <p><strong>Determinant:</strong> ${det}</p>
+        </div>`;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Invalid matrix format. Use [[1,2],[3,4]] format</span>';
+    }
+}
+
+function determinant(matrix) {
+    const n = matrix.length;
+    if (n !== matrix[0].length) {
+        throw new Error('Matrix must be square');
+    }
+
+    if (n === 1) return matrix[0][0];
+    if (n === 2) return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+
+    let det = 0;
+    for (let i = 0; i < n; i++) {
+        const subMatrix = matrix.slice(1).map(row => row.filter((_, j) => j !== i));
+        det += Math.pow(-1, i) * matrix[0][i] * determinant(subMatrix);
+    }
+    return det;
+}
+
+async function calculateInverse() {
+    const matrixA = document.getElementById('matrixA').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!matrixA) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter matrix A</span>';
+        return;
+    }
+
+    try {
+        const matrix = JSON.parse(matrixA);
+        const det = determinant(matrix);
+
+        if (Math.abs(det) < 1e-10) {
+            resultDiv.innerHTML = `<div class="solution">
+                <h4>Matrix Inverse:</h4>
+                <p><strong>Matrix A:</strong> ${JSON.stringify(matrix)}</p>
+                <p><strong>Result:</strong> Matrix is singular (determinant = 0)</p>
+                <p><strong>Note:</strong> Inverse does not exist</p>
+            </div>`;
+            return;
+        }
+
+        if (matrix.length === 2 && matrix[0].length === 2) {
+            const inv = inverse2x2(matrix);
+            resultDiv.innerHTML = `<div class="solution">
+                <h4>Matrix Inverse:</h4>
+                <p><strong>Matrix A:</strong> ${JSON.stringify(matrix)}</p>
+                <p><strong>Determinant:</strong> ${det}</p>
+                <p><strong>Inverse:</strong> ${JSON.stringify(inv)}</p>
+            </div>`;
+        } else {
+            resultDiv.innerHTML = `<div class="solution">
+                <h4>Matrix Inverse:</h4>
+                <p><strong>Matrix A:</strong> ${JSON.stringify(matrix)}</p>
+                <p><strong>Note:</strong> Inverse calculation for matrices larger than 2x2 requires advanced computation</p>
+                <p><strong>Determinant:</strong> ${det}</p>
+            </div>`;
+        }
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Invalid matrix format. Use [[1,2],[3,4]] format</span>';
+    }
+}
+
+function inverse2x2(matrix) {
+    const [[a, b], [c, d]] = matrix;
+    const det = a * d - b * c;
+
+    return [
+        [d / det, -b / det],
+        [-c / det, a / det]
+    ].map(row => row.map(val => Math.round(val * 10000) / 10000)); // Round to 4 decimal places
+}
+
+async function multiplyMatrices() {
+    const matrixA = document.getElementById('matrixA').value.trim();
+    const matrixB = document.getElementById('matrixB').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!matrixA || !matrixB) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter both matrices</span>';
+        return;
+    }
+
+    try {
+        const A = JSON.parse(matrixA);
+        const B = JSON.parse(matrixB);
+
+        if (A[0].length !== B.length) {
+            resultDiv.innerHTML = '<span style="color: #ff6b6b;">Matrix dimensions incompatible for multiplication</span>';
+            return;
+        }
+
+        const result = matrixMultiply(A, B);
+
+        resultDiv.innerHTML = `<div class="solution">
+            <h4>Matrix Multiplication:</h4>
+            <p><strong>Matrix A:</strong> ${JSON.stringify(A)}</p>
+            <p><strong>Matrix B:</strong> ${JSON.stringify(B)}</p>
+            <p><strong>A × B:</strong> ${JSON.stringify(result)}</p>
+            <p><strong>Dimensions:</strong> (${A.length}×${A[0].length}) × (${B.length}×${B[0].length}) = (${result.length}×${result[0].length})</p>
+        </div>`;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Invalid matrix format. Use [[1,2],[3,4]] format</span>';
+    }
+}
+
+function matrixMultiply(A, B) {
+    const result = [];
+    for (let i = 0; i < A.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < B[0].length; j++) {
+            let sum = 0;
+            for (let k = 0; k < B.length; k++) {
+                sum += A[i][k] * B[k][j];
+            }
+            result[i][j] = sum;
+        }
+    }
+    return result;
+}
+
+async function addMatrices() {
+    const matrixA = document.getElementById('matrixA').value.trim();
+    const matrixB = document.getElementById('matrixB').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!matrixA || !matrixB) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter both matrices</span>';
+        return;
+    }
+
+    try {
+        const A = JSON.parse(matrixA);
+        const B = JSON.parse(matrixB);
+
+        if (A.length !== B.length || A[0].length !== B[0].length) {
+            resultDiv.innerHTML = '<span style="color: #ff6b6b;">Matrices must have the same dimensions for addition</span>';
+            return;
+        }
+
+        const result = matrixAdd(A, B);
+
+        resultDiv.innerHTML = `<div class="solution">
+            <h4>Matrix Addition:</h4>
+            <p><strong>Matrix A:</strong> ${JSON.stringify(A)}</p>
+            <p><strong>Matrix B:</strong> ${JSON.stringify(B)}</p>
+            <p><strong>A + B:</strong> ${JSON.stringify(result)}</p>
+        </div>`;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Invalid matrix format. Use [[1,2],[3,4]] format</span>';
+    }
+}
+
+function matrixAdd(A, B) {
+    return A.map((row, i) => row.map((val, j) => val + B[i][j]));
+}
+
+async function solveSystem() {
+    const systemInput = document.getElementById('systemInput').value.trim();
+    const resultDiv = document.getElementById('algebraResult');
+
+    if (!systemInput) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a system of equations</span>';
+        return;
+    }
+
+    try {
+        const result = solveLinearSystem(systemInput);
+        resultDiv.innerHTML = result;
+    } catch (error) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
+    }
+}
+
+function solveLinearSystem(systemInput) {
+    const equations = systemInput.split('\n').filter(eq => eq.trim());
+
+    if (equations.length !== 2) {
+        return `<div class="solution">
+            <h4>System of Equations:</h4>
+            <p><strong>Input:</strong> ${systemInput}</p>
+            <p><strong>Note:</strong> Currently supports 2×2 systems only</p>
+            <p><strong>Format:</strong> Enter each equation on a new line</p>
+            <p><strong>Example:</strong> 2x + 3y = 7<br>x - y = 1</p>
+        </div>`;
+    }
+
+    try {
+        // Parse 2x2 system: ax + by = c, dx + ey = f
+        const eq1Match = equations[0].match(/(\d*)x\s*([+-])\s*(\d*)y\s*=\s*(\d+)/);
+        const eq2Match = equations[1].match(/(\d*)x\s*([+-])\s*(\d*)y\s*=\s*(\d+)/);
+
+        if (!eq1Match || !eq2Match) {
+            throw new Error('Invalid equation format');
+        }
+
+        const a = parseInt(eq1Match[1]) || 1;
+        const b = (eq1Match[2] === '+' ? 1 : -1) * (parseInt(eq1Match[3]) || 1);
+        const c = parseInt(eq1Match[4]);
+
+        const d = parseInt(eq2Match[1]) || 1;
+        const e = (eq2Match[2] === '+' ? 1 : -1) * (parseInt(eq2Match[3]) || 1);
+        const f = parseInt(eq2Match[4]);
+
+        // Solve using Cramer's rule
+        const det = a * e - b * d;
+
+        if (Math.abs(det) < 1e-10) {
+            return `<div class="solution">
+                <h4>System of Equations:</h4>
+                <p><strong>System:</strong></p>
+                <p>${equations[0]}</p>
+                <p>${equations[1]}</p>
+                <p><strong>Result:</strong> System has no unique solution (determinant = 0)</p>
+                <p><strong>Note:</strong> System may be inconsistent or have infinitely many solutions</p>
+            </div>`;
+        }
+
+        const x = (c * e - b * f) / det;
+        const y = (a * f - c * d) / det;
+
+        return `<div class="solution">
+            <h4>System of Equations Solution:</h4>
+            <p><strong>System:</strong></p>
+            <p>${equations[0]}</p>
+            <p>${equations[1]}</p>
+            <p><strong>Solution:</strong></p>
+            <p>x = ${x.toFixed(4)}</p>
+            <p>y = ${y.toFixed(4)}</p>
+            <p><strong>Verification:</strong></p>
+            <p>Equation 1: ${a}(${x.toFixed(4)}) ${b >= 0 ? '+' : ''}${b}(${y.toFixed(4)}) = ${(a*x + b*y).toFixed(4)}</p>
+            <p>Equation 2: ${d}(${x.toFixed(4)}) ${e >= 0 ? '+' : ''}${e}(${y.toFixed(4)}) = ${(d*x + e*y).toFixed(4)}</p>
+        </div>`;
+
+    } catch (error) {
+        return `<div class="solution">
+            <h4>System of Equations:</h4>
+            <p><strong>Input:</strong> ${systemInput}</p>
+            <p><strong>Error:</strong> ${error.message}</p>
+            <p><strong>Format:</strong> Use format like "2x + 3y = 7"</p>
+        </div>`;
+    }
+}
+
+// Add remaining algebra functions to global scope
+window.switchAlgebraTab = switchAlgebraTab;
+window.factorPolynomial = factorPolynomial;
+window.findRoots = findRoots;
+window.expandPolynomial = expandPolynomial;
+window.simplifyPolynomial = simplifyPolynomial;
+window.solveEquation = solveEquation;
+window.calculateDeterminant = calculateDeterminant;
+window.calculateInverse = calculateInverse;
+window.multiplyMatrices = multiplyMatrices;
+window.addMatrices = addMatrices;
+window.solveSystem = solveSystem;
+
+// Calculator Guidelines Functions
+function showGuidelineTab(tabId, element) {
+    // Update tab buttons
+    document.querySelectorAll('.guideline-tab').forEach(tab => tab.classList.remove('active'));
+    if (element) {
+        element.classList.add('active');
+    } else {
+        // Fallback: find the clicked button by tabId
+        document.querySelector(`[onclick*="${tabId}"]`).classList.add('active');
+    }
+
+    // Show/hide content
+    document.querySelectorAll('.guideline-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    document.getElementById(tabId).style.display = 'block';
+}
+
+// Add all calculator functions to global scope
+window.switchCalculusTab = switchCalculusTab;
+window.calculateDerivative = calculateDerivative;
+window.calculateIntegral = calculateIntegral;
+window.calculateLimit = calculateLimit;
+window.calculateSeries = calculateSeries;
+window.showGuidelineTab = showGuidelineTab;
 window.loadPDF = loadPDF;
 window.showUploadModal = showUploadModal;
 window.closeFileUploadModal = closeFileUploadModal;

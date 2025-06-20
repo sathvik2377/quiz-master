@@ -16,24 +16,31 @@ let organicTotalTimeLeft = 900; // 15 minutes total (30 seconds × 30 questions)
 function showTheoryTab(tab) {
     const contentTab = document.getElementById('contentTab');
     const reactionsTab = document.getElementById('reactionsTab');
-    const organicQuizTab = document.getElementById('organicQuizTab');
+    const ncertTablesTab = document.getElementById('ncertTablesTab');
     const pdfTab = document.getElementById('pdfTab');
     const theoryContent = document.getElementById('theoryContent');
     const theoryReactions = document.getElementById('theoryReactions');
+    const theoryNcertTables = document.getElementById('theoryNcertTables');
     const theoryOrganicQuiz = document.getElementById('theoryOrganicQuiz');
     const theoryPdfViewer = document.getElementById('theoryPdfViewer');
 
     // Check if all required elements exist
-    if (!contentTab || !reactionsTab || !organicQuizTab || !pdfTab ||
-        !theoryContent || !theoryReactions || !theoryOrganicQuiz || !theoryPdfViewer) {
+    if (!contentTab || !reactionsTab || !ncertTablesTab || !pdfTab ||
+        !theoryContent || !theoryReactions || !theoryNcertTables || !theoryOrganicQuiz || !theoryPdfViewer) {
         console.error('Some required elements not found!');
         return;
     }
 
+    // Get quiz tabs
+    const organicQuizTab = document.getElementById('organicQuizTab');
+    const inorganicQuizTab = document.getElementById('inorganicQuizTab');
+
     // Remove active class from all tabs
     contentTab.classList.remove('active');
     reactionsTab.classList.remove('active');
-    organicQuizTab.classList.remove('active');
+    ncertTablesTab.classList.remove('active');
+    if (organicQuizTab) organicQuizTab.classList.remove('active');
+    if (inorganicQuizTab) inorganicQuizTab.classList.remove('active');
     pdfTab.classList.remove('active');
 
     if (tab === 'content') {
@@ -41,34 +48,76 @@ function showTheoryTab(tab) {
         contentTab.classList.add('active');
         theoryContent.style.display = 'block';
         theoryReactions.style.display = 'none';
+        theoryNcertTables.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
+        const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
         theoryPdfViewer.style.display = 'none';
     } else if (tab === 'reactions') {
         // Show reactions tab
         reactionsTab.classList.add('active');
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'block';
+        theoryNcertTables.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
+        const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
         theoryPdfViewer.style.display = 'none';
-        
+
         // Load reactions content
         loadOrganicReactions();
-    } else if (tab === 'organicQuiz') {
-        // Show organic quiz tab
-        organicQuizTab.classList.add('active');
+    } else if (tab === 'ncertTables') {
+        // Show NCERT tables tab
+        ncertTablesTab.classList.add('active');
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'none';
-        theoryOrganicQuiz.style.display = 'block';
+        theoryNcertTables.style.display = 'block';
+        theoryOrganicQuiz.style.display = 'none';
+        const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
         theoryPdfViewer.style.display = 'none';
-        
+
+        // Load NCERT tables content if available
+        if (window.loadNCERTTablesContent) {
+            window.loadNCERTTablesContent();
+        }
+    } else if (tab === 'organicQuiz') {
+        // Show organic quiz tab
+        if (organicQuizTab) organicQuizTab.classList.add('active');
+        theoryContent.style.display = 'none';
+        theoryReactions.style.display = 'none';
+        theoryNcertTables.style.display = 'none';
+        theoryOrganicQuiz.style.display = 'block';
+        const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
+        theoryPdfViewer.style.display = 'none';
+
         // Load organic quiz content
         loadOrganicQuiz();
+    } else if (tab === 'inorganicQuiz') {
+        // Show inorganic quiz tab
+        const inorganicQuizTab = document.getElementById('inorganicQuizTab');
+        const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+
+        if (inorganicQuizTab) inorganicQuizTab.classList.add('active');
+        theoryContent.style.display = 'none';
+        theoryReactions.style.display = 'none';
+        theoryNcertTables.style.display = 'none';
+        theoryOrganicQuiz.style.display = 'none';
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'block';
+        theoryPdfViewer.style.display = 'none';
+
+        // Load inorganic quiz content
+        loadInorganicQuiz();
     } else if (tab === 'pdf') {
         // Show PDF tab
         pdfTab.classList.add('active');
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'none';
+        theoryNcertTables.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
+        const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
         theoryPdfViewer.style.display = 'block';
     }
 }
@@ -97,6 +146,9 @@ function loadOrganicReactions() {
                 <button class="reaction-nav-btn" onclick="showReactionSection('conversions')" id="conversionsNavBtn">
                     <i class="fas fa-exchange-alt"></i> Important Conversions
                 </button>
+                <button class="reaction-nav-btn" onclick="showReactionSection('allenCheatSheet')" id="allenCheatSheetNavBtn">
+                    <i class="fas fa-file-image"></i> Allen Cheat Sheet
+                </button>
             </div>
             
             <!-- Content Area -->
@@ -114,11 +166,11 @@ function loadOrganicReactions() {
 function showReactionSection(section) {
     currentReactionSection = section;
     const reactionsContent = document.getElementById('reactionsContent');
-    
+
     // Update navigation buttons
     document.querySelectorAll('.reaction-nav-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById(section + 'NavBtn').classList.add('active');
-    
+
     if (section === 'main') {
         reactionsContent.innerHTML = getMainOverview();
     } else if (section === 'reagents') {
@@ -127,6 +179,8 @@ function showReactionSection(section) {
         reactionsContent.innerHTML = getNamedReactions();
     } else if (section === 'conversions') {
         reactionsContent.innerHTML = getImportantConversions();
+    } else if (section === 'allenCheatSheet') {
+        reactionsContent.innerHTML = getAllenOrganicCheatSheet();
     }
 }
 
@@ -143,7 +197,7 @@ function getMainOverview() {
                     <p>16 Essential reagents with their uses and mechanisms</p>
                     <div class="overview-count">16 Reagents</div>
                 </div>
-                
+
                 <div class="overview-card" onclick="showReactionSection('named')">
                     <div class="overview-icon">
                         <i class="fas fa-atom"></i>
@@ -152,7 +206,7 @@ function getMainOverview() {
                     <p>Important named reactions with detailed mechanisms</p>
                     <div class="overview-count">26+ Reactions</div>
                 </div>
-                
+
                 <div class="overview-card" onclick="showReactionSection('conversions')">
                     <div class="overview-icon">
                         <i class="fas fa-exchange-alt"></i>
@@ -160,6 +214,15 @@ function getMainOverview() {
                     <h3>Important Conversions</h3>
                     <p>Key organic transformations, synthetic pathways, rearrangements, and modern coupling reactions</p>
                     <div class="overview-count">23+ Conversions</div>
+                </div>
+
+                <div class="overview-card" onclick="showReactionSection('allenCheatSheet')">
+                    <div class="overview-icon">
+                        <i class="fas fa-file-image"></i>
+                    </div>
+                    <h3>Allen Organic Cheat Sheet</h3>
+                    <p>Comprehensive visual reference charts for organic chemistry</p>
+                    <div class="overview-count">2 Charts</div>
                 </div>
             </div>
             
@@ -1679,6 +1742,600 @@ function restartOrganicQuiz() {
     startTotalTimer();
 }
 
+// ==================== INORGANIC CHEMISTRY QUIZ ====================
+
+// Current inorganic quiz state
+let currentInorganicQuestion = 0;
+let inorganicQuizScore = 0;
+let inorganicQuizAnswered = false;
+let inorganicQuestionTimer = null;
+let inorganicTotalTimer = null;
+let inorganicQuestionTimeLeft = 30; // 30 seconds per question
+let inorganicTotalTimeLeft = 900; // 15 minutes total (30 seconds × 30 questions)
+
+// Inorganic quiz data - Orders and Tables
+const inorganicQuizData = [
+    {
+        question: "Which of the following shows the correct order of atomic radii?",
+        options: ["Li > Na > K > Rb", "Rb > K > Na > Li", "Na > Li > K > Rb", "K > Rb > Na > Li"],
+        correct: 1,
+        explanation: "Atomic radius increases down the group due to addition of new electron shells. Order: Rb > K > Na > Li"
+    },
+    {
+        question: "The correct order of ionization energy in Group 1 elements is:",
+        options: ["Li < Na < K < Rb", "Rb < K < Na < Li", "Na < Li < Rb < K", "K < Rb < Li < Na"],
+        correct: 1,
+        explanation: "Ionization energy decreases down the group as atomic size increases. Order: Li > Na > K > Rb"
+    },
+    {
+        question: "Which order is correct for the melting points of Group 2 elements?",
+        options: ["Be > Mg > Ca > Sr > Ba", "Ba > Sr > Ca > Mg > Be", "Mg > Be > Ca > Sr > Ba", "Be > Ca > Mg > Sr > Ba"],
+        correct: 0,
+        explanation: "Melting point generally decreases down Group 2 due to weaker metallic bonding as atomic size increases."
+    },
+    {
+        question: "The correct order of hydration energy of Group 1 cations is:",
+        options: ["Li⁺ > Na⁺ > K⁺ > Rb⁺", "Rb⁺ > K⁺ > Na⁺ > Li⁺", "Na⁺ > Li⁺ > K⁺ > Rb⁺", "K⁺ > Rb⁺ > Li⁺ > Na⁺"],
+        correct: 0,
+        explanation: "Hydration energy decreases with increasing ionic size. Smaller Li⁺ has highest hydration energy."
+    },
+    {
+        question: "Which shows the correct order of electronegativity in Period 3?",
+        options: ["Na < Mg < Al < Si < P < S < Cl", "Cl < S < P < Si < Al < Mg < Na", "Na > Mg > Al > Si > P > S > Cl", "Al < Na < Mg < Si < P < S < Cl"],
+        correct: 0,
+        explanation: "Electronegativity increases across a period from left to right due to increasing nuclear charge."
+    },
+    {
+        question: "The correct order of lattice energy for alkali metal chlorides is:",
+        options: ["LiCl > NaCl > KCl > RbCl", "RbCl > KCl > NaCl > LiCl", "NaCl > LiCl > KCl > RbCl", "KCl > RbCl > LiCl > NaCl"],
+        correct: 0,
+        explanation: "Lattice energy is inversely proportional to ionic size. LiCl has highest lattice energy due to smallest Li⁺ ion."
+    },
+    {
+        question: "Which order represents the correct trend for atomic radii across Period 2?",
+        options: ["Li > Be > B > C > N > O > F", "F > O > N > C > B > Be > Li", "Be > Li > B > C > N > O > F", "Li > B > Be > C > N > O > F"],
+        correct: 0,
+        explanation: "Atomic radius decreases across a period due to increasing nuclear charge pulling electrons closer."
+    },
+    {
+        question: "The correct order of basic strength of Group 1 hydroxides is:",
+        options: ["LiOH < NaOH < KOH < RbOH", "RbOH < KOH < NaOH < LiOH", "NaOH < LiOH < RbOH < KOH", "KOH < RbOH < LiOH < NaOH"],
+        correct: 0,
+        explanation: "Basic strength increases down the group as the M-OH bond becomes more ionic and weaker."
+    },
+    {
+        question: "Which shows the correct order of first ionization energy for Period 3 elements?",
+        options: ["Na < Mg < Al < Si < P < S < Cl < Ar", "Ar < Cl < S < P < Si < Al < Mg < Na", "Al < Na < Mg < Si < S < P < Cl < Ar", "Na < Al < Mg < Si < P < S < Cl < Ar"],
+        correct: 3,
+        explanation: "Generally increases across period, but Al < Mg due to electron removal from p-orbital, and S < P due to electron pairing."
+    },
+    {
+        question: "The correct order of thermal stability of Group 2 carbonates is:",
+        options: ["BeCO₃ > MgCO₃ > CaCO₃ > SrCO₃ > BaCO₃", "BaCO₃ > SrCO₃ > CaCO₃ > MgCO₃ > BeCO₃", "MgCO₃ > BeCO₃ > CaCO₃ > SrCO₃ > BaCO₃", "CaCO₃ > MgCO₃ > BeCO₃ > SrCO₃ > BaCO₃"],
+        correct: 1,
+        explanation: "Thermal stability increases down the group as larger cations have less polarizing power on carbonate ion."
+    },
+    {
+        question: "Which order is correct for the solubility of Group 2 sulfates in water?",
+        options: ["BeSO₄ > MgSO₄ > CaSO₄ > SrSO₄ > BaSO₄", "BaSO₄ > SrSO₄ > CaSO₄ > MgSO₄ > BeSO₄", "MgSO₄ > BeSO₄ > CaSO₄ > SrSO₄ > BaSO₄", "CaSO₄ > SrSO₄ > BaSO₄ > MgSO₄ > BeSO₄"],
+        correct: 0,
+        explanation: "Solubility of Group 2 sulfates decreases down the group. BeSO₄ and MgSO₄ are highly soluble, BaSO₄ is insoluble."
+    },
+    {
+        question: "The correct order of bond length in hydrogen halides is:",
+        options: ["HF < HCl < HBr < HI", "HI < HBr < HCl < HF", "HCl < HF < HBr < HI", "HBr < HI < HF < HCl"],
+        correct: 0,
+        explanation: "Bond length increases down the group as halogen atomic size increases. HF has shortest bond."
+    },
+    {
+        question: "Which shows the correct order of electron affinity for halogens?",
+        options: ["F > Cl > Br > I", "Cl > F > Br > I", "I > Br > Cl > F", "Br > I > F > Cl"],
+        correct: 1,
+        explanation: "Cl has highest electron affinity. F is lower due to small size causing electron-electron repulsion."
+    },
+    {
+        question: "The correct order of oxidizing power of halogens is:",
+        options: ["F₂ > Cl₂ > Br₂ > I₂", "I₂ > Br₂ > Cl₂ > F₂", "Cl₂ > F₂ > Br₂ > I₂", "Br₂ > I₂ > F₂ > Cl₂"],
+        correct: 0,
+        explanation: "Oxidizing power decreases down the group. F₂ is the strongest oxidizing agent."
+    },
+    {
+        question: "Which order represents the correct trend for metallic character in Period 3?",
+        options: ["Na > Mg > Al > Si > P > S > Cl", "Cl > S > P > Si > Al > Mg > Na", "Al > Na > Mg > Si > P > S > Cl", "Na > Al > Mg > Si > P > S > Cl"],
+        correct: 0,
+        explanation: "Metallic character decreases across a period from left to right as electronegativity increases."
+    },
+    {
+        question: "The correct order of boiling points for noble gases is:",
+        options: ["He < Ne < Ar < Kr < Xe < Rn", "Rn < Xe < Kr < Ar < Ne < He", "Ne < He < Ar < Kr < Xe < Rn", "He < Ar < Ne < Kr < Xe < Rn"],
+        correct: 0,
+        explanation: "Boiling point increases down the group due to increasing van der Waals forces with larger atomic size."
+    },
+    {
+        question: "Which shows the correct order of acid strength for hydrogen halides?",
+        options: ["HF > HCl > HBr > HI", "HI > HBr > HCl > HF", "HCl > HF > HI > HBr", "HBr > HI > HCl > HF"],
+        correct: 1,
+        explanation: "Acid strength increases down the group as H-X bond becomes weaker and easier to break."
+    },
+    {
+        question: "The correct order of covalent character in Group 1 chlorides is:",
+        options: ["LiCl > NaCl > KCl > RbCl", "RbCl > KCl > NaCl > LiCl", "NaCl > LiCl > RbCl > KCl", "KCl > RbCl > LiCl > NaCl"],
+        correct: 0,
+        explanation: "Covalent character decreases down the group. Li⁺ has highest charge density, causing maximum polarization."
+    },
+    {
+        question: "Which order is correct for the density of Group 1 elements?",
+        options: ["Li < Na < K < Rb < Cs", "Cs < Rb < K < Na < Li", "Na < Li < K < Rb < Cs", "Li < K < Na < Rb < Cs"],
+        correct: 3,
+        explanation: "Density generally increases down the group, but K < Na due to large increase in volume compared to mass."
+    },
+    {
+        question: "The correct order of reducing power of Group 1 elements is:",
+        options: ["Li > Na > K > Rb > Cs", "Cs > Rb > K > Na > Li", "Na > Li > Cs > Rb > K", "K > Rb > Cs > Na > Li"],
+        correct: 1,
+        explanation: "Reducing power increases down the group as ionization energy decreases, making electron loss easier."
+    },
+    {
+        question: "Which shows the correct order of ionic radii for isoelectronic species?",
+        options: ["O²⁻ > F⁻ > Na⁺ > Mg²⁺ > Al³⁺", "Al³⁺ > Mg²⁺ > Na⁺ > F⁻ > O²⁻", "F⁻ > O²⁻ > Na⁺ > Mg²⁺ > Al³⁺", "Na⁺ > Mg²⁺ > Al³⁺ > F⁻ > O²⁻"],
+        correct: 0,
+        explanation: "For isoelectronic species, ionic radius decreases with increasing nuclear charge. More protons = smaller size."
+    },
+    {
+        question: "The correct order of lattice energy for Group 2 oxides is:",
+        options: ["BeO > MgO > CaO > SrO > BaO", "BaO > SrO > CaO > MgO > BeO", "MgO > BeO > CaO > SrO > BaO", "CaO > SrO > BaO > BeO > MgO"],
+        correct: 0,
+        explanation: "Lattice energy is inversely proportional to ionic size. BeO has highest lattice energy due to smallest Be²⁺ ion."
+    },
+    {
+        question: "Which order represents the correct trend for first electron affinity across Period 2?",
+        options: ["Li < Be < B < C < N < O < F", "F < O < N < C < B < Be < Li", "Be < Li < B < N < C < O < F", "Li < B < Be < C < N < O < F"],
+        correct: 2,
+        explanation: "Generally increases across period, but Be < Li (stable s² config) and N < C (half-filled p³ stability)."
+    },
+    {
+        question: "The correct order of thermal stability of Group 1 nitrates is:",
+        options: ["LiNO₃ < NaNO₃ < KNO₃ < RbNO₃ < CsNO₃", "CsNO₃ < RbNO₃ < KNO₃ < NaNO₃ < LiNO₃", "NaNO₃ < LiNO₃ < KNO₃ < RbNO₃ < CsNO₃", "LiNO₃ < KNO₃ < NaNO₃ < RbNO₃ < CsNO₃"],
+        correct: 0,
+        explanation: "Thermal stability increases down the group as larger cations have less polarizing effect on nitrate ion."
+    },
+    {
+        question: "Which shows the correct order of bond dissociation energy for diatomic halogens?",
+        options: ["F₂ > Cl₂ > Br₂ > I₂", "I₂ > Br₂ > Cl₂ > F₂", "Cl₂ > Br₂ > F₂ > I₂", "Br₂ > I₂ > Cl₂ > F₂"],
+        correct: 2,
+        explanation: "F₂ has lower bond energy than Cl₂ due to lone pair repulsion. Order: Cl₂ > Br₂ > F₂ > I₂"
+    },
+    {
+        question: "The correct order of magnetic moment for 3d⁵ configuration is:",
+        options: ["High spin > Low spin", "Low spin > High spin", "High spin = Low spin", "Cannot be determined"],
+        correct: 0,
+        explanation: "High spin d⁵ has 5 unpaired electrons (μ = 5.92 BM), low spin d⁵ has 1 unpaired electron (μ = 1.73 BM)."
+    },
+    {
+        question: "Which order is correct for the stability of oxidation states in Group 15?",
+        options: ["+3 > +5 for heavier elements", "+5 > +3 for heavier elements", "+3 = +5 for all elements", "No clear trend"],
+        correct: 0,
+        explanation: "Due to inert pair effect, +3 oxidation state becomes more stable than +5 for heavier Group 15 elements."
+    },
+    {
+        question: "The correct order of crystal field splitting energy (Δ) for ligands is:",
+        options: ["I⁻ < Br⁻ < Cl⁻ < F⁻ < H₂O < NH₃ < CN⁻", "CN⁻ < NH₃ < H₂O < F⁻ < Cl⁻ < Br⁻ < I⁻", "F⁻ < Cl⁻ < Br⁻ < I⁻ < H₂O < NH₃ < CN⁻", "H₂O < F⁻ < Cl⁻ < Br⁻ < I⁻ < NH₃ < CN⁻"],
+        correct: 0,
+        explanation: "This is the spectrochemical series. Strong field ligands like CN⁻ cause large splitting, weak field like I⁻ cause small splitting."
+    },
+    {
+        question: "Which shows the correct order of stability for coordination compounds?",
+        options: ["Chelate > Polydentate > Monodentate", "Monodentate > Polydentate > Chelate", "Chelate > Monodentate > Polydentate", "All have equal stability"],
+        correct: 0,
+        explanation: "Chelate effect makes chelating ligands form more stable complexes than monodentate ligands due to entropy factors."
+    }
+];
+
+// Load inorganic quiz content
+function loadInorganicQuiz() {
+    const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+
+    theoryInorganicQuiz.innerHTML = `
+        <div class="quiz-container inorganic-quiz">
+            <div class="quiz-header">
+                <h2 class="quiz-title">
+                    <i class="fas fa-table"></i> Inorganic Chemistry Orders & Tables Quiz
+                </h2>
+                <div class="quiz-progress">
+                    <div class="progress-info">
+                        <span>Question <span id="currentInorganicQuestionNum">1</span> of ${inorganicQuizData.length}</span>
+                        <span>Score: <span id="inorganicQuizScore">0</span>/${inorganicQuizData.length}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="inorganicProgressFill"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-timers">
+                    <div class="timer-container">
+                        <div class="timer-label">Question Time</div>
+                        <div class="timer-display" id="inorganicQuestionTimer">00:30</div>
+                    </div>
+                    <div class="timer-container">
+                        <div class="timer-label">Total Time</div>
+                        <div class="timer-display" id="inorganicTotalTimer">15:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-content" id="inorganicQuizContent">
+                <!-- Quiz questions will be loaded here -->
+            </div>
+
+            <div class="quiz-navigation">
+                <button class="quiz-nav-btn" onclick="previousInorganicQuestion()" id="inorganicPrevBtn" disabled>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="quiz-nav-btn primary" onclick="nextInorganicQuestion()" id="inorganicNextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    `;
+
+    // Load first question and start timers
+    loadInorganicQuestion();
+    startInorganicTotalTimer();
+}
+
+// Load current inorganic question
+function loadInorganicQuestion() {
+    const question = inorganicQuizData[currentInorganicQuestion];
+    const quizContent = document.getElementById('inorganicQuizContent');
+
+    // Reset answered state and start question timer
+    inorganicQuizAnswered = false;
+    startInorganicQuestionTimer();
+
+    // Update progress
+    document.getElementById('currentInorganicQuestionNum').textContent = currentInorganicQuestion + 1;
+    const progressFill = document.getElementById('inorganicProgressFill');
+    if (progressFill) {
+        const progressPercent = ((currentInorganicQuestion + 1) / inorganicQuizData.length) * 100;
+        progressFill.style.width = progressPercent + '%';
+    }
+
+    quizContent.innerHTML = `
+        <div class="question-card">
+            <div class="question-number">Question ${currentInorganicQuestion + 1}</div>
+            <div class="question-text">${question.question}</div>
+
+            <div class="options-container">
+                ${question.options.map((option, index) => `
+                    <button class="option-btn" onclick="selectInorganicAnswer(${index})" id="inorganicOption${index}">
+                        <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                        <span class="option-text">${option}</span>
+                    </button>
+                `).join('')}
+            </div>
+
+            <div class="explanation" id="inorganicExplanation" style="display: none;">
+                <div class="explanation-header">
+                    <i class="fas fa-lightbulb"></i> Explanation
+                </div>
+                <div class="explanation-text">${question.explanation}</div>
+            </div>
+        </div>
+    `;
+
+    // Update navigation buttons
+    const prevBtn = document.getElementById('inorganicPrevBtn');
+    const nextBtn = document.getElementById('inorganicNextBtn');
+    if (prevBtn) prevBtn.disabled = currentInorganicQuestion === 0;
+    if (nextBtn) nextBtn.disabled = true;
+}
+
+// Select inorganic quiz answer
+function selectInorganicAnswer(selectedIndex) {
+    if (inorganicQuizAnswered) return;
+
+    const question = inorganicQuizData[currentInorganicQuestion];
+    const options = document.querySelectorAll('#inorganicQuizContent .option-btn');
+    const explanation = document.getElementById('inorganicExplanation');
+
+    inorganicQuizAnswered = true;
+
+    // Stop question timer
+    stopInorganicQuestionTimer();
+
+    // Show correct/incorrect styling
+    options.forEach((option, index) => {
+        if (index === question.correct) {
+            option.classList.add('correct');
+        } else if (index === selectedIndex && index !== question.correct && selectedIndex !== -1) {
+            option.classList.add('incorrect');
+        }
+        option.disabled = true;
+    });
+
+    // Update score (only if answered correctly and not timed out)
+    if (selectedIndex === question.correct && selectedIndex !== -1) {
+        inorganicQuizScore++;
+        document.getElementById('inorganicQuizScore').textContent = inorganicQuizScore;
+    }
+
+    // Show explanation
+    explanation.style.display = 'block';
+
+    // Enable next button
+    document.getElementById('inorganicNextBtn').disabled = false;
+
+    // Auto-advance after 3 seconds if time ran out
+    if (selectedIndex === -1) {
+        setTimeout(() => {
+            nextInorganicQuestion();
+        }, 3000);
+    }
+}
+
+// Navigate to next inorganic question
+function nextInorganicQuestion() {
+    if (!inorganicQuizAnswered) return;
+
+    // Stop current question timer
+    stopInorganicQuestionTimer();
+
+    currentInorganicQuestion++;
+
+    if (currentInorganicQuestion >= inorganicQuizData.length) {
+        showInorganicQuizResults();
+    } else {
+        loadInorganicQuestion();
+        document.getElementById('inorganicNextBtn').disabled = true;
+    }
+
+    // Update navigation buttons
+    const prevBtn = document.getElementById('inorganicPrevBtn');
+    if (prevBtn) {
+        prevBtn.disabled = currentInorganicQuestion === 0;
+    }
+}
+
+// Navigate to previous inorganic question
+function previousInorganicQuestion() {
+    if (currentInorganicQuestion === 0) return;
+
+    // Stop current question timer
+    stopInorganicQuestionTimer();
+
+    currentInorganicQuestion--;
+    loadInorganicQuestion();
+
+    // Update navigation buttons
+    const prevBtn = document.getElementById('inorganicPrevBtn');
+    const nextBtn = document.getElementById('inorganicNextBtn');
+    if (prevBtn) prevBtn.disabled = currentInorganicQuestion === 0;
+    if (nextBtn) nextBtn.disabled = false;
+}
+
+// Start inorganic question timer
+function startInorganicQuestionTimer() {
+    inorganicQuestionTimeLeft = 30;
+    updateInorganicQuestionTimer();
+
+    inorganicQuestionTimer = setInterval(() => {
+        inorganicQuestionTimeLeft--;
+        updateInorganicQuestionTimer();
+
+        if (inorganicQuestionTimeLeft <= 0) {
+            stopInorganicQuestionTimer();
+            // Auto-select no answer (timeout)
+            selectInorganicAnswer(-1);
+        }
+    }, 1000);
+}
+
+// Stop inorganic question timer
+function stopInorganicQuestionTimer() {
+    if (inorganicQuestionTimer) {
+        clearInterval(inorganicQuestionTimer);
+        inorganicQuestionTimer = null;
+    }
+}
+
+// Update inorganic question timer display
+function updateInorganicQuestionTimer() {
+    const timerElement = document.getElementById('inorganicQuestionTimer');
+    if (timerElement) {
+        const minutes = Math.floor(inorganicQuestionTimeLeft / 60);
+        const seconds = inorganicQuestionTimeLeft % 60;
+        timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Add warning class when time is running low
+        if (inorganicQuestionTimeLeft <= 10) {
+            timerElement.classList.add('timer-warning');
+        } else {
+            timerElement.classList.remove('timer-warning');
+        }
+    }
+}
+
+// Start inorganic total timer
+function startInorganicTotalTimer() {
+    inorganicTotalTimeLeft = 900; // 15 minutes
+    updateInorganicTotalTimer();
+
+    inorganicTotalTimer = setInterval(() => {
+        inorganicTotalTimeLeft--;
+        updateInorganicTotalTimer();
+
+        if (inorganicTotalTimeLeft <= 0) {
+            // Time's up - end quiz
+            clearInterval(inorganicTotalTimer);
+            inorganicTotalTimer = null;
+            showInorganicQuizResults();
+        }
+    }, 1000);
+}
+
+// Update inorganic total timer display
+function updateInorganicTotalTimer() {
+    const timerElement = document.getElementById('inorganicTotalTimer');
+    if (timerElement) {
+        const minutes = Math.floor(inorganicTotalTimeLeft / 60);
+        const seconds = inorganicTotalTimeLeft % 60;
+        timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Add warning class when time is running low
+        if (inorganicTotalTimeLeft <= 60) {
+            timerElement.classList.add('timer-warning');
+        } else {
+            timerElement.classList.remove('timer-warning');
+        }
+    }
+}
+
+// Show inorganic quiz results
+function showInorganicQuizResults() {
+    // Stop all timers
+    stopInorganicQuestionTimer();
+    if (inorganicTotalTimer) {
+        clearInterval(inorganicTotalTimer);
+        inorganicTotalTimer = null;
+    }
+
+    const quizContent = document.getElementById('inorganicQuizContent');
+    const percentage = Math.round((inorganicQuizScore / inorganicQuizData.length) * 100);
+
+    let resultMessage = '';
+    let resultClass = '';
+
+    if (percentage >= 80) {
+        resultMessage = 'Excellent! You have mastered inorganic chemistry orders and tables!';
+        resultClass = 'excellent';
+    } else if (percentage >= 60) {
+        resultMessage = 'Good job! Keep practicing to improve your understanding.';
+        resultClass = 'good';
+    } else if (percentage >= 40) {
+        resultMessage = 'Fair attempt. Review the concepts and try again.';
+        resultClass = 'fair';
+    } else {
+        resultMessage = 'Keep studying! Focus on periodic trends and orders.';
+        resultClass = 'needs-improvement';
+    }
+
+    quizContent.innerHTML = `
+        <div class="quiz-results ${resultClass}">
+            <div class="results-header">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Quiz Complete!</h3>
+            </div>
+
+            <div class="results-score">
+                <div class="score-circle">
+                    <span class="score-number">${percentage}%</span>
+                    <span class="score-label">Score</span>
+                </div>
+            </div>
+
+            <div class="results-details">
+                <div class="result-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Correct Answers: ${inorganicQuizScore}/${inorganicQuizData.length}</span>
+                </div>
+                <div class="result-item">
+                    <i class="fas fa-percentage"></i>
+                    <span>Accuracy: ${percentage}%</span>
+                </div>
+            </div>
+
+            <div class="results-message">
+                <p>${resultMessage}</p>
+            </div>
+
+            <div class="results-actions">
+                <button class="quiz-action-btn primary" onclick="restartInorganicQuiz()">
+                    <i class="fas fa-redo"></i> Try Again
+                </button>
+                <button class="quiz-action-btn secondary" onclick="showTheoryTab('ncertTables')">
+                    <i class="fas fa-table"></i> Study Tables
+                </button>
+            </div>
+        </div>
+    `;
+
+    // Hide navigation
+    const quizNavigation = document.querySelector('.quiz-navigation');
+    if (quizNavigation) {
+        quizNavigation.style.display = 'none';
+    }
+}
+
+// Restart inorganic quiz
+function restartInorganicQuiz() {
+    // Stop all timers
+    stopInorganicQuestionTimer();
+    if (inorganicTotalTimer) {
+        clearInterval(inorganicTotalTimer);
+        inorganicTotalTimer = null;
+    }
+
+    // Reset quiz state
+    currentInorganicQuestion = 0;
+    inorganicQuizScore = 0;
+    inorganicQuizAnswered = false;
+    inorganicQuestionTimeLeft = 30;
+    inorganicTotalTimeLeft = 900;
+
+    // Reset score display
+    const scoreElement = document.getElementById('inorganicQuizScore');
+    if (scoreElement) {
+        scoreElement.textContent = '0';
+    }
+
+    // Show navigation
+    const quizNavigation = document.querySelector('.quiz-navigation');
+    if (quizNavigation) {
+        quizNavigation.style.display = 'flex';
+    }
+
+    // Load first question and start timers
+    loadInorganicQuestion();
+    startInorganicTotalTimer();
+}
+
+// Get Allen Organic Cheat Sheet content
+function getAllenOrganicCheatSheet() {
+    return `
+        <div class="allen-cheat-sheet-section">
+            <h3 class="section-title">
+                <i class="fas fa-file-image"></i> Allen Organic Cheat Sheet
+            </h3>
+            <p class="section-description">Comprehensive visual reference charts for organic chemistry reactions and mechanisms</p>
+
+            <div class="cheat-sheet-container">
+                <div class="cheat-sheet-item">
+                    <h4><i class="fas fa-chart-line"></i> Organic Reactions Chart 1</h4>
+                    <div class="cheat-sheet-image">
+                        <img src="https://i.postimg.cc/mrzcS6Lk/Screenshot-2025-06-20-185001.png"
+                             alt="Allen Organic Reactions Chart 1"
+                             style="width: 100%; max-width: 800px; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                    </div>
+                </div>
+
+                <div class="cheat-sheet-item">
+                    <h4><i class="fas fa-chart-bar"></i> Organic Reactions Chart 2</h4>
+                    <div class="cheat-sheet-image">
+                        <img src="https://i.postimg.cc/q7PNDXqL/Screenshot-2025-06-20-185030.png"
+                             alt="Allen Organic Reactions Chart 2"
+                             style="width: 100%; max-width: 800px; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="cheat-sheet-note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Note:</strong> <span style="color: #e74c3c;">These charts provide quick reference for important organic reactions, mechanisms, and synthetic pathways commonly asked in competitive exams.</span>
+            </div>
+        </div>
+    `;
+}
+
 // Export functions for global access
 window.chemistryReactions = {
     showTheoryTab,
@@ -1688,6 +2345,7 @@ window.chemistryReactions = {
     getOrganicReagents,
     getNamedReactions,
     getImportantConversions,
+    getAllenOrganicCheatSheet,
     loadOrganicQuiz,
     selectOrganicAnswer,
     nextOrganicQuestion,
@@ -1698,7 +2356,14 @@ window.chemistryReactions = {
 // Make functions globally available for HTML onclick handlers
 window.showTheoryTab = showTheoryTab;
 window.showReactionSection = showReactionSection;
+window.getAllenOrganicCheatSheet = getAllenOrganicCheatSheet;
+window.loadOrganicQuiz = loadOrganicQuiz;
 window.selectOrganicAnswer = selectOrganicAnswer;
 window.nextOrganicQuestion = nextOrganicQuestion;
 window.previousOrganicQuestion = previousOrganicQuestion;
 window.restartOrganicQuiz = restartOrganicQuiz;
+window.loadInorganicQuiz = loadInorganicQuiz;
+window.selectInorganicAnswer = selectInorganicAnswer;
+window.nextInorganicQuestion = nextInorganicQuestion;
+window.previousInorganicQuestion = previousInorganicQuestion;
+window.restartInorganicQuiz = restartInorganicQuiz;

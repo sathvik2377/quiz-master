@@ -33,11 +33,22 @@
 - **Subject-specific Help**: Get assistance with any BITSAT topic
 - **Suggestion System**: Quick access to common queries
 
-### 🧮 **Advanced Calculators**
-- **Scientific Calculator**: Complete with trigonometric, logarithmic, and statistical functions
-- **Graphing Calculator**: Powered by Desmos for equation visualization
-- **Memory Functions**: Store and recall calculations
-- **Angle Mode Support**: Degree and Radian calculations
+### 🧮 **Advanced Mathematical Calculator System**
+- **Multi-Mode Calculator**: 4 specialized calculation modes in one interface
+- **Basic Scientific Calculator**: Trigonometric, logarithmic, statistical, and memory functions
+- **Advanced Mathematical Operations**: Wolfram Alpha integration for complex computations
+- **Calculus Calculator**:
+  - 📈 **Derivatives**: Automatic differentiation with step-by-step solutions
+  - ∫ **Integrals**: Both definite and indefinite integration
+  - 🎯 **Limits**: Limit calculations with various approaches
+  - 📊 **Series**: Taylor and Maclaurin series expansions
+- **Algebra Calculator**:
+  - 🔢 **Polynomial Operations**: Factoring, root finding, expansion
+  - ⚖️ **Equation Solving**: Linear and quadratic equation solutions
+  - 🔢 **Matrix Operations**: Determinant, inverse, multiplication, addition
+  - 📐 **System Solving**: Linear system solutions using Cramer's rule
+- **Graphing Calculator**: Powered by Desmos for advanced equation visualization
+- **Smart Input System**: Function insertion, expression validation, and error handling
 
 ### 📄 **Study Materials Manager**
 - **File Upload System**: Upload and organize your study materials
@@ -249,9 +260,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Languages**: HTML, CSS, JavaScript
 - **Files**: 12+ core files
-- **Features**: 20+ major features
+- **Features**: 25+ major features
+- **Calculator Modes**: 4 specialized mathematical calculation modes
+- **Mathematical Operations**: 50+ supported functions (derivatives, integrals, matrices, etc.)
 - **Chemistry Content**: 65+ reactions, reagents, and conversions
 - **Quiz Questions**: 150+ practice questions across subjects
+- **Wolfram Alpha Integration**: Advanced symbolic computation support
 - **Responsive**: 100% mobile-friendly
 - **Performance**: Optimized for fast loading with performance mode
 

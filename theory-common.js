@@ -1,26 +1,77 @@
 // Common JavaScript functions for theory pages
 
-// Show theory tab (content or PDF)
+// Show theory tab (content, reactions, ncertTables, organicQuiz, inorganicQuiz, or PDF)
 function showTheoryTab(tab) {
+    // Get all tab buttons
     const contentTab = document.getElementById('contentTab');
+    const reactionsTab = document.getElementById('reactionsTab');
+    const ncertTablesTab = document.getElementById('ncertTablesTab');
+    const organicQuizTab = document.getElementById('organicQuizTab');
+    const inorganicQuizTab = document.getElementById('inorganicQuizTab');
     const pdfTab = document.getElementById('pdfTab');
+
+    // Get all content sections
     const theoryContent = document.getElementById('theoryContent');
+    const theoryReactions = document.getElementById('theoryReactions');
+    const theoryNcertTables = document.getElementById('theoryNcertTables');
+    const theoryOrganicQuiz = document.getElementById('theoryOrganicQuiz');
+    const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
     const theoryPdfViewer = document.getElementById('theoryPdfViewer');
 
     // Remove active class from all tabs
-    contentTab.classList.remove('active');
-    pdfTab.classList.remove('active');
+    const allTabs = [contentTab, reactionsTab, ncertTablesTab, organicQuizTab, inorganicQuizTab, pdfTab];
+    allTabs.forEach(tabBtn => {
+        if (tabBtn) tabBtn.classList.remove('active');
+    });
 
-    if (tab === 'content') {
-        // Show content tab
-        contentTab.classList.add('active');
-        theoryContent.style.display = 'block';
-        theoryPdfViewer.style.display = 'none';
-    } else if (tab === 'pdf') {
-        // Show PDF tab
-        pdfTab.classList.add('active');
-        theoryContent.style.display = 'none';
-        theoryPdfViewer.style.display = 'block';
+    // Hide all content sections
+    const allSections = [theoryContent, theoryReactions, theoryNcertTables, theoryOrganicQuiz, theoryInorganicQuiz, theoryPdfViewer];
+    allSections.forEach(section => {
+        if (section) section.style.display = 'none';
+    });
+
+    // Show selected tab and content
+    switch(tab) {
+        case 'content':
+            if (contentTab) contentTab.classList.add('active');
+            if (theoryContent) theoryContent.style.display = 'block';
+            break;
+        case 'reactions':
+            if (reactionsTab) reactionsTab.classList.add('active');
+            if (theoryReactions) theoryReactions.style.display = 'block';
+            // Load organic reactions content if available
+            if (window.loadOrganicReactionsContent) {
+                window.loadOrganicReactionsContent();
+            }
+            break;
+        case 'ncertTables':
+            if (ncertTablesTab) ncertTablesTab.classList.add('active');
+            if (theoryNcertTables) theoryNcertTables.style.display = 'block';
+            // Load NCERT tables content if available
+            if (window.loadNCERTTablesContent) {
+                window.loadNCERTTablesContent();
+            }
+            break;
+        case 'organicQuiz':
+            if (organicQuizTab) organicQuizTab.classList.add('active');
+            if (theoryOrganicQuiz) theoryOrganicQuiz.style.display = 'block';
+            // Load organic quiz content if available
+            if (window.loadOrganicQuiz) {
+                window.loadOrganicQuiz();
+            }
+            break;
+        case 'inorganicQuiz':
+            if (inorganicQuizTab) inorganicQuizTab.classList.add('active');
+            if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'block';
+            // Load inorganic quiz content if available
+            if (window.loadInorganicQuiz) {
+                window.loadInorganicQuiz();
+            }
+            break;
+        case 'pdf':
+            if (pdfTab) pdfTab.classList.add('active');
+            if (theoryPdfViewer) theoryPdfViewer.style.display = 'block';
+            break;
     }
 }
 

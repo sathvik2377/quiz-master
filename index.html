@@ -131,12 +131,17 @@
                 </button>
             </div>
 
-            <!-- Single Bottom Button -->
-            <div class="main-row single-row">
-                <button class="section-btn main-btn single-btn" onclick="showSection('settings')">
+            <!-- Settings and User Guide Row -->
+            <div class="main-row settings-row">
+                <button class="section-btn main-btn" onclick="showSection('settings')">
                     <i class="fas fa-user-cog"></i>
                     <span>Profile Settings</span>
                     <small>Update your info</small>
+                </button>
+                <button class="section-btn main-btn" onclick="openUserGuide()">
+                    <i class="fas fa-question-circle"></i>
+                    <span>User Guide</span>
+                    <small>How to use this app</small>
                 </button>
             </div>
         </div>
@@ -146,15 +151,15 @@
             <div class="practice-symmetric-layout">
                 <!-- Top Row -->
                 <div class="practice-row top-row">
-                    <button class="category-btn practice-btn" onclick="startQuiz('grammar')">
-                        <i class="fas fa-spell-check"></i>
-                        <span>Grammar Mastery</span>
-                        <small>Advanced grammar concepts</small>
+                    <button class="category-btn practice-btn" onclick="startQuiz('phrasalVerbs')">
+                        <i class="fas fa-comments"></i>
+                        <span>Phrasal Verbs & Idioms</span>
+                        <small>Master expressions</small>
                     </button>
-                    <button class="category-btn practice-btn" onclick="showVocabularyOptions()">
-                        <i class="fas fa-book-open"></i>
-                        <span>Vocabulary Challenge</span>
-                        <small>Synonyms, Antonyms & Meanings</small>
+                    <button class="category-btn practice-btn" onclick="startQuiz('analogy')">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <span>Analogical Reasoning</span>
+                        <small>Logical thinking skills</small>
                     </button>
                 </div>
 
@@ -194,15 +199,15 @@
 
                 <!-- Bottom Row -->
                 <div class="practice-row bottom-row">
-                    <button class="category-btn practice-btn" onclick="startQuiz('phrasalVerbs')">
-                        <i class="fas fa-comments"></i>
-                        <span>Phrasal Verbs & Idioms</span>
-                        <small>Master expressions</small>
+                    <button class="category-btn practice-btn" onclick="startQuiz('grammar')">
+                        <i class="fas fa-spell-check"></i>
+                        <span>Grammar Mastery</span>
+                        <small>Advanced grammar concepts</small>
                     </button>
-                    <button class="category-btn practice-btn" onclick="startQuiz('analogy')">
-                        <i class="fas fa-puzzle-piece"></i>
-                        <span>Analogical Reasoning</span>
-                        <small>Logical thinking skills</small>
+                    <button class="category-btn practice-btn" onclick="showVocabularyOptions()">
+                        <i class="fas fa-book-open"></i>
+                        <span>Vocabulary Challenge</span>
+                        <small>Synonyms, Antonyms & Meanings</small>
                     </button>
                 </div>
             </div>
@@ -216,18 +221,37 @@
             </div>
         </div>
 
-        <!-- Scientific Calculator Section -->
+        <!-- Advanced Calculator Section -->
         <div id="calculatorSection" class="section-content" style="display: none;">
-            <h2>Scientific Calculator</h2>
-            <div class="calculator">
-                <div class="calculator-display">
-                    <div class="calc-history" id="calcHistory"></div>
-                    <input type="text" id="calcDisplay" readonly placeholder="0" />
-                </div>
-                <div class="calculator-mode">
-                    <button class="mode-btn active" id="degMode" onclick="toggleAngleMode()">DEG</button>
-                    <button class="mode-btn" id="radMode" onclick="toggleAngleMode()">RAD</button>
-                </div>
+            <h2><i class="fas fa-calculator"></i> Advanced Mathematical Calculator</h2>
+
+            <!-- Calculator Mode Tabs -->
+            <div class="calc-mode-tabs">
+                <button class="calc-tab-btn active" onclick="switchCalcMode('basic')" id="basicTab">
+                    <i class="fas fa-calculator"></i> Basic
+                </button>
+                <button class="calc-tab-btn" onclick="switchCalcMode('advanced')" id="advancedTab">
+                    <i class="fas fa-function"></i> Advanced
+                </button>
+                <button class="calc-tab-btn" onclick="switchCalcMode('calculus')" id="calculusTab">
+                    <i class="fas fa-infinity"></i> Calculus
+                </button>
+                <button class="calc-tab-btn" onclick="switchCalcMode('algebra')" id="algebraTab">
+                    <i class="fas fa-square-root-alt"></i> Algebra
+                </button>
+            </div>
+
+            <!-- Basic Calculator Mode -->
+            <div id="basicCalcMode" class="calc-mode-content">
+                <div class="calculator">
+                    <div class="calculator-display">
+                        <div class="calc-history" id="calcHistory"></div>
+                        <input type="text" id="calcDisplay" readonly placeholder="0" />
+                    </div>
+                    <div class="calculator-mode">
+                        <button class="mode-btn active" id="degMode" onclick="toggleAngleMode()">DEG</button>
+                        <button class="mode-btn" id="radMode" onclick="toggleAngleMode()">RAD</button>
+                    </div>
                 <div class="calculator-buttons">
                     <!-- Row 1: Memory and Clear Functions -->
                     <button class="calc-btn memory" onclick="memoryClear()">MC</button>
@@ -291,6 +315,438 @@
                     <button class="calc-btn number" onclick="appendToCalc('0')" style="grid-column: span 2;">0</button>
                     <button class="calc-btn number" onclick="appendToCalc('.')">.</button>
                     <button class="calc-btn equals" onclick="calculateResult()">=</button>
+                </div>
+            </div>
+            </div>
+
+            <!-- Advanced Calculator Mode -->
+            <div id="advancedCalcMode" class="calc-mode-content" style="display: none;">
+                <div class="advanced-calc-container">
+                    <div class="calc-input-section">
+                        <h3><i class="fas fa-function"></i> Advanced Mathematical Operations</h3>
+                        <div class="input-group">
+                            <label for="advancedInput">Enter Expression:</label>
+                            <input type="text" id="advancedInput" placeholder="e.g., solve x^2 + 5x + 6 = 0" class="advanced-input">
+                            <button onclick="solveAdvanced()" class="btn solve-btn">
+                                <i class="fas fa-play"></i> Solve
+                            </button>
+                        </div>
+                        <div class="quick-functions">
+                            <button onclick="insertFunction('solve(')" class="func-btn">Solve Equation</button>
+                            <button onclick="insertFunction('factor(')" class="func-btn">Factor</button>
+                            <button onclick="insertFunction('expand(')" class="func-btn">Expand</button>
+                            <button onclick="insertFunction('simplify(')" class="func-btn">Simplify</button>
+                        </div>
+                    </div>
+                    <div class="calc-result-section">
+                        <h4>Result:</h4>
+                        <div id="advancedResult" class="result-display">
+                            Enter an expression above to see the result
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculus Calculator Mode -->
+            <div id="calculusCalcMode" class="calc-mode-content" style="display: none;">
+                <div class="calculus-calc-container">
+                    <div class="calc-input-section">
+                        <h3><i class="fas fa-infinity"></i> Calculus Operations</h3>
+                        <div class="calculus-tabs">
+                            <button class="calculus-tab active" onclick="switchCalculusTab('derivative')">Derivative</button>
+                            <button class="calculus-tab" onclick="switchCalculusTab('integral')">Integral</button>
+                            <button class="calculus-tab" onclick="switchCalculusTab('limit')">Limit</button>
+                            <button class="calculus-tab" onclick="switchCalculusTab('series')">Series</button>
+                        </div>
+
+                        <!-- Derivative Tab -->
+                        <div id="derivativeTab" class="calculus-tab-content">
+                            <div class="input-group">
+                                <label for="derivativeInput">Function f(x):</label>
+                                <input type="text" id="derivativeInput" placeholder="e.g., x^3 + 2x^2 + x + 1" class="calculus-input">
+                                <label for="derivativeVar">Variable:</label>
+                                <input type="text" id="derivativeVar" value="x" class="var-input">
+                                <button onclick="calculateDerivative()" class="btn calc-btn">
+                                    <i class="fas fa-chart-line"></i> Find Derivative
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Integral Tab -->
+                        <div id="integralTab" class="calculus-tab-content" style="display: none;">
+                            <div class="input-group">
+                                <label for="integralInput">Function f(x):</label>
+                                <input type="text" id="integralInput" placeholder="e.g., x^2 + 3x + 2" class="calculus-input">
+                                <label for="integralVar">Variable:</label>
+                                <input type="text" id="integralVar" value="x" class="var-input">
+                                <div class="integral-options">
+                                    <label>
+                                        <input type="radio" name="integralType" value="indefinite" checked> Indefinite
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="integralType" value="definite"> Definite
+                                    </label>
+                                </div>
+                                <div id="definiteInputs" style="display: none;">
+                                    <label for="lowerLimit">Lower Limit:</label>
+                                    <input type="text" id="lowerLimit" placeholder="0" class="limit-input">
+                                    <label for="upperLimit">Upper Limit:</label>
+                                    <input type="text" id="upperLimit" placeholder="1" class="limit-input">
+                                </div>
+                                <button onclick="calculateIntegral()" class="btn calc-btn">
+                                    <i class="fas fa-integral"></i> Find Integral
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Limit Tab -->
+                        <div id="limitTab" class="calculus-tab-content" style="display: none;">
+                            <div class="input-group">
+                                <label for="limitInput">Function f(x):</label>
+                                <input type="text" id="limitInput" placeholder="e.g., (x^2 - 1)/(x - 1)" class="calculus-input">
+                                <label for="limitVar">Variable:</label>
+                                <input type="text" id="limitVar" value="x" class="var-input">
+                                <label for="limitPoint">Approaches:</label>
+                                <input type="text" id="limitPoint" placeholder="1" class="limit-input">
+                                <button onclick="calculateLimit()" class="btn calc-btn">
+                                    <i class="fas fa-arrow-right"></i> Find Limit
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Series Tab -->
+                        <div id="seriesTab" class="calculus-tab-content" style="display: none;">
+                            <div class="input-group">
+                                <label for="seriesInput">Function f(x):</label>
+                                <input type="text" id="seriesInput" placeholder="e.g., e^x" class="calculus-input">
+                                <label for="seriesVar">Variable:</label>
+                                <input type="text" id="seriesVar" value="x" class="var-input">
+                                <label for="seriesPoint">Around point:</label>
+                                <input type="text" id="seriesPoint" placeholder="0" class="limit-input">
+                                <label for="seriesTerms">Number of terms:</label>
+                                <input type="number" id="seriesTerms" value="5" min="1" max="10" class="limit-input">
+                                <button onclick="calculateSeries()" class="btn calc-btn">
+                                    <i class="fas fa-list-ol"></i> Find Series
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-result-section">
+                        <h4>Result:</h4>
+                        <div id="calculusResult" class="result-display">
+                            Select a calculus operation above
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Algebra Calculator Mode -->
+            <div id="algebraCalcMode" class="calc-mode-content" style="display: none;">
+                <div class="algebra-calc-container">
+                    <div class="calc-input-section">
+                        <h3><i class="fas fa-square-root-alt"></i> Algebraic Operations</h3>
+                        <div class="algebra-tabs">
+                            <button class="algebra-tab active" onclick="switchAlgebraTab('polynomial')">Polynomials</button>
+                            <button class="algebra-tab" onclick="switchAlgebraTab('equation')">Equations</button>
+                            <button class="algebra-tab" onclick="switchAlgebraTab('matrix')">Matrices</button>
+                            <button class="algebra-tab" onclick="switchAlgebraTab('system')">Systems</button>
+                        </div>
+
+                        <!-- Polynomial Tab -->
+                        <div id="polynomialTab" class="algebra-tab-content">
+                            <div class="input-group">
+                                <label for="polynomialInput">Polynomial:</label>
+                                <input type="text" id="polynomialInput" placeholder="e.g., x^3 - 6x^2 + 11x - 6" class="algebra-input">
+                                <div class="polynomial-operations">
+                                    <button onclick="factorPolynomial()" class="btn operation-btn">Factor</button>
+                                    <button onclick="findRoots()" class="btn operation-btn">Find Roots</button>
+                                    <button onclick="expandPolynomial()" class="btn operation-btn">Expand</button>
+                                    <button onclick="simplifyPolynomial()" class="btn operation-btn">Simplify</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Equation Tab -->
+                        <div id="equationTab" class="algebra-tab-content" style="display: none;">
+                            <div class="input-group">
+                                <label for="equationInput">Equation:</label>
+                                <input type="text" id="equationInput" placeholder="e.g., 2x + 3 = 7" class="algebra-input">
+                                <label for="equationVar">Solve for:</label>
+                                <input type="text" id="equationVar" value="x" class="var-input">
+                                <button onclick="solveEquation()" class="btn calc-btn">
+                                    <i class="fas fa-equals"></i> Solve
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Matrix Tab -->
+                        <div id="matrixTab" class="algebra-tab-content" style="display: none;">
+                            <div class="input-group">
+                                <label>Matrix A:</label>
+                                <textarea id="matrixA" placeholder="[[1,2],[3,4]]" class="matrix-input"></textarea>
+                                <label>Matrix B (optional):</label>
+                                <textarea id="matrixB" placeholder="[[5,6],[7,8]]" class="matrix-input"></textarea>
+                                <div class="matrix-operations">
+                                    <button onclick="calculateDeterminant()" class="btn operation-btn">Determinant</button>
+                                    <button onclick="calculateInverse()" class="btn operation-btn">Inverse</button>
+                                    <button onclick="multiplyMatrices()" class="btn operation-btn">A × B</button>
+                                    <button onclick="addMatrices()" class="btn operation-btn">A + B</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Tab -->
+                        <div id="systemTab" class="algebra-tab-content" style="display: none;">
+                            <div class="input-group">
+                                <label for="systemInput">System of Equations:</label>
+                                <textarea id="systemInput" placeholder="2x + 3y = 7&#10;x - y = 1" class="system-input"></textarea>
+                                <button onclick="solveSystem()" class="btn calc-btn">
+                                    <i class="fas fa-solve"></i> Solve System
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-result-section">
+                        <h4>Result:</h4>
+                        <div id="algebraResult" class="result-display">
+                            Select an algebraic operation above
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Usage Guidelines -->
+            <div class="calculator-guidelines">
+                <h3><i class="fas fa-info-circle"></i> Calculator Usage Guidelines</h3>
+
+                <div class="guidelines-tabs">
+                    <button class="guideline-tab active" onclick="showGuidelineTab('basic-guide', this)">Basic Calculator</button>
+                    <button class="guideline-tab" onclick="showGuidelineTab('advanced-guide', this)">Advanced Mode</button>
+                    <button class="guideline-tab" onclick="showGuidelineTab('calculus-guide', this)">Calculus Mode</button>
+                    <button class="guideline-tab" onclick="showGuidelineTab('algebra-guide', this)">Algebra Mode</button>
+                </div>
+
+                <!-- Basic Calculator Guidelines -->
+                <div id="basic-guide" class="guideline-content">
+                    <div class="guideline-section">
+                        <h4><i class="fas fa-calculator"></i> Basic Scientific Calculator</h4>
+                        <div class="guideline-grid">
+                            <div class="guideline-card">
+                                <h5>Basic Operations</h5>
+                                <ul>
+                                    <li><strong>Numbers:</strong> Click number buttons or type directly</li>
+                                    <li><strong>Operations:</strong> +, -, ×, ÷ for basic arithmetic</li>
+                                    <li><strong>Equals:</strong> Press = or Enter to calculate</li>
+                                    <li><strong>Clear:</strong> C to clear display, CE to clear entry</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Scientific Functions</h5>
+                                <ul>
+                                    <li><strong>Trigonometry:</strong> sin, cos, tan (use DEG/RAD mode)</li>
+                                    <li><strong>Logarithms:</strong> log (base 10), ln (natural log)</li>
+                                    <li><strong>Powers:</strong> x², x³, xʸ, √, ∛</li>
+                                    <li><strong>Constants:</strong> π, e buttons for mathematical constants</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Memory Functions</h5>
+                                <ul>
+                                    <li><strong>MC:</strong> Memory Clear - clears stored value</li>
+                                    <li><strong>MR:</strong> Memory Recall - displays stored value</li>
+                                    <li><strong>M+:</strong> Memory Add - adds current value to memory</li>
+                                    <li><strong>M-:</strong> Memory Subtract - subtracts from memory</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Advanced Features</h5>
+                                <ul>
+                                    <li><strong>2nd:</strong> Access secondary functions (sin⁻¹, cos⁻¹, etc.)</li>
+                                    <li><strong>Factorial:</strong> n! for factorial calculations</li>
+                                    <li><strong>Combinations:</strong> nCr, nPr for permutations/combinations</li>
+                                    <li><strong>Random:</strong> Generate random numbers</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Calculator Guidelines -->
+                <div id="advanced-guide" class="guideline-content" style="display: none;">
+                    <div class="guideline-section">
+                        <h4><i class="fas fa-function"></i> Advanced Mathematical Operations</h4>
+                        <div class="guideline-grid">
+                            <div class="guideline-card">
+                                <h5>Equation Solving</h5>
+                                <ul>
+                                    <li><strong>Format:</strong> solve x^2 + 5x + 6 = 0</li>
+                                    <li><strong>Quadratics:</strong> Automatically finds roots and discriminant</li>
+                                    <li><strong>Linear:</strong> Solves equations like 2x + 3 = 7</li>
+                                    <li><strong>Example:</strong> solve x^2 - 4x + 4 = 0</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Polynomial Operations</h5>
+                                <ul>
+                                    <li><strong>Factoring:</strong> factor(x^2 + 5x + 6)</li>
+                                    <li><strong>Expansion:</strong> expand((x+2)(x+3))</li>
+                                    <li><strong>Simplification:</strong> simplify(expression)</li>
+                                    <li><strong>Supported:</strong> Quadratic polynomials mainly</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Quick Functions</h5>
+                                <ul>
+                                    <li><strong>Solve Equation:</strong> Inserts solve() template</li>
+                                    <li><strong>Factor:</strong> Inserts factor() template</li>
+                                    <li><strong>Expand:</strong> Inserts expand() template</li>
+                                    <li><strong>Simplify:</strong> Inserts simplify() template</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Wolfram Alpha Integration</h5>
+                                <ul>
+                                    <li><strong>Setup:</strong> Requires API key for advanced features</li>
+                                    <li><strong>Fallback:</strong> Local computation for basic operations</li>
+                                    <li><strong>Complex:</strong> Handles advanced mathematical expressions</li>
+                                    <li><strong>Note:</strong> Demo mode shows setup instructions</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculus Calculator Guidelines -->
+                <div id="calculus-guide" class="guideline-content" style="display: none;">
+                    <div class="guideline-section">
+                        <h4><i class="fas fa-infinity"></i> Calculus Operations</h4>
+                        <div class="guideline-grid">
+                            <div class="guideline-card">
+                                <h5>Derivatives</h5>
+                                <ul>
+                                    <li><strong>Input:</strong> Enter function like x^3 + 2x^2 + x + 1</li>
+                                    <li><strong>Variable:</strong> Specify variable (default: x)</li>
+                                    <li><strong>Supported:</strong> Polynomials, trig functions, exponentials</li>
+                                    <li><strong>Example:</strong> x^2 + 3x → 2x + 3</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Integrals</h5>
+                                <ul>
+                                    <li><strong>Indefinite:</strong> ∫f(x)dx with constant of integration</li>
+                                    <li><strong>Definite:</strong> ∫[a to b]f(x)dx with limits</li>
+                                    <li><strong>Limits:</strong> Enter numerical values for definite integrals</li>
+                                    <li><strong>Example:</strong> x^2 → x^3/3 + C</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Limits</h5>
+                                <ul>
+                                    <li><strong>Function:</strong> Enter expression like (x^2-1)/(x-1)</li>
+                                    <li><strong>Point:</strong> Value that variable approaches</li>
+                                    <li><strong>Techniques:</strong> Substitution, L'Hôpital's rule</li>
+                                    <li><strong>Example:</strong> lim[x→1] (x^2-1)/(x-1) = 2</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Series Expansion</h5>
+                                <ul>
+                                    <li><strong>Taylor Series:</strong> Around specified point</li>
+                                    <li><strong>Common Functions:</strong> e^x, sin(x), cos(x)</li>
+                                    <li><strong>Terms:</strong> Specify number of terms (1-10)</li>
+                                    <li><strong>Example:</strong> e^x = 1 + x + x^2/2! + x^3/3! + ...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Algebra Calculator Guidelines -->
+                <div id="algebra-guide" class="guideline-content" style="display: none;">
+                    <div class="guideline-section">
+                        <h4><i class="fas fa-square-root-alt"></i> Algebraic Operations</h4>
+                        <div class="guideline-grid">
+                            <div class="guideline-card">
+                                <h5>Polynomial Operations</h5>
+                                <ul>
+                                    <li><strong>Format:</strong> x^3 - 6x^2 + 11x - 6</li>
+                                    <li><strong>Factor:</strong> Finds factors for quadratics</li>
+                                    <li><strong>Roots:</strong> Calculates zeros of polynomial</li>
+                                    <li><strong>Example:</strong> x^2 - 5x + 6 = (x-2)(x-3)</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Equation Solving</h5>
+                                <ul>
+                                    <li><strong>Linear:</strong> 2x + 3 = 7</li>
+                                    <li><strong>Quadratic:</strong> x^2 + 5x + 6 = 0</li>
+                                    <li><strong>Variable:</strong> Specify what to solve for</li>
+                                    <li><strong>Verification:</strong> Shows solution check</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>Matrix Operations</h5>
+                                <ul>
+                                    <li><strong>Format:</strong> [[1,2],[3,4]] for 2×2 matrix</li>
+                                    <li><strong>Determinant:</strong> For square matrices</li>
+                                    <li><strong>Inverse:</strong> A⁻¹ for non-singular matrices</li>
+                                    <li><strong>Arithmetic:</strong> Addition and multiplication</li>
+                                </ul>
+                            </div>
+                            <div class="guideline-card">
+                                <h5>System of Equations</h5>
+                                <ul>
+                                    <li><strong>Format:</strong> One equation per line</li>
+                                    <li><strong>Example:</strong> 2x + 3y = 7<br>x - y = 1</li>
+                                    <li><strong>Method:</strong> Cramer's rule for 2×2 systems</li>
+                                    <li><strong>Solution:</strong> Shows x and y values with verification</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips and Tricks Section -->
+                <div class="calculator-tips">
+                    <h4><i class="fas fa-lightbulb"></i> Tips & Tricks</h4>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <h5><i class="fas fa-keyboard"></i> Input Tips</h5>
+                            <ul>
+                                <li>Use ^ for exponents: x^2, x^3</li>
+                                <li>Use * for multiplication: 2*x, 3*y</li>
+                                <li>Parentheses for grouping: (x+1)(x-1)</li>
+                                <li>Use standard function names: sin, cos, ln</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <h5><i class="fas fa-exclamation-triangle"></i> Common Errors</h5>
+                            <ul>
+                                <li>Missing multiplication signs: 2x should be 2*x</li>
+                                <li>Unmatched parentheses: Check opening/closing</li>
+                                <li>Invalid matrix format: Use [[a,b],[c,d]]</li>
+                                <li>Division by zero: Check denominators</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <h5><i class="fas fa-mobile-alt"></i> Mobile Usage</h5>
+                            <ul>
+                                <li>Tap buttons for input on mobile devices</li>
+                                <li>Swipe between calculator modes</li>
+                                <li>Use landscape mode for better visibility</li>
+                                <li>Enable performance mode for smoother operation</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <h5><i class="fas fa-graduation-cap"></i> Study Tips</h5>
+                            <ul>
+                                <li>Verify results by substitution</li>
+                                <li>Practice with different problem types</li>
+                                <li>Use step-by-step solutions to learn</li>
+                                <li>Compare with manual calculations</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

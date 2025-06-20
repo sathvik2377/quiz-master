@@ -791,15 +791,18 @@ function showTheory(subject) {
 function updateChemistryTabs(subject) {
     const reactionsTab = document.getElementById('reactionsTab');
     const organicQuizTab = document.getElementById('organicQuizTab');
+    const inorganicQuizTab = document.getElementById('inorganicQuizTab');
 
     if (subject === 'chemistry') {
         // Show chemistry-specific tabs
         if (reactionsTab) reactionsTab.style.display = 'flex';
         if (organicQuizTab) organicQuizTab.style.display = 'flex';
+        if (inorganicQuizTab) inorganicQuizTab.style.display = 'flex';
     } else {
         // Hide chemistry-specific tabs for other subjects
         if (reactionsTab) reactionsTab.style.display = 'none';
         if (organicQuizTab) organicQuizTab.style.display = 'none';
+        if (inorganicQuizTab) inorganicQuizTab.style.display = 'none';
 
         // If currently on a chemistry-specific tab, switch to content tab
         if (reactionsTab && reactionsTab.classList.contains('active')) {
@@ -808,40 +811,48 @@ function updateChemistryTabs(subject) {
         if (organicQuizTab && organicQuizTab.classList.contains('active')) {
             showTheoryTab('content');
         }
+        if (inorganicQuizTab && inorganicQuizTab.classList.contains('active')) {
+            showTheoryTab('content');
+        }
     }
 }
 
-// Show theory tab (content, reactions, organicQuiz, or PDF)
+// Show theory tab (content, reactions, organicQuiz, inorganicQuiz, or PDF)
 function showTheoryTab(tab) {
     const contentTab = document.getElementById('contentTab');
     const reactionsTab = document.getElementById('reactionsTab');
     const organicQuizTab = document.getElementById('organicQuizTab');
+    const inorganicQuizTab = document.getElementById('inorganicQuizTab');
     const pdfTab = document.getElementById('pdfTab');
     const theoryContent = document.getElementById('theoryContent');
     const theoryReactions = document.getElementById('theoryReactions');
     const theoryOrganicQuiz = document.getElementById('theoryOrganicQuiz');
+    const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
     const theoryPdfViewer = document.getElementById('theoryPdfViewer');
 
     // Remove active class from all tabs
-    contentTab.classList.remove('active');
-    reactionsTab.classList.remove('active');
-    organicQuizTab.classList.remove('active');
-    pdfTab.classList.remove('active');
+    if (contentTab) contentTab.classList.remove('active');
+    if (reactionsTab) reactionsTab.classList.remove('active');
+    if (organicQuizTab) organicQuizTab.classList.remove('active');
+    if (inorganicQuizTab) inorganicQuizTab.classList.remove('active');
+    if (pdfTab) pdfTab.classList.remove('active');
 
     if (tab === 'content') {
         // Show content tab
-        contentTab.classList.add('active');
-        theoryContent.style.display = 'block';
-        theoryReactions.style.display = 'none';
-        theoryOrganicQuiz.style.display = 'none';
-        theoryPdfViewer.style.display = 'none';
+        if (contentTab) contentTab.classList.add('active');
+        if (theoryContent) theoryContent.style.display = 'block';
+        if (theoryReactions) theoryReactions.style.display = 'none';
+        if (theoryOrganicQuiz) theoryOrganicQuiz.style.display = 'none';
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
+        if (theoryPdfViewer) theoryPdfViewer.style.display = 'none';
     } else if (tab === 'reactions') {
         // Show reactions tab
-        reactionsTab.classList.add('active');
-        theoryContent.style.display = 'none';
-        theoryReactions.style.display = 'block';
-        theoryOrganicQuiz.style.display = 'none';
-        theoryPdfViewer.style.display = 'none';
+        if (reactionsTab) reactionsTab.classList.add('active');
+        if (theoryContent) theoryContent.style.display = 'none';
+        if (theoryReactions) theoryReactions.style.display = 'block';
+        if (theoryOrganicQuiz) theoryOrganicQuiz.style.display = 'none';
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
+        if (theoryPdfViewer) theoryPdfViewer.style.display = 'none';
 
         // Load reactions content if chemistry is selected
         if (currentSubject === 'chemistry') {
@@ -849,23 +860,38 @@ function showTheoryTab(tab) {
         }
     } else if (tab === 'organicQuiz') {
         // Show organic quiz tab
-        organicQuizTab.classList.add('active');
-        theoryContent.style.display = 'none';
-        theoryReactions.style.display = 'none';
-        theoryOrganicQuiz.style.display = 'block';
-        theoryPdfViewer.style.display = 'none';
+        if (organicQuizTab) organicQuizTab.classList.add('active');
+        if (theoryContent) theoryContent.style.display = 'none';
+        if (theoryReactions) theoryReactions.style.display = 'none';
+        if (theoryOrganicQuiz) theoryOrganicQuiz.style.display = 'block';
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
+        if (theoryPdfViewer) theoryPdfViewer.style.display = 'none';
 
         // Load organic quiz content if chemistry is selected
         if (currentSubject === 'chemistry') {
             loadOrganicQuiz();
         }
+    } else if (tab === 'inorganicQuiz') {
+        // Show inorganic quiz tab
+        if (inorganicQuizTab) inorganicQuizTab.classList.add('active');
+        if (theoryContent) theoryContent.style.display = 'none';
+        if (theoryReactions) theoryReactions.style.display = 'none';
+        if (theoryOrganicQuiz) theoryOrganicQuiz.style.display = 'none';
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'block';
+        if (theoryPdfViewer) theoryPdfViewer.style.display = 'none';
+
+        // Load inorganic quiz content if chemistry is selected
+        if (currentSubject === 'chemistry') {
+            loadInorganicQuiz();
+        }
     } else if (tab === 'pdf') {
         // Show PDF tab
-        pdfTab.classList.add('active');
-        theoryContent.style.display = 'none';
-        theoryReactions.style.display = 'none';
-        theoryOrganicQuiz.style.display = 'none';
-        theoryPdfViewer.style.display = 'block';
+        if (pdfTab) pdfTab.classList.add('active');
+        if (theoryContent) theoryContent.style.display = 'none';
+        if (theoryReactions) theoryReactions.style.display = 'none';
+        if (theoryOrganicQuiz) theoryOrganicQuiz.style.display = 'none';
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
+        if (theoryPdfViewer) theoryPdfViewer.style.display = 'block';
     }
 }
 
@@ -880,8 +906,10 @@ function backToSubjects() {
     // Hide chemistry-specific tabs when going back
     const reactionsTab = document.getElementById('reactionsTab');
     const organicQuizTab = document.getElementById('organicQuizTab');
+    const inorganicQuizTab = document.getElementById('inorganicQuizTab');
     if (reactionsTab) reactionsTab.style.display = 'none';
     if (organicQuizTab) organicQuizTab.style.display = 'none';
+    if (inorganicQuizTab) inorganicQuizTab.style.display = 'none';
 
     // Reset to content tab
     showTheoryTab('content');
@@ -943,6 +971,9 @@ function loadOrganicReactions() {
                 <button class="reaction-nav-btn" onclick="showReactionSection('conversions')" id="conversionsNavBtn">
                     <i class="fas fa-exchange-alt"></i> Important Conversions
                 </button>
+                <button class="reaction-nav-btn" onclick="showReactionSection('allenCheatSheet')" id="allenCheatSheetNavBtn">
+                    <i class="fas fa-file-image"></i> Allen Organic Cheat Sheet
+                </button>
             </div>
 
             <!-- Content Area -->
@@ -973,6 +1004,8 @@ function showReactionSection(section) {
         reactionsContent.innerHTML = getNamedReactions();
     } else if (section === 'conversions') {
         reactionsContent.innerHTML = getImportantConversions();
+    } else if (section === 'allenCheatSheet') {
+        reactionsContent.innerHTML = getAllenOrganicCheatSheet();
     }
 }
 
@@ -1006,6 +1039,15 @@ function getMainOverview() {
                     <h3>Important Conversions</h3>
                     <p>Key organic transformations and synthetic pathways</p>
                     <div class="overview-count">5 Conversions</div>
+                </div>
+
+                <div class="overview-card" onclick="showReactionSection('allenCheatSheet')">
+                    <div class="overview-icon">
+                        <i class="fas fa-file-image"></i>
+                    </div>
+                    <h3>Allen Organic Cheat Sheet</h3>
+                    <p>Comprehensive visual reference charts for organic chemistry</p>
+                    <div class="overview-count">2 Charts</div>
                 </div>
             </div>
 
@@ -1551,6 +1593,8 @@ function getImportantConversions() {
         </div>
     `;
 }
+
+
 
 // Organic quiz data
 const organicQuizData = [
@@ -2114,3 +2158,51 @@ function restartOrganicQuiz() {
     loadOrganicQuestion();
     startTotalTimer();
 }
+
+// ==================== CHEAT SHEET POPUP FUNCTIONS ====================
+
+// Open cheat sheet image in popup
+function openCheatSheetPopup(imageUrl, title) {
+    const modal = document.getElementById('cheatSheetPopupModal');
+    const modalImage = document.getElementById('cheatSheetPopupImage');
+    const modalTitle = document.getElementById('cheatSheetPopupTitle');
+
+    if (modal && modalImage && modalTitle) {
+        modalTitle.textContent = title;
+        modalImage.src = imageUrl;
+        modalImage.alt = title;
+        modal.style.display = 'flex';
+
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Close cheat sheet popup
+function closeCheatSheetPopup() {
+    const modal = document.getElementById('cheatSheetPopupModal');
+    if (modal) {
+        modal.style.display = 'none';
+        // Restore body scroll
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Close popup when clicking outside the image
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('cheatSheetPopupModal');
+    if (modal && event.target === modal) {
+        closeCheatSheetPopup();
+    }
+});
+
+// Close popup with ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeCheatSheetPopup();
+    }
+});
+
+// Make cheat sheet functions globally available
+window.openCheatSheetPopup = openCheatSheetPopup;
+window.closeCheatSheetPopup = closeCheatSheetPopup;
