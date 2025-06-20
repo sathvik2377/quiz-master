@@ -522,6 +522,81 @@
         </div>
     </div>
 
+    <!-- Settings Section -->
+    <div id="settingsSection" class="section" style="display: none;">
+        <div class="settings-container">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> Settings</h2>
+                <p>Customize your experience</p>
+            </div>
+
+            <div class="settings-grid">
+                <!-- Performance Mode -->
+                <div class="setting-card">
+                    <div class="setting-info">
+                        <h3><i class="fas fa-tachometer-alt"></i> Performance Mode</h3>
+                        <p>Disable animations for better performance on low-end devices</p>
+                        <small>Recommended for mobile devices with low RAM or older computers</small>
+                    </div>
+                    <div class="setting-control">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="performanceMode" onchange="togglePerformanceMode()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- User Profile -->
+                <div class="setting-card">
+                    <div class="setting-info">
+                        <h3><i class="fas fa-user"></i> User Profile</h3>
+                        <p>Update your name and exam date</p>
+                        <small>Change your personal information and exam schedule</small>
+                    </div>
+                    <div class="setting-control">
+                        <button class="btn setting-btn" onclick="showUserModal()">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Data Export -->
+                <div class="setting-card">
+                    <div class="setting-info">
+                        <h3><i class="fas fa-download"></i> Export Data</h3>
+                        <p>Download your progress and user data</p>
+                        <small>Export your quiz scores and study progress</small>
+                    </div>
+                    <div class="setting-control">
+                        <button class="btn setting-btn" onclick="exportUserDataAsCSV()">
+                            <i class="fas fa-file-csv"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Panel -->
+                <div class="setting-card">
+                    <div class="setting-info">
+                        <h3><i class="fas fa-shield-alt"></i> Admin Panel</h3>
+                        <p>View user statistics and manage data</p>
+                        <small>Access admin dashboard for data management</small>
+                    </div>
+                    <div class="setting-control">
+                        <button class="btn setting-btn" onclick="window.open('admin.html', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Open Admin
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-footer">
+                <button class="btn btn-secondary" onclick="showMainMenu()">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="vocabulary_data.js"></script>
     <script src="main.js"></script>
 </body>

@@ -1457,6 +1457,8 @@ function showMainMenu() {
     document.getElementById('graphingSection').style.display = 'none';
     document.getElementById('calculatorSection').style.display = 'none';
     document.getElementById('pdfSection').style.display = 'none';
+    document.getElementById('chatbotSection').style.display = 'none';
+    document.getElementById('settingsSection').style.display = 'none';
     document.getElementById('quizSection').classList.remove('active');
     document.getElementById('backBtn').style.display = 'none';
     currentCategory = '';
@@ -1579,6 +1581,7 @@ function showSection(section) {
     const calculatorSection = document.getElementById('calculatorSection');
     const pdfSection = document.getElementById('pdfSection');
     const chatbotSection = document.getElementById('chatbotSection');
+    const settingsSection = document.getElementById('settingsSection');
     const buttons = document.querySelectorAll('.section-btn');
     const quizContainer = document.querySelector('.quiz-container');
 
@@ -1590,6 +1593,7 @@ function showSection(section) {
     calculatorSection.style.display = 'none';
     pdfSection.style.display = 'none';
     chatbotSection.style.display = 'none';
+    settingsSection.style.display = 'none';
 
     if (section === 'practice') {
         practiceSection.style.display = 'grid';
@@ -1609,8 +1613,10 @@ function showSection(section) {
         chatbotSection.style.display = 'block';
         quizContainer.classList.remove('pdf-mode');
     } else if (section === 'settings') {
-        showUserModal();
+        settingsSection.style.display = 'block';
         quizContainer.classList.remove('pdf-mode');
+        // Load current performance mode setting
+        loadPerformanceModeState();
     } else {
         pdfSection.style.display = 'block';
         quizContainer.classList.add('pdf-mode');
@@ -4437,3 +4443,155 @@ window.fetchServerStats = async function() {
 
 // Secret admin access (type "admin123" in console)
 window.admin123 = window.showAdminPanel;
+
+// Performance Mode Functions
+function togglePerformanceMode() {
+    const checkbox = document.getElementById('performanceMode');
+    const isEnabled = checkbox.checked;
+
+    // Save preference to localStorage
+    localStorage.setItem('performanceMode', isEnabled.toString());
+
+    // Apply or remove performance mode
+    if (isEnabled) {
+        enablePerformanceMode();
+        showFeedback('Performance mode enabled! Animations disabled for better performance.', 'success');
+    } else {
+        disablePerformanceMode();
+        showFeedback('Performance mode disabled! Animations restored.', 'success');
+    }
+}
+
+function enablePerformanceMode() {
+    document.body.classList.add('performance-mode');
+
+    // Stop hyperspeed background (heavy animation)
+    const hyperspeedBg = document.getElementById('hyperspeedBg');
+    if (hyperspeedBg) {
+        hyperspeedBg.style.display = 'none';
+    }
+
+    // Stop typing effect cursor
+    const cursor = document.querySelector('.cursor');
+    if (cursor) {
+        cursor.style.display = 'none';
+    }
+
+    // Stop floating logo animation but keep it visible
+    const floatingLogo = document.querySelector('.floating-logo');
+    if (floatingLogo) {
+        floatingLogo.style.animation = 'none';
+        floatingLogo.style.transform = 'none';
+    }
+
+    // Keep quote cards visible but remove animations
+    const quoteCards = document.querySelectorAll('.quote-card');
+    quoteCards.forEach(card => {
+        card.style.animation = 'none';
+        card.style.transform = 'none';
+    });
+
+    console.log('Performance mode enabled - heavy animations disabled, UI elements preserved');
+}
+
+function disablePerformanceMode() {
+    document.body.classList.remove('performance-mode');
+
+    // Restart hyperspeed background
+    const hyperspeedBg = document.getElementById('hyperspeedBg');
+    if (hyperspeedBg) {
+        hyperspeedBg.style.display = '';
+        setTimeout(() => {
+            if (typeof initHyperspeedBackground === 'function') {
+                initHyperspeedBackground();
+            }
+        }, 100);
+    }
+
+    // Restart typing effect cursor
+    const cursor = document.querySelector('.cursor');
+    if (cursor) {
+        cursor.style.display = '';
+        cursor.style.animation = '';
+    }
+
+    // Re-enable floating logo animation
+    const floatingLogo = document.querySelector('.floating-logo');
+    if (floatingLogo) {
+        floatingLogo.style.animation = '';
+        floatingLogo.style.transform = '';
+    }
+
+    // Restart quote animations
+    const quoteCards = document.querySelectorAll('.quote-card');
+    quoteCards.forEach(card => {
+        card.style.animation = '';
+        card.style.transform = '';
+    });
+
+    console.log('Performance mode disabled - animations restored');
+}
+
+function loadPerformanceModeState() {
+    const isEnabled = localStorage.getItem('performanceMode') === 'true';
+    const checkbox = document.getElementById('performanceMode');
+
+    if (checkbox) {
+        checkbox.checked = isEnabled;
+    }
+
+    if (isEnabled) {
+        enablePerformanceMode();
+    }
+}
+
+// Initialize performance mode on page load
+window.addEventListener('load', function() {
+    loadPerformanceModeState();
+});
+
+// Export performance mode functions
+window.togglePerformanceMode = togglePerformanceMode;
+window.loadPerformanceModeState = loadPerformanceModeState;
+
+// Export user data as CSV
+function exportUserDataAsCSV() {
+    const userEntries = JSON.parse(localStorage.getItem('userEntries')) || [];
+
+    if (userEntries.length === 0) {
+        showFeedback('No user data found to export.', 'warning');
+        return;
+    }
+
+    // CSV headers
+    const headers = ['Name', 'Exam Date', 'Entry Time', 'Platform', 'Language', 'Session ID'];
+
+    // Convert data to CSV format
+    const csvContent = [
+        headers.join(','),
+        ...userEntries.map(entry => [
+            `"${entry.name || ''}"`,
+            `"${entry.examDate || ''}"`,
+            `"${entry.entryTimeFormatted || ''}"`,
+            `"${entry.platform || ''}"`,
+            `"${entry.language || ''}"`,
+            `"${entry.sessionId || ''}"`
+        ].join(','))
+    ].join('\n');
+
+    // Create and download file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `bitsat_prep_user_data_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showFeedback(`Exported ${userEntries.length} user entries to CSV!`, 'success');
+}
+
+// Export CSV function
+window.exportUserDataAsCSV = exportUserDataAsCSV;
