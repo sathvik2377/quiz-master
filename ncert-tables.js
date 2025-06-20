@@ -267,7 +267,12 @@ const NCERT_TABLES_DATA = {
             elements: ["N", "P", "As", "Sb", "Bi"],
             imageUrls: [
                 "https://i.postimg.cc/cJVhm1C2/Screenshot-2024-12-28-13-04-49-975-2.jpg",
-                "https://i.postimg.cc/fyvvDxCQ/Screenshot-2024-12-28-13-05-15-418-2.jpg"
+                "https://i.postimg.cc/fyvvDxCQ/Screenshot-2024-12-28-13-05-15-418-2.jpg",
+                "https://i.postimg.cc/TwnJS7c2/Screenshot-2025-06-20-202101.png",
+                "https://i.postimg.cc/L5TB4J7r/Screenshot-2025-06-20-202131.png",
+                "https://i.postimg.cc/Y2fxzP9b/Screenshot-2025-06-20-202136.png",
+                "https://i.postimg.cc/8cDmVRyR/Screenshot-2025-06-20-202154.png",
+                "https://i.postimg.cc/43D1WkVF/Screenshot-2025-06-20-202201.png"
             ],
             description: "Pnictogens with five valence electrons",
             properties: [
@@ -303,7 +308,8 @@ const NCERT_TABLES_DATA = {
             elements: ["O", "S", "Se", "Te", "Po"],
             imageUrls: [
                 "https://i.postimg.cc/HW0zwggv/Screenshot-2024-12-28-13-05-43-977-2.jpg",
-                "https://i.postimg.cc/8zYmpkRc/Screenshot-2024-12-28-13-06-00-089-2.jpg"
+                "https://i.postimg.cc/8zYmpkRc/Screenshot-2024-12-28-13-06-00-089-2.jpg",
+                "https://i.postimg.cc/ZnGBS4Y1/Screenshot-2025-06-20-202323.png"
             ],
             description: "Chalcogens with six valence electrons",
             properties: [
