@@ -1,0 +1,22 @@
+[
+  {
+    "name": "sathvik",
+    "examDate": "2025-06-26",
+    "entryTime": "2025-06-19T16:17:42.934Z",
+    "entryTimeFormatted": "6/19/2025, 9:47:42 PM",
+    "sessionId": "session_1750349862938_y2dyg4gt6",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "platform": "Win32",
+    "language": "en-US"
+  },
+  {
+    "name": "asd",
+    "examDate": "2025-06-22",
+    "entryTime": "2025-06-20T03:33:01.941Z",
+    "entryTimeFormatted": "6/20/2025, 9:03:01 AM",
+    "sessionId": "session_1750390381944_kywuv8gvt",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "platform": "Win32",
+    "language": "en-US"
+  }
+]

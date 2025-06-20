@@ -180,6 +180,12 @@
                 <button class="theory-tab-btn active" onclick="showTheoryTab('content')" id="contentTab">
                     <i class="fas fa-book"></i> Theory Content
                 </button>
+                <button class="theory-tab-btn" onclick="showTheoryTab('reactions')" id="reactionsTab">
+                    <i class="fas fa-flask"></i> Organic Reactions
+                </button>
+                <button class="theory-tab-btn" onclick="showTheoryTab('organicQuiz')" id="organicQuizTab">
+                    <i class="fas fa-vial"></i> Organic Quiz
+                </button>
                 <button class="theory-tab-btn" onclick="showTheoryTab('pdf')" id="pdfTab">
                     <i class="fas fa-file-pdf"></i> PDF Reference
                 </button>
@@ -187,6 +193,14 @@
 
             <div class="theory-content" id="theoryContent">
                 <!-- Theory content will be loaded here -->
+            </div>
+
+            <div class="theory-reactions" id="theoryReactions" style="display: none;">
+                <!-- Organic reactions content will be loaded here -->
+            </div>
+
+            <div class="theory-organic-quiz" id="theoryOrganicQuiz" style="display: none;">
+                <!-- Organic quiz content will be loaded here -->
             </div>
 
             <div class="theory-pdf-viewer" id="theoryPdfViewer" style="display: none;">
