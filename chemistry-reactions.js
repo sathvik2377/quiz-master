@@ -158,8 +158,8 @@ function getMainOverview() {
                         <i class="fas fa-exchange-alt"></i>
                     </div>
                     <h3>Important Conversions</h3>
-                    <p>Key organic transformations, synthetic pathways, and modern coupling reactions</p>
-                    <div class="overview-count">15+ Conversions</div>
+                    <p>Key organic transformations, synthetic pathways, rearrangements, and modern coupling reactions</p>
+                    <div class="overview-count">23+ Conversions</div>
                 </div>
             </div>
             
@@ -667,7 +667,7 @@ function getImportantConversions() {
     return `
         <div class="reaction-section">
             <h3 class="section-title">
-                <i class="fas fa-exchange-alt"></i> Important Organic Conversions (15+ Key Transformations)
+                <i class="fas fa-exchange-alt"></i> Important Organic Conversions (23+ Key Transformations)
             </h3>
 
             <div class="conversions-grid">
@@ -836,6 +836,258 @@ function getImportantConversions() {
                     <div class="reaction-diagram">
                         <p><strong>Reaction:</strong> ArX + Ar'B(OH)₂ → Ar-Ar' + B(OH)₃ + HX</p>
                         <p><strong>Conditions:</strong> Pd(PPh₃)₄, K₂CO₃, DME/H₂O, reflux</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Gabriel Phthalimide Synthesis</h4>
+                    <p><strong>Conversion:</strong> Primary alkyl halide → Primary amine</p>
+                    <p><strong>Reagent:</strong> Phthalimide, KOH, then NH₂NH₂ (hydrazine)</p>
+                    <p><strong>Advantage:</strong> Selective formation of primary amines only</p>
+                    <p><strong>Mechanism:</strong> Nucleophilic substitution followed by hydrazinolysis</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCH₂X + Phthalimide → RCH₂NH₂ + Phthalic acid</p>
+                        <p><strong>Limitation:</strong> Only works with primary alkyl halides</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Hofmann Bromamide Reaction</h4>
+                    <p><strong>Conversion:</strong> Primary amide → Primary amine (one carbon less)</p>
+                    <p><strong>Reagent:</strong> Br₂ + NaOH, heat</p>
+                    <p><strong>Mechanism:</strong> N-bromamide intermediate → isocyanate → amine</p>
+                    <p><strong>Key Feature:</strong> Degradation reaction (loses one carbon)</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCONH₂ + Br₂ + 4NaOH → RNH₂ + Na₂CO₃ + 2NaBr + 2H₂O</p>
+                        <p><strong>Example:</strong> Acetamide → Methylamine</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Curtius Rearrangement</h4>
+                    <p><strong>Conversion:</strong> Acyl azide → Primary amine (one carbon less)</p>
+                    <p><strong>Reagent:</strong> Heat or UV light</p>
+                    <p><strong>Mechanism:</strong> Loss of N₂ → nitrene → isocyanate → amine</p>
+                    <p><strong>Application:</strong> Alternative to Hofmann rearrangement</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCON₃ → RNH₂ + N₂ + CO₂</p>
+                        <p><strong>Intermediate:</strong> R-N=C=O (isocyanate)</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Schmidt Reaction</h4>
+                    <p><strong>Conversion:</strong> Carboxylic acid + HN₃ → Primary amine</p>
+                    <p><strong>Reagent:</strong> HN₃, H₂SO₄, heat</p>
+                    <p><strong>Mechanism:</strong> Similar to Curtius, via acyl azide intermediate</p>
+                    <p><strong>Advantage:</strong> Direct conversion from carboxylic acid</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCOOH + HN₃ → RNH₂ + N₂ + CO₂ + H₂O</p>
+                        <p><strong>Conditions:</strong> Concentrated H₂SO₄, 50-60°C</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Cannizzaro Reaction</h4>
+                    <p><strong>Conversion:</strong> Aldehyde (no α-H) → Alcohol + Carboxylic acid</p>
+                    <p><strong>Reagent:</strong> Concentrated NaOH, heat</p>
+                    <p><strong>Mechanism:</strong> Disproportionation via hydride transfer</p>
+                    <p><strong>Requirement:</strong> Aldehyde must lack α-hydrogen</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> 2HCHO + NaOH → CH₃OH + HCOONa</p>
+                        <p><strong>Example:</strong> Benzaldehyde → Benzyl alcohol + Benzoic acid</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Aldol Condensation</h4>
+                    <p><strong>Conversion:</strong> 2 Aldehydes/Ketones → α,β-Unsaturated carbonyl</p>
+                    <p><strong>Reagent:</strong> Dilute NaOH or acid catalyst</p>
+                    <p><strong>Mechanism:</strong> Enolate formation → nucleophilic addition → dehydration</p>
+                    <p><strong>Requirement:</strong> At least one compound must have α-hydrogen</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> 2CH₃CHO → CH₃CH=CHCHO + H₂O</p>
+                        <p><strong>Product:</strong> Crotonaldehyde (from acetaldehyde)</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Claisen Condensation</h4>
+                    <p><strong>Conversion:</strong> 2 Esters → β-Keto ester</p>
+                    <p><strong>Reagent:</strong> Sodium ethoxide (NaOEt), ethanol</p>
+                    <p><strong>Mechanism:</strong> Enolate formation → nucleophilic acyl substitution</p>
+                    <p><strong>Driving Force:</strong> Formation of stable enolate of product</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> 2CH₃COOC₂H₅ → CH₃COCH₂COOC₂H₅ + C₂H₅OH</p>
+                        <p><strong>Product:</strong> Ethyl acetoacetate</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Malonic Ester Synthesis</h4>
+                    <p><strong>Conversion:</strong> Diethyl malonate → Substituted acetic acid</p>
+                    <p><strong>Reagent:</strong> NaOEt, RX, then H₃O⁺/heat (decarboxylation)</p>
+                    <p><strong>Mechanism:</strong> Alkylation of malonate enolate → hydrolysis → decarboxylation</p>
+                    <p><strong>Application:</strong> Synthesis of carboxylic acids with specific substitution</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> CH₂(COOC₂H₅)₂ + RX → RCH₂COOH + CO₂ + 2C₂H₅OH</p>
+                        <p><strong>Key Step:</strong> β-Keto acid decarboxylation</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Acetoacetic Ester Synthesis</h4>
+                    <p><strong>Conversion:</strong> Ethyl acetoacetate → Substituted acetone</p>
+                    <p><strong>Reagent:</strong> NaOEt, RX, then H₃O⁺/heat</p>
+                    <p><strong>Mechanism:</strong> Alkylation → hydrolysis → decarboxylation</p>
+                    <p><strong>Product:</strong> Methyl ketones with specific substitution</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> CH₃COCH₂COOC₂H₅ + RX → CH₃COCH₂R + CO₂ + C₂H₅OH</p>
+                        <p><strong>Application:</strong> Ketone synthesis</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Hell-Volhard-Zelinsky Reaction</h4>
+                    <p><strong>Conversion:</strong> Carboxylic acid → α-Halo carboxylic acid</p>
+                    <p><strong>Reagent:</strong> Br₂/Cl₂ + red phosphorus</p>
+                    <p><strong>Mechanism:</strong> Acid chloride formation → α-halogenation → hydrolysis</p>
+                    <p><strong>Selectivity:</strong> Halogenation occurs specifically at α-position</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCH₂COOH + Br₂/P → RCHBrCOOH + HBr</p>
+                        <p><strong>Example:</strong> Propanoic acid → 2-Bromopropanoic acid</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Hunsdiecker Reaction</h4>
+                    <p><strong>Conversion:</strong> Silver carboxylate → Alkyl halide (one carbon less)</p>
+                    <p><strong>Reagent:</strong> Br₂ or I₂, CCl₄, heat</p>
+                    <p><strong>Mechanism:</strong> Radical decarboxylation</p>
+                    <p><strong>Application:</strong> Degradation of carboxylic acids</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCOOAg + Br₂ → RBr + CO₂ + AgBr</p>
+                        <p><strong>Example:</strong> Silver acetate → Methyl bromide</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Perkin Reaction</h4>
+                    <p><strong>Conversion:</strong> Aromatic aldehyde + Acid anhydride → α,β-Unsaturated acid</p>
+                    <p><strong>Reagent:</strong> Acetic anhydride, sodium acetate, heat</p>
+                    <p><strong>Mechanism:</strong> Aldol-type condensation with anhydride</p>
+                    <p><strong>Application:</strong> Synthesis of cinnamic acid derivatives</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> C₆H₅CHO + (CH₃CO)₂O → C₆H₅CH=CHCOOH + CH₃COOH</p>
+                        <p><strong>Product:</strong> Cinnamic acid (from benzaldehyde)</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Knoevenagel Condensation</h4>
+                    <p><strong>Conversion:</strong> Aldehyde/Ketone + Active methylene compound → Alkene</p>
+                    <p><strong>Reagent:</strong> Piperidine or pyridine catalyst</p>
+                    <p><strong>Mechanism:</strong> Enamine formation → condensation → elimination</p>
+                    <p><strong>Advantage:</strong> Works with weak bases, mild conditions</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCHO + CH₂(COOC₂H₅)₂ → RCH=C(COOC₂H₅)₂ + H₂O</p>
+                        <p><strong>Catalyst:</strong> Piperidine, ethanol, reflux</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Michael Addition</h4>
+                    <p><strong>Conversion:</strong> Enolate + α,β-Unsaturated carbonyl → 1,5-Dicarbonyl</p>
+                    <p><strong>Reagent:</strong> Base catalyst (NaOEt, NaNH₂)</p>
+                    <p><strong>Mechanism:</strong> Conjugate addition (1,4-addition)</p>
+                    <p><strong>Selectivity:</strong> Thermodynamically controlled</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> CH₃COCH₃ + CH₂=CHCOCH₃ → CH₃COCH₂CH₂CH₂COCH₃</p>
+                        <p><strong>Type:</strong> 1,4-Addition to α,β-unsaturated system</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Mannich Reaction</h4>
+                    <p><strong>Conversion:</strong> Carbonyl + Amine + Formaldehyde → β-Amino carbonyl</p>
+                    <p><strong>Reagent:</strong> HCHO, secondary amine (dimethylamine), HCl</p>
+                    <p><strong>Mechanism:</strong> Iminium ion formation → enolate attack</p>
+                    <p><strong>Application:</strong> Introduction of aminomethyl groups</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCOCH₃ + HCHO + (CH₃)₂NH → RCOCH₂CH₂N(CH₃)₂</p>
+                        <p><strong>Product:</strong> Mannich base</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Reformatsky Reaction</h4>
+                    <p><strong>Conversion:</strong> Carbonyl + α-Halo ester → β-Hydroxy ester</p>
+                    <p><strong>Reagent:</strong> Zn, THF or ether, α-bromo ester</p>
+                    <p><strong>Mechanism:</strong> Organozinc reagent formation → nucleophilic addition</p>
+                    <p><strong>Advantage:</strong> Milder than Grignard, tolerates esters</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCHO + BrCH₂COOC₂H₅ + Zn → RCH(OH)CH₂COOC₂H₅</p>
+                        <p><strong>Product:</strong> β-Hydroxy ester</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Stobbe Condensation</h4>
+                    <p><strong>Conversion:</strong> Ketone + Diethyl succinate → Half ester of alkylidene succinic acid</p>
+                    <p><strong>Reagent:</strong> Sodium ethoxide, ethanol</p>
+                    <p><strong>Mechanism:</strong> Aldol-type condensation with selective hydrolysis</p>
+                    <p><strong>Selectivity:</strong> Only one ester group hydrolyzes</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> R₂CO + HOOC-CH₂-CH₂-COOC₂H₅ → R₂C=CH-CH₂-COOH</p>
+                        <p><strong>Application:</strong> Synthesis of unsaturated acids</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Wolff Rearrangement</h4>
+                    <p><strong>Conversion:</strong> α-Diazo ketone → Carboxylic acid (one carbon less)</p>
+                    <p><strong>Reagent:</strong> Heat, UV light, or Ag₂O catalyst</p>
+                    <p><strong>Mechanism:</strong> Loss of N₂ → carbene → ketene → acid</p>
+                    <p><strong>Application:</strong> Ring contraction, homologation</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCOCHN₂ → RCH₂COOH + N₂</p>
+                        <p><strong>Intermediate:</strong> Ketene (R-CH=C=O)</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Arndt-Eistert Synthesis</h4>
+                    <p><strong>Conversion:</strong> Carboxylic acid → Homologous acid (one carbon more)</p>
+                    <p><strong>Reagent:</strong> SOCl₂, CH₂N₂, then Wolff rearrangement</p>
+                    <p><strong>Mechanism:</strong> Acid chloride → diazo ketone → Wolff rearrangement</p>
+                    <p><strong>Application:</strong> Chain extension by one carbon</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCOOH → RCOCl → RCOCHN₂ → RCH₂COOH</p>
+                        <p><strong>Net Result:</strong> RCOOH → RCH₂COOH</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Favorskii Rearrangement</h4>
+                    <p><strong>Conversion:</strong> α-Halo ketone → Carboxylic acid (rearranged)</p>
+                    <p><strong>Reagent:</strong> Strong base (NaOH, KOH), heat</p>
+                    <p><strong>Mechanism:</strong> Cyclopropanone intermediate formation</p>
+                    <p><strong>Result:</strong> Carbon skeleton rearrangement</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> RCOCHClR' + OH⁻ → Rearranged carboxylic acid</p>
+                        <p><strong>Key:</strong> Ring contraction via cyclopropanone</p>
+                    </div>
+                </div>
+
+                <div class="conversion-card">
+                    <h4>Beckmann Rearrangement</h4>
+                    <p><strong>Conversion:</strong> Ketoxime → N-Substituted amide</p>
+                    <p><strong>Reagent:</strong> Concentrated H₂SO₄, PCl₅, or SOCl₂</p>
+                    <p><strong>Mechanism:</strong> Oxime protonation → migration → amide formation</p>
+                    <p><strong>Stereochemistry:</strong> Anti-migration (group trans to OH migrates)</p>
+                    <div class="reaction-diagram">
+                        <p><strong>Reaction:</strong> R₂C=NOH → RCONHR' (R migrates)</p>
+                        <p><strong>Application:</strong> Industrial synthesis of caprolactam (nylon precursor)</p>
                     </div>
                 </div>
 

@@ -12,8 +12,13 @@
 ### 📚 **Theory Hub**
 - **Comprehensive Subject Coverage**: Mathematics, Physics, Chemistry, English, and Logical Reasoning
 - **Interactive Content**: Detailed theory with formulas, examples, and explanations
+- **Enhanced Chemistry Section**:
+  - 🧪 **16 Essential Organic Reagents** with detailed mechanisms and applications
+  - ⚗️ **26+ Named Reactions** (Clemmensen, Wolff-Kishner, Friedel-Crafts, Sandmeyer, etc.)
+  - 🔄 **23+ Important Conversions** including modern coupling reactions (Heck, Suzuki, Wittig)
+  - 📝 **30-Question Organic Quiz** with timer and detailed explanations
 - **PDF Integration**: Google Docs embedded PDF viewers for each subject
-- **Tab-based Interface**: Switch between theory content and PDF references seamlessly
+- **Tab-based Interface**: Switch between theory content, organic reactions, quizzes, and PDF references
 
 ### 🧠 **Practice Quiz System**
 - **Grammar Mastery**: Advanced grammar concepts and rules
@@ -44,6 +49,19 @@
 - **Personalized Experience**: Custom user profiles
 - **Exam Date Tracking**: Countdown timer to BITSAT exam
 - **Progress Tracking**: Monitor your preparation journey
+- **Performance Mode**: Disable animations for better performance on low-end devices
+
+### 🧪 **Advanced Chemistry Features**
+- **Comprehensive Organic Chemistry**: Complete coverage of BITSAT organic chemistry syllabus
+- **Reagent Database**: 16 essential reagents with mechanisms, conditions, and examples
+- **Named Reactions Library**: 26+ important reactions with detailed mechanisms
+- **Conversion Pathways**: 23+ key transformations including:
+  - Amine synthesis methods (Gabriel, Hofmann, Curtius, Schmidt)
+  - Carbon-carbon bond formation (Aldol, Claisen, Michael, Mannich)
+  - Rearrangement reactions (Beckmann, Favorskii, Wolff, Pinacol)
+  - Modern coupling reactions (Heck, Suzuki, Wittig, Diels-Alder)
+- **Interactive Quiz System**: Timed organic chemistry quiz with explanations
+- **Visual Learning**: Reaction diagrams and mechanism illustrations
 
 ## 🎨 Design Features
 
@@ -144,16 +162,24 @@ Visit the live application: [BITSAT Prep Hub](https://your-domain.com)
 
 ```
 bitsat-prep-hub/
-├── index.html              # Main application page
-├── theory.html             # Theory hub page
-├── styles.css              # Main stylesheet with animations
-├── main.js                 # Core application logic
-├── theory.js               # Theory section functionality
-├── server.js               # Backend server (Node.js/Express)
-├── package.json            # Node.js dependencies
-├── netlify.toml           # Netlify deployment configuration
-├── favicon.ico            # Application icon
-└── README.md              # This file
+├── index.html                      # Main application page
+├── theory.html                     # Theory hub navigation page
+├── theory-chemistry.html           # Enhanced chemistry theory page
+├── theory-physics.html             # Physics theory page
+├── theory-maths.html               # Mathematics theory page
+├── theory-english.html             # English theory page
+├── theory-logical-reasoning.html   # Logical reasoning theory page
+├── styles.css                      # Main stylesheet with animations
+├── main.js                         # Core application logic
+├── theory.js                       # Theory section functionality
+├── theory-common.js                # Shared theory page functionality
+├── chemistry-reactions.js          # Comprehensive organic chemistry content
+├── THEORY_STRUCTURE.md             # Theory section documentation
+├── server.js                       # Backend server (Node.js/Express)
+├── package.json                    # Node.js dependencies
+├── netlify.toml                   # Netlify deployment configuration
+├── favicon.ico                    # Application icon
+└── README.md                      # This file
 ```
 
 ## 🎨 Customization
@@ -222,10 +248,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📊 Project Stats
 
 - **Languages**: HTML, CSS, JavaScript
-- **Files**: 8 core files
-- **Features**: 15+ major features
+- **Files**: 12+ core files
+- **Features**: 20+ major features
+- **Chemistry Content**: 65+ reactions, reagents, and conversions
+- **Quiz Questions**: 150+ practice questions across subjects
 - **Responsive**: 100% mobile-friendly
-- **Performance**: Optimized for fast loading
+- **Performance**: Optimized for fast loading with performance mode
 
 ---
 
