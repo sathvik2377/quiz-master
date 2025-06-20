@@ -4634,7 +4634,33 @@ function mergeVocabularyData() {
         quizData.meanings = [...quizData.meanings, ...vocabularyData.meanings];
 
         console.log(`Loaded vocabulary data: ${quizData.synonyms.length} synonyms, ${quizData.antonyms.length} antonyms, ${quizData.meanings.length} meanings`);
+
+        // Update the question counts in the UI
+        updateVocabularyQuestionCounts();
     }
+}
+
+// Update vocabulary question counts in the UI
+function updateVocabularyQuestionCounts() {
+    // Use setTimeout to ensure DOM elements are available
+    setTimeout(() => {
+        const synonymsCount = document.querySelector('.vocabulary-option-btn[onclick="startQuiz(\'synonyms\')"] .question-count');
+        const antonymsCount = document.querySelector('.vocabulary-option-btn[onclick="startQuiz(\'antonyms\')"] .question-count');
+        const meaningsCount = document.querySelector('.vocabulary-option-btn[onclick="startQuiz(\'meanings\')"] .question-count');
+
+        if (synonymsCount) {
+            synonymsCount.textContent = `${quizData.synonyms.length} Questions`;
+            console.log(`Updated synonyms count to: ${quizData.synonyms.length}`);
+        }
+        if (antonymsCount) {
+            antonymsCount.textContent = `${quizData.antonyms.length} Questions`;
+            console.log(`Updated antonyms count to: ${quizData.antonyms.length}`);
+        }
+        if (meaningsCount) {
+            meaningsCount.textContent = `${quizData.meanings.length} Questions`;
+            console.log(`Updated meanings count to: ${quizData.meanings.length}`);
+        }
+    }, 100);
 }
 
 // Initialize files list on page load
