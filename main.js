@@ -333,6 +333,615 @@ const quizData = {
             ],
             correct: 1,
             explanation: "After 'wish', use 'were' for all persons in hypothetical situations."
+        },
+        // BITSAT Grammar Questions - Error Detection
+        {
+            question: "Find the error in this sentence: 'We discussed about the problem so thoroughly on the eve of the examination that I found it very easy to work it out.'",
+            options: [
+                "We discussed about the problem so thoroughly",
+                "on the eve of the examination",
+                "that I found it very easy to work it out",
+                "No error"
+            ],
+            correct: 0,
+            explanation: "'Discussed' should not be followed by 'about'. The correct form is 'We discussed the problem'."
+        },
+        {
+            question: "Find the error in this sentence: 'An Indian ship laden with merchandise got drowned in the Pacific Ocean.'",
+            options: [
+                "An Indian ship",
+                "laden with merchandise",
+                "got drowned in the Pacific Ocean",
+                "No error"
+            ],
+            correct: 2,
+            explanation: "Ships 'sink' or 'are sunk', they don't 'get drowned'. The correct form is 'sank in the Pacific Ocean'."
+        },
+        {
+            question: "Find the error in this sentence: 'I could not put up in a hotel because the boarding and lodging charges were exorbitant.'",
+            options: [
+                "I could not put up in a hotel",
+                "because the boarding and lodging charges",
+                "were exorbitant",
+                "No error"
+            ],
+            correct: 0,
+            explanation: "The correct phrase is 'put up at a hotel', not 'put up in a hotel'."
+        },
+        {
+            question: "Find the error in this sentence: 'My father gave me a pair of binocular on my birthday.'",
+            options: [
+                "My father gave me",
+                "a pair of binocular",
+                "on my birthday",
+                "No error"
+            ],
+            correct: 1,
+            explanation: "'Binocular' should be 'binoculars' (plural form). The correct form is 'a pair of binoculars'."
+        },
+        {
+            question: "Find the error in this sentence: 'The teacher as well as his students all left for the trip.'",
+            options: [
+                "The teacher as well as his students",
+                "all left",
+                "for the trip",
+                "No error"
+            ],
+            correct: 1,
+            explanation: "When using 'as well as', the verb agrees with the first subject. It should be 'has left' to agree with 'teacher'."
+        },
+        {
+            question: "Find the error in this sentence: 'Despite being good teacher he has no influence on his pupil.'",
+            options: [
+                "Despite being",
+                "good teacher",
+                "he has no influence on his pupil",
+                "No error"
+            ],
+            correct: 1,
+            explanation: "The article 'a' is missing before 'good teacher'. It should be 'Despite being a good teacher'."
+        },
+        {
+            question: "Find the error in this sentence: 'Yesterday, when we were returning from the party, our car met with an accident but we were fortunate to reach our home safely.'",
+            options: [
+                "Yesterday, when we were returning from the party",
+                "our car met with an accident but",
+                "we were fortunate to reach our home safely",
+                "No error"
+            ],
+            correct: 3,
+            explanation: "This sentence is grammatically correct. No error is present."
+        },
+        {
+            question: "Find the error in this sentence: 'When one hears of the incident about the plane crash he feels very sorry.'",
+            options: [
+                "When one hears of the incident",
+                "about the plane crash",
+                "he feels very sorry",
+                "No error"
+            ],
+            correct: 2,
+            explanation: "The pronoun should agree with 'one'. It should be 'one feels very sorry' instead of 'he feels very sorry'."
+        },
+        {
+            question: "Find the error in this sentence: 'If went there with a view to survey the entire procedure.'",
+            options: [
+                "If went there",
+                "with a view to survey",
+                "the entire procedure",
+                "No error"
+            ],
+            correct: 0,
+            explanation: "The sentence is incomplete. It should be 'I went there' or 'If I went there'."
+        },
+        {
+            question: "Find the error in this sentence: 'It had laid in the closet for a week before we found it.'",
+            options: [
+                "It had laid",
+                "in the closet",
+                "for a week before we found it",
+                "No error"
+            ],
+            correct: 0,
+            explanation: "'Laid' is the past tense of 'lay' (to put down). The correct form is 'It had lain' (past participle of 'lie')."
+        },
+        {
+            question: "Find the error in this sentence: 'Smoke from diesel engines become visible as the carbon content increases.'",
+            options: [
+                "Smoke from diesel engines",
+                "become visible",
+                "as the carbon content increases",
+                "No error"
+            ],
+            correct: 1,
+            explanation: "'Smoke' is singular, so the verb should be 'becomes' not 'become'."
+        },
+        {
+            question: "Find the error in this sentence: 'The moon is shining brightly tonight, is it?'",
+            options: [
+                "The moon",
+                "is shining",
+                "brightly tonight, is it?",
+                "No error"
+            ],
+            correct: 2,
+            explanation: "The question tag should be 'isn't it?' not 'is it?' because the main clause is positive."
+        },
+        {
+            question: "Find the error in this sentence: 'There was great excitement on planet Mars this week, wasn't there?'",
+            options: [
+                "There was great excitement",
+                "on planet Mars this week",
+                "wasn't there?",
+                "No error"
+            ],
+            correct: 3,
+            explanation: "This sentence is grammatically correct. No error is present."
+        },
+        {
+            question: "Find the error in this sentence: 'Mother Teresa asked a building where she and her workers could care for the poor people always.'",
+            options: [
+                "Mother Teresa asked a building",
+                "where she and her workers",
+                "could care for the poor people always",
+                "No error"
+            ],
+            correct: 0,
+            explanation: "You don't 'ask a building'. It should be 'Mother Teresa asked for a building'."
+        },
+        {
+            question: "Find the error in this sentence: 'You may not realize it but the weather in Barbados during Christmas is like New York in June.'",
+            options: [
+                "You may not realize it",
+                "but the weather in Barbados during Christmas",
+                "is like New York in June",
+                "No error"
+            ],
+            correct: 2,
+            explanation: "The comparison is incomplete. It should be 'is like the weather in New York in June' or 'is like that of New York in June'."
+        },
+        {
+            question: "Find the error in this sentence: 'The parents decided it was worth the risk because these children would have succumbed their disease before adulthood.'",
+            options: [
+                "The parents decided it was worth",
+                "because these children would have succumbed their",
+                "disease before adulthood",
+                "No error"
+            ],
+            correct: 1,
+            explanation: "'Succumbed' should be followed by 'to'. The correct form is 'would have succumbed to their disease'."
+        },
+        // BITSAT Grammar Questions - Sentence Improvement
+        {
+            question: "Improve this sentence: 'It was not possible to drag any conclusion so he left the case.'",
+            options: [
+                "Fetch",
+                "Find",
+                "Draw",
+                "No improvement"
+            ],
+            correct: 2,
+            explanation: "The correct phrase is 'draw a conclusion', not 'drag a conclusion'."
+        },
+        {
+            question: "Improve this sentence: 'I am looking after my pen which is missing.'",
+            options: [
+                "Looking for",
+                "Looking in",
+                "Looking back",
+                "No improvement"
+            ],
+            correct: 0,
+            explanation: "'Looking for' means searching for something. 'Looking after' means taking care of something."
+        },
+        {
+            question: "Improve this sentence: 'They requested me to follow them.'",
+            options: [
+                "Ordered",
+                "Urged",
+                "Asked",
+                "No improvement"
+            ],
+            correct: 2,
+            explanation: "'Asked' is more appropriate than 'requested' in this context for a simple request."
+        },
+        {
+            question: "Improve this sentence: 'She did not believed me.'",
+            options: [
+                "Believing",
+                "Believe to",
+                "Believe",
+                "No improvement"
+            ],
+            correct: 2,
+            explanation: "After 'did not', use the base form of the verb: 'She did not believe me'."
+        },
+        {
+            question: "Improve this sentence: 'I am fine, what about you?'",
+            options: [
+                "Your",
+                "Yours",
+                "Yourself",
+                "No improvement"
+            ],
+            correct: 3,
+            explanation: "The sentence is already correct. 'What about you?' is the proper form."
+        },
+        // BITSAT Reading Comprehension Questions
+        {
+            question: "Reading Comprehension: 'At this stage of civilization, when many nations are brought into close and vital contact for good and evil, it is essential, as never before, that their gross ignorance of one another should be diminished, that they should begin to understand a little of one another's historical experience and resulting mentality. It is the fault of the English to expect the people of other countries to react as they do, to political and international situations. Our genuine goodwill and good intentions are often brought to nothing, because we expect other people to be like us. This would be corrected if we knew the history, not necessarily in detail but in broad outlines, of the social and political conditions which have given to each nation its present character.' According to the author, the 'mentality' of a nation is mainly a product of its:",
+            options: [
+                "History",
+                "International position",
+                "Politics",
+                "Present character"
+            ],
+            correct: 0,
+            explanation: "The passage states that nations should understand 'one another's historical experience and resulting mentality', indicating mentality comes from history."
+        },
+        {
+            question: "Reading Comprehension (same passage): The need for a greater understanding between nations:",
+            options: [
+                "Was always there",
+                "Is no longer there",
+                "Is more today than ever before",
+                "Will always be there"
+            ],
+            correct: 2,
+            explanation: "The passage states 'it is essential, as never before' indicating the need is greater now than ever."
+        },
+        {
+            question: "Reading Comprehension (same passage): The character of a nation is the result of its:",
+            options: [
+                "Mentality",
+                "Cultural heritage",
+                "Gross ignorance",
+                "Socio-political conditions"
+            ],
+            correct: 3,
+            explanation: "The passage mentions 'social and political conditions which have given to each nation its present character'."
+        },
+        {
+            question: "Reading Comprehension (same passage): According to the author, his countrymen should:",
+            options: [
+                "Read the story of other nations",
+                "Have a better understanding of other nations",
+                "Not react to other actions",
+                "Have vital contacts with other nations"
+            ],
+            correct: 1,
+            explanation: "The passage emphasizes the need to understand other nations' historical experience and mentality."
+        },
+        {
+            question: "Reading Comprehension: 'To write well you have to be able to write clearly and logically and you cannot do this unless you can think clearly and logically. If you cannot do this yet, you should train yourself to do it by taking particular problems and following them through, point by point, to a solution, without leaving anything out and without avoiding any difficulties that you meet.' To write, a person must train himself in:",
+            options: [
+                "Dealing with a difficult problem",
+                "Not leaving anything out",
+                "Thinking clearly and logically",
+                "Following a step-by-step approach"
+            ],
+            correct: 2,
+            explanation: "The passage states 'you cannot write clearly and logically unless you can think clearly and logically'."
+        },
+        {
+            question: "Reading Comprehension (writing passage): Initially it is difficult to write because:",
+            options: [
+                "A good dictionary is not used",
+                "Ideas occur without any sequence",
+                "Aids to correct writing are not known",
+                "Exact usages of words are not known"
+            ],
+            correct: 1,
+            explanation: "The passage mentions 'Several unconnected ideas may occur together' as an initial difficulty."
+        },
+        {
+            question: "Reading Comprehension (writing passage): According to the passage, writing style can be improved by:",
+            options: [
+                "Thinking logically",
+                "Writing clearly",
+                "Undergoing training",
+                "Reading widely"
+            ],
+            correct: 3,
+            explanation: "The passage states 'you should read widely and use a good dictionary to help you find the exact meanings and correct usages of words'."
+        },
+        {
+            question: "Reading Comprehension (writing passage): Famous writers have achieved success by:",
+            options: [
+                "Using their linguistic resources properly",
+                "Disciplining their skill",
+                "Following only one idea",
+                "Waiting for inspiration"
+            ],
+            correct: 1,
+            explanation: "The passage emphasizes 'disciplining yourself to write' and mentions that inspiration is rare, success comes from hard work."
+        },
+        {
+            question: "Reading Comprehension: 'The likelihood of at least 600,000 deaths being caused annually in India by fine particulate matter pollution in the air is cause for worry... The WHO Global Burden of Disease study has been working to estimate pollution-linked health impacts, such as stroke and ischemic heart disease, acute lower respiratory infection and chronic obstructive pulmonary disease.' According to the WHO Global Burden of Disease study, which of the following is/are pollution-linked health impacts?",
+            options: [
+                "Only infection of the lower respiratory system",
+                "Only stroke and ischemic heart disease",
+                "Both infection and chronic obstructive pulmonary disease",
+                "All of the above"
+            ],
+            correct: 3,
+            explanation: "The passage lists stroke and ischemic heart disease, acute lower respiratory infection, and chronic obstructive pulmonary disease as pollution-linked health impacts."
+        },
+        {
+            question: "Reading Comprehension (pollution passage): The conclusion regarding deaths attributed to particulate matter 2.5 micrometers is considered to be caveated because:",
+            options: [
+                "Measurement of all aspects of PM2.5 has been done comprehensively",
+                "Measurement of all aspects of PM2.5 is not radical",
+                "Relation between pollution, disease and death is complete",
+                "None of these"
+            ],
+            correct: 3,
+            explanation: "The passage states the conclusion is caveated because 'comprehensive measurement of PM2.5 is not yet being done and the linkages between pollution, disease and deaths need further study'."
+        },
+        {
+            question: "Reading Comprehension (pollution passage): Which of the following is/are not true in the context of the passage?",
+            options: [
+                "Eastern and Southern states are worst hit in winter by burning of biomass",
+                "The smallest particulate matter PM2.5 penetrates and gets lodged in lungs",
+                "Data on fine particulates in India show that in several locations the pollutants come from the smoke emitted by vehicles",
+                "None is true"
+            ],
+            correct: 0,
+            explanation: "The passage mentions 'northern and eastern States' are worst-hit, not 'eastern and southern states'."
+        },
+        {
+            question: "Reading Comprehension (pollution passage): As per the given passage, which of the following is/are the measures for lowering particulate matter in the atmosphere?",
+            options: [
+                "Only making cleaner fuels available",
+                "Both making cleaner fuels available and landscaping open areas",
+                "All of the above (cleaner fuels, landscaping, and scientific cookstoves)",
+                "None of these"
+            ],
+            correct: 2,
+            explanation: "The passage mentions providing cleaner fuels, scientifically designed cookstoves, and landscaping open spaces as measures to reduce particulate matter."
+        },
+        {
+            question: "Reading Comprehension: 'Like watering a plant, we grow our friendships (and all our relationships) by nurturing them... It is an unconditional experience where you receive as much as you give.' In good friendships, we:",
+            options: [
+                "Give and receive",
+                "Neither give nor receive",
+                "Only give",
+                "Only receive"
+            ],
+            correct: 0,
+            explanation: "The passage states 'you receive as much as you give' indicating both giving and receiving in friendships."
+        },
+        {
+            question: "Reading Comprehension (friendship passage): Empathy means:",
+            options: [
+                "Someone else's misfortunes",
+                "The ability to share and understand another's feelings",
+                "Skill and efficiency",
+                "Ability to do something"
+            ],
+            correct: 1,
+            explanation: "Empathy is defined as the ability to understand and share the feelings of another person."
+        },
+        {
+            question: "Reading Comprehension (friendship passage): Through strong friendships, we gain:",
+            options: [
+                "Only acceptance",
+                "Only attention",
+                "Acceptance and tolerance",
+                "Only tolerance"
+            ],
+            correct: 2,
+            explanation: "The passage mentions 'we gain tolerance and acceptance for our own differences' through friendships."
+        },
+        {
+            question: "Reading Comprehension (friendship passage): Friendship and relationships grow when they are:",
+            options: [
+                "Compared",
+                "Divided",
+                "Favored",
+                "Nurtured"
+            ],
+            correct: 3,
+            explanation: "The passage begins with 'Like watering a plant, we grow our friendships (and all our relationships) by nurturing them'."
+        },
+        {
+            question: "Reading Comprehension: 'The first working steam-powered vehicle was designed and most likely built by Ferdinand Verbiest, a Flemish member of a Jesuit mission in China around 1672... Nicolas-Joseph Cugnot is widely credited with building the first full-scale, self-propelled mechanical vehicle or automobile in about 1769; he also created a steam-powered tricycle. He constructed two steam tractors for the French Army, one of which is preserved in the French National Conservatory of Arts and Crafts.' Cugnot built steam tractors for:",
+            options: [
+                "The Chinese Emperor",
+                "The French Army",
+                "The Jesuit mission",
+                "The French Conservatory"
+            ],
+            correct: 1,
+            explanation: "The passage clearly states 'He constructed two steam tractors for the French Army'."
+        },
+        {
+            question: "Reading Comprehension (steam vehicle passage): The problem with Trevithick's Puffing Devil was:",
+            options: [
+                "Its incapability to carry a driver or a passenger",
+                "With the water supply",
+                "Its inability to maintain steam pressure",
+                "Its combustion engine"
+            ],
+            correct: 2,
+            explanation: "The passage states about Trevithick's Puffing Devil: 'It was unable to maintain sufficient steam pressure for long periods'."
+        },
+        // BITSAT Sentence Arrangement/Composition Questions
+        {
+            question: "Sentence Arrangement: 1. He is a famous doctor. P. Once I had to consult with him. Q. I never believed him. R. He suggested me a proper remedy. S. I became completely fine. 6. Now I also admit this fact. Find the proper order:",
+            options: [
+                "PQRS",
+                "QPSR",
+                "QPRS",
+                "RQSP"
+            ],
+            correct: 2,
+            explanation: "Logical sequence: Q(I never believed him) → P(Once I consulted) → R(He suggested remedy) → S(I became fine) → leads to admitting the fact."
+        },
+        {
+            question: "Sentence Arrangement: 1. We don't know the plan of Ram. P. He cares for his friends. Q. He is a complete person. R. We want some help and advice. S. As we are in trouble. 6. We hope he will do his best for us. Find the proper order:",
+            options: [
+                "PRSQ",
+                "QPRS",
+                "PQRS",
+                "PSRQ"
+            ],
+            correct: 1,
+            explanation: "Logical sequence: Q(He is complete) → P(He cares for friends) → R(We want help) → S(As we are in trouble) → leads to hoping he'll help."
+        },
+        {
+            question: "Sentence Arrangement: 1. It is not my problem. P. All residents of this society are careless. Q. I am unable to convince anyone. R. They don't want to do some good. S. Every one seems to be unwise here. 6. We all have to suffer one day. Find the proper order:",
+            options: [
+                "PRSQ",
+                "PRQS",
+                "PQRS",
+                "PSRQ"
+            ],
+            correct: 0,
+            explanation: "Logical sequence: P(All residents careless) → R(Don't want to do good) → S(Everyone unwise) → Q(Unable to convince) → leads to suffering."
+        },
+        {
+            question: "Sentence Arrangement: 1. Today we live in a modern technology era. P. We have a lot of problems now. Q. We want to get everything in one day. R. Ancient time was quite pleasant. S. We had no problems then. 6. Perhaps greed is the main cause for this. Find the proper order:",
+            options: [
+                "PQRS",
+                "PQRSE",
+                "SRQP",
+                "RPQS"
+            ],
+            correct: 3,
+            explanation: "Logical sequence: R(Ancient time pleasant) → P(We have problems now) → Q(Want everything quickly) → S(No problems then) → leads to greed being the cause."
+        },
+        {
+            question: "Sentence Arrangement: 1. He is a common man. P. Yesterday our city saw a brutal crime. Q. Police is trying to arrest innocent persons. R. The criminals are well known. S. Police as well as the whole system is corrupt. 6. Police will arrest him as he is an easy target. Find the proper order:",
+            options: [
+                "PRSQ",
+                "PQSR",
+                "PQRS",
+                "PSQR"
+            ],
+            correct: 0,
+            explanation: "Logical sequence: P(Brutal crime occurred) → R(Criminals well known) → S(System corrupt) → Q(Police arresting innocent) → leads to targeting common man."
+        },
+        {
+            question: "Sentence Arrangement: 1. I want to change the room. P. Last month I got a job. Q. I had been living there for six months. R. The office is far from the room. S. I want to cut expenses of traveling. 6. Hopefully I will do this next week. Find the proper order:",
+            options: [
+                "PQRS",
+                "PRSQ",
+                "QPRS",
+                "PQSR"
+            ],
+            correct: 2,
+            explanation: "Logical sequence: Q(Living there 6 months) → P(Got job last month) → R(Office far from room) → S(Want to cut travel expenses) → leads to changing room."
+        },
+        {
+            question: "Paragraph Arrangement: A. Tasty and healthy food can help you bring out their best. B. One minute they are toddlers and next you see them in their next adventure. C. Your young ones seem to be growing so fast. D. Being their loving custodians, you always want to see them doing well. E. Their eyes sparkle with curiosity and endless questions on their tongues. Find the order:",
+            options: [
+                "DBCEA",
+                "CADEB",
+                "CBEDA",
+                "ECABD"
+            ],
+            correct: 2,
+            explanation: "Logical flow: C(Growing fast) → B(Toddlers to adventures) → E(Eyes sparkle with curiosity) → D(Want them to do well) → A(Healthy food helps)."
+        },
+        {
+            question: "Paragraph Arrangement: A. It is hoping that overseas friends will bring in big money and lift the morale of the people. B. But a lot needs to be done to kick-start industrial revival. C. People had big hopes from the new government. D. So far government has only given an incremental push to existing policies and programmes. E. Government is to go for big-time reforms, which it promised. Find the order:",
+            options: [
+                "BCDAE",
+                "EADCB",
+                "DABCE",
+                "CDEAB"
+            ],
+            correct: 3,
+            explanation: "Logical flow: C(People had hopes) → D(Government gave incremental push) → E(Government to go for reforms) → A(Hoping overseas friends help) → B(But lot needs to be done)."
+        },
+        {
+            question: "Paragraph Arrangement: A. Forecasting the weather has always been a difficult business. B. During a period of drought, streams and rivers dried up, the cattle died from thirst and were ruined. C. Many different things affect the weather and we have to study them carefully to make accurate forecasts. D. Ancient Egyptians had no need of weather as the Nile valley hardly ever changes. E. In early times, when there were no instruments, such as the thermometer or the barometer, a man looked for tell-tale signs in the sky. Find the order:",
+            options: [
+                "ABDCE",
+                "EDCBA",
+                "ACBDE",
+                "BDCAE"
+            ],
+            correct: 2,
+            explanation: "Logical flow: A(Weather forecasting difficult) → C(Many things affect weather) → B(Drought example) → D(Ancient Egyptians) → E(Early times without instruments)."
+        },
+        {
+            question: "Sentence Arrangement: S1: A force exists between every body in the universe. P: Normally it is very small but when one of the bodies is a planet, like earth, the force is considerable. Q: It has been investigated by many scientists including Galileo and Newton. R: Everything on or near the surface of the earth is attracted by the mass of earth. S: This gravitational force depends on the mass of the bodies involved. S6: The greater the mass, the greater is the earth's force of attraction on it. Find the proper sequence:",
+            options: [
+                "PRQS",
+                "PRSQ",
+                "QSRP",
+                "QSPR"
+            ],
+            correct: 3,
+            explanation: "Logical sequence: Q(Scientists investigated) → S(Force depends on mass) → P(Normally small but considerable for planets) → R(Everything attracted to earth) → leads to greater mass, greater attraction."
+        },
+        {
+            question: "Sentence Arrangement: S1: Calcutta unlike other cities keeps its trams. P: As a result, there is horrendous congestion. Q: It was going to be the first in South Asia. R: They run down the center of the road. S: To ease it, the city decided to build an underground railway line. S6: The foundation stone was laid in 1972. Find the proper sequence:",
+            options: [
+                "PRSQ",
+                "PSQR",
+                "SQRP",
+                "RPSQ"
+            ],
+            correct: 3,
+            explanation: "Logical sequence: R(Trams run down center) → P(Causes congestion) → S(Decided to build underground) → Q(First in South Asia) → leads to foundation stone in 1972."
+        },
+        {
+            question: "Sentence Arrangement: (B) The Finance Ministry's warning to potential investors in bitcoin and other cryptocurrencies has come at a time when a new, seemingly attractive investment area has opened up that few have enough information about. Find the order of other sentences: (A) One of the main reasons for this volatility is speculation... (C) A number of investors, daunted by the high price... (D) Investment in bitcoin and other cryptocurrencies increased tremendously... (E) The price of bitcoin, the most popular of all cryptocurrencies... (F) The government's caution comes on top of three warnings...",
+            options: [
+                "CDEFA",
+                "EAFDC",
+                "DCAEF",
+                "ECDAF"
+            ],
+            correct: 2,
+            explanation: "Logical flow after B: D(Investment increased) → C(Investors put money in spurious cryptocurrencies) → A(Volatility due to speculation) → E(Bitcoin price shot up) → F(Government caution on top of RBI warnings)."
+        },
+        {
+            question: "Sentence Arrangement: (C) Clinical trials involving human subjects have long been a flashpoint between bioethicists and clinical research organizations (CROs) in India. Find the order: (A) Such over-volunteering occurs more frequently... (B) Landmark amendments to the Drugs and Cosmetics Act... (D) The big problem plaguing clinical research... (E) While CROs have argued that more rules will stifle... (F) Sometimes CROs recruit them selectively...",
+            options: [
+                "ABDFE",
+                "BDEAF",
+                "DFAEB",
+                "BEDFA"
+            ],
+            correct: 2,
+            explanation: "Logical flow after C: D(Big problem is over-representation) → F(CROs recruit selectively) → A(Over-volunteering occurs frequently) → E(CROs argue more rules stifle) → B(Landmark amendments led to better protection)."
+        },
+        {
+            question: "Sentence Arrangement: 1. If Socrates P: innocent St. John was at Q: the age of seventy R: it may be imagined how S: was innocent at 6. the age of seventeen. Find the correct sequence:",
+            options: [
+                "QRSP",
+                "RPSQ",
+                "PRSQ",
+                "SQRP"
+            ],
+            correct: 3,
+            explanation: "Complete sentence: 'If Socrates was innocent at the age of seventy, it may be imagined how innocent St. John was at the age of seventeen.' Sequence: S-Q-R-P."
+        },
+        {
+            question: "Sentence Arrangement: 1. It was all P: that seemed Q: and glamorous here R: very wonderful S: in the old places 6. so ordinary. Find the correct sequence:",
+            options: [
+                "QSPR",
+                "SPRQ",
+                "RQSP",
+                "PRSQ"
+            ],
+            correct: 2,
+            explanation: "Complete sentence: 'It was all very wonderful and glamorous here that seemed in the old places so ordinary.' Sequence: R-Q-S-P."
+        },
+        {
+            question: "Sentence Arrangement: 1. If you feed a dog or tame a bear by hand, P: or until they succeed in getting it Q: and tear and pull at it. R: they get their teeth into the meat S: until they bite a piece off, 6. all out of your hand. Find the correct sequence:",
+            options: [
+                "PSRQ",
+                "SQRP",
+                "RPSQ",
+                "RQSP"
+            ],
+            correct: 3,
+            explanation: "Complete sentence describes the process: R(get teeth into meat) → Q(tear and pull at it) → S(until they bite piece off) → P(or until they succeed in getting it) → all out of your hand. Sequence: R-Q-S-P."
         }
     ],
     synonyms: [
