@@ -3,102 +3,7 @@
 
 const vocabularyData = {
     synonyms: [
-        {
-            question: "Choose the best synonym for 'ubiquitous':",
-            options: ["Present everywhere", "Rare and unusual", "Extremely valuable", "Temporarily available"],
-            correct: 0,
-            explanation: "'Ubiquitous' means present, appearing, or found everywhere.",
-            optionExplanations: {
-                0: "Present everywhere - correct! Ubiquitous means existing everywhere at the same time",
-                1: "Rare and unusual - opposite meaning; ubiquitous things are common",
-                2: "Extremely valuable - unrelated to frequency or presence",
-                3: "Temporarily available - refers to time, not widespread presence"
-            }
-        },
-        {
-            question: "Choose the best synonym for 'meticulous':",
-            options: ["Careless", "Moderately interested", "Completely confused", "Extremely careful"],
-            correct: 3,
-            explanation: "'Meticulous' means showing great attention to detail; very careful and precise.",
-            optionExplanations: {
-                0: "Careless - opposite meaning; meticulous implies great care",
-                1: "Moderately interested - refers to interest level, not attention to detail",
-                2: "Completely confused - refers to mental state, not work quality",
-                3: "Extremely careful - correct! Meticulous means paying careful attention to detail"
-            }
-        },
-        {
-            question: "Choose the best synonym for 'arduous':",
-            options: ["Easy", "Difficult and tiring", "Quick", "Enjoyable"],
-            correct: 1,
-            explanation: "'Arduous' means involving or requiring strenuous effort; difficult and tiring.",
-            optionExplanations: {
-                0: "Easy - opposite meaning; arduous tasks require great effort",
-                1: "Difficult and tiring - correct! Arduous means requiring strenuous effort",
-                2: "Quick - refers to speed, not difficulty level",
-                3: "Enjoyable - refers to pleasure, opposite of struggle in arduous tasks"
-            }
-        },
-        {
-            question: "Choose the best synonym for 'ephemeral':",
-            options: ["Lasting forever", "Very expensive", "Transitory", "Extremely large"],
-            correct: 2,
-            explanation: "'Ephemeral' means lasting for a very short time; transitory.",
-            optionExplanations: {
-                0: "Lasting forever - opposite meaning; ephemeral things are temporary",
-                1: "Very expensive - refers to cost, not duration",
-                2: "Transitory - correct! Ephemeral means temporary or short-lived",
-                3: "Extremely large - refers to size, not time duration"
-            }
-        },
-        {
-            question: "Choose the best synonym for 'tenacious':",
-            options: ["Weak", "Flexible", "Careless", "Persistent"],
-            correct: 3,
-            explanation: "'Tenacious' means tending to keep a firm hold; persistent.",
-            optionExplanations: {
-                0: "Weak - opposite of the strong determination in tenacious",
-                1: "Flexible - different from the firm hold of tenacious",
-                2: "Careless - opposite of the careful persistence in tenacious",
-                3: "Persistent - correct! Means continuing firmly despite difficulties"
-            }
-        },
-        {
-            question: "Choose the best synonym for 'copious':",
-            options: ["Abundant", "Scarce", "Tiny", "Expensive"],
-            correct: 0,
-            explanation: "'Copious' means abundant in supply or quantity; plentiful.",
-            optionExplanations: {
-                0: "Abundant - correct! Means existing in large quantities, same as copious",
-                1: "Scarce - opposite meaning; copious means plentiful",
-                2: "Tiny - refers to size, not quantity",
-                3: "Expensive - refers to cost, not quantity"
-            }
-        },
-        {
-            question: "Choose the best synonym for 'lucid':",
-            options: ["Confused", "Clear and understandable", "Very dark", "Extremely loud"],
-            correct: 1,
-            explanation: "'Lucid' means expressed clearly; easy to understand.",
-            optionExplanations: {
-                0: "Confused - opposite meaning; lucid means clear",
-                1: "Clear and understandable - correct! Lucid means easily comprehensible",
-                2: "Very dark - refers to light, not clarity of thought",
-                3: "Extremely loud - refers to sound, not clarity"
-            }
-        },
-        {
-            question: "Choose the best synonym for 'verbose':",
-            options: ["Using few words", "Speaking quietly", "Using too many words", "Speaking clearly"],
-            correct: 2,
-            explanation: "'Verbose' means using or expressed in more words than are needed.",
-            optionExplanations: {
-                0: "Using few words - opposite meaning; verbose means wordy",
-                1: "Speaking quietly - refers to volume, not word count",
-                2: "Using too many words - correct! Verbose means excessively wordy",
-                3: "Speaking clearly - refers to clarity, not word quantity"
-            }
-        },
+        // Challenging BITSAT-level Synonym Questions,
         {
             question: "Choose the best synonym for 'pragmatic':",
             options: ["Idealistic", "Practical and realistic", "Emotional", "Theoretical"],
@@ -531,6 +436,103 @@ const vocabularyData = {
                 2: "Excessive - correct! Exorbitant means unreasonably excessive",
                 3: "Threatening - menacing, unrelated to amounts or prices"
             }
+        },
+        // Additional Challenging Synonym Questions
+        {
+            question: "Choose the best synonym for 'PERSPICACIOUS':",
+            options: ["Obtuse", "Astute", "Verbose", "Reticent"],
+            correct: 1,
+            explanation: "'Perspicacious' means having keen insight or discernment; astute.",
+            optionExplanations: {
+                0: "Obtuse - opposite meaning; means lacking sharpness of mind",
+                1: "Astute - correct! Means having sharp insight and good judgment",
+                2: "Verbose - refers to being wordy, unrelated to mental acuity",
+                3: "Reticent - means reserved in speech, unrelated to insight"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'OBSEQUIOUS':",
+            options: ["Defiant", "Servile", "Candid", "Aloof"],
+            correct: 1,
+            explanation: "'Obsequious' means excessively eager to please or obey; servile.",
+            optionExplanations: {
+                0: "Defiant - opposite meaning; means boldly resistant",
+                1: "Servile - correct! Means excessively submissive or fawning",
+                2: "Candid - means frank and honest, unrelated to submissiveness",
+                3: "Aloof - means distant and reserved, opposite of eager to please"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'PERFUNCTORY':",
+            options: ["Meticulous", "Cursory", "Enthusiastic", "Deliberate"],
+            correct: 1,
+            explanation: "'Perfunctory' means carried out with minimal effort or care; cursory.",
+            optionExplanations: {
+                0: "Meticulous - opposite meaning; means extremely careful",
+                1: "Cursory - correct! Means hasty and superficial",
+                2: "Enthusiastic - opposite meaning; perfunctory lacks enthusiasm",
+                3: "Deliberate - opposite meaning; means careful and intentional"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'TRUCULENT':",
+            options: ["Peaceful", "Belligerent", "Timid", "Diplomatic"],
+            correct: 1,
+            explanation: "'Truculent' means eager or quick to argue or fight; aggressively defiant.",
+            optionExplanations: {
+                0: "Peaceful - opposite meaning; truculent implies aggression",
+                1: "Belligerent - correct! Means hostile and aggressive",
+                2: "Timid - opposite meaning; truculent implies boldness",
+                3: "Diplomatic - opposite meaning; implies peaceful negotiation"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'SANGUINE':",
+            options: ["Pessimistic", "Optimistic", "Melancholic", "Apathetic"],
+            correct: 1,
+            explanation: "'Sanguine' means optimistic or positive, especially in difficult situations.",
+            optionExplanations: {
+                0: "Pessimistic - opposite meaning; sanguine means hopeful",
+                1: "Optimistic - correct! Means hopeful and confident",
+                2: "Melancholic - opposite meaning; means sad and gloomy",
+                3: "Apathetic - means lacking interest, unrelated to optimism"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'VITUPERATIVE':",
+            options: ["Laudatory", "Abusive", "Conciliatory", "Neutral"],
+            correct: 1,
+            explanation: "'Vituperative' means bitter and abusive in language or manner.",
+            optionExplanations: {
+                0: "Laudatory - opposite meaning; means expressing praise",
+                1: "Abusive - correct! Means harsh and insulting",
+                2: "Conciliatory - opposite meaning; means intended to placate",
+                3: "Neutral - opposite meaning; vituperative is strongly negative"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'PUSILLANIMOUS':",
+            options: ["Courageous", "Craven", "Audacious", "Resolute"],
+            correct: 1,
+            explanation: "'Pusillanimous' means showing a lack of courage or determination; cowardly.",
+            optionExplanations: {
+                0: "Courageous - opposite meaning; pusillanimous means cowardly",
+                1: "Craven - correct! Means contemptibly lacking in courage",
+                2: "Audacious - opposite meaning; means showing boldness",
+                3: "Resolute - opposite meaning; means admirably determined"
+            }
+        },
+        {
+            question: "Choose the best synonym for 'RECALCITRANT':",
+            options: ["Compliant", "Obstinate", "Amenable", "Docile"],
+            correct: 1,
+            explanation: "'Recalcitrant' means having an obstinately uncooperative attitude.",
+            optionExplanations: {
+                0: "Compliant - opposite meaning; means willing to conform",
+                1: "Obstinate - correct! Means stubbornly refusing to change",
+                2: "Amenable - opposite meaning; means open to suggestion",
+                3: "Docile - opposite meaning; means easily taught or controlled"
+            }
         }
     ],
     
@@ -883,6 +885,115 @@ const vocabularyData = {
                 2: "Yawning - similar to drowsy (showing tiredness)",
                 3: "Wakeful - correct! Means alert and awake, opposite of drowsy"
             }
+        },
+        // Additional Challenging Antonym Questions
+        {
+            question: "Choose the word opposite in meaning to 'PERSPICACIOUS':",
+            options: ["Astute", "Obtuse", "Keen", "Discerning"],
+            correct: 1,
+            explanation: "'Obtuse' means slow to understand, opposite of perspicacious which means having keen insight.",
+            optionExplanations: {
+                0: "Astute - similar meaning to perspicacious",
+                1: "Obtuse - correct! Means lacking sharpness of mind, opposite of perspicacious",
+                2: "Keen - similar meaning to perspicacious",
+                3: "Discerning - similar meaning to perspicacious"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'MAGNANIMOUS':",
+            options: ["Generous", "Noble", "Petty", "Forgiving"],
+            correct: 2,
+            explanation: "'Petty' means small-minded, opposite of magnanimous which means generous and noble.",
+            optionExplanations: {
+                0: "Generous - similar meaning to magnanimous",
+                1: "Noble - similar meaning to magnanimous",
+                2: "Petty - correct! Means small-minded and ungenerous, opposite of magnanimous",
+                3: "Forgiving - similar meaning to magnanimous"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'PARSIMONIOUS':",
+            options: ["Frugal", "Lavish", "Economical", "Thrifty"],
+            correct: 1,
+            explanation: "'Lavish' means spending freely, opposite of parsimonious which means extremely frugal.",
+            optionExplanations: {
+                0: "Frugal - similar meaning to parsimonious",
+                1: "Lavish - correct! Means spending freely, opposite of parsimonious",
+                2: "Economical - similar meaning to parsimonious",
+                3: "Thrifty - similar meaning to parsimonious"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'TRUCULENT':",
+            options: ["Belligerent", "Conciliatory", "Aggressive", "Hostile"],
+            correct: 1,
+            explanation: "'Conciliatory' means intended to placate, opposite of truculent which means aggressively defiant.",
+            optionExplanations: {
+                0: "Belligerent - similar meaning to truculent",
+                1: "Conciliatory - correct! Means peaceful and placating, opposite of truculent",
+                2: "Aggressive - similar meaning to truculent",
+                3: "Hostile - similar meaning to truculent"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'SANGUINE':",
+            options: ["Optimistic", "Despondent", "Hopeful", "Confident"],
+            correct: 1,
+            explanation: "'Despondent' means dejected, opposite of sanguine which means optimistic.",
+            optionExplanations: {
+                0: "Optimistic - similar meaning to sanguine",
+                1: "Despondent - correct! Means dejected and hopeless, opposite of sanguine",
+                2: "Hopeful - similar meaning to sanguine",
+                3: "Confident - similar meaning to sanguine"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'OBSEQUIOUS':",
+            options: ["Servile", "Defiant", "Fawning", "Submissive"],
+            correct: 1,
+            explanation: "'Defiant' means boldly resistant, opposite of obsequious which means excessively submissive.",
+            optionExplanations: {
+                0: "Servile - similar meaning to obsequious",
+                1: "Defiant - correct! Means boldly resistant, opposite of obsequious",
+                2: "Fawning - similar meaning to obsequious",
+                3: "Submissive - similar meaning to obsequious"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'PERFUNCTORY':",
+            options: ["Cursory", "Thorough", "Superficial", "Hasty"],
+            correct: 1,
+            explanation: "'Thorough' means complete and careful, opposite of perfunctory which means superficial.",
+            optionExplanations: {
+                0: "Cursory - similar meaning to perfunctory",
+                1: "Thorough - correct! Means complete and careful, opposite of perfunctory",
+                2: "Superficial - similar meaning to perfunctory",
+                3: "Hasty - similar meaning to perfunctory"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'INSCRUTABLE':",
+            options: ["Mysterious", "Transparent", "Enigmatic", "Cryptic"],
+            correct: 1,
+            explanation: "'Transparent' means easily understood, opposite of inscrutable which means impossible to understand.",
+            optionExplanations: {
+                0: "Mysterious - similar meaning to inscrutable",
+                1: "Transparent - correct! Means easily understood, opposite of inscrutable",
+                2: "Enigmatic - similar meaning to inscrutable",
+                3: "Cryptic - similar meaning to inscrutable"
+            }
+        },
+        {
+            question: "Choose the word opposite in meaning to 'INDEFATIGABLE':",
+            options: ["Tireless", "Weary", "Persistent", "Energetic"],
+            correct: 1,
+            explanation: "'Weary' means tired, opposite of indefatigable which means tireless.",
+            optionExplanations: {
+                0: "Tireless - similar meaning to indefatigable",
+                1: "Weary - correct! Means tired, opposite of indefatigable (tireless)",
+                2: "Persistent - similar meaning to indefatigable",
+                3: "Energetic - similar meaning to indefatigable"
+            }
         }
     ],
     
@@ -947,174 +1058,149 @@ const vocabularyData = {
                 3: "To ignore completely - unrelated to proving innocence"
             }
         },
-        // BITSAT Fill-in-the-blank and meaning questions
+        // Challenging Word Meaning Questions
         {
-            question: "Fill in the blank: Freedom and equality are the ______ rights of every human.",
-            options: ["Inalienable", "Inscrutable", "Incalculable", "Institutional"],
-            correct: 0,
-            explanation: "'Inalienable' means unable to be taken away or given away by the possessor.",
-            optionExplanations: {
-                0: "Inalienable - correct! Means rights that cannot be taken away",
-                1: "Inscrutable - means impossible to understand or interpret",
-                2: "Incalculable - means too great to be calculated or estimated",
-                3: "Institutional - means relating to an institution or organization"
-            }
-        },
-        {
-            question: "Fill in the blank: The team was well trained and strong, but somehow their ______ was low.",
-            options: ["Morale", "Moral", "Feeling", "Consciousness"],
-            correct: 0,
-            explanation: "'Morale' means the confidence, enthusiasm, and discipline of a person or group.",
-            optionExplanations: {
-                0: "Morale - correct! Refers to team spirit and confidence",
-                1: "Moral - refers to principles of right and wrong behavior",
-                2: "Feeling - too general for this context",
-                3: "Consciousness - refers to awareness, not team spirit"
-            }
-        },
-        {
-            question: "Fill in the blank: His speech was disappointing; it ______ all the major issues.",
-            options: ["Projected", "Revealed", "Skirted", "Analyzed"],
-            correct: 2,
-            explanation: "'Skirted' means to go around or avoid dealing with something.",
-            optionExplanations: {
-                0: "Projected - means to present or promote an idea",
-                1: "Revealed - means to make known or show",
-                2: "Skirted - correct! Means avoided dealing with the issues",
-                3: "Analyzed - means examined in detail"
-            }
-        },
-        {
-            question: "What is a person who does not believe in any religion called?",
-            options: ["Philatelist", "Rationalist", "Atheist", "Pagan"],
-            correct: 2,
-            explanation: "An 'atheist' is a person who disbelieves or lacks belief in the existence of God or gods.",
-            optionExplanations: {
-                0: "Philatelist - a person who collects stamps",
-                1: "Rationalist - a person who bases opinions on reason and knowledge",
-                2: "Atheist - correct! A person who doesn't believe in any religion or god",
-                3: "Pagan - a person holding religious beliefs other than Christianity, Judaism, or Islam"
-            }
-        },
-        {
-            question: "What is a person who believes that pleasure is the chief good called?",
-            options: ["Stoic", "Hedonist", "Epicure", "Sensual"],
+            question: "What does 'PERSPICACIOUS' mean?",
+            options: ["Obtuse and slow", "Having keen insight", "Excessively talkative", "Lacking confidence"],
             correct: 1,
-            explanation: "A 'hedonist' is a person who believes that the pursuit of pleasure is the most important thing in life.",
+            explanation: "'Perspicacious' means having a ready insight into and understanding of things.",
             optionExplanations: {
-                0: "Stoic - a person who endures pain without showing feelings",
-                1: "Hedonist - correct! A person who believes pleasure is the chief good",
-                2: "Epicure - a person who takes particular pleasure in fine food and drink",
-                3: "Sensual - relating to physical rather than spiritual pleasures"
+                0: "Obtuse and slow - opposite meaning; perspicacious means sharp",
+                1: "Having keen insight - correct! Perspicacious means mentally sharp",
+                2: "Excessively talkative - unrelated to mental acuity",
+                3: "Lacking confidence - unrelated to intellectual ability"
             }
         },
         {
-            question: "What is a person who is in charge of a museum called?",
-            options: ["Caretaker", "Warden", "Supervisor", "Curator"],
-            correct: 3,
-            explanation: "A 'curator' is a keeper or custodian of a museum or other collection.",
-            optionExplanations: {
-                0: "Caretaker - a person employed to look after a building",
-                1: "Warden - an official responsible for supervising a particular place",
-                2: "Supervisor - a person who supervises workers or work",
-                3: "Curator - correct! A person in charge of a museum or collection"
-            }
-        },
-        // BITSAT Fill-in-the-blank Questions
-        {
-            question: "Fill in the blank: I ______ to go there when I was a student.",
-            options: ["Liked", "Used", "Prefer", "Denied"],
+            question: "What does 'OBSEQUIOUS' mean?",
+            options: ["Boldly defiant", "Excessively eager to please", "Completely honest", "Emotionally distant"],
             correct: 1,
-            explanation: "'Used' is correct in the phrase 'used to' which indicates a past habit or state.",
+            explanation: "'Obsequious' means obedient or attentive to an excessive or servile degree.",
             optionExplanations: {
-                0: "Liked - doesn't fit the context of past habit",
-                1: "Used - correct! 'Used to go' indicates a past habit or regular action",
-                2: "Prefer - present tense, doesn't fit past context",
-                3: "Denied - means refused, doesn't fit the context"
+                0: "Boldly defiant - opposite meaning; obsequious means submissive",
+                1: "Excessively eager to please - correct! Obsequious means servile",
+                2: "Completely honest - unrelated to submissiveness",
+                3: "Emotionally distant - opposite of eager to please"
             }
         },
         {
-            question: "Fill in the blank: She was angry ______ me.",
-            options: ["At", "About", "With", "In"],
-            correct: 2,
-            explanation: "'With' is the correct preposition to use after 'angry' when referring to a person.",
-            optionExplanations: {
-                0: "At - used with things or situations, not people",
-                1: "About - used with topics or issues, not people",
-                2: "With - correct! Used when angry at a person",
-                3: "In - not used with 'angry'"
-            }
-        },
-        {
-            question: "Fill in the blank: You should not laugh ______ the poor.",
-            options: ["On", "At", "With", "Over"],
+            question: "What does 'TRUCULENT' mean?",
+            options: ["Peaceful and calm", "Eager to argue or fight", "Extremely generous", "Highly intelligent"],
             correct: 1,
-            explanation: "'At' is the correct preposition meaning to mock or ridicule someone.",
+            explanation: "'Truculent' means eager or quick to argue or fight; aggressively defiant.",
             optionExplanations: {
-                0: "On - not used with 'laugh' in this context",
-                1: "At - correct! 'Laugh at' means to mock or ridicule",
-                2: "With - means to laugh together, not to mock",
-                3: "Over - not typically used with 'laugh' in this context"
+                0: "Peaceful and calm - opposite meaning; truculent means aggressive",
+                1: "Eager to argue or fight - correct! Truculent means belligerent",
+                2: "Extremely generous - unrelated to aggressiveness",
+                3: "Highly intelligent - unrelated to combativeness"
             }
         },
         {
-            question: "Fill in the blank: They were afraid ______ the lion, so they dropped the idea of hunting in the jungle.",
-            options: ["In", "To", "From", "Of"],
-            correct: 3,
-            explanation: "'Of' is the correct preposition to use after 'afraid'.",
-            optionExplanations: {
-                0: "In - not used with 'afraid'",
-                1: "To - not used with 'afraid'",
-                2: "From - not used with 'afraid'",
-                3: "Of - correct! 'Afraid of' is the standard phrase"
-            }
-        },
-        {
-            question: "Fill in the blank: Our company signed a profitable ______ last month.",
-            options: ["Issue", "Agenda", "Deal", "Paper"],
-            correct: 2,
-            explanation: "'Deal' refers to a business agreement or contract.",
-            optionExplanations: {
-                0: "Issue - refers to a problem or topic, not a business agreement",
-                1: "Agenda - refers to a list of items to be discussed",
-                2: "Deal - correct! A business agreement or contract",
-                3: "Paper - too general, doesn't specifically mean business agreement"
-            }
-        },
-        {
-            question: "Fill in the blank: What is your ______ for tonight?",
-            options: ["Principle", "Motto", "Plan", "Objective"],
-            correct: 2,
-            explanation: "'Plan' refers to what you intend to do for a specific time period.",
-            optionExplanations: {
-                0: "Principle - a fundamental rule or belief",
-                1: "Motto - a short phrase expressing a belief or ideal",
-                2: "Plan - correct! What you intend to do tonight",
-                3: "Objective - a goal, but too formal for this casual context"
-            }
-        },
-        {
-            question: "Fill in the blank: The miser gazed ______ at the pile of gold coins in front of him.",
-            options: ["Avidly", "Admiringly", "Thoughtfully", "Earnestly"],
-            correct: 0,
-            explanation: "'Avidly' means with great eagerness or greed, fitting for a miser looking at gold.",
-            optionExplanations: {
-                0: "Avidly - correct! Means with great eagerness or greed",
-                1: "Admiringly - means with respect or approval, less intense than avidly",
-                2: "Thoughtfully - means in a contemplative way, doesn't capture the greed",
-                3: "Earnestly - means seriously, but doesn't capture the greedy eagerness"
-            }
-        },
-        {
-            question: "Fill in the blank: I saw a ______ of cows in the field.",
-            options: ["Group", "Herd", "Swarm", "Flock"],
+            question: "What does 'PUSILLANIMOUS' mean?",
+            options: ["Extremely brave", "Lacking courage", "Very intelligent", "Highly energetic"],
             correct: 1,
-            explanation: "'Herd' is the correct collective noun for cows.",
+            explanation: "'Pusillanimous' means showing a lack of courage or determination; timid.",
             optionExplanations: {
-                0: "Group - too general, not the specific collective noun for cows",
-                1: "Herd - correct! The specific collective noun for cattle/cows",
-                2: "Swarm - used for insects like bees",
-                3: "Flock - used for birds or sheep"
+                0: "Extremely brave - opposite meaning; pusillanimous means cowardly",
+                1: "Lacking courage - correct! Pusillanimous means cowardly",
+                2: "Very intelligent - unrelated to courage",
+                3: "Highly energetic - unrelated to bravery"
+            }
+        },
+        {
+            question: "What does 'VITUPERATIVE' mean?",
+            options: ["Highly praising", "Bitter and abusive", "Extremely quiet", "Very generous"],
+            correct: 1,
+            explanation: "'Vituperative' means bitter and abusive in language or manner.",
+            optionExplanations: {
+                0: "Highly praising - opposite meaning; vituperative means critical",
+                1: "Bitter and abusive - correct! Vituperative means harshly critical",
+                2: "Extremely quiet - unrelated to verbal abuse",
+                3: "Very generous - unrelated to harsh language"
+            }
+        },
+        {
+            question: "What does 'RECALCITRANT' mean?",
+            options: ["Easily controlled", "Obstinately uncooperative", "Extremely helpful", "Very intelligent"],
+            correct: 1,
+            explanation: "'Recalcitrant' means having an obstinately uncooperative attitude toward authority.",
+            optionExplanations: {
+                0: "Easily controlled - opposite meaning; recalcitrant means uncontrollable",
+                1: "Obstinately uncooperative - correct! Recalcitrant means stubbornly defiant",
+                2: "Extremely helpful - opposite meaning; recalcitrant means unhelpful",
+                3: "Very intelligent - unrelated to cooperativeness"
+            }
+        },
+        {
+            question: "What does 'MAGNANIMOUS' mean?",
+            options: ["Petty and small-minded", "Generous in forgiving", "Extremely angry", "Very confused"],
+            correct: 1,
+            explanation: "'Magnanimous' means generous or forgiving, especially toward a rival or less powerful person.",
+            optionExplanations: {
+                0: "Petty and small-minded - opposite meaning; magnanimous means noble",
+                1: "Generous in forgiving - correct! Magnanimous means noble and generous",
+                2: "Extremely angry - unrelated to generosity",
+                3: "Very confused - unrelated to nobility of spirit"
+            }
+        },
+        {
+            question: "What does 'PARSIMONIOUS' mean?",
+            options: ["Extremely generous", "Excessively frugal", "Very talkative", "Highly intelligent"],
+            correct: 1,
+            explanation: "'Parsimonious' means extremely frugal; unwilling to spend.",
+            optionExplanations: {
+                0: "Extremely generous - opposite meaning; parsimonious means stingy",
+                1: "Excessively frugal - correct! Parsimonious means extremely thrifty",
+                2: "Very talkative - unrelated to spending habits",
+                3: "Highly intelligent - unrelated to frugality"
+            }
+        },
+        {
+            question: "What does 'PERFUNCTORY' mean?",
+            options: ["Extremely thorough", "Carried out with minimal effort", "Very enthusiastic", "Highly detailed"],
+            correct: 1,
+            explanation: "'Perfunctory' means carried out with a minimum of effort or reflection.",
+            optionExplanations: {
+                0: "Extremely thorough - opposite meaning; perfunctory means superficial",
+                1: "Carried out with minimal effort - correct! Perfunctory means cursory",
+                2: "Very enthusiastic - opposite meaning; perfunctory lacks enthusiasm",
+                3: "Highly detailed - opposite meaning; perfunctory means superficial"
+            }
+        },
+        {
+            question: "What does 'SANGUINE' mean?",
+            options: ["Extremely pessimistic", "Optimistic and confident", "Very angry", "Completely confused"],
+            correct: 1,
+            explanation: "'Sanguine' means optimistic or positive, especially in an apparently bad situation.",
+            optionExplanations: {
+                0: "Extremely pessimistic - opposite meaning; sanguine means hopeful",
+                1: "Optimistic and confident - correct! Sanguine means hopeful",
+                2: "Very angry - unrelated to optimism",
+                3: "Completely confused - unrelated to attitude"
+            }
+        },
+        {
+            question: "What does 'INSCRUTABLE' mean?",
+            options: ["Easily understood", "Impossible to understand", "Very talkative", "Extremely generous"],
+            correct: 1,
+            explanation: "'Inscrutable' means impossible to understand or interpret.",
+            optionExplanations: {
+                0: "Easily understood - opposite meaning; inscrutable means mysterious",
+                1: "Impossible to understand - correct! Inscrutable means enigmatic",
+                2: "Very talkative - unrelated to comprehensibility",
+                3: "Extremely generous - unrelated to understanding"
+            }
+        },
+        {
+            question: "What does 'INDEFATIGABLE' mean?",
+            options: ["Easily tired", "Persisting tirelessly", "Very confused", "Extremely lazy"],
+            correct: 1,
+            explanation: "'Indefatigable' means persisting tirelessly; showing sustained enthusiastic action.",
+            optionExplanations: {
+                0: "Easily tired - opposite meaning; indefatigable means untiring",
+                1: "Persisting tirelessly - correct! Indefatigable means never giving up",
+                2: "Very confused - unrelated to persistence",
+                3: "Extremely lazy - opposite meaning; indefatigable means energetic"
             }
         },
         {
