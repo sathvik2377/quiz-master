@@ -4348,82 +4348,142 @@ window.getAllUserEntries = getAllUserEntries;
 window.exportUserDataAsCSV = exportUserDataAsCSV;
 window.displayUserStats = displayUserStats;
 
-// Admin panel functions
-window.showAdminPanel = function() {
-    const stats = displayUserStats();
-    const adminHTML = `
-        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(30,30,30,0.9));
-                    color: white; padding: 30px; border-radius: 15px; z-index: 10000;
-                    max-width: 80vw; max-height: 80vh; overflow-y: auto;
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
-            <h2 style="color: #4fc3f7; margin-bottom: 20px;">📊 Admin Panel - User Statistics</h2>
+// Admin panel functions with password protection
+function promptAdminAccess() {
+    const adminPassword = 'sathvik@123456';
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                <div style="background: rgba(79,195,247,0.2); padding: 15px; border-radius: 10px;">
-                    <h3 style="color: #4fc3f7; margin: 0;">Total Entries</h3>
-                    <p style="font-size: 2rem; margin: 5px 0;">${stats.totalUsers}</p>
-                </div>
-                <div style="background: rgba(255,64,129,0.2); padding: 15px; border-radius: 10px;">
-                    <h3 style="color: #ff4081; margin: 0;">Unique Users</h3>
-                    <p style="font-size: 2rem; margin: 5px 0;">${stats.uniqueUsers}</p>
-                </div>
-            </div>
+    // Create custom password prompt modal
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        backdrop-filter: blur(10px);
+    `;
 
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #4fc3f7;">📅 Exam Date Distribution</h3>
-                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
-                    ${Object.entries(stats.examDates).map(([date, count]) =>
-                        `<div>${date}: ${count} users</div>`
-                    ).join('')}
-                </div>
-            </div>
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: linear-gradient(135deg,
+            rgba(20, 20, 40, 0.95) 0%,
+            rgba(30, 30, 60, 0.95) 100%);
+        padding: 40px;
+        border-radius: 20px;
+        border: 2px solid rgba(79, 195, 247, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+    `;
 
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #4fc3f7;">💻 Platform Distribution</h3>
-                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
-                    ${Object.entries(stats.platforms).map(([platform, count]) =>
-                        `<div>${platform}: ${count} users</div>`
-                    ).join('')}
-                </div>
-            </div>
+    modalContent.innerHTML = `
+        <div style="margin-bottom: 30px;">
+            <i class="fas fa-shield-alt" style="font-size: 3rem; color: #4fc3f7; margin-bottom: 15px;"></i>
+            <h2 style="color: white; margin-bottom: 10px;">Admin Access</h2>
+            <p style="color: rgba(255, 255, 255, 0.8);">Enter admin password to continue</p>
+        </div>
 
-            <div style="margin-bottom: 20px;">
-                <h3 style="color: #4fc3f7;">🕒 Recent Entries (Last 10)</h3>
-                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; max-height: 200px; overflow-y: auto;">
-                    ${stats.recentEntries.map(entry =>
-                        `<div style="margin-bottom: 5px; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 4px;">
-                            <strong>${entry.name}</strong> - ${entry.examDate}
-                            <br><small style="opacity: 0.7;">${entry.entryTimeFormatted}</small>
-                        </div>`
-                    ).join('')}
-                </div>
-            </div>
+        <div style="margin-bottom: 30px;">
+            <input type="password" id="adminPasswordInput" placeholder="Enter password..."
+                   style="width: 100%; padding: 15px; border: 2px solid rgba(79, 195, 247, 0.3);
+                          border-radius: 10px; background: rgba(255, 255, 255, 0.1);
+                          color: white; font-size: 16px; text-align: center;
+                          backdrop-filter: blur(10px);">
+        </div>
 
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="exportUserDataAsCSV()"
-                        style="background: #4fc3f7; color: white; border: none; padding: 10px 20px;
-                               border-radius: 8px; cursor: pointer; font-weight: bold;">
-                    📥 Export CSV
-                </button>
-                <button onclick="fetchServerStats()"
-                        style="background: #ff4081; color: white; border: none; padding: 10px 20px;
-                               border-radius: 8px; cursor: pointer; font-weight: bold;">
-                    🔄 Refresh Server Data
-                </button>
-                <button onclick="document.getElementById('adminPanel').remove()"
-                        style="background: #666; color: white; border: none; padding: 10px 20px;
-                               border-radius: 8px; cursor: pointer; font-weight: bold;">
-                    ❌ Close
-                </button>
-            </div>
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <button id="adminLoginBtn" style="background: linear-gradient(135deg, #4fc3f7, #ff4081);
+                                              color: white; border: none; padding: 12px 25px;
+                                              border-radius: 8px; cursor: pointer; font-weight: 600;
+                                              display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-sign-in-alt"></i> Access
+            </button>
+            <button id="adminCancelBtn" style="background: rgba(255, 255, 255, 0.1);
+                                               color: white; border: 2px solid rgba(255, 255, 255, 0.3);
+                                               padding: 12px 25px; border-radius: 8px; cursor: pointer;
+                                               font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+
+        <div id="adminErrorMsg" style="margin-top: 15px; color: #ff4757; font-weight: 600; display: none;">
+            <i class="fas fa-exclamation-triangle"></i> Incorrect password. Access denied.
         </div>
     `;
 
-    const adminPanel = document.createElement('div');
-    adminPanel.id = 'adminPanel';
-    adminPanel.innerHTML = adminHTML;
-    document.body.appendChild(adminPanel);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+    const passwordInput = document.getElementById('adminPasswordInput');
+    const loginBtn = document.getElementById('adminLoginBtn');
+    const cancelBtn = document.getElementById('adminCancelBtn');
+    const errorMsg = document.getElementById('adminErrorMsg');
+
+    // Focus on password input
+    setTimeout(() => passwordInput.focus(), 100);
+
+    // Handle login attempt
+    function attemptLogin() {
+        const enteredPassword = passwordInput.value;
+
+        if (enteredPassword === adminPassword) {
+            // Correct password - grant access
+            document.body.removeChild(modal);
+            showFeedback('Admin access granted! Opening admin panel...', 'success');
+            setTimeout(() => {
+                // Pass authentication token to admin panel
+                const authToken = btoa(adminPassword);
+                window.open(`admin.html?auth=${authToken}`, '_blank');
+            }, 1000);
+        } else {
+            // Wrong password - show error
+            errorMsg.style.display = 'block';
+            passwordInput.value = '';
+            passwordInput.style.borderColor = '#ff4757';
+            passwordInput.focus();
+
+            // Reset border color after 2 seconds
+            setTimeout(() => {
+                passwordInput.style.borderColor = 'rgba(79, 195, 247, 0.3)';
+                errorMsg.style.display = 'none';
+            }, 2000);
+        }
+    }
+
+    // Handle cancel
+    function cancelLogin() {
+        document.body.removeChild(modal);
+        showFeedback('Admin access cancelled.', 'warning');
+    }
+
+    // Event listeners
+    loginBtn.addEventListener('click', attemptLogin);
+    cancelBtn.addEventListener('click', cancelLogin);
+
+    // Enter key to submit
+    passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            attemptLogin();
+        }
+    });
+
+    // Escape key to cancel
+    document.addEventListener('keydown', function escapeHandler(e) {
+        if (e.key === 'Escape') {
+            document.removeEventListener('keydown', escapeHandler);
+            cancelLogin();
+        }
+    });
+}
+
+window.showAdminPanel = function() {
+    promptAdminAccess();
 };
 
 // Fetch server statistics
@@ -4441,7 +4501,10 @@ window.fetchServerStats = async function() {
     }
 };
 
-// Secret admin access (type "admin123" in console)
+// Export admin access function
+window.promptAdminAccess = promptAdminAccess;
+
+// Secret admin access (type "admin123" in console) - also requires password
 window.admin123 = window.showAdminPanel;
 
 // Performance Mode Functions
