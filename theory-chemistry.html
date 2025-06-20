@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Theory - BITSAT Prep</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hyperspeed Background -->
+    <div class="hyperspeed-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">BITSAT Prep</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="theory.html" class="nav-link">
+                    <i class="fas fa-arrow-left"></i> Back to Subjects
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-content">
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="theory-header">
+            <h1 class="theory-title">
+                <i class="fas fa-flask"></i> Chemistry Theory
+            </h1>
+            <p class="theory-subtitle">Explore the molecular world and chemical reactions</p>
+        </div>
+
+        <!-- Theory Navigation Tabs -->
+        <div class="theory-tabs">
+            <button class="theory-tab-btn active" onclick="showTheoryTab('content')" id="contentTab">
+                <i class="fas fa-book"></i> Theory Content
+            </button>
+            <button class="theory-tab-btn" onclick="showTheoryTab('reactions')" id="reactionsTab">
+                <i class="fas fa-flask"></i> Organic Reactions
+            </button>
+            <button class="theory-tab-btn" onclick="showTheoryTab('organicQuiz')" id="organicQuizTab">
+                <i class="fas fa-vial"></i> Organic Quiz
+            </button>
+            <button class="theory-tab-btn" onclick="showTheoryTab('pdf')" id="pdfTab">
+                <i class="fas fa-file-pdf"></i> PDF Reference
+            </button>
+        </div>
+
+        <!-- Theory Content -->
+        <div class="theory-content" id="theoryContent">
+            <div class="theory-topic">
+                <h3 class="topic-title">Atomic Structure</h3>
+                <div class="topic-content">
+                    <h4>Quantum Numbers</h4>
+                    <ul>
+                        <li><strong>Principal (n):</strong> Energy level (1, 2, 3, ...)</li>
+                        <li><strong>Azimuthal (l):</strong> Subshell (0 to n-1)</li>
+                        <li><strong>Magnetic (m):</strong> Orbital (-l to +l)</li>
+                        <li><strong>Spin (s):</strong> Electron spin (±½)</li>
+                    </ul>
+                    
+                    <h4>Electronic Configuration</h4>
+                    <ul>
+                        <li><strong>Aufbau Principle:</strong> Fill lowest energy orbitals first</li>
+                        <li><strong>Pauli Exclusion:</strong> Max 2 electrons per orbital</li>
+                        <li><strong>Hund's Rule:</strong> Fill singly before pairing</li>
+                        <li><strong>Order:</strong> 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Chemical Bonding</h3>
+                <div class="topic-content">
+                    <h4>Types of Bonds</h4>
+                    <ul>
+                        <li><strong>Ionic:</strong> Transfer of electrons (metal + non-metal)</li>
+                        <li><strong>Covalent:</strong> Sharing of electrons (non-metal + non-metal)</li>
+                        <li><strong>Metallic:</strong> Sea of electrons (metal + metal)</li>
+                        <li><strong>Hydrogen:</strong> H bonded to N, O, or F</li>
+                    </ul>
+                    
+                    <h4>VSEPR Theory</h4>
+                    <ul>
+                        <li><strong>Linear:</strong> 2 electron pairs (180°)</li>
+                        <li><strong>Trigonal Planar:</strong> 3 electron pairs (120°)</li>
+                        <li><strong>Tetrahedral:</strong> 4 electron pairs (109.5°)</li>
+                        <li><strong>Trigonal Bipyramidal:</strong> 5 electron pairs</li>
+                        <li><strong>Octahedral:</strong> 6 electron pairs (90°)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Thermodynamics</h3>
+                <div class="topic-content">
+                    <h4>Laws of Thermodynamics</h4>
+                    <ul>
+                        <li><strong>First Law:</strong> ΔU = q + w</li>
+                        <li><strong>Enthalpy:</strong> H = U + PV</li>
+                        <li><strong>Entropy:</strong> ΔS = q_rev/T</li>
+                        <li><strong>Gibbs Free Energy:</strong> G = H - TS</li>
+                    </ul>
+                    
+                    <h4>Spontaneity</h4>
+                    <ul>
+                        <li><strong>ΔG < 0:</strong> Spontaneous</li>
+                        <li><strong>ΔG = 0:</strong> Equilibrium</li>
+                        <li><strong>ΔG > 0:</strong> Non-spontaneous</li>
+                        <li><strong>ΔG° = -RT ln K</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Chemical Equilibrium</h3>
+                <div class="topic-content">
+                    <h4>Equilibrium Constants</h4>
+                    <ul>
+                        <li><strong>Kc:</strong> Concentration equilibrium constant</li>
+                        <li><strong>Kp:</strong> Pressure equilibrium constant</li>
+                        <li><strong>Relationship:</strong> Kp = Kc(RT)^Δn</li>
+                        <li><strong>Le Chatelier's Principle:</strong> System responds to stress</li>
+                    </ul>
+                    
+                    <h4>Acid-Base Equilibrium</h4>
+                    <ul>
+                        <li><strong>pH:</strong> -log[H⁺]</li>
+                        <li><strong>pOH:</strong> -log[OH⁻]</li>
+                        <li><strong>pH + pOH = 14</strong> (at 25°C)</li>
+                        <li><strong>Ka × Kb = Kw</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Electrochemistry</h3>
+                <div class="topic-content">
+                    <h4>Galvanic Cells</h4>
+                    <ul>
+                        <li><strong>Anode:</strong> Oxidation occurs (negative)</li>
+                        <li><strong>Cathode:</strong> Reduction occurs (positive)</li>
+                        <li><strong>EMF:</strong> E°cell = E°cathode - E°anode</li>
+                        <li><strong>Nernst Equation:</strong> E = E° - (RT/nF)lnQ</li>
+                    </ul>
+                    
+                    <h4>Electrolysis</h4>
+                    <ul>
+                        <li><strong>Faraday's Laws:</strong> m ∝ Q, m ∝ M/n</li>
+                        <li><strong>Charge:</strong> Q = nF (n = moles of electrons)</li>
+                        <li><strong>Current:</strong> I = Q/t</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Organic Chemistry Basics</h3>
+                <div class="topic-content">
+                    <h4>Functional Groups</h4>
+                    <ul>
+                        <li><strong>Alkanes:</strong> C-C single bonds</li>
+                        <li><strong>Alkenes:</strong> C=C double bonds</li>
+                        <li><strong>Alkynes:</strong> C≡C triple bonds</li>
+                        <li><strong>Alcohols:</strong> -OH group</li>
+                        <li><strong>Aldehydes:</strong> -CHO group</li>
+                        <li><strong>Ketones:</strong> C=O group</li>
+                        <li><strong>Carboxylic Acids:</strong> -COOH group</li>
+                    </ul>
+                    
+                    <h4>Reaction Mechanisms</h4>
+                    <ul>
+                        <li><strong>SN1:</strong> Two-step substitution</li>
+                        <li><strong>SN2:</strong> One-step substitution</li>
+                        <li><strong>E1:</strong> Two-step elimination</li>
+                        <li><strong>E2:</strong> One-step elimination</li>
+                        <li><strong>Addition:</strong> Alkene reactions</li>
+                        <li><strong>Electrophilic Aromatic Substitution</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organic Reactions Section -->
+        <div class="theory-reactions" id="theoryReactions" style="display: none;">
+            <!-- Organic reactions content will be loaded here -->
+        </div>
+
+        <!-- Organic Quiz Section -->
+        <div class="theory-organic-quiz" id="theoryOrganicQuiz" style="display: none;">
+            <!-- Organic quiz content will be loaded here -->
+        </div>
+
+        <!-- PDF Viewer -->
+        <div class="theory-pdf-viewer" id="theoryPdfViewer" style="display: none;">
+            <iframe id="pdfFrame" src="https://drive.google.com/file/d/1gfabRlnnZoUEuEuGYgZ5ZOqyUaXUGDWT/preview" width="100%" height="600px" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Top section -->
+    <div class="mobile-quotes mobile-quote-top">
+        <div class="mobile-quote-card">
+            <i class="fas fa-flask quote-icon"></i>
+            <div class="quote-text">"Chemistry is the study of matter, but I prefer to see it as the study of change."</div>
+            <div class="quote-author">- Walter White</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-atom quote-icon"></i>
+            <div class="quote-text">"Nothing in life is to be feared, it is only to be understood."</div>
+            <div class="quote-author">- Marie Curie</div>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Bottom section -->
+    <div class="mobile-quotes mobile-quote-bottom">
+        <div class="mobile-quote-card">
+            <i class="fas fa-vial quote-icon"></i>
+            <div class="quote-text">"Chemistry is necessarily an experimental science: its conclusions are drawn from data, and its principles supported by evidence from facts."</div>
+            <div class="quote-author">- Michael Faraday</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-microscope quote-icon"></i>
+            <div class="quote-text">"The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed."</div>
+            <div class="quote-author">- Carl Jung</div>
+        </div>
+    </div>
+
+    </div> <!-- End main-content -->
+
+    <script src="theory-common.js"></script>
+    <script src="chemistry-reactions.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

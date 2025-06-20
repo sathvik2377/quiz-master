@@ -3781,7 +3781,9 @@ const CLOUD_STORAGE_CONFIG = {
     binId: '676b8e2fad19ca34f8d4f8a2',
     apiUrl: 'https://api.jsonbin.io/v3/b',
     accessKey: '$2a$10$8vQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5rGZYvQI5r',
-    corsProxy: 'https://cors-anywhere.herokuapp.com/'
+    corsProxy: 'https://cors-anywhere.herokuapp.com/',
+    // Disable cloud storage for local file:// protocol
+    enabled: window.location.protocol !== 'file:'
 };
 
 // File Upload Management (Cloud + Local Storage)
@@ -3836,6 +3838,16 @@ async function initFileStorage() {
 
 // Load files from real cloud storage
 async function loadFilesFromCloud() {
+    // Skip cloud loading if disabled (e.g., for local file:// protocol)
+    if (!CLOUD_STORAGE_CONFIG.enabled) {
+        console.log('Cloud storage disabled for local files - using localStorage only');
+        const stored = localStorage.getItem('uploadedFiles');
+        if (stored) {
+            uploadedFiles = JSON.parse(stored);
+        }
+        return;
+    }
+
     try {
         console.log('Loading files from cloud storage...');
 
@@ -3868,6 +3880,13 @@ async function loadFilesFromCloud() {
 
 // Save files to real cloud storage
 async function saveFilesToCloud() {
+    // If cloud storage is disabled, just save to localStorage
+    if (!CLOUD_STORAGE_CONFIG.enabled) {
+        console.log('Cloud storage disabled - saving to localStorage only');
+        localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+        return true; // Return true since localStorage save is successful
+    }
+
     try {
         console.log('Saving files to cloud storage...');
 

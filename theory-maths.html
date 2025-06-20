@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Theory - BITSAT Prep</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hyperspeed Background -->
+    <div class="hyperspeed-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">BITSAT Prep</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="theory.html" class="nav-link">
+                    <i class="fas fa-arrow-left"></i> Back to Subjects
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-content">
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="theory-header">
+            <h1 class="theory-title">
+                <i class="fas fa-calculator"></i> Mathematics Theory
+            </h1>
+            <p class="theory-subtitle">Master mathematical concepts for BITSAT success</p>
+        </div>
+
+        <!-- Theory Navigation Tabs -->
+        <div class="theory-tabs">
+            <button class="theory-tab-btn active" onclick="showTheoryTab('content')" id="contentTab">
+                <i class="fas fa-book"></i> Theory Content
+            </button>
+            <button class="theory-tab-btn" onclick="showTheoryTab('pdf')" id="pdfTab">
+                <i class="fas fa-file-pdf"></i> PDF Reference
+            </button>
+        </div>
+
+        <!-- Theory Content -->
+        <div class="theory-content" id="theoryContent">
+            <div class="theory-topic">
+                <h3 class="topic-title">Algebra</h3>
+                <div class="topic-content">
+                    <h4>Quadratic Equations</h4>
+                    <p>For a quadratic equation ax² + bx + c = 0:</p>
+                    <ul>
+                        <li><strong>Discriminant:</strong> Δ = b² - 4ac</li>
+                        <li><strong>Roots:</strong> x = (-b ± √Δ) / 2a</li>
+                        <li><strong>Sum of roots:</strong> α + β = -b/a</li>
+                        <li><strong>Product of roots:</strong> αβ = c/a</li>
+                    </ul>
+                    
+                    <h4>Sequences and Series</h4>
+                    <p><strong>Arithmetic Progression (AP):</strong></p>
+                    <ul>
+                        <li>nth term: aₙ = a + (n-1)d</li>
+                        <li>Sum of n terms: Sₙ = n/2[2a + (n-1)d]</li>
+                    </ul>
+                    <p><strong>Geometric Progression (GP):</strong></p>
+                    <ul>
+                        <li>nth term: aₙ = ar^(n-1)</li>
+                        <li>Sum of n terms: Sₙ = a(r^n - 1)/(r - 1)</li>
+                        <li>Sum to infinity: S∞ = a/(1-r) when |r| < 1</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Trigonometry</h3>
+                <div class="topic-content">
+                    <h4>Basic Trigonometric Ratios</h4>
+                    <ul>
+                        <li>sin²θ + cos²θ = 1</li>
+                        <li>1 + tan²θ = sec²θ</li>
+                        <li>1 + cot²θ = cosec²θ</li>
+                    </ul>
+                    
+                    <h4>Compound Angles</h4>
+                    <ul>
+                        <li>sin(A ± B) = sinA cosB ± cosA sinB</li>
+                        <li>cos(A ± B) = cosA cosB ∓ sinA sinB</li>
+                        <li>tan(A ± B) = (tanA ± tanB)/(1 ∓ tanA tanB)</li>
+                    </ul>
+                    
+                    <h4>Multiple Angles</h4>
+                    <ul>
+                        <li>sin2θ = 2sinθ cosθ</li>
+                        <li>cos2θ = cos²θ - sin²θ = 2cos²θ - 1 = 1 - 2sin²θ</li>
+                        <li>tan2θ = 2tanθ/(1 - tan²θ)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Coordinate Geometry</h3>
+                <div class="topic-content">
+                    <h4>Straight Lines</h4>
+                    <ul>
+                        <li><strong>Distance formula:</strong> d = √[(x₂-x₁)² + (y₂-y₁)²]</li>
+                        <li><strong>Section formula:</strong> (mx₂+nx₁)/(m+n), (my₂+ny₁)/(m+n)</li>
+                        <li><strong>Slope:</strong> m = (y₂-y₁)/(x₂-x₁)</li>
+                        <li><strong>Equation:</strong> y - y₁ = m(x - x₁)</li>
+                    </ul>
+                    
+                    <h4>Circles</h4>
+                    <ul>
+                        <li><strong>Standard form:</strong> (x-h)² + (y-k)² = r²</li>
+                        <li><strong>General form:</strong> x² + y² + 2gx + 2fy + c = 0</li>
+                        <li><strong>Center:</strong> (-g, -f)</li>
+                        <li><strong>Radius:</strong> √(g² + f² - c)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Calculus</h3>
+                <div class="topic-content">
+                    <h4>Differentiation</h4>
+                    <ul>
+                        <li>d/dx(xⁿ) = nxⁿ⁻¹</li>
+                        <li>d/dx(sin x) = cos x</li>
+                        <li>d/dx(cos x) = -sin x</li>
+                        <li>d/dx(tan x) = sec²x</li>
+                        <li>d/dx(eˣ) = eˣ</li>
+                        <li>d/dx(ln x) = 1/x</li>
+                    </ul>
+                    
+                    <h4>Integration</h4>
+                    <ul>
+                        <li>∫xⁿ dx = xⁿ⁺¹/(n+1) + C</li>
+                        <li>∫sin x dx = -cos x + C</li>
+                        <li>∫cos x dx = sin x + C</li>
+                        <li>∫sec²x dx = tan x + C</li>
+                        <li>∫eˣ dx = eˣ + C</li>
+                        <li>∫(1/x) dx = ln|x| + C</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Probability and Statistics</h3>
+                <div class="topic-content">
+                    <h4>Probability</h4>
+                    <ul>
+                        <li><strong>Basic:</strong> P(E) = Number of favorable outcomes / Total outcomes</li>
+                        <li><strong>Addition:</strong> P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</li>
+                        <li><strong>Multiplication:</strong> P(A ∩ B) = P(A) × P(B|A)</li>
+                        <li><strong>Conditional:</strong> P(A|B) = P(A ∩ B) / P(B)</li>
+                    </ul>
+                    
+                    <h4>Permutations and Combinations</h4>
+                    <ul>
+                        <li><strong>Permutations:</strong> ⁿPᵣ = n!/(n-r)!</li>
+                        <li><strong>Combinations:</strong> ⁿCᵣ = n!/[r!(n-r)!]</li>
+                        <li><strong>Circular permutations:</strong> (n-1)!</li>
+                    </ul>
+                    
+                    <h4>Statistics</h4>
+                    <ul>
+                        <li><strong>Mean:</strong> x̄ = Σx/n</li>
+                        <li><strong>Median:</strong> Middle value when arranged in order</li>
+                        <li><strong>Mode:</strong> Most frequently occurring value</li>
+                        <li><strong>Standard Deviation:</strong> σ = √[Σ(x-x̄)²/n]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Matrices and Determinants</h3>
+                <div class="topic-content">
+                    <h4>Matrix Operations</h4>
+                    <ul>
+                        <li><strong>Addition:</strong> (A + B)ᵢⱼ = Aᵢⱼ + Bᵢⱼ</li>
+                        <li><strong>Multiplication:</strong> (AB)ᵢⱼ = Σ AᵢₖBₖⱼ</li>
+                        <li><strong>Transpose:</strong> (Aᵀ)ᵢⱼ = Aⱼᵢ</li>
+                        <li><strong>Inverse:</strong> A⁻¹ = (1/|A|) × adj(A)</li>
+                    </ul>
+                    
+                    <h4>Determinants</h4>
+                    <ul>
+                        <li><strong>2×2:</strong> |A| = ad - bc</li>
+                        <li><strong>3×3:</strong> Expansion by cofactors</li>
+                        <li><strong>Properties:</strong> |AB| = |A||B|, |Aᵀ| = |A|</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PDF Viewer -->
+        <div class="theory-pdf-viewer" id="theoryPdfViewer" style="display: none;">
+            <iframe id="pdfFrame" src="https://drive.google.com/file/d/1example-maths-pdf/preview" width="100%" height="600px" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Top section -->
+    <div class="mobile-quotes mobile-quote-top">
+        <div class="mobile-quote-card">
+            <i class="fas fa-calculator quote-icon"></i>
+            <div class="quote-text">"Mathematics is the language with which God has written the universe."</div>
+            <div class="quote-author">- Galileo Galilei</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-infinity quote-icon"></i>
+            <div class="quote-text">"Pure mathematics is, in its way, the poetry of logical ideas."</div>
+            <div class="quote-author">- Albert Einstein</div>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Bottom section -->
+    <div class="mobile-quotes mobile-quote-bottom">
+        <div class="mobile-quote-card">
+            <i class="fas fa-chart-line quote-icon"></i>
+            <div class="quote-text">"Mathematics knows no races or geographic boundaries; for mathematics, the cultural world is one country."</div>
+            <div class="quote-author">- David Hilbert</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-brain quote-icon"></i>
+            <div class="quote-text">"Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding."</div>
+            <div class="quote-author">- William Paul Thurston</div>
+        </div>
+    </div>
+
+    </div> <!-- End main-content -->
+
+    <script src="theory-common.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

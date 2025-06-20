@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Theory - BITSAT Prep</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hyperspeed Background -->
+    <div class="hyperspeed-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">BITSAT Prep</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="theory.html" class="nav-link">
+                    <i class="fas fa-arrow-left"></i> Back to Subjects
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-content">
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="theory-header">
+            <h1 class="theory-title">
+                <i class="fas fa-atom"></i> Physics Theory
+            </h1>
+            <p class="theory-subtitle">Understand the fundamental laws of nature</p>
+        </div>
+
+        <!-- Theory Navigation Tabs -->
+        <div class="theory-tabs">
+            <button class="theory-tab-btn active" onclick="showTheoryTab('content')" id="contentTab">
+                <i class="fas fa-book"></i> Theory Content
+            </button>
+            <button class="theory-tab-btn" onclick="showTheoryTab('pdf')" id="pdfTab">
+                <i class="fas fa-file-pdf"></i> PDF Reference
+            </button>
+        </div>
+
+        <!-- Theory Content -->
+        <div class="theory-content" id="theoryContent">
+            <div class="theory-topic">
+                <h3 class="topic-title">Mechanics</h3>
+                <div class="topic-content">
+                    <h4>Kinematics</h4>
+                    <ul>
+                        <li><strong>Equations of Motion:</strong></li>
+                        <li>v = u + at</li>
+                        <li>s = ut + ½at²</li>
+                        <li>v² = u² + 2as</li>
+                        <li><strong>Projectile Motion:</strong></li>
+                        <li>Range: R = u²sin2θ/g</li>
+                        <li>Maximum height: H = u²sin²θ/2g</li>
+                        <li>Time of flight: T = 2usinθ/g</li>
+                    </ul>
+                    
+                    <h4>Laws of Motion</h4>
+                    <ul>
+                        <li><strong>Newton's First Law:</strong> Law of Inertia</li>
+                        <li><strong>Newton's Second Law:</strong> F = ma</li>
+                        <li><strong>Newton's Third Law:</strong> Action-Reaction pairs</li>
+                        <li><strong>Friction:</strong> f = μN</li>
+                    </ul>
+                    
+                    <h4>Work, Energy and Power</h4>
+                    <ul>
+                        <li><strong>Work:</strong> W = F·s = Fs cosθ</li>
+                        <li><strong>Kinetic Energy:</strong> KE = ½mv²</li>
+                        <li><strong>Potential Energy:</strong> PE = mgh</li>
+                        <li><strong>Power:</strong> P = W/t = F·v</li>
+                        <li><strong>Work-Energy Theorem:</strong> W = ΔKE</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Thermodynamics</h3>
+                <div class="topic-content">
+                    <h4>Laws of Thermodynamics</h4>
+                    <ul>
+                        <li><strong>Zeroth Law:</strong> Thermal equilibrium</li>
+                        <li><strong>First Law:</strong> ΔU = Q - W</li>
+                        <li><strong>Second Law:</strong> Entropy always increases</li>
+                        <li><strong>Third Law:</strong> Entropy approaches zero at absolute zero</li>
+                    </ul>
+                    
+                    <h4>Heat Transfer</h4>
+                    <ul>
+                        <li><strong>Conduction:</strong> Q = kA(ΔT/Δx)t</li>
+                        <li><strong>Convection:</strong> Natural and forced</li>
+                        <li><strong>Radiation:</strong> Stefan-Boltzmann law</li>
+                    </ul>
+                    
+                    <h4>Kinetic Theory of Gases</h4>
+                    <ul>
+                        <li><strong>Ideal Gas Law:</strong> PV = nRT</li>
+                        <li><strong>Average KE:</strong> ½mv² = (3/2)kT</li>
+                        <li><strong>RMS Speed:</strong> v_rms = √(3RT/M)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Waves and Oscillations</h3>
+                <div class="topic-content">
+                    <h4>Simple Harmonic Motion</h4>
+                    <ul>
+                        <li><strong>Displacement:</strong> x = A sin(ωt + φ)</li>
+                        <li><strong>Velocity:</strong> v = Aω cos(ωt + φ)</li>
+                        <li><strong>Acceleration:</strong> a = -Aω² sin(ωt + φ)</li>
+                        <li><strong>Time Period:</strong> T = 2π/ω</li>
+                        <li><strong>Frequency:</strong> f = 1/T = ω/2π</li>
+                    </ul>
+                    
+                    <h4>Wave Motion</h4>
+                    <ul>
+                        <li><strong>Wave Equation:</strong> y = A sin(kx - ωt)</li>
+                        <li><strong>Wave Speed:</strong> v = fλ = ω/k</li>
+                        <li><strong>Doppler Effect:</strong> f' = f(v ± v_o)/(v ± v_s)</li>
+                    </ul>
+                    
+                    <h4>Sound Waves</h4>
+                    <ul>
+                        <li><strong>Speed in air:</strong> v = 331 + 0.6T (m/s)</li>
+                        <li><strong>Intensity:</strong> I = P/A</li>
+                        <li><strong>Decibel scale:</strong> β = 10 log(I/I₀)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Electricity and Magnetism</h3>
+                <div class="topic-content">
+                    <h4>Electrostatics</h4>
+                    <ul>
+                        <li><strong>Coulomb's Law:</strong> F = kq₁q₂/r²</li>
+                        <li><strong>Electric Field:</strong> E = F/q = kQ/r²</li>
+                        <li><strong>Electric Potential:</strong> V = kQ/r</li>
+                        <li><strong>Capacitance:</strong> C = Q/V</li>
+                        <li><strong>Energy:</strong> U = ½CV² = ½QV</li>
+                    </ul>
+                    
+                    <h4>Current Electricity</h4>
+                    <ul>
+                        <li><strong>Ohm's Law:</strong> V = IR</li>
+                        <li><strong>Power:</strong> P = VI = I²R = V²/R</li>
+                        <li><strong>Resistors in Series:</strong> R_total = R₁ + R₂ + ...</li>
+                        <li><strong>Resistors in Parallel:</strong> 1/R_total = 1/R₁ + 1/R₂ + ...</li>
+                    </ul>
+                    
+                    <h4>Magnetism</h4>
+                    <ul>
+                        <li><strong>Magnetic Force:</strong> F = qvB sinθ</li>
+                        <li><strong>Biot-Savart Law:</strong> dB = (μ₀/4π)(I dl × r)/r³</li>
+                        <li><strong>Ampere's Law:</strong> ∮B·dl = μ₀I</li>
+                        <li><strong>Faraday's Law:</strong> ε = -dΦ/dt</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Optics</h3>
+                <div class="topic-content">
+                    <h4>Geometric Optics</h4>
+                    <ul>
+                        <li><strong>Snell's Law:</strong> n₁sinθ₁ = n₂sinθ₂</li>
+                        <li><strong>Mirror Formula:</strong> 1/f = 1/u + 1/v</li>
+                        <li><strong>Lens Formula:</strong> 1/f = 1/v - 1/u</li>
+                        <li><strong>Magnification:</strong> m = v/u = h'/h</li>
+                    </ul>
+                    
+                    <h4>Wave Optics</h4>
+                    <ul>
+                        <li><strong>Young's Double Slit:</strong> β = λD/d</li>
+                        <li><strong>Single Slit Diffraction:</strong> a sinθ = nλ</li>
+                        <li><strong>Grating Equation:</strong> d sinθ = nλ</li>
+                        <li><strong>Polarization:</strong> Malus' Law: I = I₀cos²θ</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="theory-topic">
+                <h3 class="topic-title">Modern Physics</h3>
+                <div class="topic-content">
+                    <h4>Quantum Physics</h4>
+                    <ul>
+                        <li><strong>Planck's Equation:</strong> E = hf</li>
+                        <li><strong>Photoelectric Effect:</strong> hf = φ + KE_max</li>
+                        <li><strong>de Broglie Wavelength:</strong> λ = h/p</li>
+                        <li><strong>Uncertainty Principle:</strong> Δx·Δp ≥ h/4π</li>
+                    </ul>
+                    
+                    <h4>Atomic Physics</h4>
+                    <ul>
+                        <li><strong>Bohr's Model:</strong> E_n = -13.6/n² eV</li>
+                        <li><strong>Rydberg Formula:</strong> 1/λ = R(1/n₁² - 1/n₂²)</li>
+                        <li><strong>X-ray Production:</strong> λ_min = hc/eV</li>
+                    </ul>
+                    
+                    <h4>Nuclear Physics</h4>
+                    <ul>
+                        <li><strong>Mass-Energy:</strong> E = mc²</li>
+                        <li><strong>Radioactive Decay:</strong> N = N₀e^(-λt)</li>
+                        <li><strong>Half-life:</strong> t₁/₂ = ln2/λ</li>
+                        <li><strong>Binding Energy:</strong> BE = (Δm)c²</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PDF Viewer -->
+        <div class="theory-pdf-viewer" id="theoryPdfViewer" style="display: none;">
+            <iframe id="pdfFrame" src="https://drive.google.com/file/d/1example-physics-pdf/preview" width="100%" height="600px" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Top section -->
+    <div class="mobile-quotes mobile-quote-top">
+        <div class="mobile-quote-card">
+            <i class="fas fa-atom quote-icon"></i>
+            <div class="quote-text">"The important thing is not to stop questioning. Curiosity has its own reason for existing."</div>
+            <div class="quote-author">- Albert Einstein</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-rocket quote-icon"></i>
+            <div class="quote-text">"Physics is like sex: sure, it may give some practical results, but that's not why we do it."</div>
+            <div class="quote-author">- Richard Feynman</div>
+        </div>
+    </div>
+
+    <!-- Mobile-only motivational quotes - Bottom section -->
+    <div class="mobile-quotes mobile-quote-bottom">
+        <div class="mobile-quote-card">
+            <i class="fas fa-lightbulb quote-icon"></i>
+            <div class="quote-text">"Physics is not a religion. If it were, we'd have a much easier time raising money."</div>
+            <div class="quote-author">- Leon Lederman</div>
+        </div>
+        <div class="mobile-quote-card">
+            <i class="fas fa-microscope quote-icon"></i>
+            <div class="quote-text">"The universe is not only stranger than we imagine, it is stranger than we can imagine."</div>
+            <div class="quote-author">- J.B.S. Haldane</div>
+        </div>
+    </div>
+
+    </div> <!-- End main-content -->
+
+    <script src="theory-common.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
