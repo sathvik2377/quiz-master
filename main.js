@@ -3724,6 +3724,9 @@ function calculateResult() {
             .replace(/sin\(/g, 'Math.sin(')
             .replace(/cos\(/g, 'Math.cos(')
             .replace(/tan\(/g, 'Math.tan(')
+            .replace(/asin\(/g, 'Math.asin(')
+            .replace(/acos\(/g, 'Math.acos(')
+            .replace(/atan\(/g, 'Math.atan(')
             .replace(/log\(/g, 'Math.log10(')
             .replace(/ln\(/g, 'Math.log(')
             .replace(/\^/g, '**')
@@ -3731,9 +3734,18 @@ function calculateResult() {
             .replace(/e(?![0-9])/g, 'Math.E')
             .replace(/×/g, '*')
             .replace(/÷/g, '/')
+            .replace(/√\(/g, 'Math.sqrt(')
+            .replace(/√/g, 'Math.sqrt(')
+            .replace(/∛\(/g, 'Math.cbrt(')
+            .replace(/∛/g, 'Math.cbrt(')
             .replace(/P/g, 'P') // Permutation placeholder
             .replace(/C/g, 'C') // Combination placeholder
             .replace(/%/g, '%'); // Modulo
+
+        // Handle factorial
+        expression = expression.replace(/(\d+)!/g, (match, n) => {
+            return factorial(parseInt(n));
+        });
 
         // Handle permutations and combinations
         expression = expression.replace(/(\d+)P(\d+)/g, (match, n, r) => {
@@ -3743,6 +3755,13 @@ function calculateResult() {
         expression = expression.replace(/(\d+)C(\d+)/g, (match, n, r) => {
             return combination(parseInt(n), parseInt(r));
         });
+
+        // Handle angle conversion for trigonometric functions
+        if (!isRadianMode) {
+            expression = expression.replace(/Math\.(sin|cos|tan)\(([^)]+)\)/g, (match, func, angle) => {
+                return `Math.${func}(${angle} * Math.PI / 180)`;
+            });
+        }
 
         // Add to history before calculation
         addToHistory(calcDisplay + ' =');
@@ -5470,7 +5489,27 @@ async function factorPolynomial() {
     resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Factoring polynomial...';
 
     try {
-        const result = factorPolynomialLocal(polynomial);
+        let result = factorPolynomialLocal(polynomial);
+
+        if (!result) {
+            result = factorSimpleExpression(polynomial);
+        }
+
+        if (!result) {
+            result = `<div class="solution">
+                <h4>Polynomial Factoring:</h4>
+                <p><strong>Input:</strong> ${polynomial}</p>
+                <p><strong>Supported formats:</strong></p>
+                <ul>
+                    <li>Quadratic: x² + bx + c</li>
+                    <li>Difference of squares: x² - a²</li>
+                    <li>Perfect squares: x² + 2ax + a²</li>
+                    <li>Common factors: 2x + 4 = 2(x + 2)</li>
+                </ul>
+                <p><strong>Example:</strong> x² + 5x + 6 = (x + 2)(x + 3)</p>
+            </div>`;
+        }
+
         resultDiv.innerHTML = result;
     } catch (error) {
         resultDiv.innerHTML = '<span style="color: #ff6b6b;">Error: ' + error.message + '</span>';
@@ -5506,12 +5545,79 @@ function factorPolynomialLocal(polynomial) {
         </div>`;
     }
 
-    return `<div class="solution">
-        <h4>Polynomial Factorization:</h4>
-        <p><strong>Original:</strong> ${polynomial}</p>
-        <p><strong>Note:</strong> Advanced factorization requires symbolic computation</p>
-        <p><strong>Supported:</strong> Simple quadratics of the form ax² + bx + c</p>
-    </div>`;
+    return null;
+}
+
+function factorSimpleExpression(expression) {
+    try {
+        // Remove spaces
+        let expr = expression.replace(/\s+/g, '');
+
+        // Check for difference of squares: x² - a²
+        const diffSquareMatch = expr.match(/^x\^?2\s*-\s*(\d+)$/);
+        if (diffSquareMatch) {
+            const a = Math.sqrt(parseInt(diffSquareMatch[1]));
+            if (Number.isInteger(a)) {
+                return `<div class="solution">
+                    <h4>Difference of Squares Factoring:</h4>
+                    <p><strong>Original:</strong> ${expression}</p>
+                    <p><strong>Pattern:</strong> x² - a² = (x + a)(x - a)</p>
+                    <p><strong>Factored:</strong> (x + ${a})(x - ${a})</p>
+                </div>`;
+            }
+        }
+
+        // Check for perfect square trinomial: x² + 2ax + a²
+        const perfectSquareMatch = expr.match(/^x\^?2\s*\+\s*(\d+)x\s*\+\s*(\d+)$/);
+        if (perfectSquareMatch) {
+            const middleCoeff = parseInt(perfectSquareMatch[1]);
+            const c = parseInt(perfectSquareMatch[2]);
+            const a = Math.sqrt(c);
+
+            if (Number.isInteger(a) && middleCoeff === 2 * a) {
+                return `<div class="solution">
+                    <h4>Perfect Square Trinomial Factoring:</h4>
+                    <p><strong>Original:</strong> ${expression}</p>
+                    <p><strong>Pattern:</strong> x² + 2ax + a² = (x + a)²</p>
+                    <p><strong>Factored:</strong> (x + ${a})²</p>
+                </div>`;
+            }
+        }
+
+        // Check for common factor
+        const commonFactorMatch = expr.match(/^(\d+)x\s*([+-])\s*(\d+)$/);
+        if (commonFactorMatch) {
+            const coeff = parseInt(commonFactorMatch[1]);
+            const sign = commonFactorMatch[2];
+            const constant = parseInt(commonFactorMatch[3]);
+
+            const gcd = findGCD(coeff, constant);
+            if (gcd > 1) {
+                const newCoeff = coeff / gcd;
+                const newConstant = constant / gcd;
+                return `<div class="solution">
+                    <h4>Common Factor Extraction:</h4>
+                    <p><strong>Original:</strong> ${expression}</p>
+                    <p><strong>Common Factor:</strong> ${gcd}</p>
+                    <p><strong>Factored:</strong> ${gcd}(${newCoeff}x ${sign} ${newConstant})</p>
+                </div>`;
+            }
+        }
+
+        return null;
+
+    } catch (error) {
+        return null;
+    }
+}
+
+function findGCD(a, b) {
+    while (b !== 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return Math.abs(a);
 }
 
 async function findRoots() {
@@ -5603,26 +5709,190 @@ async function expandPolynomial() {
     const polynomial = document.getElementById('polynomialInput').value.trim();
     const resultDiv = document.getElementById('algebraResult');
 
-    resultDiv.innerHTML = `<div class="solution">
-        <h4>Polynomial Expansion:</h4>
-        <p><strong>Input:</strong> ${polynomial}</p>
-        <p><strong>Note:</strong> Polynomial expansion requires symbolic computation</p>
-        <p><strong>Example:</strong> (x+2)(x+3) = x² + 5x + 6</p>
-        <p><strong>Use:</strong> Advanced mode for simple expansions</p>
-    </div>`;
+    if (!polynomial) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a polynomial expression</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Expanding...';
+
+    try {
+        let result = expandExpression(polynomial);
+
+        if (!result) {
+            // Try to handle simple binomial expansions like (x+a)(x+b)
+            const binomialMatch = polynomial.match(/\(x\s*([+-])\s*(\d+)\)\s*\(x\s*([+-])\s*(\d+)\)/);
+            if (binomialMatch) {
+                const a = (binomialMatch[1] === '+' ? 1 : -1) * parseInt(binomialMatch[2]);
+                const b = (binomialMatch[3] === '+' ? 1 : -1) * parseInt(binomialMatch[4]);
+
+                const coefficient = a + b;
+                const constant = a * b;
+
+                result = `<div class="solution">
+                    <h4>Polynomial Expansion:</h4>
+                    <p><strong>Original:</strong> (x ${a >= 0 ? '+' : ''}${a})(x ${b >= 0 ? '+' : ''}${b})</p>
+                    <p><strong>Expanded:</strong> x² ${coefficient >= 0 ? '+' : ''}${coefficient}x ${constant >= 0 ? '+' : ''}${constant}</p>
+                    <p><strong>Step-by-step:</strong></p>
+                    <ul>
+                        <li>Apply FOIL method: First, Outer, Inner, Last</li>
+                        <li>First: x × x = x²</li>
+                        <li>Outer: x × ${b >= 0 ? '+' : ''}${b} = ${b >= 0 ? '+' : ''}${b}x</li>
+                        <li>Inner: ${a >= 0 ? '+' : ''}${a} × x = ${a >= 0 ? '+' : ''}${a}x</li>
+                        <li>Last: ${a >= 0 ? '+' : ''}${a} × ${b >= 0 ? '+' : ''}${b} = ${constant}</li>
+                        <li>Combine like terms: x² + ${a}x + ${b}x + ${constant} = x² ${coefficient >= 0 ? '+' : ''}${coefficient}x ${constant >= 0 ? '+' : ''}${constant}</li>
+                    </ul>
+                </div>`;
+            } else {
+                // Try to handle (a+b)² expansions
+                const squareMatch = polynomial.match(/\(([^)]+)\)\^?2|\(([^)]+)\)²/);
+                if (squareMatch) {
+                    const expression = squareMatch[1] || squareMatch[2];
+                    const terms = expression.split(/([+-])/).filter(t => t.trim());
+
+                    if (terms.length >= 3) {
+                        const a = terms[0].trim();
+                        const sign = terms[1].trim();
+                        const b = terms[2].trim();
+
+                        result = `<div class="solution">
+                            <h4>Polynomial Expansion:</h4>
+                            <p><strong>Original:</strong> (${expression})²</p>
+                            <p><strong>Formula:</strong> (a ${sign} b)² = a² ${sign === '+' ? '+' : '-'} 2ab + b²</p>
+                            <p><strong>Expanded:</strong> ${a}² ${sign === '+' ? '+' : '-'} 2(${a})(${b}) + ${b}²</p>
+                            <p><strong>Note:</strong> Complete the expansion by calculating each term</p>
+                        </div>`;
+                    }
+                }
+            }
+        }
+
+        if (!result) {
+            result = `<div class="solution">
+                <h4>Polynomial Expansion:</h4>
+                <p><strong>Input:</strong> ${polynomial}</p>
+                <p><strong>Supported formats:</strong></p>
+                <ul>
+                    <li>(x+a)(x+b) - Binomial multiplication</li>
+                    <li>(a+b)² or (a+b)^2 - Perfect square</li>
+                    <li>expand((x+2)(x+3)) - Using expand function</li>
+                </ul>
+                <p><strong>Example:</strong> (x+2)(x+3) expands to x² + 5x + 6</p>
+            </div>`;
+        }
+
+        resultDiv.innerHTML = result;
+
+    } catch (error) {
+        resultDiv.innerHTML = `<div class="solution">
+            <h4>Polynomial Expansion Error:</h4>
+            <p><strong>Input:</strong> ${polynomial}</p>
+            <p><strong>Error:</strong> ${error.message}</p>
+            <p><strong>Try:</strong> Use format like (x+2)(x+3) or (x+1)²</p>
+        </div>`;
+    }
 }
 
 async function simplifyPolynomial() {
     const polynomial = document.getElementById('polynomialInput').value.trim();
     const resultDiv = document.getElementById('algebraResult');
 
-    resultDiv.innerHTML = `<div class="solution">
-        <h4>Polynomial Simplification:</h4>
-        <p><strong>Input:</strong> ${polynomial}</p>
-        <p><strong>Note:</strong> Polynomial simplification requires symbolic computation</p>
-        <p><strong>Basic operations:</strong> Combine like terms manually</p>
-        <p><strong>Example:</strong> 2x² + 3x² = 5x²</p>
-    </div>`;
+    if (!polynomial) {
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a polynomial expression</span>';
+        return;
+    }
+
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Simplifying...';
+
+    try {
+        // Basic polynomial simplification - combine like terms
+        let simplified = simplifyBasicPolynomial(polynomial);
+
+        if (simplified) {
+            resultDiv.innerHTML = `<div class="solution">
+                <h4>Polynomial Simplification:</h4>
+                <p><strong>Original:</strong> ${polynomial}</p>
+                <p><strong>Simplified:</strong> ${simplified}</p>
+                <p><strong>Process:</strong> Combined like terms and arranged in descending order of powers</p>
+            </div>`;
+        } else {
+            resultDiv.innerHTML = `<div class="solution">
+                <h4>Polynomial Simplification:</h4>
+                <p><strong>Input:</strong> ${polynomial}</p>
+                <p><strong>Basic operations:</strong> Combine like terms manually</p>
+                <p><strong>Examples:</strong></p>
+                <ul>
+                    <li>2x² + 3x² = 5x²</li>
+                    <li>x³ + 2x² - x² + 3x = x³ + x² + 3x</li>
+                    <li>5x + 3 - 2x + 7 = 3x + 10</li>
+                </ul>
+                <p><strong>Note:</strong> For complex expressions, use the Advanced mode</p>
+            </div>`;
+        }
+
+    } catch (error) {
+        resultDiv.innerHTML = `<div class="solution">
+            <h4>Polynomial Simplification Error:</h4>
+            <p><strong>Input:</strong> ${polynomial}</p>
+            <p><strong>Error:</strong> ${error.message}</p>
+            <p><strong>Try:</strong> Use standard polynomial format like 2x^2 + 3x - 1</p>
+        </div>`;
+    }
+}
+
+function simplifyBasicPolynomial(polynomial) {
+    try {
+        // Remove spaces and normalize
+        let expr = polynomial.replace(/\s+/g, '');
+
+        // Simple pattern matching for basic polynomial terms
+        const terms = {};
+
+        // Match terms like 2x^2, -3x, +5, etc.
+        const termPattern = /([+-]?)(\d*)([a-z]?)(\^?)(\d*)/g;
+        let match;
+
+        while ((match = termPattern.exec(expr)) !== null) {
+            if (match[0] === '') continue;
+
+            const sign = match[1] === '-' ? -1 : 1;
+            const coeff = match[2] === '' ? 1 : parseInt(match[2]);
+            const variable = match[3] || '';
+            const power = match[5] === '' ? (variable ? 1 : 0) : parseInt(match[5]);
+
+            const key = variable + (power > 1 ? '^' + power : power === 1 ? '' : '');
+            terms[key] = (terms[key] || 0) + (sign * coeff);
+        }
+
+        // Build simplified expression
+        const sortedTerms = Object.keys(terms).sort((a, b) => {
+            const powerA = a.includes('^') ? parseInt(a.split('^')[1]) : (a.includes('x') ? 1 : 0);
+            const powerB = b.includes('^') ? parseInt(b.split('^')[1]) : (b.includes('x') ? 1 : 0);
+            return powerB - powerA; // Descending order
+        });
+
+        let result = '';
+        for (let i = 0; i < sortedTerms.length; i++) {
+            const term = sortedTerms[i];
+            const coeff = terms[term];
+
+            if (coeff === 0) continue;
+
+            if (i > 0 && coeff > 0) result += ' + ';
+            else if (coeff < 0) result += i === 0 ? '-' : ' - ';
+
+            const absCoeff = Math.abs(coeff);
+            if (absCoeff !== 1 || term === '') {
+                result += absCoeff;
+            }
+            result += term;
+        }
+
+        return result || '0';
+
+    } catch (error) {
+        return null;
+    }
 }
 
 async function solveEquation() {
