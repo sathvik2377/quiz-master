@@ -2560,45 +2560,27 @@ function getCarbohydratesContent() {
                         <div class="structure-item">
                             <h5>α-D-Glucose (Pyranose)</h5>
                             <div class="structure-diagram">
-                                <pre class="structure-ascii">
-        CH₂OH
-         |
-    H----C----O----H
-         |         |
-    HO---C----H    |
-         |         |
-    H----C----OH   |
-         |         |
-    HO---C----H    |
-         |         |
-         C---------
-         |
-         H
-                                </pre>
+                                <div class="structure-image">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Alpha-D-glucopyranose-2D-skeletal.png/200px-Alpha-D-glucopyranose-2D-skeletal.png"
+                                         alt="Alpha-D-Glucose Structure"
+                                         style="width: 100%; max-width: 200px; height: auto; border-radius: 8px; background: white; padding: 10px;">
+                                </div>
                             </div>
-                            <p><strong>Chair conformation:</strong> Most stable form</p>
+                            <p style="color: #ffffff;"><strong style="color: #667eea;">Chair conformation:</strong> Most stable form</p>
+                            <p style="color: #ffffff;"><strong style="color: #667eea;">Anomeric carbon:</strong> C1 with OH group below the ring</p>
                         </div>
 
                         <div class="structure-item">
                             <h5>β-D-Glucose</h5>
                             <div class="structure-diagram">
-                                <pre class="structure-ascii">
-        CH₂OH
-         |
-    H----C----O----OH
-         |         |
-    HO---C----H    |
-         |         |
-    H----C----OH   |
-         |         |
-    HO---C----H    |
-         |         |
-         C---------
-         |
-         H
-                                </pre>
+                                <div class="structure-image">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Beta-D-glucopyranose-2D-skeletal.png/200px-Beta-D-glucopyranose-2D-skeletal.png"
+                                         alt="Beta-D-Glucose Structure"
+                                         style="width: 100%; max-width: 200px; height: auto; border-radius: 8px; background: white; padding: 10px;">
+                                </div>
                             </div>
-                            <p><strong>Difference:</strong> OH group orientation at C1</p>
+                            <p style="color: #ffffff;"><strong style="color: #667eea;">Difference:</strong> OH group orientation at C1 (above the ring)</p>
+                            <p style="color: #ffffff;"><strong style="color: #667eea;">Mutarotation:</strong> Interconversion between α and β forms</p>
                         </div>
                     </div>
                 </div>
@@ -2690,23 +2672,23 @@ function getProteinsContent() {
                 <div class="content-card">
                     <h4><i class="fas fa-building"></i> Amino Acid Structure</h4>
                     <div class="structure-diagram">
-                        <pre class="structure-ascii">
-        General Structure:
-
-            H₂N—CH—COOH
-                |
-                R
-
-        Where R = Side chain (variable group)
-
-        Zwitterion form (physiological pH):
-
-            H₃N⁺—CH—COO⁻
-                 |
-                 R
-                        </pre>
+                        <div class="structure-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/AminoAcidball.svg/300px-AminoAcidball.svg.png"
+                                 alt="Amino Acid General Structure"
+                                 style="width: 100%; max-width: 300px; height: auto; border-radius: 10px; background: white; padding: 15px;">
+                        </div>
+                        <div class="structure-description">
+                            <h5 style="color: #00ff88; margin: 15px 0 10px 0;">General Formula:</h5>
+                            <p style="color: #ffffff; font-size: 1.1rem; text-align: center; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                                <strong style="color: #667eea;">H₂N—CHR—COOH</strong>
+                            </p>
+                            <ul style="color: #ffffff; padding-left: 20px; line-height: 1.6;">
+                                <li><strong style="color: #667eea;">R = Side chain</strong> (variable group that determines properties)</li>
+                                <li><strong style="color: #667eea;">Zwitterion form:</strong> H₃N⁺—CHR—COO⁻ (at physiological pH)</li>
+                                <li><strong style="color: #667eea;">Chirality:</strong> All amino acids except glycine are chiral (L-configuration in proteins)</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p><strong>Chirality:</strong> All amino acids except glycine are chiral (L-configuration in proteins)</p>
                 </div>
 
                 <div class="content-card">
@@ -2825,19 +2807,24 @@ function getProteinsContent() {
                 <div class="content-card">
                     <h4><i class="fas fa-flask"></i> Peptide Bond Formation</h4>
                     <div class="reaction-mechanism">
-                        <h5>Condensation Reaction:</h5>
-                        <pre class="structure-ascii">
-    H₂N-CHR₁-COOH + H₂N-CHR₂-COOH
-                ↓ (-H₂O)
-    H₂N-CHR₁-CO-NH-CHR₂-COOH
-
-    Peptide Bond: -CO-NH- (amide linkage)
-
-    Properties:
-    • Planar structure (partial double bond character)
-    • Trans configuration preferred
-    • Restricted rotation around C-N bond
-                        </pre>
+                        <h5 style="color: #00ff88;">Condensation Reaction:</h5>
+                        <div class="structure-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Peptide_bond_formation.svg/400px-Peptide_bond_formation.svg.png"
+                                 alt="Peptide Bond Formation"
+                                 style="width: 100%; max-width: 400px; height: auto; border-radius: 10px; background: white; padding: 15px;">
+                        </div>
+                        <div class="reaction-details">
+                            <p style="color: #ffffff; font-size: 1rem; text-align: center; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; margin: 15px 0;">
+                                <strong style="color: #667eea;">H₂N-CHR₁-COOH + H₂N-CHR₂-COOH → H₂N-CHR₁-CO-NH-CHR₂-COOH + H₂O</strong>
+                            </p>
+                            <h6 style="color: #764ba2; margin: 15px 0 10px 0;">Peptide Bond Properties:</h6>
+                            <ul style="color: #ffffff; padding-left: 20px; line-height: 1.6;">
+                                <li><strong style="color: #667eea;">Amide linkage:</strong> -CO-NH- (partial double bond character)</li>
+                                <li><strong style="color: #667eea;">Planar structure:</strong> Restricted rotation around C-N bond</li>
+                                <li><strong style="color: #667eea;">Trans configuration:</strong> Preferred due to steric hindrance</li>
+                                <li><strong style="color: #667eea;">Stability:</strong> Resonance stabilization makes it stable</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -2886,26 +2873,22 @@ function getNucleicAcidsContent() {
                 <div class="content-card">
                     <h4><i class="fas fa-building"></i> Nucleotide Structure</h4>
                     <div class="structure-diagram">
-                        <pre class="structure-ascii">
-        Nucleotide = Phosphate + Sugar + Base
-
-                O⁻
-                |
-        O=P—O—CH₂   Base
-                |     |
-                O'    N
-                |   /   \
-                C—C     C
-               /   \   /
-              H     C=C
-                   /   \
-                  H     H
-
-        Components:
-        • Phosphate group (PO₄³⁻)
-        • Pentose sugar (ribose/deoxyribose)
-        • Nitrogenous base (purine/pyrimidine)
-                        </pre>
+                        <div class="structure-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/DNA_chemical_structure.svg/400px-DNA_chemical_structure.svg.png"
+                                 alt="Nucleotide Structure"
+                                 style="width: 100%; max-width: 400px; height: auto; border-radius: 10px; background: white; padding: 10px;">
+                        </div>
+                        <div class="structure-description">
+                            <h5 style="color: #00ff88; margin: 15px 0 10px 0;">Components:</h5>
+                            <ul style="color: #ffffff; padding-left: 20px; line-height: 1.6;">
+                                <li><strong style="color: #667eea;">Phosphate group (PO₄³⁻)</strong> - Provides negative charge</li>
+                                <li><strong style="color: #667eea;">Pentose sugar</strong> - Ribose (RNA) or Deoxyribose (DNA)</li>
+                                <li><strong style="color: #667eea;">Nitrogenous base</strong> - Purine (A, G) or Pyrimidine (C, T, U)</li>
+                            </ul>
+                            <p style="color: #ffffff; margin-top: 15px; font-style: italic;">
+                                <strong style="color: #764ba2;">Formula:</strong> Nucleotide = Phosphate + Sugar + Base
+                            </p>
+                        </div>
                     </div>
                 </div>
 

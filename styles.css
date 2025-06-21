@@ -4130,34 +4130,50 @@ body::after {
 }
 
 .content-card h4 {
-    color: #667eea;
+    color: #4fc3f7;
     margin-bottom: 20px;
     font-size: 1.4rem;
     display: flex;
     align-items: center;
     gap: 10px;
+    font-weight: 600;
 }
 
 .content-card h5 {
-    color: #764ba2;
+    color: #81c784;
     margin-bottom: 15px;
     font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.content-card h6 {
+    color: #ffb74d;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .content-card p {
-    color: white;
+    color: #ffffff;
     line-height: 1.6;
     margin-bottom: 10px;
+    font-size: 0.95rem;
 }
 
 .content-card ul {
-    color: white;
+    color: #ffffff;
     padding-left: 20px;
 }
 
 .content-card li {
     margin-bottom: 8px;
     line-height: 1.5;
+    color: #ffffff;
+}
+
+.content-card strong {
+    color: #4fc3f7;
+    font-weight: 600;
 }
 
 /* Biomolecules Tables */
@@ -4171,34 +4187,60 @@ body::after {
 }
 
 .biomol-table th {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
+    background: linear-gradient(135deg, #4fc3f7, #81c784);
+    color: #ffffff;
     padding: 12px;
     text-align: left;
     font-weight: 600;
     font-size: 0.9rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .biomol-table td {
     padding: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
     font-size: 0.9rem;
     vertical-align: top;
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .biomol-table tr:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
+.biomol-table tr:hover td {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .biomol-table strong {
-    color: #667eea;
+    color: #4fc3f7;
     font-weight: 600;
 }
 
 /* Structure Diagrams */
+.structure-image {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.structure-image img {
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.structure-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.structure-description {
+    margin-top: 15px;
+}
+
 .structure-ascii {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.6);
     padding: 15px;
     border-radius: 8px;
     font-family: 'Courier New', monospace;
@@ -4265,9 +4307,10 @@ body::after {
 .factor-item h5,
 .method-item h5,
 .process-item h5 {
-    color: #764ba2;
+    color: #81c784;
     margin-bottom: 10px;
     font-size: 1rem;
+    font-weight: 600;
 }
 
 .class-item p,
@@ -4291,11 +4334,12 @@ body::after {
 }
 
 .quick-reference h3 {
-    color: #667eea;
+    color: #4fc3f7;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
+    font-weight: 600;
 }
 
 .quick-ref-grid {
@@ -4312,9 +4356,14 @@ body::after {
 }
 
 .quick-ref-item strong {
-    color: #764ba2;
+    color: #81c784;
     display: block;
     margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.quick-ref-item {
+    color: #ffffff;
 }
 
 /* Central Dogma Flow */
@@ -4340,20 +4389,21 @@ body::after {
 }
 
 .dogma-step h5 {
-    color: #667eea;
+    color: #4fc3f7;
     margin-bottom: 10px;
     font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .dogma-step p {
-    color: white;
+    color: #ffffff;
     margin: 5px 0;
     font-size: 0.9rem;
 }
 
 .dogma-arrow {
     font-size: 2rem;
-    color: #764ba2;
+    color: #81c784;
     font-weight: bold;
 }
 
