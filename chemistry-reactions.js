@@ -17,10 +17,12 @@ function showTheoryTab(tab) {
     const contentTab = document.getElementById('contentTab');
     const reactionsTab = document.getElementById('reactionsTab');
     const ncertTablesTab = document.getElementById('ncertTablesTab');
+    const biomoleculesTab = document.getElementById('biomoleculesTab');
     const pdfTab = document.getElementById('pdfTab');
     const theoryContent = document.getElementById('theoryContent');
     const theoryReactions = document.getElementById('theoryReactions');
     const theoryNcertTables = document.getElementById('theoryNcertTables');
+    const theoryBiomolecules = document.getElementById('theoryBiomolecules');
     const theoryOrganicQuiz = document.getElementById('theoryOrganicQuiz');
     const theoryPdfViewer = document.getElementById('theoryPdfViewer');
 
@@ -39,6 +41,7 @@ function showTheoryTab(tab) {
     contentTab.classList.remove('active');
     reactionsTab.classList.remove('active');
     ncertTablesTab.classList.remove('active');
+    if (biomoleculesTab) biomoleculesTab.classList.remove('active');
     if (organicQuizTab) organicQuizTab.classList.remove('active');
     if (inorganicQuizTab) inorganicQuizTab.classList.remove('active');
     pdfTab.classList.remove('active');
@@ -49,6 +52,7 @@ function showTheoryTab(tab) {
         theoryContent.style.display = 'block';
         theoryReactions.style.display = 'none';
         theoryNcertTables.style.display = 'none';
+        if (theoryBiomolecules) theoryBiomolecules.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
         const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
         if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
@@ -59,6 +63,7 @@ function showTheoryTab(tab) {
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'block';
         theoryNcertTables.style.display = 'none';
+        if (theoryBiomolecules) theoryBiomolecules.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
         const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
         if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
@@ -72,6 +77,7 @@ function showTheoryTab(tab) {
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'none';
         theoryNcertTables.style.display = 'block';
+        if (theoryBiomolecules) theoryBiomolecules.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
         const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
         if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
@@ -81,12 +87,27 @@ function showTheoryTab(tab) {
         if (window.loadNCERTTablesContent) {
             window.loadNCERTTablesContent();
         }
+    } else if (tab === 'biomolecules') {
+        // Show biomolecules tab
+        if (biomoleculesTab) biomoleculesTab.classList.add('active');
+        theoryContent.style.display = 'none';
+        theoryReactions.style.display = 'none';
+        theoryNcertTables.style.display = 'none';
+        if (theoryBiomolecules) theoryBiomolecules.style.display = 'block';
+        theoryOrganicQuiz.style.display = 'none';
+        const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
+        if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
+        theoryPdfViewer.style.display = 'none';
+
+        // Load biomolecules content
+        loadBiomoleculesContent();
     } else if (tab === 'organicQuiz') {
         // Show organic quiz tab
         if (organicQuizTab) organicQuizTab.classList.add('active');
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'none';
         theoryNcertTables.style.display = 'none';
+        if (theoryBiomolecules) theoryBiomolecules.style.display = 'none';
         theoryOrganicQuiz.style.display = 'block';
         const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
         if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
@@ -103,6 +124,7 @@ function showTheoryTab(tab) {
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'none';
         theoryNcertTables.style.display = 'none';
+        if (theoryBiomolecules) theoryBiomolecules.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
         if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'block';
         theoryPdfViewer.style.display = 'none';
@@ -115,6 +137,8 @@ function showTheoryTab(tab) {
         theoryContent.style.display = 'none';
         theoryReactions.style.display = 'none';
         theoryNcertTables.style.display = 'none';
+        if (theoryBiomolecules) theoryBiomolecules.style.display = 'none';
+        theoryOrganicQuiz.style.display = 'none';
         theoryOrganicQuiz.style.display = 'none';
         const theoryInorganicQuiz = document.getElementById('theoryInorganicQuiz');
         if (theoryInorganicQuiz) theoryInorganicQuiz.style.display = 'none';
@@ -2336,6 +2360,1303 @@ function getAllenOrganicCheatSheet() {
     `;
 }
 
+// Load biomolecules content
+function loadBiomoleculesContent() {
+    const theoryBiomolecules = document.getElementById('theoryBiomolecules');
+
+    theoryBiomolecules.innerHTML = `
+        <div class="biomolecules-container">
+            <h2 class="biomolecules-title">
+                <i class="fas fa-dna"></i> Biomolecules & Polymers
+            </h2>
+
+            <!-- Navigation Buttons -->
+            <div class="biomolecules-nav">
+                <button class="biomol-nav-btn active" onclick="showBiomolSection('overview')" id="overviewNavBtn">
+                    <i class="fas fa-home"></i> Overview
+                </button>
+                <button class="biomol-nav-btn" onclick="showBiomolSection('carbohydrates')" id="carbohydratesNavBtn">
+                    <i class="fas fa-sugar"></i> Carbohydrates
+                </button>
+                <button class="biomol-nav-btn" onclick="showBiomolSection('proteins')" id="proteinsNavBtn">
+                    <i class="fas fa-dna"></i> Proteins & Amino Acids
+                </button>
+                <button class="biomol-nav-btn" onclick="showBiomolSection('nucleic')" id="nucleicNavBtn">
+                    <i class="fas fa-code"></i> Nucleic Acids
+                </button>
+                <button class="biomol-nav-btn" onclick="showBiomolSection('vitamins')" id="vitaminsNavBtn">
+                    <i class="fas fa-pills"></i> Vitamins & Enzymes
+                </button>
+                <button class="biomol-nav-btn" onclick="showBiomolSection('polymers')" id="polymersNavBtn">
+                    <i class="fas fa-link"></i> Polymers
+                </button>
+            </div>
+
+            <!-- Content Sections -->
+            <div id="biomolContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    `;
+
+    // Show overview by default
+    showBiomolSection('overview');
+}
+
+// Show biomolecules section
+function showBiomolSection(section) {
+    // Update navigation buttons
+    document.querySelectorAll('.biomol-nav-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(section + 'NavBtn').classList.add('active');
+
+    const contentDiv = document.getElementById('biomolContent');
+
+    switch(section) {
+        case 'overview':
+            contentDiv.innerHTML = getBiomoleculesOverview();
+            break;
+        case 'carbohydrates':
+            contentDiv.innerHTML = getCarbohydratesContent();
+            break;
+        case 'proteins':
+            contentDiv.innerHTML = getProteinsContent();
+            break;
+        case 'nucleic':
+            contentDiv.innerHTML = getNucleicAcidsContent();
+            break;
+        case 'vitamins':
+            contentDiv.innerHTML = getVitaminsEnzymesContent();
+            break;
+        case 'polymers':
+            contentDiv.innerHTML = getPolymersContent();
+            break;
+    }
+}
+
+// Get biomolecules overview content
+function getBiomoleculesOverview() {
+    return `
+        <div class="biomol-overview">
+            <h3 class="section-title">
+                <i class="fas fa-microscope"></i> Biomolecules & Polymers Overview
+            </h3>
+
+            <div class="overview-grid">
+                <div class="overview-card" onclick="showBiomolSection('carbohydrates')">
+                    <div class="overview-icon">
+                        <i class="fas fa-sugar"></i>
+                    </div>
+                    <h3>Carbohydrates</h3>
+                    <p>Sugars, starches, and cellulose - energy storage and structural molecules</p>
+                    <div class="overview-count">Monosaccharides, Disaccharides, Polysaccharides</div>
+                </div>
+
+                <div class="overview-card" onclick="showBiomolSection('proteins')">
+                    <div class="overview-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3>Proteins & Amino Acids</h3>
+                    <p>Building blocks of life - enzymes, hormones, and structural proteins</p>
+                    <div class="overview-count">20 Essential Amino Acids</div>
+                </div>
+
+                <div class="overview-card" onclick="showBiomolSection('nucleic')">
+                    <div class="overview-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Nucleic Acids</h3>
+                    <p>DNA and RNA - genetic information storage and transfer</p>
+                    <div class="overview-count">Purines & Pyrimidines</div>
+                </div>
+
+                <div class="overview-card" onclick="showBiomolSection('vitamins')">
+                    <div class="overview-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h3>Vitamins & Enzymes</h3>
+                    <p>Essential nutrients and biological catalysts</p>
+                    <div class="overview-count">Fat & Water Soluble</div>
+                </div>
+
+                <div class="overview-card" onclick="showBiomolSection('polymers')">
+                    <div class="overview-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>Synthetic Polymers</h3>
+                    <p>Man-made macromolecules with diverse applications</p>
+                    <div class="overview-count">Addition & Condensation</div>
+                </div>
+            </div>
+
+            <div class="quick-reference">
+                <h3><i class="fas fa-star"></i> Key Concepts</h3>
+                <div class="quick-ref-grid">
+                    <div class="quick-ref-item">
+                        <strong>Biomolecules:</strong> Large organic molecules essential for life
+                    </div>
+                    <div class="quick-ref-item">
+                        <strong>Polymers:</strong> Large molecules made of repeating units (monomers)
+                    </div>
+                    <div class="quick-ref-item">
+                        <strong>Chirality:</strong> Many biomolecules exist in stereoisomeric forms
+                    </div>
+                    <div class="quick-ref-item">
+                        <strong>Hydrogen Bonding:</strong> Critical for biomolecular structure and function
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Get carbohydrates content
+function getCarbohydratesContent() {
+    return `
+        <div class="carbohydrates-section">
+            <h3 class="section-title">
+                <i class="fas fa-sugar"></i> Carbohydrates - The Energy Molecules
+            </h3>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4><i class="fas fa-atom"></i> Classification</h4>
+                    <div class="classification-table">
+                        <table class="biomol-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Formula</th>
+                                    <th>Examples</th>
+                                    <th>Function</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Monosaccharides</strong></td>
+                                    <td>C<sub>n</sub>H<sub>2n</sub>O<sub>n</sub></td>
+                                    <td>Glucose, Fructose, Galactose</td>
+                                    <td>Immediate energy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Disaccharides</strong></td>
+                                    <td>C<sub>12</sub>H<sub>22</sub>O<sub>11</sub></td>
+                                    <td>Sucrose, Lactose, Maltose</td>
+                                    <td>Transport form</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Polysaccharides</strong></td>
+                                    <td>(C<sub>6</sub>H<sub>10</sub>O<sub>5</sub>)<sub>n</sub></td>
+                                    <td>Starch, Cellulose, Glycogen</td>
+                                    <td>Storage & Structure</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-shapes"></i> Important Structures</h4>
+                    <div class="structures-grid">
+                        <div class="structure-item">
+                            <h5>α-D-Glucose (Pyranose)</h5>
+                            <div class="structure-diagram">
+                                <pre class="structure-ascii">
+        CH₂OH
+         |
+    H----C----O----H
+         |         |
+    HO---C----H    |
+         |         |
+    H----C----OH   |
+         |         |
+    HO---C----H    |
+         |         |
+         C---------
+         |
+         H
+                                </pre>
+                            </div>
+                            <p><strong>Chair conformation:</strong> Most stable form</p>
+                        </div>
+
+                        <div class="structure-item">
+                            <h5>β-D-Glucose</h5>
+                            <div class="structure-diagram">
+                                <pre class="structure-ascii">
+        CH₂OH
+         |
+    H----C----O----OH
+         |         |
+    HO---C----H    |
+         |         |
+    H----C----OH   |
+         |         |
+    HO---C----H    |
+         |         |
+         C---------
+         |
+         H
+                                </pre>
+                            </div>
+                            <p><strong>Difference:</strong> OH group orientation at C1</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-flask"></i> Important Reactions</h4>
+                    <div class="reactions-list">
+                        <div class="reaction-item">
+                            <h5>1. Glycosidic Bond Formation</h5>
+                            <p><strong>Reaction:</strong> Glucose + Glucose → Maltose + H₂O</p>
+                            <p><strong>Type:</strong> α(1→4) glycosidic linkage</p>
+                            <p><strong>Enzyme:</strong> Glycosyltransferase</p>
+                        </div>
+
+                        <div class="reaction-item">
+                            <h5>2. Hydrolysis</h5>
+                            <p><strong>Reaction:</strong> Sucrose + H₂O → Glucose + Fructose</p>
+                            <p><strong>Enzyme:</strong> Invertase (Sucrase)</p>
+                            <p><strong>Mechanism:</strong> Acid or enzyme catalyzed</p>
+                        </div>
+
+                        <div class="reaction-item">
+                            <h5>3. Oxidation</h5>
+                            <p><strong>Benedict's Test:</strong> Reducing sugars → Cu₂O (red precipitate)</p>
+                            <p><strong>Fehling's Test:</strong> Similar to Benedict's</p>
+                            <p><strong>Tollens' Test:</strong> Aldoses → Silver mirror</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-table"></i> Disaccharides Table</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Disaccharide</th>
+                                <th>Components</th>
+                                <th>Linkage</th>
+                                <th>Source</th>
+                                <th>Properties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sucrose</strong></td>
+                                <td>Glucose + Fructose</td>
+                                <td>α(1→2)</td>
+                                <td>Sugar cane, beets</td>
+                                <td>Non-reducing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lactose</strong></td>
+                                <td>Glucose + Galactose</td>
+                                <td>β(1→4)</td>
+                                <td>Milk</td>
+                                <td>Reducing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maltose</strong></td>
+                                <td>Glucose + Glucose</td>
+                                <td>α(1→4)</td>
+                                <td>Starch hydrolysis</td>
+                                <td>Reducing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cellobiose</strong></td>
+                                <td>Glucose + Glucose</td>
+                                <td>β(1→4)</td>
+                                <td>Cellulose hydrolysis</td>
+                                <td>Reducing</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Get proteins content
+function getProteinsContent() {
+    return `
+        <div class="proteins-section">
+            <h3 class="section-title">
+                <i class="fas fa-dna"></i> Proteins & Amino Acids - Building Blocks of Life
+            </h3>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4><i class="fas fa-building"></i> Amino Acid Structure</h4>
+                    <div class="structure-diagram">
+                        <pre class="structure-ascii">
+        General Structure:
+
+            H₂N—CH—COOH
+                |
+                R
+
+        Where R = Side chain (variable group)
+
+        Zwitterion form (physiological pH):
+
+            H₃N⁺—CH—COO⁻
+                 |
+                 R
+                        </pre>
+                    </div>
+                    <p><strong>Chirality:</strong> All amino acids except glycine are chiral (L-configuration in proteins)</p>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-table"></i> Essential Amino Acids Table</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>3-Letter</th>
+                                <th>1-Letter</th>
+                                <th>Side Chain</th>
+                                <th>Properties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Histidine</strong></td>
+                                <td>His</td>
+                                <td>H</td>
+                                <td>Imidazole</td>
+                                <td>Basic, aromatic</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Isoleucine</strong></td>
+                                <td>Ile</td>
+                                <td>I</td>
+                                <td>Branched alkyl</td>
+                                <td>Hydrophobic</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Leucine</strong></td>
+                                <td>Leu</td>
+                                <td>L</td>
+                                <td>Branched alkyl</td>
+                                <td>Hydrophobic</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lysine</strong></td>
+                                <td>Lys</td>
+                                <td>K</td>
+                                <td>Amino group</td>
+                                <td>Basic, polar</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Methionine</strong></td>
+                                <td>Met</td>
+                                <td>M</td>
+                                <td>Thioether</td>
+                                <td>Hydrophobic</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phenylalanine</strong></td>
+                                <td>Phe</td>
+                                <td>F</td>
+                                <td>Benzyl</td>
+                                <td>Aromatic, hydrophobic</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Threonine</strong></td>
+                                <td>Thr</td>
+                                <td>T</td>
+                                <td>Hydroxyl</td>
+                                <td>Polar, uncharged</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tryptophan</strong></td>
+                                <td>Trp</td>
+                                <td>W</td>
+                                <td>Indole</td>
+                                <td>Aromatic, hydrophobic</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Valine</strong></td>
+                                <td>Val</td>
+                                <td>V</td>
+                                <td>Branched alkyl</td>
+                                <td>Hydrophobic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-layer-group"></i> Protein Structure Levels</h4>
+                    <div class="structure-levels">
+                        <div class="level-item">
+                            <h5>1° Structure (Primary)</h5>
+                            <p><strong>Definition:</strong> Linear sequence of amino acids</p>
+                            <p><strong>Bonds:</strong> Peptide bonds (covalent)</p>
+                            <p><strong>Example:</strong> Insulin A-chain: Gly-Ile-Val-Glu-Gln...</p>
+                        </div>
+
+                        <div class="level-item">
+                            <h5>2° Structure (Secondary)</h5>
+                            <p><strong>Definition:</strong> Local folding patterns</p>
+                            <p><strong>Types:</strong> α-helix, β-sheet, β-turn</p>
+                            <p><strong>Bonds:</strong> Hydrogen bonds between backbone atoms</p>
+                        </div>
+
+                        <div class="level-item">
+                            <h5>3° Structure (Tertiary)</h5>
+                            <p><strong>Definition:</strong> Overall 3D shape of single polypeptide</p>
+                            <p><strong>Forces:</strong> H-bonds, ionic, hydrophobic, disulfide</p>
+                            <p><strong>Example:</strong> Myoglobin, lysozyme</p>
+                        </div>
+
+                        <div class="level-item">
+                            <h5>4° Structure (Quaternary)</h5>
+                            <p><strong>Definition:</strong> Assembly of multiple polypeptides</p>
+                            <p><strong>Example:</strong> Hemoglobin (4 subunits)</p>
+                            <p><strong>Interactions:</strong> Same as tertiary structure</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-flask"></i> Peptide Bond Formation</h4>
+                    <div class="reaction-mechanism">
+                        <h5>Condensation Reaction:</h5>
+                        <pre class="structure-ascii">
+    H₂N-CHR₁-COOH + H₂N-CHR₂-COOH
+                ↓ (-H₂O)
+    H₂N-CHR₁-CO-NH-CHR₂-COOH
+
+    Peptide Bond: -CO-NH- (amide linkage)
+
+    Properties:
+    • Planar structure (partial double bond character)
+    • Trans configuration preferred
+    • Restricted rotation around C-N bond
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-chart-bar"></i> Amino Acid Classification</h4>
+                    <div class="classification-grid">
+                        <div class="class-item">
+                            <h5>Nonpolar (Hydrophobic)</h5>
+                            <p><strong>Examples:</strong> Ala, Val, Leu, Ile, Met, Phe, Trp, Pro</p>
+                            <p><strong>Location:</strong> Interior of proteins</p>
+                        </div>
+
+                        <div class="class-item">
+                            <h5>Polar Uncharged</h5>
+                            <p><strong>Examples:</strong> Ser, Thr, Cys, Tyr, Asn, Gln</p>
+                            <p><strong>Feature:</strong> Can form hydrogen bonds</p>
+                        </div>
+
+                        <div class="class-item">
+                            <h5>Positively Charged (Basic)</h5>
+                            <p><strong>Examples:</strong> Lys, Arg, His</p>
+                            <p><strong>pH:</strong> Protonated at physiological pH</p>
+                        </div>
+
+                        <div class="class-item">
+                            <h5>Negatively Charged (Acidic)</h5>
+                            <p><strong>Examples:</strong> Asp, Glu</p>
+                            <p><strong>pH:</strong> Deprotonated at physiological pH</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Get nucleic acids content
+function getNucleicAcidsContent() {
+    return `
+        <div class="nucleic-acids-section">
+            <h3 class="section-title">
+                <i class="fas fa-code"></i> Nucleic Acids - Genetic Information Storage
+            </h3>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4><i class="fas fa-building"></i> Nucleotide Structure</h4>
+                    <div class="structure-diagram">
+                        <pre class="structure-ascii">
+        Nucleotide = Phosphate + Sugar + Base
+
+                O⁻
+                |
+        O=P—O—CH₂   Base
+                |     |
+                O'    N
+                |   /   \
+                C—C     C
+               /   \   /
+              H     C=C
+                   /   \
+                  H     H
+
+        Components:
+        • Phosphate group (PO₄³⁻)
+        • Pentose sugar (ribose/deoxyribose)
+        • Nitrogenous base (purine/pyrimidine)
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-table"></i> Nitrogenous Bases</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>DNA Bases</th>
+                                <th>RNA Bases</th>
+                                <th>Structure</th>
+                                <th>Pairing</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2"><strong>Purines</strong><br>(Double ring)</td>
+                                <td>Adenine (A)</td>
+                                <td>Adenine (A)</td>
+                                <td>6-aminopurine</td>
+                                <td>A ≡ T (DNA)<br>A ≡ U (RNA)</td>
+                            </tr>
+                            <tr>
+                                <td>Guanine (G)</td>
+                                <td>Guanine (G)</td>
+                                <td>2-amino-6-oxopurine</td>
+                                <td>G ≡ C</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><strong>Pyrimidines</strong><br>(Single ring)</td>
+                                <td>Cytosine (C)</td>
+                                <td>Cytosine (C)</td>
+                                <td>2-oxy-4-aminopyrimidine</td>
+                                <td>C ≡ G</td>
+                            </tr>
+                            <tr>
+                                <td>Thymine (T)</td>
+                                <td>Uracil (U)</td>
+                                <td>T: 2,4-dioxo-5-methylpyrimidine<br>U: 2,4-dioxopyrimidine</td>
+                                <td>T ≡ A (DNA)<br>U ≡ A (RNA)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-dna"></i> DNA vs RNA Comparison</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>DNA</th>
+                                <th>RNA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sugar</strong></td>
+                                <td>2'-Deoxyribose</td>
+                                <td>Ribose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bases</strong></td>
+                                <td>A, T, G, C</td>
+                                <td>A, U, G, C</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Structure</strong></td>
+                                <td>Double helix</td>
+                                <td>Single strand</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Function</strong></td>
+                                <td>Genetic storage</td>
+                                <td>Protein synthesis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Location</strong></td>
+                                <td>Nucleus, mitochondria</td>
+                                <td>Nucleus, cytoplasm, ribosomes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stability</strong></td>
+                                <td>More stable</td>
+                                <td>Less stable</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-link"></i> DNA Double Helix</h4>
+                    <div class="dna-structure">
+                        <h5>Watson-Crick Model:</h5>
+                        <ul>
+                            <li><strong>Antiparallel strands:</strong> 5' → 3' and 3' → 5'</li>
+                            <li><strong>Base pairing:</strong> A-T (2 H-bonds), G-C (3 H-bonds)</li>
+                            <li><strong>Major groove:</strong> 22 Å wide</li>
+                            <li><strong>Minor groove:</strong> 12 Å wide</li>
+                            <li><strong>Helix diameter:</strong> 20 Å</li>
+                            <li><strong>Base pair distance:</strong> 3.4 Å</li>
+                            <li><strong>Complete turn:</strong> 10 base pairs (34 Å)</li>
+                        </ul>
+
+                        <h5>Chargaff's Rules:</h5>
+                        <ul>
+                            <li>[A] = [T] and [G] = [C]</li>
+                            <li>[Purines] = [Pyrimidines]</li>
+                            <li>%GC content varies between species</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-cogs"></i> RNA Types and Functions</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>RNA Type</th>
+                                <th>Function</th>
+                                <th>Location</th>
+                                <th>% of total RNA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>mRNA</strong><br>(Messenger)</td>
+                                <td>Carries genetic code from DNA to ribosomes</td>
+                                <td>Nucleus → Cytoplasm</td>
+                                <td>3-5%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>tRNA</strong><br>(Transfer)</td>
+                                <td>Brings amino acids to ribosomes</td>
+                                <td>Cytoplasm</td>
+                                <td>10-15%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>rRNA</strong><br>(Ribosomal)</td>
+                                <td>Structural component of ribosomes</td>
+                                <td>Ribosomes</td>
+                                <td>80-85%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>miRNA</strong><br>(Micro)</td>
+                                <td>Gene regulation</td>
+                                <td>Cytoplasm</td>
+                                <td><1%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>siRNA</strong><br>(Small interfering)</td>
+                                <td>Gene silencing</td>
+                                <td>Cytoplasm</td>
+                                <td><1%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-exchange-alt"></i> Central Dogma</h4>
+                    <div class="central-dogma">
+                        <div class="dogma-flow">
+                            <div class="dogma-step">
+                                <h5>1. Replication</h5>
+                                <p>DNA → DNA</p>
+                                <p><strong>Enzyme:</strong> DNA Polymerase</p>
+                                <p><strong>Direction:</strong> 5' → 3'</p>
+                            </div>
+
+                            <div class="dogma-arrow">→</div>
+
+                            <div class="dogma-step">
+                                <h5>2. Transcription</h5>
+                                <p>DNA → RNA</p>
+                                <p><strong>Enzyme:</strong> RNA Polymerase</p>
+                                <p><strong>Product:</strong> mRNA, tRNA, rRNA</p>
+                            </div>
+
+                            <div class="dogma-arrow">→</div>
+
+                            <div class="dogma-step">
+                                <h5>3. Translation</h5>
+                                <p>RNA → Protein</p>
+                                <p><strong>Location:</strong> Ribosomes</p>
+                                <p><strong>Code:</strong> Triplet codons</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Get vitamins and enzymes content
+function getVitaminsEnzymesContent() {
+    return `
+        <div class="vitamins-enzymes-section">
+            <h3 class="section-title">
+                <i class="fas fa-pills"></i> Vitamins & Enzymes - Essential Nutrients & Catalysts
+            </h3>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4><i class="fas fa-water"></i> Water-Soluble Vitamins</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Vitamin</th>
+                                <th>Chemical Name</th>
+                                <th>Function</th>
+                                <th>Deficiency Disease</th>
+                                <th>Sources</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>B₁</strong></td>
+                                <td>Thiamine</td>
+                                <td>Carbohydrate metabolism</td>
+                                <td>Beriberi</td>
+                                <td>Whole grains, pork</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B₂</strong></td>
+                                <td>Riboflavin</td>
+                                <td>Energy metabolism</td>
+                                <td>Ariboflavinosis</td>
+                                <td>Milk, eggs, leafy greens</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B₃</strong></td>
+                                <td>Niacin (Nicotinic acid)</td>
+                                <td>NAD/NADP synthesis</td>
+                                <td>Pellagra</td>
+                                <td>Meat, fish, nuts</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B₅</strong></td>
+                                <td>Pantothenic acid</td>
+                                <td>CoA synthesis</td>
+                                <td>Rare</td>
+                                <td>Widespread in foods</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B₆</strong></td>
+                                <td>Pyridoxine</td>
+                                <td>Amino acid metabolism</td>
+                                <td>Anemia, dermatitis</td>
+                                <td>Meat, fish, potatoes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B₇</strong></td>
+                                <td>Biotin</td>
+                                <td>Fatty acid synthesis</td>
+                                <td>Rare</td>
+                                <td>Eggs, nuts, seeds</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B₉</strong></td>
+                                <td>Folic acid</td>
+                                <td>DNA synthesis</td>
+                                <td>Megaloblastic anemia</td>
+                                <td>Leafy greens, legumes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B₁₂</strong></td>
+                                <td>Cobalamin</td>
+                                <td>DNA synthesis, nerve function</td>
+                                <td>Pernicious anemia</td>
+                                <td>Animal products</td>
+                            </tr>
+                            <tr>
+                                <td><strong>C</strong></td>
+                                <td>Ascorbic acid</td>
+                                <td>Collagen synthesis, antioxidant</td>
+                                <td>Scurvy</td>
+                                <td>Citrus fruits, vegetables</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-oil-can"></i> Fat-Soluble Vitamins</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Vitamin</th>
+                                <th>Chemical Name</th>
+                                <th>Function</th>
+                                <th>Deficiency Disease</th>
+                                <th>Sources</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>A</strong></td>
+                                <td>Retinol</td>
+                                <td>Vision, immune function</td>
+                                <td>Night blindness, xerophthalmia</td>
+                                <td>Liver, dairy, carrots</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D</strong></td>
+                                <td>Calciferol</td>
+                                <td>Calcium absorption</td>
+                                <td>Rickets, osteomalacia</td>
+                                <td>Sunlight, fish, fortified milk</td>
+                            </tr>
+                            <tr>
+                                <td><strong>E</strong></td>
+                                <td>Tocopherol</td>
+                                <td>Antioxidant, membrane protection</td>
+                                <td>Hemolytic anemia</td>
+                                <td>Vegetable oils, nuts</td>
+                            </tr>
+                            <tr>
+                                <td><strong>K</strong></td>
+                                <td>Phylloquinone</td>
+                                <td>Blood clotting</td>
+                                <td>Bleeding disorders</td>
+                                <td>Leafy greens, gut bacteria</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-cogs"></i> Enzyme Classification</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Function</th>
+                                <th>Example</th>
+                                <th>Reaction Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Oxidoreductases</strong></td>
+                                <td>Oxidation-reduction</td>
+                                <td>Alcohol dehydrogenase</td>
+                                <td>A + B → A⁻ + B⁺</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Transferases</strong></td>
+                                <td>Group transfer</td>
+                                <td>Aminotransferases</td>
+                                <td>A-X + B → A + B-X</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Hydrolases</strong></td>
+                                <td>Hydrolysis</td>
+                                <td>Pepsin, trypsin</td>
+                                <td>A-B + H₂O → A-H + B-OH</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Lyases</strong></td>
+                                <td>Addition/removal of groups</td>
+                                <td>Aldolase</td>
+                                <td>A-B → A + B</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Isomerases</strong></td>
+                                <td>Isomerization</td>
+                                <td>Glucose isomerase</td>
+                                <td>A → B (isomer)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6. Ligases</strong></td>
+                                <td>Bond formation (ATP required)</td>
+                                <td>DNA ligase</td>
+                                <td>A + B + ATP → A-B + ADP + Pi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-chart-line"></i> Enzyme Kinetics</h4>
+                    <div class="kinetics-content">
+                        <h5>Michaelis-Menten Equation:</h5>
+                        <div class="equation">
+                            <p><strong>v = (V<sub>max</sub> × [S]) / (K<sub>m</sub> + [S])</strong></p>
+                        </div>
+
+                        <div class="kinetics-parameters">
+                            <div class="parameter">
+                                <h6>V<sub>max</sub> (Maximum velocity)</h6>
+                                <p>Maximum rate when enzyme is saturated</p>
+                            </div>
+
+                            <div class="parameter">
+                                <h6>K<sub>m</sub> (Michaelis constant)</h6>
+                                <p>Substrate concentration at ½ V<sub>max</sub></p>
+                                <p>Lower K<sub>m</sub> = Higher affinity</p>
+                            </div>
+
+                            <div class="parameter">
+                                <h6>k<sub>cat</sub> (Turnover number)</h6>
+                                <p>Maximum number of substrate molecules converted per second</p>
+                            </div>
+                        </div>
+
+                        <h5>Enzyme Inhibition:</h5>
+                        <ul>
+                            <li><strong>Competitive:</strong> Inhibitor competes with substrate for active site</li>
+                            <li><strong>Non-competitive:</strong> Inhibitor binds to allosteric site</li>
+                            <li><strong>Uncompetitive:</strong> Inhibitor binds only to enzyme-substrate complex</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-thermometer-half"></i> Factors Affecting Enzyme Activity</h4>
+                    <div class="factors-grid">
+                        <div class="factor-item">
+                            <h5>Temperature</h5>
+                            <p><strong>Effect:</strong> Increases rate until denaturation</p>
+                            <p><strong>Optimum:</strong> 37°C for human enzymes</p>
+                            <p><strong>Q₁₀ rule:</strong> Rate doubles every 10°C rise</p>
+                        </div>
+
+                        <div class="factor-item">
+                            <h5>pH</h5>
+                            <p><strong>Effect:</strong> Affects ionization of active site</p>
+                            <p><strong>Pepsin:</strong> pH 1.5-2.0</p>
+                            <p><strong>Trypsin:</strong> pH 8.0-8.5</p>
+                        </div>
+
+                        <div class="factor-item">
+                            <h5>Substrate Concentration</h5>
+                            <p><strong>Low [S]:</strong> First-order kinetics</p>
+                            <p><strong>High [S]:</strong> Zero-order kinetics</p>
+                            <p><strong>Saturation:</strong> All active sites occupied</p>
+                        </div>
+
+                        <div class="factor-item">
+                            <h5>Enzyme Concentration</h5>
+                            <p><strong>Effect:</strong> Directly proportional to rate</p>
+                            <p><strong>Limitation:</strong> Only at low [S]</p>
+                            <p><strong>Regulation:</strong> Enzyme induction/repression</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Get polymers content
+function getPolymersContent() {
+    return `
+        <div class="polymers-section">
+            <h3 class="section-title">
+                <i class="fas fa-link"></i> Polymers - Macromolecular Materials
+            </h3>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4><i class="fas fa-sitemap"></i> Polymer Classification</h4>
+                    <div class="classification-tree">
+                        <div class="class-level-1">
+                            <h5>Based on Source:</h5>
+                            <ul>
+                                <li><strong>Natural:</strong> Starch, cellulose, proteins, DNA</li>
+                                <li><strong>Semi-synthetic:</strong> Cellulose acetate, vulcanized rubber</li>
+                                <li><strong>Synthetic:</strong> Polyethylene, PVC, nylon</li>
+                            </ul>
+                        </div>
+
+                        <div class="class-level-1">
+                            <h5>Based on Structure:</h5>
+                            <ul>
+                                <li><strong>Linear:</strong> Chain-like structure (HDPE, PVC)</li>
+                                <li><strong>Branched:</strong> Side chains attached (LDPE, starch)</li>
+                                <li><strong>Cross-linked:</strong> 3D network (bakelite, vulcanized rubber)</li>
+                            </ul>
+                        </div>
+
+                        <div class="class-level-1">
+                            <h5>Based on Polymerization:</h5>
+                            <ul>
+                                <li><strong>Addition:</strong> No by-products (polyethylene, polystyrene)</li>
+                                <li><strong>Condensation:</strong> Small molecules eliminated (nylon, polyester)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-plus"></i> Addition Polymers</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Polymer</th>
+                                <th>Monomer</th>
+                                <th>Structure</th>
+                                <th>Uses</th>
+                                <th>Properties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Polyethylene (PE)</strong></td>
+                                <td>Ethylene (CH₂=CH₂)</td>
+                                <td>-(CH₂-CH₂)ₙ-</td>
+                                <td>Bags, bottles, pipes</td>
+                                <td>Flexible, chemical resistant</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Polypropylene (PP)</strong></td>
+                                <td>Propylene (CH₂=CH-CH₃)</td>
+                                <td>-(CH₂-CH(CH₃))ₙ-</td>
+                                <td>Carpets, ropes, containers</td>
+                                <td>High melting point, tough</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Polystyrene (PS)</strong></td>
+                                <td>Styrene (CH₂=CH-C₆H₅)</td>
+                                <td>-(CH₂-CH(C₆H₅))ₙ-</td>
+                                <td>Packaging, insulation</td>
+                                <td>Rigid, transparent</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PVC</strong></td>
+                                <td>Vinyl chloride (CH₂=CHCl)</td>
+                                <td>-(CH₂-CHCl)ₙ-</td>
+                                <td>Pipes, flooring, cables</td>
+                                <td>Durable, flame resistant</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Teflon (PTFE)</strong></td>
+                                <td>Tetrafluoroethylene (CF₂=CF₂)</td>
+                                <td>-(CF₂-CF₂)ₙ-</td>
+                                <td>Non-stick coatings</td>
+                                <td>Chemically inert, low friction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-compress"></i> Condensation Polymers</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Polymer</th>
+                                <th>Monomers</th>
+                                <th>Linkage</th>
+                                <th>Uses</th>
+                                <th>By-product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Nylon-6,6</strong></td>
+                                <td>Hexamethylenediamine + Adipic acid</td>
+                                <td>Amide (-CONH-)</td>
+                                <td>Textiles, ropes, carpets</td>
+                                <td>H₂O</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Polyester (PET)</strong></td>
+                                <td>Ethylene glycol + Terephthalic acid</td>
+                                <td>Ester (-COO-)</td>
+                                <td>Bottles, fibers, films</td>
+                                <td>H₂O</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bakelite</strong></td>
+                                <td>Phenol + Formaldehyde</td>
+                                <td>C-C cross-links</td>
+                                <td>Electrical insulators</td>
+                                <td>H₂O</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Melamine</strong></td>
+                                <td>Melamine + Formaldehyde</td>
+                                <td>C-N cross-links</td>
+                                <td>Laminates, adhesives</td>
+                                <td>H₂O</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Silicones</strong></td>
+                                <td>Organosilicon compounds</td>
+                                <td>Si-O-Si</td>
+                                <td>Sealants, lubricants</td>
+                                <td>H₂O, HCl</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-industry"></i> Polymerization Methods</h4>
+                    <div class="methods-grid">
+                        <div class="method-item">
+                            <h5>Free Radical Polymerization</h5>
+                            <p><strong>Initiator:</strong> Benzoyl peroxide, AIBN</p>
+                            <p><strong>Steps:</strong> Initiation → Propagation → Termination</p>
+                            <p><strong>Examples:</strong> PE, PS, PVC</p>
+                            <div class="mechanism">
+                                <p><strong>Initiation:</strong> R-R → 2R•</p>
+                                <p><strong>Propagation:</strong> R• + CH₂=CHX → R-CH₂-CHX•</p>
+                                <p><strong>Termination:</strong> R• + R• → R-R</p>
+                            </div>
+                        </div>
+
+                        <div class="method-item">
+                            <h5>Ionic Polymerization</h5>
+                            <p><strong>Cationic:</strong> Lewis acids (AlCl₃, BF₃)</p>
+                            <p><strong>Anionic:</strong> Strong bases (BuLi, NaNH₂)</p>
+                            <p><strong>Advantage:</strong> Better control over molecular weight</p>
+                            <p><strong>Examples:</strong> Polyisobutylene (cationic), polystyrene (anionic)</p>
+                        </div>
+
+                        <div class="method-item">
+                            <h5>Coordination Polymerization</h5>
+                            <p><strong>Catalyst:</strong> Ziegler-Natta (TiCl₄ + Al(C₂H₅)₃)</p>
+                            <p><strong>Advantage:</strong> Stereoregular polymers</p>
+                            <p><strong>Products:</strong> Isotactic, syndiotactic polymers</p>
+                            <p><strong>Examples:</strong> HDPE, isotactic PP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-thermometer-half"></i> Polymer Properties</h4>
+                    <div class="properties-comparison">
+                        <h5>Thermoplastics vs Thermosets:</h5>
+                        <table class="biomol-table">
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Thermoplastics</th>
+                                    <th>Thermosets</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Structure</strong></td>
+                                    <td>Linear/branched chains</td>
+                                    <td>Cross-linked network</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Heating effect</strong></td>
+                                    <td>Softens and melts</td>
+                                    <td>Decomposes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Recyclability</strong></td>
+                                    <td>Recyclable</td>
+                                    <td>Non-recyclable</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mechanical strength</strong></td>
+                                    <td>Lower</td>
+                                    <td>Higher</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Examples</strong></td>
+                                    <td>PE, PP, PS, PVC</td>
+                                    <td>Bakelite, melamine, epoxy</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-recycle"></i> Biodegradable Polymers</h4>
+                    <table class="biomol-table">
+                        <thead>
+                            <tr>
+                                <th>Polymer</th>
+                                <th>Source</th>
+                                <th>Degradation</th>
+                                <th>Applications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>PLA</strong><br>(Polylactic acid)</td>
+                                <td>Corn starch, sugarcane</td>
+                                <td>Hydrolysis</td>
+                                <td>Food packaging, medical implants</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PHA</strong><br>(Polyhydroxyalkanoates)</td>
+                                <td>Bacterial fermentation</td>
+                                <td>Enzymatic</td>
+                                <td>Packaging, agriculture</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Starch-based</strong></td>
+                                <td>Plant starch</td>
+                                <td>Enzymatic/microbial</td>
+                                <td>Disposable items</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chitosan</strong></td>
+                                <td>Chitin (shellfish)</td>
+                                <td>Enzymatic</td>
+                                <td>Medical, cosmetics</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h4><i class="fas fa-cogs"></i> Polymer Processing</h4>
+                    <div class="processing-methods">
+                        <div class="process-item">
+                            <h5>Injection Molding</h5>
+                            <p><strong>Process:</strong> Molten polymer injected into mold</p>
+                            <p><strong>Products:</strong> Bottles, containers, toys</p>
+                            <p><strong>Materials:</strong> PE, PP, PS, ABS</p>
+                        </div>
+
+                        <div class="process-item">
+                            <h5>Extrusion</h5>
+                            <p><strong>Process:</strong> Polymer forced through die</p>
+                            <p><strong>Products:</strong> Pipes, films, sheets</p>
+                            <p><strong>Materials:</strong> PE, PVC, PP</p>
+                        </div>
+
+                        <div class="process-item">
+                            <h5>Blow Molding</h5>
+                            <p><strong>Process:</strong> Air blown into heated polymer</p>
+                            <p><strong>Products:</strong> Bottles, containers</p>
+                            <p><strong>Materials:</strong> PET, HDPE, PP</p>
+                        </div>
+
+                        <div class="process-item">
+                            <h5>Compression Molding</h5>
+                            <p><strong>Process:</strong> Polymer compressed in heated mold</p>
+                            <p><strong>Products:</strong> Thermoset parts</p>
+                            <p><strong>Materials:</strong> Phenolic, melamine, epoxy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 // Export functions for global access
 window.chemistryReactions = {
     showTheoryTab,
@@ -2350,7 +3671,15 @@ window.chemistryReactions = {
     selectOrganicAnswer,
     nextOrganicQuestion,
     previousOrganicQuestion,
-    restartOrganicQuiz
+    restartOrganicQuiz,
+    loadBiomoleculesContent,
+    showBiomolSection,
+    getBiomoleculesOverview,
+    getCarbohydratesContent,
+    getProteinsContent,
+    getNucleicAcidsContent,
+    getVitaminsEnzymesContent,
+    getPolymersContent
 };
 
 // Make functions globally available for HTML onclick handlers
